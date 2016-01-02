@@ -4,6 +4,8 @@ Item {
 
     Row
     {
+        anchors.fill: parent
 
+        
     }
 }
