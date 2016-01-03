@@ -26,7 +26,8 @@ ApplicationWindow {
     MainMenu {
         width: parent.width
         height: parent.height
-        buttonVisibility: [true,true,true,false,false,false,false,false,false,false]
+        numberOfButtons: 3
+        buttonTextArray: ["Test 1 ", "Test 2"]
     }
 
 //    MainForm {
