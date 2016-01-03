@@ -1,6 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.1
 
 
 ApplicationWindow {
@@ -23,26 +24,45 @@ ApplicationWindow {
         }
     }
 
+    toolBar: ToolBar {
+            RowLayout {
+                ToolButton {
+                    id: mainMenuButton
+                    iconSource: "new.png"
+                    onClicked: mainMenu.setMainMenu()
+                }
+                ToolButton {
+                    iconSource: "open.png"
+                }
+                ToolButton {
+                    iconSource: "save-as.png"
+                }
+                Item { Layout.fillWidth: true }
+                CheckBox {
+                    text: "Enabled"
+                    checked: true
+                }
+            }
+       }
     MainMenu {
-        width: parent.width
-        height: parent.height
+        id: mainMenu
         numberOfButtons: 3
         buttonTextArray: ["Test 1 ", "Test 2"]
     }
 
-//    MainForm {
-//        anchors.fill: parent
-//        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-//        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-//    }
+    MainForm {
+        anchors.fill: parent
+        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
+        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+    }
 
-//    MessageDialog {
-//        id: messageDialog
-//        title: qsTr("May I have your attention, please?")
+    MessageDialog {
+        id: messageDialog
+        title: qsTr("May I have your attention, please?")
 
-//        function show(caption) {
-//            messageDialog.text = caption;
-//            messageDialog.open();
-//        }
-//    }
+        function show(caption) {
+            messageDialog.text = caption;
+            messageDialog.open();
+        }
+    }
 }

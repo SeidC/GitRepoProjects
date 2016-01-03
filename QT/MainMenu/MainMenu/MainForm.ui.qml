@@ -23,14 +23,4 @@ Item {
             text: qsTr("Press Me 2")
         }
     }
-
-    Button {
-        id: button3
-        y: 51
-        text: qsTr("Button")
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-    }
 }
