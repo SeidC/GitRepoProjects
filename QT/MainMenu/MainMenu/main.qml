@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.2
 
+
 ApplicationWindow {
     visible: true
     width: 640
@@ -22,19 +23,26 @@ ApplicationWindow {
         }
     }
 
-    MainForm {
-        anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+    MainMenu {
+        width: parent.width
+        height: parent.height
+        numberOfButtons: 3
+        buttonTextArray: ["Test 1 ", "Test 2"]
     }
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
+//    MainForm {
+//        anchors.fill: parent
+//        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
+//        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+//    }
 
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
-        }
-    }
+//    MessageDialog {
+//        id: messageDialog
+//        title: qsTr("May I have your attention, please?")
+
+//        function show(caption) {
+//            messageDialog.text = caption;
+//            messageDialog.open();
+//        }
+//    }
 }
