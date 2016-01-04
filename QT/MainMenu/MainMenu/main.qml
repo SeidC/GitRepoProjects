@@ -48,12 +48,16 @@ ApplicationWindow {
         id: mainMenu
         numberOfButtons: 3
         buttonTextArray: ["Test 1 ", "Test 2"]
+        onButtonClicked: console.log("Button with Name: " + )
+
+        }
     }
 
     MainForm {
         anchors.fill: parent
         button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
         button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+
     }
 
     MessageDialog {

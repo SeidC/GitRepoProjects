@@ -18,6 +18,8 @@ Item
     height: parent.height
     visible: false
 
+    signal onButtonClicked(string button)
+
     Column
     {
         id: itemColumn
@@ -33,6 +35,7 @@ Item
                 anchors.rightMargin: 0
                 text: getValidButtonText(index)
                 visible: disableInvalidButton(index)
+                onClicked: onButtonClicked(index)
             }
         }
     }
@@ -70,5 +73,33 @@ Item
             }
         }
         return enable
+    }
+
+    function getButtonByIndex(index)
+    {
+        var i
+        var button = undefined
+
+        if(index < numberOfButtons && repeater.itemAt(index) !== undefined)
+        {
+            button = repeater.itemAt(index)
+        }
+
+        return button
+    }
+
+    function getButtonByText(buttonTxt)
+    {
+        var i
+        var button = undefined
+        for(i = 0; i < numberOfButtons; i ++)
+        {
+            if (repeater.itemAt(i).text === buttonTxt)
+            {
+                button = repeater.itemAt(i)
+                break
+            }
+        }
+        return button
     }
 }
