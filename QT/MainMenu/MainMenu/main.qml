@@ -48,9 +48,9 @@ ApplicationWindow {
         id: mainMenu
         numberOfButtons: 3
         buttonTextArray: ["Test 1 ", "Test 2"]
-        onButtonClicked: console.log("Button with Name: " + )
+        onButtonClickedS: { console.log("Button with Name: " + button) }
+        onButtonClickedI: {console.log("Button with Name: " + button) }
 
-        }
     }
 
     MainForm {
