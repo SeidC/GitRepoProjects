@@ -44,13 +44,30 @@ ApplicationWindow {
                 }
             }
        }
-    MainMenu {
-        id: mainMenu
-        numberOfButtons: 3
-        buttonTextArray: ["Test 1 ", "Test 2"]
-        onButtonClickedS: { console.log("Button with Name: " + button) }
-        onButtonClickedI: {console.log("Button with Name: " + button) }
 
+    MainMenu
+    {
+        id: mainMenu
+        menuButtonColor: qsTr("#969696")
+        buttonTextArray: ["Test 1","Test 2","Exit"]
+        numberOfButtons: 3
+        menuButtonSpacing: 4
+        onButtonClickedS:
+        {
+           switch (button)
+           {
+             case "Test 1":
+                 console.log("Button 1 Clicked")
+                 break
+             case "Test 2":
+                 console.log("Button 2 Clicked")
+                 break
+             case "Exit":
+                 Qt.quit()
+                 break
+           }
+
+        }
     }
 
     MainForm {

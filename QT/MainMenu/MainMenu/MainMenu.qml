@@ -1,18 +1,31 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 Item
 {
 /*--- Alias Propertys ------------------------------------------------------------*/
-    property alias numberOfButtons: repeater.model
+    property alias numberOfButtons: itemRepeater.model
+    property alias menuButtonSpacing: itemColumn.spacing
 
 /*--- Propertys ------------------------------------------------------------------*/
-    property Component buttonStyle
-    property int menuScreenScaler: 4
-    property var buttonTextArray: []
 
-/*--- Default Propertys ----------------------------------------------------------*/
-    default property bool   autoDisableInvalidButton: true
+    property var buttonTextArray: []
+    property bool autoDisableInvalidButton: true
+    property int menuScreenScaler: 4
+
+    property bool menuAntialiasing: false
+/*--- Color Propertys ------------------------------------------------------------*/
+    property color menuColor: "grey"
+    property color menuButtonColor: "grey"
+
+    property color menuBorderColor : "grey"
+    property color menuButtonBorderColor : "black"
+
+/*--- Border Propertys -----------------------------------------------------------*/
+    property int menuBorderWidth:0
+    property int menuButtonBorderWidth: 2
+
 
 /*--- Signals --------------------------------------------------------------------*/
     signal buttonClickedS(string button)
@@ -22,28 +35,43 @@ Item
     width: (parent.width / menuScreenScaler)
     height: parent.height
     visible: false
+    z: 200
 
     Rectangle {
         id: itemRectangle
-        color: "#f90404"
-        border.color: "#03ff24"
+        color: menuColor
         anchors.fill: parent
+        antialiasing: menuAntialiasing
+        border.color: menuBorderColor
+        border.width: menuBorderWidth
 
         Column
         {
             id: itemColumn
             anchors.fill: parent
             Repeater
-
             {
-                id: repeater
-                Button {
+                id: itemRepeater
+                Button
+                {
                     anchors.left: parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
+                    style:  ButtonStyle
+                    {
+                        background: Rectangle
+                        {
+                            color: menuButtonColor
+                            border.width: menuButtonBorderWidth
+                            border.color: menuButtonBorderColor
+
+                        }
+                    }
+
                     text: getValidButtonText(index)
                     visible: disableInvalidButton(index)
+                    antialiasing: menuAntialiasing
                     onClicked: {
                                     buttonClickedS(getValidButtonText(index))
                                     buttonClickedI(index)
@@ -60,11 +88,11 @@ Item
     {
         if (this.visible === true)
         {
-            this.visible = false
+            this.visible = false;
         }
         else
         {
-            this.visible = true
+            this.visible = true;
         }
     }
 
@@ -73,12 +101,12 @@ Item
  ****************************************************************************/
     function getValidButtonText(index)
     {
-        var buttonText = "Button" + (index + 1)
+        var buttonText = "Button" + (index + 1);
         if (index < numberOfButtons && buttonTextArray[index] !== undefined)
         {
-            buttonText = buttonTextArray[index]
+            buttonText = buttonTextArray[index];
         }
-        return buttonText
+        return buttonText;
     }
 
 /****************************************************************************
@@ -86,15 +114,15 @@ Item
  ****************************************************************************/
     function disableInvalidButton(index)
     {
-        var enable = true
+        var enable = true;
         if(autoDisableInvalidButton === true)
         {
             if (buttonTextArray[index] === undefined)
             {
-                enable = false
+                enable = false;
             }
         }
-        return enable
+        return enable;
     }
 
 /****************************************************************************
@@ -102,15 +130,14 @@ Item
  ****************************************************************************/
     function getButtonByIndex(index)
     {
-        var i
-        var button = undefined
+        var i;
+        var button = undefined;
 
-        if(index < numberOfButtons && repeater.itemAt(index) !== undefined)
+        if(index < numberOfButtons && itemRepeater.itemAt(index) !== undefined)
         {
-            button = repeater.itemAt(index)
+            button = itemRepeater.itemAt(index);
         }
-
-        return button
+        return button;
     }
 
 /****************************************************************************
@@ -119,15 +146,15 @@ Item
     function getButtonByText(buttonTxt)
     {
         var i
-        var button = undefined
+        var button = undefined;
         for(i = 0; i < numberOfButtons; i ++)
         {
-            if (repeater.itemAt(i).text === buttonTxt)
+            if (itemRepeater.itemAt(i).text === buttonTxt)
             {
-                button = repeater.itemAt(i)
-                break
+                button = itemRepeater.itemAt(i);
+                break;
             }
         }
-        return button
+        return button;
     }
 }
