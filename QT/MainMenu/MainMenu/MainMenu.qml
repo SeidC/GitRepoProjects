@@ -17,7 +17,7 @@ Item
     property bool menuAntialiasing: false
 /*--- Color Propertys ------------------------------------------------------------*/
     property color menuColor: "grey"
-    property color menuButtonColor: "grey"
+    property color menuButtonColor: "lightgrey"
 
     property color menuBorderColor : "grey"
     property color menuButtonBorderColor : "black"
