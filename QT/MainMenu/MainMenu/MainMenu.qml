@@ -15,6 +15,7 @@ Item
     property int menuScreenScaler: 4
 
     property bool menuAntialiasing: false
+
 /*--- Color Propertys ------------------------------------------------------------*/
     property color menuColor: "grey"
     property color menuButtonColor: "lightgrey"
@@ -35,7 +36,9 @@ Item
     width: (parent.width / menuScreenScaler)
     height: parent.height
     visible: false
+    x: -1 * width
     z: 200
+
 
     Rectangle {
         id: itemRectangle
@@ -91,13 +94,13 @@ Item
         }
     }
 
-    onXChanged: this.x = -1*width ? this.visible = false : ""
+    onXChanged: this.x === -1*width ? this.visible = false : ""
 /*--- Method Definitions ---------------------------------------------------*/
 
 /****************************************************************************
  * METHODE: executeAnimation
  ****************************************************************************/
-    function executeAnimation(direction)
+    function executeAnimation(animationDirection)
     {
 
     }
