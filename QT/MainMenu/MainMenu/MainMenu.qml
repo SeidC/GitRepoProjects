@@ -81,23 +81,46 @@ Item
         }
      }
 
+    Behavior on x
+    {
+        NumberAnimation
+        {
+            easing.amplitude: 1.5
+            easing.type: Easing.OutBounce
+            duration: 400
+        }
+    }
+
+    onXChanged: this.x = -1*width ? this.visible = false : ""
+/*--- Method Definitions ---------------------------------------------------*/
+
 /****************************************************************************
- *
+ * METHODE: executeAnimation
  ****************************************************************************/
-    function setMainMenu()
+    function executeAnimation(direction)
+    {
+
+    }
+
+/****************************************************************************
+ * METHODE: executeMainMenu
+ ****************************************************************************/
+    function executeMainMenu()
     {
         if (this.visible === true)
         {
-            this.visible = false;
+            this.x = -1 * this.width
+            //this.visible = false;
         }
         else
         {
             this.visible = true;
+            this.x = 0
         }
     }
 
 /****************************************************************************
- *
+ * METHODE: getValidButtonText
  ****************************************************************************/
     function getValidButtonText(index)
     {
@@ -110,7 +133,7 @@ Item
     }
 
 /****************************************************************************
- *
+ * METHODE: disableInvalidButton
  ****************************************************************************/
     function disableInvalidButton(index)
     {
@@ -126,7 +149,7 @@ Item
     }
 
 /****************************************************************************
- *
+ * METHODE: getButtonByIndex
  ****************************************************************************/
     function getButtonByIndex(index)
     {
@@ -141,7 +164,7 @@ Item
     }
 
 /****************************************************************************
- *
+ * METHODE: getButtonByText
  ****************************************************************************/
     function getButtonByText(buttonTxt)
     {

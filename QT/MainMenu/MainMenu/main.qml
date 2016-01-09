@@ -29,7 +29,7 @@ ApplicationWindow {
                 ToolButton {
                     id: mainMenuButton
                     iconSource: "new.png"
-                    onClicked: mainMenu.setMainMenu()
+                    onClicked: mainMenu.executeMainMenu()
                 }
                 ToolButton {
                     iconSource: "open.png"
