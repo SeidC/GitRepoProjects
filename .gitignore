@@ -9,4 +9,6 @@ QT/MainMenu/debug/qrc_qml.o
 QT/ObjectInALoopTest/build-ObjectInALoopTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 /PHP/FristTry/nbproject/private/
 QT/Animations/StatesAndTransitions/build-StatesAndTransitions-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+.gitignore.orig
