@@ -49,17 +49,17 @@ ApplicationWindow {
     {
         id: mainMenu
         menuButtonColor: qsTr("#969696")
-        buttonTextArray: ["Test 1","Test 2","Exit"]
-        numberOfButtons: 3
+        buttonTextArray: ["Start","Blubb","Test","Optionen","Einstellungen","Exit"]
+        numberOfButtons: 6
         menuButtonSpacing: 4
         onButtonClickedS:
         {
            switch (button)
            {
-             case "Test 1":
+             case "Start":
                  console.log("Button 1 Clicked")
                  break
-             case "Test 2":
+             case "Blubb":
                  console.log("Button 2 Clicked")
                  break
              case "Exit":
