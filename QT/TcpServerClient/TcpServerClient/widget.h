@@ -17,6 +17,21 @@ public:
 
 private:
     Ui::Widget *ui;
+
+private:
+    void disableServerSettings(void);
+    void enableServerSettings(void);
+
+    bool startServer(void);
+    bool startClient(void);
+    bool stopServer(void);
+    bool stopClient(void);
+
+
+public slots:
+    void networkComboIndexChanged(QString name);
+    void exit(void);
+    void appButtonClicked(void);
 };
 
 #endif // WIDGET_H
