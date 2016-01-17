@@ -17,9 +17,10 @@ public:
 
     void setTextEdit(QTextEdit* sEdit = NULL);
     void clientConnected(void);
+    void clientConnectionPending(void);
     void serverStarted(void);
-    void setClientConfig(QHostAddress address, qint16 port);
-    void setServerConfig(qint16 port);
+    void setClientConfig(QHostAddress address, QString port);
+    void setServerConfig(QString port);
 
 private:
     void setText(QString txt);

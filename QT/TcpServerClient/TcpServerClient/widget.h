@@ -37,6 +37,11 @@ private:
     bool appStart(void);
     bool appStop(void);
 
+    bool checkConfigBeforeStart(void);
+
+    QString getPort(void);
+    QString getIp(void);
+
 
 public slots:
     void networkComboIndexChanged(QString name);

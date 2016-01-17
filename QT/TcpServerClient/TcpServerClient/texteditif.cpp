@@ -16,34 +16,38 @@ void TextEditIf::setTextEdit(QTextEdit *sEdit)
 
 void TextEditIf::clientConnected(void)
 {
-    setText("Client Connected to Server \n");
+    setText("Client Connected to Server");
+    setText("........................");
+    return;
+}
+
+void TextEditIf::clientConnectionPending()
+{
+    setText("Client connection pending....");
+    setText("........................");
     return;
 }
 
 void TextEditIf::serverStarted(void)
 {
-    setText("Server Started\n");
+    setText("Server Started");
+    setText("........................");
+    return;
 }
 
-void TextEditIf::setClientConfig(QHostAddress address, qint16 port)
+void TextEditIf::setClientConfig(QHostAddress address, QString port)
 {
-    char buffer[5];
-    QString res;
-    itoa(port,buffer,10);
-    res += buffer;
-    setText("Client Configuration: \n");
-    setText("Serveraddress: " + address.toString() + "\n");
-    setText("Port: " + res + "\n");
+    setText("Client Configuration:");
+    setText("\tServeraddress: " + address.toString());
+    setText("\tPort: " + port + "\n");
+    return;
 }
 
-void TextEditIf::setServerConfig(qint16 port)
+void TextEditIf::setServerConfig(QString port)
 {
-    char buffer[5];
-    QString res;
-    itoa(port,buffer,10);
-    res += buffer;
-    setText("Server Configuration: \n");
-    setText("Port: " + res + "\n");
+    setText("Server Configuration:");
+    setText("\tPort: " + port + "\n");
+    return;
 }
 
 void TextEditIf::setText(QString txt)

@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 
 #include <QDebug>
+#include <QMessageBox>
 
 
 Widget::Widget(QWidget *parent) :
@@ -65,27 +66,67 @@ void Widget::enableServerSettings()
 
 bool Widget::startServer()
 {
-    server = new Server(this);
-    editIf->serverStarted();
-    editIf->setServerConfig(65000);
+    bool serverStatus, ret = false;
+    qint16 port;
 
+    server = new Server(this);
+    port = getPort().toInt();
+    serverStatus = server->listen(QHostAddress::Any,port);
+    if (serverStatus == true)
+    {
+        editIf->serverStarted();
+        editIf->setServerConfig(getPort());
+        ret = true;
+    }
+    return ret;
 }
 
 bool Widget::startClient()
 {
+    QHostAddress ip;
+    qint16 port;
+    bool ret = false;
+
+    ip.setAddress(getIp());
+    port = getPort().toInt();
+
     client = new Client(this);
-    editIf->clientConnected();
+    client->connectToServer(&ip,port,QIODevice::ReadWrite);
+    if (client->isClientConnected() == Client::CONNECTED)
+    {
+        editIf->clientConnected();
+        ret = true;
+    }
+    else if (client->isClientConnected() == Client::CONNECTION_PENDING)
+    {
+        editIf->clientConnectionPending();
+        ret = true;
+    }
+    else
+    {
+        ret = false;
+    }
+    return ret;
 }
+
 
 bool Widget::stopServer()
 {
-    delete server;
+    if(server->isListening())
+    {
+        server->close();
+        delete server;
+    }
+    return true;
 }
+
 
 bool Widget::stopClient()
 {
     delete client;
+    return true;
 }
+
 
 bool Widget::appStart()
 {
@@ -143,6 +184,37 @@ bool Widget::appStop()
     return ret;
 }
 
+bool Widget::checkConfigBeforeStart()
+{
+    bool ret = false;
+    if (ui->NetworkCombo->currentText() == "Client")
+    {
+        if(!ui->PortLineEdit->text().isEmpty() &&
+           !ui->ServerLineEdit->text().isEmpty())
+        {
+            ret = true;
+        }
+    }
+    else
+    {
+        if(!ui->PortLineEdit->text().isEmpty())
+        {
+            ret = true;
+        }
+    }
+    return ret;
+}
+
+QString Widget::getPort()
+{
+    return ui->PortLineEdit->text();
+}
+
+QString Widget::getIp()
+{
+    return ui->ServerLineEdit->text();
+}
+
 
 void Widget::networkComboIndexChanged(QString name)
 {
@@ -169,9 +241,16 @@ void Widget::appButtonClicked(void)
 {
    if(ui->StartButton->text() == "Start")
    {
-       appStart();
-       ui->StartButton->setText("Stop");
-
+       if(checkConfigBeforeStart())
+       {
+            appStart();
+            ui->StartButton->setText("Stop");
+       }
+       else
+       {
+           QMessageBox::warning(this,"Invalid configuration",
+                                "Please check your settings");
+       }
    }
    else
    {
