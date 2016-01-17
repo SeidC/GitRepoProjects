@@ -91,6 +91,10 @@ bool Widget::startClient()
     port = getPort().toInt();
 
     client = new Client(this);
+
+    connect(client,SIGNAL(connected()),
+            this,SLOT(clientConnected()));
+
     client->connectToServer(&ip,port,QIODevice::ReadWrite);
     if (client->isClientConnected() == Client::CONNECTED)
     {
@@ -123,6 +127,8 @@ bool Widget::stopServer()
 
 bool Widget::stopClient()
 {
+    disconnect(client,SIGNAL(connected()),
+               this,SLOT(clientConnected()));
     delete client;
     return true;
 }
@@ -257,5 +263,10 @@ void Widget::appButtonClicked(void)
        appStop();
        ui->StartButton->setText("Start");
    }
+}
+
+void Widget::clientConnected()
+{
+
 }
 

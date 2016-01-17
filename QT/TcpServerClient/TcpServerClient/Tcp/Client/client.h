@@ -32,6 +32,9 @@ public:  // Methods & Constructors
 private: // Parameters
     ClientStatus clientStatus;
 signals:
+   void connected(void);
+   void disconnected(void);
+   void	error(QAbstractSocket::SocketError socketError);
 
 
 private slots:

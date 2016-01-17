@@ -39,6 +39,7 @@ private:
 
     bool checkConfigBeforeStart(void);
 
+
     QString getPort(void);
     QString getIp(void);
 
@@ -47,6 +48,13 @@ public slots:
     void networkComboIndexChanged(QString name);
     void exit(void);
     void appButtonClicked(void);
+//Client Slots
+    void clientConnected(void);
+    void clientDisconnected(void);
+    void clientError(QAbstractSocket::SocketError socketError);
+//Server Slots
+
+
 };
 
 #endif // WIDGET_H

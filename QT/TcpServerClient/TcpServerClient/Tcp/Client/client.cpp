@@ -11,6 +11,16 @@ Client::Client(QObject *parent) : QObject(parent)
 
     connect(connection,SIGNAL(disconnected()),
             this,SLOT(connectionClosed()));
+
+    connect(connection, SIGNAL(connected()),
+            this,SIGNAL(connected()));
+
+    connect(connection,SIGNAL(disconnected()),
+            this,SIGNAL(disconnected()));
+
+    connect(connection,SIGNAL(error(QAbstractSocket::SocketError)),
+            this,SIGNAL(error(QAbstractSocket::SocketError)));
+
     return;
 }
 
