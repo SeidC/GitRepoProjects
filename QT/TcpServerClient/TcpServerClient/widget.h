@@ -2,6 +2,10 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "client.h"
+#include "server.h"
+#include "texteditif.h"
+
 
 namespace Ui {
 class Widget;
@@ -17,6 +21,9 @@ public:
 
 private:
     Ui::Widget *ui;
+    Server* server;
+    Client* client;
+    TextEditIf* editIf;
 
 private:
     void disableServerSettings(void);
@@ -26,6 +33,9 @@ private:
     bool startClient(void);
     bool stopServer(void);
     bool stopClient(void);
+
+    bool appStart(void);
+    bool appStop(void);
 
 
 public slots:

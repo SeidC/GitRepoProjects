@@ -23,6 +23,11 @@ Widget::Widget(QWidget *parent) :
    ui->ServerLable->setVisible(false);
    ui->ServerLineEdit->setVisible(false);
 
+   client = NULL;
+   server = NULL;
+   editIf = new TextEditIf(this);
+   editIf->setTextEdit(ui->StatusEdit);
+
 }
 
 Widget::~Widget()
@@ -60,22 +65,82 @@ void Widget::enableServerSettings()
 
 bool Widget::startServer()
 {
+    server = new Server(this);
+    editIf->serverStarted();
+    editIf->setServerConfig(65000);
 
 }
 
 bool Widget::startClient()
 {
-
+    client = new Client(this);
+    editIf->clientConnected();
 }
 
 bool Widget::stopServer()
 {
-
+    delete server;
 }
 
 bool Widget::stopClient()
 {
+    delete client;
+}
 
+bool Widget::appStart()
+{
+    bool ret = false;
+    if (ui->StartButton->text() == "Start" &&
+        ui->NetworkCombo->currentText() == "Server")
+    {
+       if (startServer())
+       {
+           ui->NetworkCombo->setDisabled(true);
+           ret = true;
+       }
+    }
+    else if (ui->StartButton->text() == "Start" &&
+             ui->NetworkCombo->currentText() == "Client")
+    {
+        if(startClient())
+        {
+            ui->NetworkCombo->setDisabled(true);
+            ret = true;
+        }
+    }
+    else
+    {
+
+    }
+    return ret;
+}
+
+bool Widget::appStop()
+{
+    bool ret = false;
+    if (ui->StartButton->text() == "Stop" &&
+        ui->NetworkCombo->currentText() == "Server")
+    {
+        if(stopServer())
+        {
+            ui->NetworkCombo->setDisabled(false);
+            ret = true;
+        }
+    }
+    else if (ui->StartButton->text() == "Stop" &&
+             ui->NetworkCombo->currentText() == "Client")
+    {
+        if(stopClient())
+        {
+            ui->NetworkCombo->setDisabled(false);
+            ret = true;
+        }
+    }
+    else
+    {
+
+    }
+    return ret;
 }
 
 
@@ -104,10 +169,13 @@ void Widget::appButtonClicked(void)
 {
    if(ui->StartButton->text() == "Start")
    {
+       appStart();
        ui->StartButton->setText("Stop");
+
    }
    else
    {
+       appStop();
        ui->StartButton->setText("Start");
    }
 }

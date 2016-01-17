@@ -20,11 +20,13 @@ SOURCES += main.cpp\
            widget.cpp \
            Tcp/Server/server.cpp \
            Tcp/Client/client.cpp \
-           Tcp/Connection/connection.cpp
+           Tcp/Connection/connection.cpp \
+           texteditif.cpp
 
 HEADERS  += widget.h \
             Tcp/Server/server.h \
             Tcp/Client/client.h \
-            Tcp/Connection/connection.h
+            Tcp/Connection/connection.h \
+            texteditif.h
 
 FORMS    += widget.ui
