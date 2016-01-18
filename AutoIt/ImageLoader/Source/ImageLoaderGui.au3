@@ -6,7 +6,6 @@
 #include <TabConstants.au3>
 #include <WindowsConstants.au3>
 
-
 #Region ### START Koda GUI section ### Form=D:\Projekte\GitRepoProjects\AutoIt\ImageLoader\GUI\ImageLoader.kxf
 $ImageLoader = GUICreate("Image Loader", 615, 459, 192, 124)
 $DataList = GUICtrlCreateListView("", 88, 200, 514, 254)
