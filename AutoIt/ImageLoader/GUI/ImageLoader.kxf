@@ -4,7 +4,7 @@
 		<property name="Left" vt="Int16">192</property>
 		<property name="Top" vt="Int8">124</property>
 		<property name="Width" vt="Int16">630</property>
-		<property name="Height" vt="Int16">496</property>
+		<property name="Height" vt="Int16">498</property>
 		<property name="Caption" vt="String">Image Loader</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
@@ -171,7 +171,7 @@
 						<property name="Top" vt="Int8">16</property>
 						<property name="Width" vt="Int16">393</property>
 						<property name="Height" vt="Int16">129</property>
-						<property name="ActivePage" vt="Ident">OptionsTab</property>
+						<property name="ActivePage" vt="Ident">SearchOptionTab</property>
 						<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 						<property name="Font.Color" vt="Ident">clWindowText</property>
 						<property name="Font.Height" vt="Int8">-11</property>
@@ -199,7 +199,7 @@
 								<object type="TAInput" name="ModifiedUrlInput">
 									<properties>
 										<property name="Left" vt="Int8">100</property>
-										<property name="Top" vt="Int8">16</property>
+										<property name="Top" vt="Int8">8</property>
 										<property name="Width" vt="Int16">273</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">0</property>
@@ -212,7 +212,7 @@
 								<object type="TALabel" name="Label2">
 									<properties>
 										<property name="Left" vt="Int8">8</property>
-										<property name="Top" vt="Int8">16</property>
+										<property name="Top" vt="Int8">8</property>
 										<property name="Width" vt="Int8">82</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="Caption" vt="String">URL Modified:</property>
@@ -232,8 +232,8 @@
 								</object>
 								<object type="TAInput" name="ParameterInput1">
 									<properties>
-										<property name="Left" vt="Int8">100</property>
-										<property name="Top" vt="Int8">48</property>
+										<property name="Left" vt="Int8">84</property>
+										<property name="Top" vt="Int8">40</property>
 										<property name="Width" vt="Int8">49</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">2</property>
@@ -245,9 +245,9 @@
 								</object>
 								<object type="TAInput" name="FromToInput1">
 									<properties>
-										<property name="Left" vt="Int16">260</property>
-										<property name="Top" vt="Int8">48</property>
-										<property name="Width" vt="Int8">113</property>
+										<property name="Left" vt="Int16">212</property>
+										<property name="Top" vt="Int8">40</property>
+										<property name="Width" vt="Int8">89</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">3</property>
 										<property name="CtrlStyle" vt="Int32">1342374016</property>
@@ -259,7 +259,7 @@
 								<object type="TALabel" name="Label3">
 									<properties>
 										<property name="Left" vt="Int8">8</property>
-										<property name="Top" vt="Int8">48</property>
+										<property name="Top" vt="Int8">40</property>
 										<property name="Width" vt="Int8">69</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="Caption" vt="String">Parameter:</property>
@@ -279,11 +279,11 @@
 								</object>
 								<object type="TALabel" name="Label4">
 									<properties>
-										<property name="Left" vt="Int16">156</property>
-										<property name="Top" vt="Int8">48</property>
-										<property name="Width" vt="Int8">91</property>
-										<property name="Height" vt="Int8">17</property>
-										<property name="Caption" vt="String">Search Values:</property>
+										<property name="Left" vt="Int16">148</property>
+										<property name="Top" vt="Int8">40</property>
+										<property name="Width" vt="Int8">55</property>
+										<property name="Height" vt="Int8">21</property>
+										<property name="Caption" vt="String">Reagion:</property>
 										<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 										<property name="Font.Color" vt="Ident">clWindowText</property>
 										<property name="Font.Height" vt="Int8">-11</property>
@@ -300,7 +300,7 @@
 								</object>
 								<object type="TAInput" name="ParameterInput2">
 									<properties>
-										<property name="Left" vt="Int8">100</property>
+										<property name="Left" vt="Int8">84</property>
 										<property name="Top" vt="Int8">72</property>
 										<property name="Width" vt="Int8">49</property>
 										<property name="Height" vt="Int8">21</property>
@@ -316,7 +316,7 @@
 										<property name="Left" vt="Int8">8</property>
 										<property name="Top" vt="Int8">72</property>
 										<property name="Width" vt="Int8">69</property>
-										<property name="Height" vt="Int8">17</property>
+										<property name="Height" vt="Int8">21</property>
 										<property name="Caption" vt="String">Parameter:</property>
 										<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 										<property name="Font.Color" vt="Ident">clWindowText</property>
@@ -334,11 +334,11 @@
 								</object>
 								<object type="TALabel" name="Label6">
 									<properties>
-										<property name="Left" vt="Int16">156</property>
+										<property name="Left" vt="Int16">148</property>
 										<property name="Top" vt="Int8">72</property>
-										<property name="Width" vt="Int8">91</property>
-										<property name="Height" vt="Int8">17</property>
-										<property name="Caption" vt="String">Search Values:</property>
+										<property name="Width" vt="Int8">55</property>
+										<property name="Height" vt="Int8">21</property>
+										<property name="Caption" vt="String">Reagion:</property>
 										<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 										<property name="Font.Color" vt="Ident">clWindowText</property>
 										<property name="Font.Height" vt="Int8">-11</property>
@@ -353,16 +353,31 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TAInput" name="FormToInput2">
+								<object type="TAInput" name="FromToInput2">
 									<properties>
-										<property name="Left" vt="Int16">260</property>
+										<property name="Left" vt="Int16">212</property>
 										<property name="Top" vt="Int8">72</property>
-										<property name="Width" vt="Int8">113</property>
+										<property name="Width" vt="Int8">89</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">9</property>
 										<property name="CtrlStyle" vt="Int32">1342374016</property>
 										<property name="CtrlExStyle" vt="Int16">512</property>
 										<property name="Resizing" vt="Set">DockHeight</property>
+									</properties>
+									<components/>
+								</object>
+								<object type="TAButton" name="DefaultButton">
+									<properties>
+										<property name="Left" vt="Int16">308</property>
+										<property name="Top" vt="Int8">40</property>
+										<property name="Width" vt="Int8">67</property>
+										<property name="Height" vt="Int8">50</property>
+										<property name="Caption" vt="String">Set Default </property>
+										<property name="TabOrder" vt="Int8">10</property>
+										<property name="Color" vt="Ident">clBtnFace</property>
+										<property name="CtrlStyle" vt="Int32">1342382080</property>
+										<property name="CtrlExStyle" vt="Int8">0</property>
+										<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
 									</properties>
 									<components/>
 								</object>
