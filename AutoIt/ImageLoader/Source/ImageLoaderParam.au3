@@ -8,3 +8,6 @@ Global Const $regExp_Filter = "\d+"
 
 Global $backUpClipStr = ""
 Global $mainCycleTime = 500
+
+Global $statusMassageActiveTime
+Global $statusMessage

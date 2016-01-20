@@ -72,7 +72,7 @@ EndFunc
 ; ===============================================================================================================================
 Func AddListViewColums()
 
-	_GUICtrlListView_AddColumn($DataList, "URL", 200)
+	_GUICtrlListView_AddColumn($DataList, "Modified URL", 200)
 	_GUICtrlListView_AddColumn($DataList, "Image", 100)
 	_GUICtrlListView_AddColumn($DataList, "Search Settings", 100)
 	_GUICtrlListView_AddColumn($DataList, "Progress", 100)
@@ -143,6 +143,7 @@ EndFunc
 Func MainCycleTasks()
 
 	HandleClipBoard()
+	StatusMessageTask()
 EndFunc
 
 
@@ -201,10 +202,24 @@ Func SetDefaults()
 EndFunc
 
 Func AddDataToListView($sUrl,$sSettings)
+	Local $index
+	If $sUrl <> "" And $sSettings <> "" Then
+		$index	= _GUICtrlListView_AddItem ($DataList, $sUrl)
+		_GUICtrlListView_AddSubItem   			($DataList, $index, " ----- ", 1 )
+		_GUICtrlListView_AddSubItem   			($DataList, $index, $sSettings       , 2 )
+	Else
+		_GUICtrlStatusBar_SetText($StatusBar, "")
+	Endif
+EndFunc
 
-	Local $index = _GUICtrlListView_AddItem ($DataList, $sUrl)
-	_GUICtrlListView_AddSubItem   			($DataList, $index, " Pics Downlaod ", 1 )
-	_GUICtrlListView_AddSubItem   			($DataList, $index, $sSettings       , 2 )
+
+Func SetStatusBarMessage($message)
+
+
+EndFunc
+
+Func StatusMessageTask()
+
 
 EndFunc
 
@@ -219,7 +234,8 @@ EndFunc
 
 Func AddToList()
 	Local $url = _GUICtrlEdit_GetText($ModifiedUrlInput)
-	Local $settings  = _GUICtrlEdit_GetText($ParameterInput1) & "= " & _GUICtrlEdit_GetText($FromToInput1)
+	Local $settings  = _GUICtrlEdit_GetText($ParameterInput1) & "= " & _GUICtrlEdit_GetText($FromToInput1) & @CRLF
+		  $settings &= " | "
 		  $settings &= _GUICtrlEdit_GetText($ParameterInput2) & "= " & _GUICtrlEdit_GetText($FromToInput2)
 
 	AddDataToListView($url,$settings)
