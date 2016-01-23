@@ -21,10 +21,10 @@ Global Const $sites[$NUMBER_OF_SUPPORTED_SITES] = 	[				_
 
 ;--- Debug Section ---------------------------------------------------------------------
 
-Global $tAv;
-Global $pics = GetLinks('http://hentai2read.com/mamoritai_hito/1/1/',$tAv)
-ConsoleWrite("Number of Pics: " & $pics & @CRLF)
-_ArrayDisplay($tAv)
+;~ Global $tAv;
+;~ Global $pics = GetLinks('http://hentai2read.com/mamoritai_hito/1/1/',$tAv)
+;~ ConsoleWrite("Number of Pics: " & $pics & @CRLF)
+;~ _ArrayDisplay($tAv)
 ;--- End Of Debug Section --------------------------------------------------------------
 
 

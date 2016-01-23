@@ -78,8 +78,8 @@ EndFunc
 ; Name ..........: H2R_FilterLinks
 ; Description ...:
 ; Syntax ........: H2R_FilterLinks(Byref $avToFilter, Byref $avToStore)
-; Parameters ....: $avToFilter          - [in ] an array of variants.
-;                  $avToStore           - [out] an array of variants.
+; Parameters ....: $avToFilter          - [in ] an array with links which has to be filtered.
+;                  $avToStore           - [out] an array with flitered links.
 ; Return values .: None
 ; Author ........: Your Name
 ; Modified ......:

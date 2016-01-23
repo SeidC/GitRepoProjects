@@ -81,9 +81,10 @@ EndFunc
 ; ===============================================================================================================================
 Func AddListViewColums()
 
-	_GUICtrlListView_AddColumn($DataList, "Modified URL", 200)
+	_GUICtrlListView_AddColumn($DataList, "Name", 200)
 	_GUICtrlListView_AddColumn($DataList, "Image", 100)
 	_GUICtrlListView_AddColumn($DataList, "Search Settings", 100)
+	_GUICtrlListView_AddColumn($DataList, "Name", 100)
 	_GUICtrlListView_AddColumn($DataList, "Progress", 100)
 
 EndFunc
@@ -222,6 +223,21 @@ Func AddDataToListView($sUrl,$sSettings)
 EndFunc
 
 
+Func DeleteEntryFromList()
+	Local $index, $avIndex, $msgBoxRet
+
+	$index =_GUICtrlListView_GetSelectedIndices($DataList)
+	If $index <> "" Then
+		$avIndex = StringSplit($index,'|')
+		$msgBoxRet = MsgBox(BitOR($MB_YESNO,$MB_ICONQUESTION),"Delete Objects","Do you want to delete " & $avIndex[0] & " Objects?", 10)
+		If $msgBoxRet = $IDYES Then
+			_GUICtrlListView_DeleteItemsSelected ($DataList)
+		Else
+			; Add Status Message
+		EndIf
+	EndIf
+EndFunc
+
 Func SetStatusBarMessage($message)
 
 
@@ -253,5 +269,5 @@ EndFunc
 
 
 Func DeleteFromList()
-
+	DeleteEntryFromList()
 EndFunc
