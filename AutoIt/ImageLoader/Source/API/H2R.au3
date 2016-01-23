@@ -76,7 +76,7 @@ EndFunc
 
 Func H2R_FilterLinks(ByRef $avToFilter, ByRef $avToStore)
 
-	Local $avSize
+	Local $avSize, $p1,$p2,$offset, $str
 	Local $cAv[1]
 	Local $count = 0
 	$avSize = UBound($avToFilter) / 2
@@ -84,7 +84,15 @@ Func H2R_FilterLinks(ByRef $avToFilter, ByRef $avToStore)
 
 	For $i = 0 To UBound($avToFilter) - 1
 		If Mod($i,2) = 0 Then
-			$cAv[$count] = $avToFilter[$i + 1]
+			;Filter " from start and from the and. This both postions defines the range
+			;of the http - Link
+			$p1 = StringInStr($avToFilter[$i + 1],'"',0,1)
+			$p2 = StringInStr($avToFilter[$i + 1],'"',0,-1)
+			;p2 - p1 ist the needed range
+			$offset = $p2 - $p1
+			;Cut link from given String and copy into array.
+			$str = StringMid($avToFilter[$i + 1],$p1+1,$offset)
+			$cAv[$count] = $str
 			$count += 1
 		EndIf
 	Next
