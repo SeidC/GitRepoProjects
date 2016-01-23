@@ -74,6 +74,20 @@ EndFunc
 
 ;--- Internal Used Functions ---------------------------------------------------------------
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: H2R_FilterLinks
+; Description ...:
+; Syntax ........: H2R_FilterLinks(Byref $avToFilter, Byref $avToStore)
+; Parameters ....: $avToFilter          - [in ] an array of variants.
+;                  $avToStore           - [out] an array of variants.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func H2R_FilterLinks(ByRef $avToFilter, ByRef $avToStore)
 
 	Local $avSize, $p1,$p2,$offset, $str
