@@ -72,6 +72,12 @@ Func H2R_GetLinks($url, ByRef $avToStoreLinks)
 
 EndFunc
 
+
+Func H2R_GetName($url)
+
+
+EndFunc
+
 ;--- Internal Used Functions ---------------------------------------------------------------
 
 ; #FUNCTION# ====================================================================================================================

@@ -248,6 +248,8 @@ Func StatusMessageTask()
 
 EndFunc
 
+
+
 ;--- Gui Events -------------------------
 
 Func ExitExec()
@@ -269,5 +271,6 @@ EndFunc
 
 
 Func DeleteFromList()
+
 	DeleteEntryFromList()
 EndFunc
