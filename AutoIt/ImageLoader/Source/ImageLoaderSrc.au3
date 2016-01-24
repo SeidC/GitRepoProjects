@@ -9,7 +9,15 @@
 ;--- Global Params --------------------------------------------------------------
 Global $backUpClipStr = ""
 Global $mainCycleTime = 500
+Global Const $listColumns[4][2] = 	[					   _
+										["Name"    , 200] , _
+                                        ["Images"  ,  75] , _
+                                        ["URL"     , 100] , _
+                                        ["Progress", 100]   _
+									]
 
+Global Enum $MAIN_ITEM = 0
+			$SUB_ITEM  = 1
 ;--- Application ----------------------------------------------------------------
 
 Init()
@@ -81,11 +89,9 @@ EndFunc
 ; ===============================================================================================================================
 Func AddListViewColums()
 
-	_GUICtrlListView_AddColumn($DataList, "Name", 200)
-	_GUICtrlListView_AddColumn($DataList, "Image", 100)
-	_GUICtrlListView_AddColumn($DataList, "Search Settings", 100)
-	_GUICtrlListView_AddColumn($DataList, "Name", 100)
-	_GUICtrlListView_AddColumn($DataList, "Progress", 100)
+	For $i = 0 To UBound($listColumns) - 1
+		_GUICtrlListView_AddColumn($DataList, $listColumns[$i][0]    , $listColumns[$i][1])
+	Next
 
 EndFunc
 
@@ -134,6 +140,8 @@ Func SetUpGuiEvents()
 	GUICtrlSetOnEvent($ExitButton  , "ExitExec")
 	GUICtrlSetOnEvent($AddButton   , "AddToList")
 	GUICtrlSetOnEvent($DeleteButton, "DeleteFromList")
+	GUICtrlSetOnEvent($FolderButton, "ChooseFolder")
+	GUICtrlSetOnEvent($StartButton , "StartDownload")
 EndFunc
 
 
@@ -201,7 +209,19 @@ Func SetCycleTime($iTimeMs)
 	$mainCycleTime = $iTimeMs
 EndFunc
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: SetDefaults
+; Description ...:
+; Syntax ........: SetDefaults()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func SetDefaults()
 	_GUICtrlEdit_SetText($ParameterInput1,'<x>')
 	_GUICtrlEdit_SetText($ParameterInput2,'<y>')
@@ -211,23 +231,56 @@ Func SetDefaults()
 
 EndFunc
 
-Func AddDataToListView($sUrl,$sSettings)
+; #FUNCTION# ====================================================================================================================
+; Name ..........: AddDataToListView
+; Description ...:
+; Syntax ........: AddDataToListView($sUrl)
+; Parameters ....: $sUrl                - a string value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func AddDataToListView($sUrl)
 	Local $index
 	Local $sUrlName, $avUrlLinks, $iUrlLinksRet
-	If $sUrl <> "" And $sSettings <> "" Then
-;~ 		$index	= _GUICtrlListView_AddItem ($DataList, $sUrl)
-;~ 		_GUICtrlListView_AddSubItem   			($DataList, $index, " ----- ", 1 )
-;~ 		_GUICtrlListView_AddSubItem   			($DataList, $index, $sSettings       , 2 )
+	If $sUrl <> "" Then
 		$sUrlName = GetName($sUrl)
 		$iUrlLinksRet = GetLinks($sUrl,$avUrlLinks)
+		If $iUrlLinksRet > 0 Then
+			$index = SetListViewItemByName($MAIN_ITEM, "Name"  , $sUrlName )
+					 SetListViewItemByName($SUB_ITEM , "Images", $iUrlLinksRet & " found", $index )
+					 SetListViewItemByName($SUB_ITEM , "URL"   , $sUrl, $index )
+			For $i = 0 To UBound($avUrlLinks) - 1
+			$index = SetListViewItemByName($MAIN_ITEM, "Name"  , "" )
+					 SetListViewItemByName($SUB_ITEM , "Images", $i + 1         , $index)
+					 SetListViewItemByName($SUB_ITEM , "URL"   , $avUrlLinks[$i], $index )
 
-
+			Next
+		Else
+			; Add Status Message "No Links found"
+		EndIf
 	Else
-		_GUICtrlStatusBar_SetText($StatusBar, "")
+		;Add Status Message "Gigen String is empty"
 	Endif
 EndFunc
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: DeleteEntryFromList
+; Description ...:
+; Syntax ........: DeleteEntryFromList()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func DeleteEntryFromList()
 	Local $index, $avIndex, $msgBoxRet
 
@@ -238,16 +291,42 @@ Func DeleteEntryFromList()
 		If $msgBoxRet = $IDYES Then
 			_GUICtrlListView_DeleteItemsSelected ($DataList)
 		Else
-			; Add Status Message
+			; Add Status Message "Deletion canceld"
 		EndIf
 	EndIf
 EndFunc
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: SetStatusBarMessage
+; Description ...:
+; Syntax ........: SetStatusBarMessage($message)
+; Parameters ....: $message             - a map.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func SetStatusBarMessage($message)
 
 
 EndFunc
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: StatusMessageTask
+; Description ...:
+; Syntax ........: StatusMessageTask()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func StatusMessageTask()
 
 
@@ -255,27 +334,161 @@ EndFunc
 
 
 
-;--- Gui Events -------------------------
+;--- Gui Events ------------------------------------------------------------
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: ExitExec
+; Description ...:
+; Syntax ........: ExitExec()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func ExitExec()
 
 
 	Exit
 EndFunc
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: AddToList
+; Description ...:
+; Syntax ........: AddToList()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func AddToList()
 	Local $url = _GUICtrlEdit_GetText($ModifiedUrlInput)
-	Local $settings  = _GUICtrlEdit_GetText($ParameterInput1) & "= " & _GUICtrlEdit_GetText($FromToInput1) & @CRLF
-		  $settings &= " | "
-		  $settings &= _GUICtrlEdit_GetText($ParameterInput2) & "= " & _GUICtrlEdit_GetText($FromToInput2)
-
-	AddDataToListView($url,$settings)
-
+	AddDataToListView($url)
 EndFunc
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: DeleteFromList
+; Description ...:
+; Syntax ........: DeleteFromList()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func DeleteFromList()
 
 	DeleteEntryFromList()
+EndFunc
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: ChooseFolder
+; Description ...:
+; Syntax ........: ChooseFolder()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func ChooseFolder()
+	Local $folder = FileSelectFolder("Select folder where data has to be stored:",@ScriptDir, $FSF_CREATEBUTTON +  $FSF_NEWDIALOG ,"",$ImageLoader)
+	If @error = 0 Then
+		_GUICtrlEdit_SetText($SaveInput,$folder)
+	Else
+		;Add Status Message "No Folder Choosen"
+	EndIf
+EndFunc
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: StartDownload
+; Description ...:
+; Syntax ........: StartDownload()
+; Parameters ....:
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func StartDownload()
+
+
+EndFunc
+
+;--- End of Gui Events -----------------------------------------------------------
+
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: GetColumnIndexByName
+; Description ...:
+; Syntax ........: GetColumnIndexByName($sColumnName)
+; Parameters ....: $sColumnName         - a string value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func GetColumnIndexByName($sColumnName)
+	Local $index = -1
+	For $i = 0 To UBound($listColumns) - 1
+		If $sColumnName = $listColumns[$i][0] Then
+			$index = $i
+			ExitLoop
+		EndIf
+	Next
+	Return $index
+EndFunc
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: SetListViewItemByName
+; Description ...:
+; Syntax ........: SetListViewItemByName($eItemType, $sColumnName, $sData[, $mainItemIndex = -1])
+; Parameters ....: $eItemType           - an enum value.
+;                  $sColumnName         - a string value.
+;                  $sData               - a string value.
+;                  $mainItemIndex       - [optional] a map. Default is -1.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func SetListViewItemByName($eItemType, $sColumnName, $sData, $mainItemIndex = -1)
+
+	Local $ret = -1
+	Local $index = GetColumnIndexByName($sColumnName)
+
+	If $eItemType = $MAIN_ITEM Then
+		$ret = _GUICtrlListView_AddItem ($DataList,$sData)
+	ElseIf $eItemType = $SUB_ITEM And $mainItemIndex >= 0 Then
+		If $index >= 0 Then
+			_GUICtrlListView_AddSubItem($DataList,$mainItemIndex,$sData,$index)
+		Else
+
+		EndIf
+	Else
+
+	EndIf
+	Return $ret
 EndFunc
