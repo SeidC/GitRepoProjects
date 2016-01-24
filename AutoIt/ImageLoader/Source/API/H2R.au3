@@ -1,4 +1,5 @@
 #include "API_Constants.au3"
+#include <Array.au3>
 
 
 
@@ -9,25 +10,39 @@
 Global Const $H2R_Name = "http://hentai2read.com"
 ;Regular Expression to filter Links from Site
 Global Const $H2R_LinkRegExp = '(<\s*a(\s+.*?>|>).*?<\s*/\s*a\s*>\,)'
+;Regular Expression to filter the name of the Site
+Global Const $H2R_NameRegExp = '\<h1\>.*\>\s+\>(.*)\<\/h1\>'
 ;Filename were the Site Dump will be stored
 Global Const $H2R_SiteDump = "H2R_Dump.dd"
 
+;--- Debug Section ---------------------------------------------------------------------
+
+;~ 	H2R_GetName('http://hentai2read.com/mamoritai_hito/1/1/')
+;--- End Of Debug Section --------------------------------------------------------------
 
 
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: H2R_GetNumberOfPisc
+; Description ...:
+; Syntax ........: H2R_GetNumberOfPisc($url)
+; Parameters ....: $url                 - an unknown value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func H2R_GetNumberOfPisc($url)
-	Local $str
-	Local $ret = $API_DOWNLOAD_ERROR
-	Local $bytes
+	Local $str, $ret, $downRet
 	Local $av
 
 	;Download HTML from URL
-	$bytes = InetGet($url,$H2R_SiteDump)
-
-	;Check Downlod successfull (> 0 Bytes)
-	If $bytes > 0 Then
-		;Read Data from downloaded Dump
-		$str = FileRead($H2R_SiteDump,0)
+	$downRet = H2R_DownloadUrl($url,$str)
+	;Check wheter the URL was downloaded
+	If $downRet = $API_OK Then
 		;Filter Links with Regular Expresstion
 		$av = StringRegExp($str,$H2R_LinkRegExp,3)
 		;Check return value whether it is a array with filtered links
@@ -37,25 +52,35 @@ Func H2R_GetNumberOfPisc($url)
 			$ret = $API_NO_LINKS_FOUND
 		EndIf
 	Else
-		$ret = $API_DOWNLOAD_ERROR
+		$ret = $downRet
 	EndIf
+
 	Return $ret
 EndFunc
 
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: H2R_GetLinks
+; Description ...:
+; Syntax ........: H2R_GetLinks($url, Byref $avToStoreLinks)
+; Parameters ....: $url                 - an unknown value.
+;                  $avToStoreLinks      - [in/out] an array of variants.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func H2R_GetLinks($url, ByRef $avToStoreLinks)
-	Local $str
-	Local $ret = $API_DOWNLOAD_ERROR
-	Local $bytes
+	Local $str, $ret, $downRet
 	Local $av
 
 	;Download HTML from URL
-	$bytes = InetGet($url,$H2R_SiteDump,0)
-
-	;Check Downlod successfull (> 0 Bytes)
-	If $bytes > 0 Then
-		;Read Data from downloaded Dump
-		$str = FileRead($H2R_SiteDump)
+	$downRet = H2R_DownloadUrl($url,$str)
+	;Check wheter the URL was downloaded
+	If $downRet = $API_OK Then
 		;Filter Links with Regular Expresstion
 		$av = StringRegExp($str,$H2R_LinkRegExp,3)
 		;Check return value whether it is a array with filtered links
@@ -64,18 +89,48 @@ Func H2R_GetLinks($url, ByRef $avToStoreLinks)
 			$ret = UBound($avToStoreLinks)
 		Else
 			$ret = $API_NO_LINKS_FOUND
+			$avToStoreLinks = ""
 		EndIf
 	Else
-		$ret = $API_DOWNLOAD_ERROR
+		$ret = $downRet
+		$avToStoreLinks = ""
 	EndIf
 	Return $ret
 
 EndFunc
 
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: H2R_GetName
+; Description ...:
+; Syntax ........: H2R_GetName($url)
+; Parameters ....: $url                 - an unknown value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func H2R_GetName($url)
-
-
+	Local $str
+	Local $downRet, $ret
+	Local $av
+	;Get needed HTML-Site
+	$downRet = H2R_DownloadUrl($url,$str)
+	;Check whether the HTML-Site was donwloaded successfully
+	If $downRet = $API_OK Then
+		$av = StringRegExp($str,$H2R_NameRegExp,3)
+		If IsArray($av) Then
+			$ret = $av[0]
+		Else
+			$ret = $API_NO_NAME_FOUND
+		EndIf
+	Else
+		$ret = $downRet
+	EndIf
+		Return $ret
 EndFunc
 
 ;--- Internal Used Functions ---------------------------------------------------------------
@@ -118,4 +173,41 @@ Func H2R_FilterLinks(ByRef $avToFilter, ByRef $avToStore)
 	Next
 	$avToStore = $cAv
 	Return $count
+EndFunc
+
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: H2R_DownloadUrl
+; Description ...:
+; Syntax ........: H2R_DownloadUrl($url, Byref $sRet)
+; Parameters ....: $url                 - an unknown value.
+;                  $sRet                - [in/out] a string value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func H2R_DownloadUrl($url, ByRef $sRet)
+	Local $str = ""
+	Local $ret = $API_DOWNLOAD_ERROR
+	;Download HTML from URL
+	$bytes = InetGet($url,$H2R_SiteDump,$INET_LOCALCACHE )
+	If $bytes > 0 Then
+		;Read Data from downloaded Dump
+		$str = FileRead($H2R_SiteDump)
+		If $str <> "" Then
+			$ret = $API_OK
+			$sRet = $str
+		Else
+			$sRet = ""
+			$ret = $API_DOWNLOAD_ERROR
+		EndIf
+	Else
+		$sRet = ""
+		$ret = $API_DOWNLOAD_ERROR
+	EndIf
+		Return $ret
 EndFunc

@@ -213,10 +213,15 @@ EndFunc
 
 Func AddDataToListView($sUrl,$sSettings)
 	Local $index
+	Local $sUrlName, $avUrlLinks, $iUrlLinksRet
 	If $sUrl <> "" And $sSettings <> "" Then
-		$index	= _GUICtrlListView_AddItem ($DataList, $sUrl)
-		_GUICtrlListView_AddSubItem   			($DataList, $index, " ----- ", 1 )
-		_GUICtrlListView_AddSubItem   			($DataList, $index, $sSettings       , 2 )
+;~ 		$index	= _GUICtrlListView_AddItem ($DataList, $sUrl)
+;~ 		_GUICtrlListView_AddSubItem   			($DataList, $index, " ----- ", 1 )
+;~ 		_GUICtrlListView_AddSubItem   			($DataList, $index, $sSettings       , 2 )
+		$sUrlName = GetName($sUrl)
+		$iUrlLinksRet = GetLinks($sUrl,$avUrlLinks)
+
+
 	Else
 		_GUICtrlStatusBar_SetText($StatusBar, "")
 	Endif

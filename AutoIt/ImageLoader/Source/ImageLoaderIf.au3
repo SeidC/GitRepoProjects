@@ -28,12 +28,36 @@ Global Const $sites[$NUMBER_OF_SUPPORTED_SITES] = 	[				_
 ;--- End Of Debug Section --------------------------------------------------------------
 
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: IsUrl
+; Description ...:
+; Syntax ........: IsUrl($string)
+; Parameters ....: $string              - a string value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func IsUrl($string)
 	Return StringRegExp($string,$regExp_URL,$STR_REGEXPMATCH)
 EndFunc
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: IsSiteSupported
+; Description ...:
+; Syntax ........: IsSiteSupported($url)
+; Parameters ....: $url                 - an unknown value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func IsSiteSupported($url)
 
 	Local $ret = $API_SITE_NOT_SUPPORTED
@@ -47,7 +71,19 @@ Func IsSiteSupported($url)
 EndFunc
 
 
-
+; #FUNCTION# ====================================================================================================================
+; Name ..........: GetNumberOfPics
+; Description ...:
+; Syntax ........: GetNumberOfPics($url)
+; Parameters ....: $url                 - an unknown value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func GetNumberOfPics($url)
 
 	Local $site = IsSiteSupported($url)
@@ -64,6 +100,20 @@ Func GetNumberOfPics($url)
 EndFunc
 
 
+; #FUNCTION# ====================================================================================================================
+; Name ..........: GetLinks
+; Description ...:
+; Syntax ........: GetLinks($url, Byref $avToStoreLinks)
+; Parameters ....: $url                 - an unknown value.
+;                  $avToStoreLinks      - [in/out] an array of variants.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
 Func GetLinks($url, ByRef $avToStoreLinks)
 
 	Local $site = IsSiteSupported($url)
@@ -75,6 +125,31 @@ Func GetLinks($url, ByRef $avToStoreLinks)
 		Case Else
 			$ret = $site
 	EndSwitch
+	Return $ret
+EndFunc
 
+
+; #FUNCTION# ====================================================================================================================
+; Name ..........: GetName
+; Description ...:
+; Syntax ........: GetName($url)
+; Parameters ....: $url                 - an unknown value.
+; Return values .: None
+; Author ........: Your Name
+; Modified ......:
+; Remarks .......:
+; Related .......:
+; Link ..........:
+; Example .......: No
+; ===============================================================================================================================
+Func GetName($url)
+	Local $site = IsSiteSupported($url)
+	Local $ret
+	Switch ($site)
+		Case $H2R
+			$ret = H2R_GetName($url)
+		Case Else
+			$ret = $site
+	EndSwitch
 	Return $ret
 EndFunc
