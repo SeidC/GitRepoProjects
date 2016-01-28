@@ -270,3 +270,13 @@ void Widget::clientConnected()
 
 }
 
+void Widget::clientDisconnected()
+{
+
+}
+
+void Widget::clientError(QAbstractSocket::SocketError socketError)
+{
+
+}
+
