@@ -7,15 +7,18 @@
 
 
 #include <avr/io.h>
+#include "Port.h"
 #include "Switch.h"
 #include <avr/delay.h>
 
 
-void Switch_Debug(void) ;
+
 
 
 int main(void)
 {
+    
+    
 	while(1)
     {
         
@@ -23,6 +26,10 @@ int main(void)
         //TODO:: Please write your application code 
     }
 }
+
+
+
+
 
 void Switch_Debug(void) 
 {

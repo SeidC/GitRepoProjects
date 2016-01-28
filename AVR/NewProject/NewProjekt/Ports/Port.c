@@ -25,6 +25,7 @@ void Port_InitPort(Port_UsedPort_t portToUse)
 	RESET_BITS(*ddr,0x00);
 	RESET_BITS(*pin,0x00);
 	RESET_BITS(*port,0x00);
+    return;
 }
 
 /**************************************************************************************************
