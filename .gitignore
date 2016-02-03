@@ -12,3 +12,4 @@ QT/Animations/StatesAndTransitions/build-StatesAndTransitions-Desktop_Qt_5_5_1_M
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 .gitignore.orig
+QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
