@@ -13,23 +13,34 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-            widget.cpp \
-         weather.cpp \
-        dayinfo.cpp \
-        dayinfocolumn.cpp \
-        daygraphic.cpp \
-        day.cpp
+           widget.cpp \
+           Weather/Sources/weather.cpp \
+           Weather/Sources/dayinfo.cpp \
+           Weather/Sources/DayInfoColumn/dayinfocolumn.cpp \
+           Weather/Sources/daygraphic.cpp \
+           Weather/Sources/day.cpp \
+           Weather/Sources/DayInfoColumn/raininfo.cpp \
+           Weather/Sources/DayInfoColumn/temperatureinfo.cpp \
+           Weather/Sources/DayInfoColumn/windinfo.cpp \
+           Weather/Sources/DayInfoColumn/sunshineinfo.cpp
 
 HEADERS  += widget.h \
-            weather.h \
-            dayinfo.h \
-            dayinfocolumn.h \
-            daygraphic.h \
-            day.h
+            Weather/Header/weather.h \
+            Weather/Header/dayinfo.h \
+            Weather/Header/DayInfoColumn/dayinfocolumn.h \
+            Weather/Header/daygraphic.h \
+            Weather/Header/day.h \
+            Weather/Header/DayInfoColumn/raininfo.h \
+            Weather/Header/DayInfoColumn/temperatureinfo.h \
+            Weather/Header/DayInfoColumn/windinfo.h \
+            Weather/Header/DayInfoColumn/sunshineinfo.h
 
 FORMS    += widget.ui \
-            weather.ui \
-            dayinfo.ui \
-            dayinfocolumn.ui \
-            daygraphic.ui \
-            day.ui
+            Weather/Ui/weather.ui \
+            Weather/Ui/dayinfo.ui \
+            Weather/Ui/dayinfocolumn.ui \
+            Weather/Ui/daygraphic.ui \
+            Weather/Ui/day.ui
+
+INCLUDEPATH += Weather \
+               Weather/Header/  \
