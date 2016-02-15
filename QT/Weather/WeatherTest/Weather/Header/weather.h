@@ -57,9 +57,6 @@ public:
     ~Weather();
     void requestWeather(QString url);
 
-    QWidget* getWetherObject(WeatherDayType day, WeatherGuiType type);
-    Day* getDat(WeatherDayType day);
-
 private:
     void filterWeatherData(QString data);
 

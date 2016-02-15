@@ -44,3 +44,6 @@ FORMS    += widget.ui \
 
 INCLUDEPATH += Weather \
                Weather/Header/  \
+               Weather/Sources  \
+               Weather/Header/DayInfoColumn \
+               Weather/Sources/DayInfoColumn \

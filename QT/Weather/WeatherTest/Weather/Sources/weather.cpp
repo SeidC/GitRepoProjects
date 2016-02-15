@@ -30,38 +30,6 @@ void Weather::requestWeather(QString url)
 }
 
 
-Day *Weather::getDay(Weather::WeatherDayType day)
-{
-    Day* ret = NULL;
-    switch (day) {
-    case Weather::DAY_1:
-        ret = ui->Day_1;
-        break;
-    case Weather::DAY_2:
-        ret = ui->Day_2;
-        break;
-    case Weather::DAY_3:
-        ret = ui->Day_3;
-        break;
-    case Weather::DAY_4:
-        ret = ui->Day_4;
-        break;
-    case Weather::DAY_5:
-        ret = ui->Day_5;
-        break;
-    case Weather::DAY_6:
-        ret = ui->Day_6;
-        break;
-
-    case Weather::DAY_1:
-
-        break;
-    default:
-        break;
-    }
-    return ret;
-}
-
 void Weather::filterWeatherData(QString data)
 {
     QRegularExpression regExp;
