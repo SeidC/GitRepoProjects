@@ -3,16 +3,18 @@
 
 #include <QObject>
 #include "regexp.h"
+#include "networkrequest.h"
 
 class WeatherCom : public QObject
 {
     Q_OBJECT
 public:
     explicit WeatherCom(QObject *parent = 0);
-
+    NetworkRequest* httpRequest;
 signals:
 
-public slots:
+private slots:
+
 };
 
 #endif // WEATHERCOM_H
