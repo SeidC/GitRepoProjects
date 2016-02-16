@@ -14,36 +14,41 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
            widget.cpp \
-           Weather/Sources/weather.cpp \
-           Weather/Sources/dayinfo.cpp \
-           Weather/Sources/DayInfoColumn/dayinfocolumn.cpp \
-           Weather/Sources/daygraphic.cpp \
-           Weather/Sources/day.cpp \
-           Weather/Sources/DayInfoColumn/raininfo.cpp \
-           Weather/Sources/DayInfoColumn/temperatureinfo.cpp \
-           Weather/Sources/DayInfoColumn/windinfo.cpp \
-           Weather/Sources/DayInfoColumn/sunshineinfo.cpp
+           Frontend/Sources/weather.cpp \
+           Frontend/Sources/dayinfo.cpp \
+           Frontend/Sources/DayInfoColumn/dayinfocolumn.cpp \
+           Frontend/Sources/daygraphic.cpp \
+           Frontend/Sources/day.cpp \
+           Frontend/Sources/DayInfoColumn/raininfo.cpp \
+           Frontend/Sources/DayInfoColumn/temperatureinfo.cpp \
+           Frontend/Sources/DayInfoColumn/windinfo.cpp \
+           Frontend/Sources/DayInfoColumn/sunshineinfo.cpp \
+    Backend/weathercom.cpp \
+    Backend/regexp.cpp
 
 HEADERS  += widget.h \
-            Weather/Header/weather.h \
-            Weather/Header/dayinfo.h \
-            Weather/Header/DayInfoColumn/dayinfocolumn.h \
-            Weather/Header/daygraphic.h \
-            Weather/Header/day.h \
-            Weather/Header/DayInfoColumn/raininfo.h \
-            Weather/Header/DayInfoColumn/temperatureinfo.h \
-            Weather/Header/DayInfoColumn/windinfo.h \
-            Weather/Header/DayInfoColumn/sunshineinfo.h
+            Frontend/Header/weather.h \
+            Frontend/Header/dayinfo.h \
+            Frontend/Header/DayInfoColumn/dayinfocolumn.h \
+            Frontend/Header/daygraphic.h \
+            Frontend/Header/day.h \
+            Frontend/Header/DayInfoColumn/raininfo.h \
+            Frontend/Header/DayInfoColumn/temperatureinfo.h \
+            Frontend/Header/DayInfoColumn/windinfo.h \
+            Frontend/Header/DayInfoColumn/sunshineinfo.h \
+    Backend/weathercom.h \
+    Backend/regexp.h
 
 FORMS    += widget.ui \
-            Weather/Ui/weather.ui \
-            Weather/Ui/dayinfo.ui \
-            Weather/Ui/dayinfocolumn.ui \
-            Weather/Ui/daygraphic.ui \
-            Weather/Ui/day.ui
+            Frontend/Ui/weather.ui \
+            Frontend/Ui/dayinfo.ui \
+            Frontend/Ui/dayinfocolumn.ui \
+            Frontend/Ui/daygraphic.ui \
+            Frontend/Ui/day.ui
 
-INCLUDEPATH += Weather \
-               Weather/Header/  \
-               Weather/Sources  \
-               Weather/Header/DayInfoColumn \
-               Weather/Sources/DayInfoColumn \
+INCLUDEPATH += Frontend \
+               Frontend/Header/  \
+               Frontend/Sources  \
+               Frontend/Header/DayInfoColumn \
+               Frontend/Sources/DayInfoColumn \
+               Backend \
