@@ -23,9 +23,12 @@ SOURCES += main.cpp\
            Frontend/Sources/DayInfoColumn/temperatureinfo.cpp \
            Frontend/Sources/DayInfoColumn/windinfo.cpp \
            Frontend/Sources/DayInfoColumn/sunshineinfo.cpp \
-    Backend/weathercom.cpp \
-    Backend/regexp.cpp \
-    Backend/networkrequest.cpp
+           Backend/weathercom.cpp \
+           Backend/regexp.cpp \
+           Backend/networkrequest.cpp \
+           Data/datastorage.cpp \
+    Data/rain.cpp
+
 
 HEADERS  += widget.h \
             Frontend/Header/weather.h \
@@ -37,9 +40,12 @@ HEADERS  += widget.h \
             Frontend/Header/DayInfoColumn/temperatureinfo.h \
             Frontend/Header/DayInfoColumn/windinfo.h \
             Frontend/Header/DayInfoColumn/sunshineinfo.h \
-    Backend/weathercom.h \
-    Backend/regexp.h \
-    Backend/networkrequest.h
+            Backend/weathercom.h \
+            Backend/regexp.h \
+            Backend/networkrequest.h \
+            Data/datastorage.h \
+            Data/rain.h
+
 
 FORMS    += widget.ui \
             Frontend/Ui/weather.ui \
@@ -54,3 +60,4 @@ INCLUDEPATH += Frontend \
                Frontend/Header/DayInfoColumn \
                Frontend/Sources/DayInfoColumn \
                Backend \
+               Data\

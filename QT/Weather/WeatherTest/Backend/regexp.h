@@ -12,7 +12,6 @@
 #define WEATER_WTYPE "\\>\\s*(\\w+\\s*[\\w+|\\-]+)[\\s*<\\/|\\w+|\\=\\\"\\-\\:\\;\\#\\>]+gefühlt"
 
 
-
 class RegExp : public QRegularExpression
 {
 public:
