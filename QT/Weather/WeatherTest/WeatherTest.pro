@@ -26,8 +26,8 @@ SOURCES += main.cpp\
            Backend/weathercom.cpp \
            Backend/regexp.cpp \
            Backend/networkrequest.cpp \
-           Data/datastorage.cpp \
-    Data/rain.cpp
+    Data/dataii.cpp \
+    Data/datasi.cpp
 
 
 HEADERS  += widget.h \
@@ -44,7 +44,8 @@ HEADERS  += widget.h \
             Backend/regexp.h \
             Backend/networkrequest.h \
             Data/datastorage.h \
-            Data/rain.h
+    Data/dataii.h \
+    Data/datasi.h
 
 
 FORMS    += widget.ui \

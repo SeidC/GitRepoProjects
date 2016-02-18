@@ -16,8 +16,8 @@ private:
     U p2;
 
 public:
-    void setParam(T &p) {p1 = p;}
-    void setParam(U &p) {p2 = p;}
+    void setParam1(T &p) {p1 = p;}
+    void setParam2(U &p) {p2 = p;}
 
     T getParam1(void) {return p1;}
     U getParam2(void) {return p2;}

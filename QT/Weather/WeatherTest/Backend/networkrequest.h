@@ -8,7 +8,8 @@
 class NetworkRequest : public QNetworkAccessManager
 {
 public:
-    NetworkRequest();
+    explicit NetworkRequest(QObject* parent = 0);
+    QNetworkReply* requestURL(QString url);
 };
 
 #endif // NETWORKREQUEST_H
