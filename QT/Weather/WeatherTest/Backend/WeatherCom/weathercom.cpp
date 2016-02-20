@@ -22,21 +22,14 @@ QString WeatherCom::getCity(void)
     return city;
 }
 
-WeatherCom::DownloadType WeatherCom::requestWebsite(QNetworkReply *replyRet)
+QNetworkReply * WeatherCom::requestWebsite(void)
 {
     QString url;
-    QNetworkReply* rep;
-    WeatherCom::DownloadType ret = WeatherCom::DOWNLOAD_CITY_FAILED;
-
+    QNetworkReply* ret;
     if (!getCity().isEmpty())
     {
         url = getWeatherComUrl() + getCity();
-        rep = httpRequest->requestURL(url);
-        if (replyRet != NULL)
-        {
-            replyRet = rep;
-        }
-        ret = WeatherCom::DOWNLOAD_STARTED;
+        ret = httpRequest->requestURL(url);
     }
     return ret;
 }
@@ -47,7 +40,15 @@ QString WeatherCom::getWeatherComUrl(void)
 }
 
 
-
+bool WeatherCom::isDownloadFinished(QNetworkReply* reply)
+{
+    bool status = false;
+    if (reply != NULL)
+    {
+        status = reply->isFinished();
+    }
+    return status;
+}
 
 void WeatherCom::downloadFinished(QNetworkReply *reply)
 {

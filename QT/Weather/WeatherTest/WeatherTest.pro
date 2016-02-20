@@ -23,11 +23,12 @@ SOURCES += main.cpp\
            Frontend/Sources/DayInfoColumn/temperatureinfo.cpp \
            Frontend/Sources/DayInfoColumn/windinfo.cpp \
            Frontend/Sources/DayInfoColumn/sunshineinfo.cpp \
-           Backend/weathercom.cpp \
-           Backend/regexp.cpp \
-           Backend/networkrequest.cpp \
-    Data/dataii.cpp \
-    Data/datasi.cpp
+           Backend/WeatherCom/weathercom.cpp \
+           Backend/RegExp/regexp.cpp \
+           Backend/NetworkRequest/networkrequest.cpp \
+           Data/dataii.cpp \
+           Data/datasi.cpp \
+    Backend/WeatherCom/SearchList/searchlist.cpp
 
 
 HEADERS  += widget.h \
@@ -40,12 +41,14 @@ HEADERS  += widget.h \
             Frontend/Header/DayInfoColumn/temperatureinfo.h \
             Frontend/Header/DayInfoColumn/windinfo.h \
             Frontend/Header/DayInfoColumn/sunshineinfo.h \
-            Backend/weathercom.h \
-            Backend/regexp.h \
-            Backend/networkrequest.h \
+            Backend/WeatherCom/weathercom.h \
+            Backend/RegExp/regexp.h \
+            Backend/NetworkRequest/networkrequest.h \
             Data/datastorage.h \
     Data/dataii.h \
-    Data/datasi.h
+    Data/datasi.h \
+    Backend/WeatherCom/SearchList/searchlist.h \
+    Backend/RegExp/regexpdefs.h
 
 
 FORMS    += widget.ui \
@@ -61,4 +64,8 @@ INCLUDEPATH += Frontend \
                Frontend/Header/DayInfoColumn \
                Frontend/Sources/DayInfoColumn \
                Backend \
+               Backend/WeatherCom \
+               Backend/WeatherCom/SearchList \
+               Backend/RegExp \
+               Backend/NetworkRequest \
                Data\

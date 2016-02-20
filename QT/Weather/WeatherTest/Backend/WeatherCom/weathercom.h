@@ -2,8 +2,8 @@
 #define WEATHERCOM_H
 
 #include <QObject>
-#include "regexp.h"
 #include "networkrequest.h"
+#include "searchlist.h"
 
 #define WETHER_URL "http://mobile.wetter.com/suche/?q="
 
@@ -25,7 +25,8 @@ public:
     explicit WeatherCom(QObject *parent = 0);
     void setCity(QString cityName);
     QString getCity(void);
-    WeatherCom::DownloadType requestWebsite(QNetworkReply *replyRet = NULL);
+    QNetworkReply *requestWebsite(void);
+    bool isDownloadFinished(QNetworkReply* repl);
 
 private:
     QString getWeatherComUrl(void);
