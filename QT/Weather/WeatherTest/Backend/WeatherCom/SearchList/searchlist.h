@@ -27,10 +27,9 @@ public:
     void searchNumberOfResults(QString &txt);
     void searchPlaces(QString &txt);
     void searchUrl(QString &txt);
+
     int getNumberOfResults(void);
     QStringList getPlaces(void);
-
-
     QStringList getUrl();
 
 private:

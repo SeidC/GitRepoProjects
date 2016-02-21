@@ -4,9 +4,10 @@ WeatherCom::WeatherCom(QObject *parent) : QObject(parent)
 {
 
     httpRequest = new NetworkRequest(this);
+    searchList  = new SearchList(this);
 
     connect(httpRequest,SIGNAL(finished(QNetworkReply*)),
-            this,SLOT(downloadFinished(QNetworkReply*)));
+            httpRequest,SLOT(downloadFinished(QNetworkReply*)));
 
 
 }
@@ -21,36 +22,18 @@ QString WeatherCom::getCity(void)
 {
     return city;
 }
-
-QNetworkReply * WeatherCom::requestWebsite(void)
-{
-    QString url;
-    QNetworkReply* ret;
-    if (!getCity().isEmpty())
-    {
-        url = getWeatherComUrl() + getCity();
-        ret = httpRequest->requestURL(url);
-    }
-    return ret;
-}
-
 QString WeatherCom::getWeatherComUrl(void)
 {
     return QString(WETHER_URL);
 }
 
-
-bool WeatherCom::isDownloadFinished(QNetworkReply* reply)
+QString WeatherCom::getCityUrl() const
 {
-    bool status = false;
-    if (reply != NULL)
-    {
-        status = reply->isFinished();
-    }
-    return status;
+    return cityUrl;
 }
 
-void WeatherCom::downloadFinished(QNetworkReply *reply)
+void WeatherCom::setCityUrl(const QString &value)
 {
-
+    cityUrl = value;
 }
+

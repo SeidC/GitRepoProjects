@@ -25,22 +25,19 @@ public:
     explicit WeatherCom(QObject *parent = 0);
     void setCity(QString cityName);
     QString getCity(void);
-    QNetworkReply *requestWebsite(void);
-    bool isDownloadFinished(QNetworkReply* repl);
+
+    QString getCityUrl() const;
+    void setCityUrl(const QString &value);
 
 private:
     QString getWeatherComUrl(void);
 
 private:
     NetworkRequest* httpRequest;
+    SearchList* searchList;
     QString city;
+    QString cityUrl;
 
-
-
-signals:
-
-private slots:
-    void downloadFinished(QNetworkReply* reply);
 };
 
 #endif // WEATHERCOM_H
