@@ -9,12 +9,20 @@ class NetworkRequest : public QNetworkAccessManager
 {
 public:
     explicit NetworkRequest(QObject* parent = 0);
-    QNetworkReply* requestURL(QString url);
-    QNetworkReply *requestWebsite(void);
-    bool isDownloadFinished(QNetworkReply* repl);
+    void requestWebsite(QString websiteUrl);
+    bool isDownloadFinished(void);
 
+
+private:
+
+    QNetworkReply *getRequest() const;
+    void setRequest(QNetworkReply *value);
+    void requestURL(QString url);
+
+private:
+    QNetworkReply *request;
 private slots:
-  void downloadFinished(QNetworkReply* reply);
+    void downloadFinished(QNetworkReply* reply);
 
 };
 

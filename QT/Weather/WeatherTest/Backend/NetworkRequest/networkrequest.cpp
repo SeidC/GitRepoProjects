@@ -3,30 +3,27 @@
 NetworkRequest::NetworkRequest(QObject *parent)
     : QNetworkAccessManager(parent)
 {
-
+    request = new QNetworkReply();
 }
 
-QNetworkReply *NetworkRequest::requestURL(QString url)
+void NetworkRequest::requestURL(QString url)
 {
+    QNetworkReply *req;
     QUrl qUrl(url);
-    return get(QNetworkRequest(qUrl));
+    req = get(QNetworkRequest(qUrl));
+    setRequest(req);
+    return;
 }
 
 
-QNetworkReply * NetworkRequest::requestWebsite(void)
+void NetworkRequest::requestWebsite(QString websiteUrl)
 {
-    QString url;
-    QNetworkReply* ret;
-    if (!getCity().isEmpty())
-//    {
-//        url = getWeatherComUrl() + getCity();
-//        ret = httpRequest->requestURL(url);
-//    }
-    return ret;
+
+    return;
 }
 
 
-bool NetworkRequest::isDownloadFinished(QNetworkReply* reply)
+bool NetworkRequest::isDownloadFinished(void)
 {
     bool status = false;
     if (reply != NULL)
@@ -34,6 +31,16 @@ bool NetworkRequest::isDownloadFinished(QNetworkReply* reply)
         status = reply->isFinished();
     }
     return status;
+}
+
+QNetworkReply *NetworkRequest::getRequest() const
+{
+    return request;
+}
+
+void NetworkRequest::setRequest(QNetworkReply *value)
+{
+    request = value;
 }
 
 void NetworkRequest::downloadFinished(QNetworkReply *reply)
