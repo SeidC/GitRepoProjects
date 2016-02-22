@@ -3,22 +3,33 @@
 NetworkRequest::NetworkRequest(QObject *parent)
     : QNetworkAccessManager(parent)
 {
-    request = new QNetworkReply();
+    request = NULL;
+    connect(this,SIGNAL(finished(QNetworkReply*)),SLOT(downloadFinished(QNetworkReply*)));
+
 }
 
 void NetworkRequest::requestURL(QString url)
 {
-    QNetworkReply *req;
     QUrl qUrl(url);
-    req = get(QNetworkRequest(qUrl));
-    setRequest(req);
+    get(QNetworkRequest(qUrl));
+    return;
+}
+
+QString NetworkRequest::getWebsite() const
+{
+    return website;
+}
+
+void NetworkRequest::setWebsite(const QString &value)
+{
+    website = value;
     return;
 }
 
 
 void NetworkRequest::requestWebsite(QString websiteUrl)
 {
-
+    requestURL(websiteUrl);
     return;
 }
 
@@ -26,9 +37,9 @@ void NetworkRequest::requestWebsite(QString websiteUrl)
 bool NetworkRequest::isDownloadFinished(void)
 {
     bool status = false;
-    if (reply != NULL)
+    if (getRequest() != NULL)
     {
-        status = reply->isFinished();
+        status = getRequest()->isFinished();
     }
     return status;
 }
@@ -41,9 +52,14 @@ QNetworkReply *NetworkRequest::getRequest() const
 void NetworkRequest::setRequest(QNetworkReply *value)
 {
     request = value;
+    return;
 }
 
 void NetworkRequest::downloadFinished(QNetworkReply *reply)
 {
-
+    QByteArray rawData;
+    setRequest(reply);
+    rawData = reply->readAll();
+    setWebsite(QString(rawData));
+    return;
 }

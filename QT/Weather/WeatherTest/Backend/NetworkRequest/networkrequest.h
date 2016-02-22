@@ -13,6 +13,9 @@ public:
     bool isDownloadFinished(void);
 
 
+    QString getWebsite() const;
+    void setWebsite(const QString &value);
+
 private:
 
     QNetworkReply *getRequest() const;
@@ -21,6 +24,8 @@ private:
 
 private:
     QNetworkReply *request;
+    QString website;
+
 private slots:
     void downloadFinished(QNetworkReply* reply);
 
