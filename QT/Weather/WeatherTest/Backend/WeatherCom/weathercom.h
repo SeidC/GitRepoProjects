@@ -21,6 +21,7 @@ public:
 
     }DownloadType;
 
+
 public:
     explicit WeatherCom(QObject *parent = 0);
     void setCity(QString cityName);
@@ -28,6 +29,9 @@ public:
 
     QString getCityUrl() const;
     void setCityUrl(const QString &value);
+
+    void searchCityRequest(QString &city);
+
 
 private:
     QString getWeatherComUrl(void);
@@ -37,6 +41,9 @@ private:
     SearchList* searchList;
     QString city;
     QString cityUrl;
+
+private slots:
+    void onFinishedRequest(void);
 
 };
 

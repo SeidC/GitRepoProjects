@@ -61,5 +61,6 @@ void NetworkRequest::downloadFinished(QNetworkReply *reply)
     setRequest(reply);
     rawData = reply->readAll();
     setWebsite(QString(rawData));
+    emit requestCompleted();
     return;
 }
