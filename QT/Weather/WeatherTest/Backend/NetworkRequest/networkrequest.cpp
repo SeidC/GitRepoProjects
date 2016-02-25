@@ -1,7 +1,6 @@
 #include "networkrequest.h"
 
-NetworkRequest::NetworkRequest(QObject *parent)
-    : QNetworkAccessManager(parent)
+NetworkRequest::NetworkRequest(QObject *parent) : QNetworkAccessManager(parent)
 {
     request = NULL;
     connect(this,SIGNAL(finished(QNetworkReply*)),SLOT(downloadFinished(QNetworkReply*)));
