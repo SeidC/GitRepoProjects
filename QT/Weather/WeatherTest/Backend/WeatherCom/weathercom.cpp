@@ -42,9 +42,9 @@ void WeatherCom::setCityUrl(const QString &value)
     cityUrl = value;
 }
 
-void WeatherCom::searchCityRequest(QString &city)
+void WeatherCom::searchCitys(void)
 {
-    QString url = getWeatherComUrl() + city;
+    QString url = getWeatherComUrl() + getCity();
     httpRequest->requestWebsite(url);
 }
 

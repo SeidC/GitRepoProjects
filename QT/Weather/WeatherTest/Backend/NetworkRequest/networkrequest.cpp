@@ -25,9 +25,25 @@ void NetworkRequest::setWebsite(const QString &value)
     return;
 }
 
-
-void NetworkRequest::requestWebsite(QString websiteUrl)
+RequestType NetworkRequest::getCurrentRequest() const
 {
+    return currentRequest;
+}
+
+void NetworkRequest::setCurrentRequest(const RequestType &value)
+{
+    currentRequest = value;
+}
+
+void NetworkRequest::resetCurrentRequest()
+{
+    currentRequest = NetworkRequest::REQUEST_NOT_AVAILABLE;
+}
+
+
+void NetworkRequest::requestWebsite(NetworkRequest::RequestType type,QString websiteUrl)
+{
+    setRequest(type);
     requestURL(websiteUrl);
     return;
 }
@@ -60,6 +76,7 @@ void NetworkRequest::downloadFinished(QNetworkReply *reply)
     setRequest(reply);
     rawData = reply->readAll();
     setWebsite(QString(rawData));
-    emit requestCompleted();
+    emit requestCompleted(getCurrentRequest());
+    resetCurrentRequest();
     return;
 }
