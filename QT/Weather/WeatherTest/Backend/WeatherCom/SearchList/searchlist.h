@@ -9,6 +9,26 @@
 #define P_POS 0
 #define U_POS 1
 
+
+class City
+{
+public:
+    City(QString sCity, QString sUrl) {city = sCity; url = sUrl;}
+
+    QString getCity() const;
+    void setCity(const QString &value);
+
+    QString getUrl() const;
+    void setUrl(const QString &value);
+
+private:
+    QString city;
+    QString url;
+
+};
+
+typedef QList<City> QCityList;
+
 class SearchList : public QObject
 {
     Q_OBJECT
@@ -23,23 +43,19 @@ private:
 public:
     explicit SearchList(QObject *parent = 0);
 
-
-    void searchNumberOfResults(QString &txt);
-    void searchPlaces(QString &txt);
-    void searchUrl(QString &txt);
+    void searchCitys(QString strToFilter);
 
     int getNumberOfResults(void);
-    QStringList getPlaces(void);
-    QStringList getUrl();
+    QCityList *getCitys(void);
 
 private:
     int numberOfResults;
-    QStringList places;
-    QStringList url;
+    QCityList* cityList;
+
 
 private:
-    int search(QString &txt);
-    QStringList search(QString &txt, SearchType type);
+    int search(QString &txt, Pattern pattern);
+    QCityList *search(QString &txt, Pattern &pattern);
 
 signals:
 

@@ -47,7 +47,7 @@ private:
     RequestType currentRequest;
 
 Q_SIGNALS:
-    void requestCompleted(RequestType type);
+    void requestCompleted(NetworkRequest::RequestType type);
 
 private Q_SLOTS:
     void downloadFinished(QNetworkReply* reply);

@@ -26,15 +26,10 @@ public:
 public:
     explicit WeatherCom(QObject *parent = 0);
     void setCity(QString cityName);
-
-    QString getCity(void);
-    QString getCityUrl() const;
-
-private:
-    void setCityUrl(const QString &value);
-
     void searchCity(QString &city);
 
+
+private:
 
 private:
     QString getWeatherComUrl(void);
@@ -42,11 +37,10 @@ private:
 private:
     NetworkRequest* httpRequest;
     SearchList* searchList;
-    QString city;
-    QString cityUrl;
+    QCityList*  cityList;
 
 private slots:
-    void onFinishedRequest(void);
+    void onFinishedRequest(NetworkRequest::RequestType type);
 
 };
 

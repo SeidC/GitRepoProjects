@@ -28,7 +28,8 @@ SOURCES += main.cpp\
            Backend/NetworkRequest/networkrequest.cpp \
            Data/dataii.cpp \
            Data/datasi.cpp \
-    Backend/WeatherCom/SearchList/searchlist.cpp
+    Backend/WeatherCom/SearchList/searchlist.cpp \
+    Backend/RegExp/regexpdefs.cpp
 
 
 HEADERS  += widget.h \

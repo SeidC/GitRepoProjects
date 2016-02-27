@@ -1,45 +1,54 @@
 #include "searchlist.h"
+#include <QDebug>
 
+/*******************************************************************************
+ * SearchList
+ ******************************************************************************/
 SearchList::SearchList(QObject *parent) : QObject(parent)
 {
-
+    cityList = new QCityList();
 }
 
-void SearchList::searchNumberOfResults(QString &txt)
+/*******************************************************************************
+ * void searchCitys
+ ******************************************************************************/
+void SearchList::searchCitys(QString strToFilter)
 {
-    numberOfResults = search(txt);
+    QCityList lst = search(strToFilter,CityAndUrl);
+    int size      = search(strToFilter,Count);
+
+    numberOfResults = size;
+    for(int i = 0; i < size; i++)
+    {
+        cityList->push_back(City(places.at(i),url.at(i)));
+    }
+
     return;
 }
 
-void SearchList::searchPlaces(QString &txt)
-{
-    places = search(txt,SearchList::SEARCH_PLACES);
-}
-
-void SearchList::searchUrl(QString &txt)
-{
-    url = search(txt,SearchList::SEARCH_URLS);
-}
-
+/*******************************************************************************
+ * int getNumberOfResults()
+ ******************************************************************************/
 int SearchList::getNumberOfResults()
 {
     return numberOfResults;
 }
 
-QStringList SearchList::getPlaces()
+/*******************************************************************************
+ * QCityList getCitys()
+ ******************************************************************************/
+QCityList *SearchList::getCitys()
 {
-    return places;
+    return cityList;
 }
 
-QStringList SearchList::getUrl()
+/*******************************************************************************
+ * int search()
+ ******************************************************************************/
+int SearchList:: search(QString &txt,Pattern pattern)
 {
-    return url;
-}
-
-int SearchList::search(QString &txt)
-{
-    RegExp reg(QString(SEARCH_LIST_RESULT_COUNT));
-    QStringList lst = reg.findRegExp(txt);
+    RegExp reg;
+    QStringList lst = reg.findRegExp(txt,pattern);
     QString str;
     int ret;
     if(lst.size() == 1)
@@ -50,30 +59,13 @@ int SearchList::search(QString &txt)
     return ret;
 }
 
-QStringList SearchList::search(QString &txt,SearchList::SearchType type)
+/*******************************************************************************
+ * QCityList search()
+ ******************************************************************************/
+QCityList SearchList::search(QString &txt,Pattern &pattern)
 {
-    RegExp reg(QString(SEARCH_LIST_PLACES_AND_URL));
-    QStringList lst = reg.findRegExp(txt);
-    QStringList ret;
-    int pos;
-    if (type == SearchList::SEARCH_PLACES)
-    {
-        pos = P_POS;
-    }
-    else if (type == SearchList::SEARCH_URLS)
-    {
-        pos = U_POS;
-    }
-
-    for (int i = pos; i < lst.size(); i+= 2)
-    {
-        ret.push_back(lst.at(i));
-    }
+    RegExp reg;
+    QCityList cityLst;
+    QStringList lst = reg.findRegExp(txt,pattern);
     return ret;
 }
-
-
-
-
-
-

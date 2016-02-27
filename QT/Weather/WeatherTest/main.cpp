@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
     //Widget w;
     //w.show();
     WeatherCom weather;
-    QString city("Ingolstadt");
+    QString city("A");
 
-    weather.searchCityRequest(city);
+    weather.searchCity(city);
 
 
     return a.exec();

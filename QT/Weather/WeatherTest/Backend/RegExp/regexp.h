@@ -11,7 +11,7 @@ class RegExp : public QRegularExpression
 public:
     RegExp();
     RegExp(QString pattern);
-    QStringList findRegExp(QString &txt);
+    QStringList findRegExp(QString &txt, Pattern &pattern);
 
 };
 

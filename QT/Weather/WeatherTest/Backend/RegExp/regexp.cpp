@@ -1,4 +1,5 @@
 #include "regexp.h"
+#include <QDebug>
 
 RegExp::RegExp()
 {
@@ -10,14 +11,24 @@ RegExp::RegExp(QString pattern)
     setPattern(pattern);
 }
 
-QStringList RegExp::findRegExp(QString &txt)
+
+QStringList RegExp::findRegExp(QString &txt,Pattern &pattern)
 {
     QStringList ret;
-    QRegularExpressionMatchIterator iter = globalMatch(txt);
+    QRegularExpressionMatch match;
+    QRegularExpressionMatchIterator iter;
+
+    this->setPattern(pattern.getPattern());
+    this->setPatternOptions(QRegularExpression::MultilineOption);
+    iter = this->globalMatch(txt,0,QRegularExpression::PartialPreferCompleteMatch);
 
     while (iter.hasNext())
     {
-        ret.push_back(iter.next().captured());
+        match = iter.next();
+        for(int i = 1; i < pattern.getMatches() + 1; i++)
+        {
+            ret.push_back(match.captured(i));
+        }
     }
     return ret;
 }

@@ -1,36 +1,77 @@
 #ifndef REGEXPDEFS_H
 #define REGEXPDEFS_H
+#include <QString>
+
 
 /**
- *
+ * @brief The Pattern class
  */
-#define WEATHER_TEMP "\\s*([-]?\\d+)\\s*\\/\\s*\\<.*\\>([-]?\\d+)\\s*°C"
+class Pattern
+{
+
+public:
+    /**
+     * @brief Pattern
+     * @param sPattern
+     * @param iMatches
+     */
+    Pattern(QString sPattern, int iMatches)
+                {
+                        pattern = sPattern;
+                        matches = iMatches;
+                }
+    /**
+     * @brief getPattern
+     * @return
+     */
+    QString getPattern() const;
+    /**
+     * @brief getMatches
+     * @return
+     */
+    int getMatches() const;
+
+
+private:
+    /**
+     * @brief pattern
+     */
+    QString pattern;
+    /**
+     * @brief matches
+     */
+    int matches;
+
+};
 
 /**
- *
+ * @brief WeatherTemp
  */
-#define WEATHER_DAY_DATE "\\>(\\s*\\w+)\\<.*\\>\\s*(\\d+\\.\\d+\\.\\d+)"
-
+extern Pattern WeatherTemp;
 /**
- *
+ * @brief WeatherDay
  */
-#define WEATHER_SUNNSHINE "\\>\\w+\\:\\s+(\\d*[\\.\\d*]*)\\s+\\w\\<.*\\>(\\d*\\:\\d*)<.*>(\\d*\\:\\d*)"
-
+extern Pattern WeatherDay;
 /**
- *
+ * @brief WeatherSunshine
  */
-#define WEATHER_WIND ">(\\w+\\-*\\w+)\\<.*\\s*\\>\\s*\\<.*\\>(\\d+\\s+[\\w+|\\/]+)"
-
+extern Pattern WeatherSunshine;
 /**
- *
+ * @brief WeatherWind
  */
-#define WEATER_WTYPE "\\>\\s*(\\w+\\s*[\\w+|\\-]+)[\\s*<\\/|\\w+|\\=\\\"\\-\\:\\;\\#\\>]+gefühlt"
-
+extern Pattern WeatherWind;
 /**
- *
+ * @brief WeatherType
  */
-#define SEARCH_LIST_RESULT_COUNT "\\<.*resultcount.*\\d"
+extern Pattern WeatherType;
+/**
+ * @brief CityAndUrl
+ */
+extern Pattern CityAndUrl;
+/**
+ * @brief Count
+ */
+extern Pattern Count;
 
-#define SEARCH_LIST_PLACES_AND_URL "\\<.*resultcity.*\\s*.*.href\\=\\\"(.*)\\\"\\>\\s*(.*)\\<\\/a\\>"
 
 #endif // REGEXPDEFS_H

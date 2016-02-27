@@ -25,7 +25,7 @@ void NetworkRequest::setWebsite(const QString &value)
     return;
 }
 
-RequestType NetworkRequest::getCurrentRequest() const
+NetworkRequest::RequestType NetworkRequest::getCurrentRequest() const
 {
     return currentRequest;
 }
@@ -43,7 +43,7 @@ void NetworkRequest::resetCurrentRequest()
 
 void NetworkRequest::requestWebsite(NetworkRequest::RequestType type,QString websiteUrl)
 {
-    setRequest(type);
+    setCurrentRequest(type);
     requestURL(websiteUrl);
     return;
 }
