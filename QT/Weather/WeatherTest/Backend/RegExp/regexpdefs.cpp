@@ -45,8 +45,6 @@ Pattern CityAndUrl(QString(SEARCH_LIST_PLACES_AND_URL),2);
 Pattern Count(QString(SEARCH_LIST_RESULT_COUNT),1);
 
 
-
-
 /*******************************************************************************
  * QString getPattern
  ******************************************************************************/
@@ -54,8 +52,6 @@ QString Pattern::getPattern() const
 {
     return pattern;
 }
-
-
 
 /*******************************************************************************
  * int getMatches
@@ -65,7 +61,3 @@ int Pattern::getMatches() const
     return matches;
 }
 
-int Pattern::getStart() const
-{
-    return start;
-}

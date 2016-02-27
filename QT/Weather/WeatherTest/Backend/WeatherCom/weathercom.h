@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include "networkrequest.h"
-#include "searchlist.h"
+#include "search.h"
 
 #define WETHER_URL "http://mobile.wetter.com/suche/?q="
 
@@ -36,7 +36,7 @@ private:
 
 private:
     NetworkRequest* httpRequest;
-    SearchList* searchList;
+    Search* search;
     QCityList*  cityList;
 
 private slots:

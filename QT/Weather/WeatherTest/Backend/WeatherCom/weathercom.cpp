@@ -4,7 +4,7 @@ WeatherCom::WeatherCom(QObject *parent) : QObject(parent)
 {
 
     httpRequest = new NetworkRequest(this);
-    searchList  = new SearchList(this);
+    search      = new Search(this);
 
     connect(httpRequest,SIGNAL(requestCompleted(NetworkRequest::RequestType)),
             this,SLOT(onFinishedRequest(NetworkRequest::RequestType)));
@@ -26,8 +26,8 @@ void WeatherCom::onFinishedRequest(NetworkRequest::RequestType type)
     {
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
-            searchList->searchCitys(web);
-            cityList = searchList->getCitys();
+            search->searchCitys(web);
+            cityList = search->getCitys();
         break;
         case NetworkRequest::REQUEST_WEATHER:
 

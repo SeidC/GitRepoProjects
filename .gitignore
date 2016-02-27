@@ -19,3 +19,4 @@ QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/TcpServerClient/TcpServerClient/TcpServerClient.pro.user.22d566c
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Release/
+QT/Weather/WeatherTest/Backend/WeatherCom/Search/searchlist.cpp.autosave

@@ -1,10 +1,11 @@
-#include "searchlist.h"
+#include "Search.h"
+#include "regexp.h"
 #include <QDebug>
 
 /*******************************************************************************
- * SearchList
+ * Search
  ******************************************************************************/
-SearchList::SearchList(QObject *parent) : QObject(parent)
+Search::Search(QObject *parent) : QObject(parent)
 {
     cityList = new QCityList();
 }
@@ -12,60 +13,47 @@ SearchList::SearchList(QObject *parent) : QObject(parent)
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
-void SearchList::searchCitys(QString strToFilter)
+void Search::searchCitys(QString strToFilter)
 {
-    QCityList lst = search(strToFilter,CityAndUrl);
-    int size      = search(strToFilter,Count);
+    QStringList lst = search(strToFilter,CityAndUrl);
 
-    numberOfResults = size;
     for(int i = 0; i < size; i++)
     {
-        cityList->push_back(City(places.at(i),url.at(i)));
-    }
 
+    }
     return;
 }
 
 /*******************************************************************************
  * int getNumberOfResults()
  ******************************************************************************/
-int SearchList::getNumberOfResults()
+void Search::searchResults(QString strToFilter)
 {
-    return numberOfResults;
+    QStringList = search(strToFilter,Count);
+    return;
 }
 
 /*******************************************************************************
  * QCityList getCitys()
  ******************************************************************************/
-QCityList *SearchList::getCitys()
+QCityList *Search::getCitys()
 {
     return cityList;
 }
 
 /*******************************************************************************
- * int search()
+ * QResultListt getCityResults()
  ******************************************************************************/
-int SearchList:: search(QString &txt,Pattern pattern)
+QResultList *Search::getCityResults() const
 {
-    RegExp reg;
-    QStringList lst = reg.findRegExp(txt,pattern);
-    QString str;
-    int ret;
-    if(lst.size() == 1)
-    {
-        str = lst.at(NR_POS).toInt();
-        ret = str.toInt();
-    }
-    return ret;
+    return cityResults;
 }
 
 /*******************************************************************************
  * QCityList search()
  ******************************************************************************/
-QCityList SearchList::search(QString &txt,Pattern &pattern)
+QStringList Search::search(QString &txt,Pattern &pattern)
 {
     RegExp reg;
-    QCityList cityLst;
-    QStringList lst = reg.findRegExp(txt,pattern);
-    return ret;
+    return reg.findRegExp(txt,pattern);
 }
