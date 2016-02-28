@@ -37,7 +37,6 @@ private:
 private:
     NetworkRequest* httpRequest;
     Search* search;
-    QCityList*  cityList;
 
 private slots:
     void onFinishedRequest(NetworkRequest::RequestType type);

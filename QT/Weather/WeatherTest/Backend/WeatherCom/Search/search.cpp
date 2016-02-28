@@ -7,7 +7,7 @@
  ******************************************************************************/
 Search::Search(QObject *parent) : QObject(parent)
 {
-    cityList = new QCityList();
+    cityRequest = new CityRequest(this);
 }
 
 /*******************************************************************************
@@ -17,40 +17,31 @@ void Search::searchCitys(QString strToFilter)
 {
     QStringList lst = search(strToFilter,CityAndUrl);
 
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < lst.size(); i+= CityAndUrl.getMatches())
     {
-
+        cityRequest->add(lst.at(i+1),lst.at(i));
     }
     return;
 }
 
 /*******************************************************************************
- * int getNumberOfResults()
+ * void searchResults()
  ******************************************************************************/
 void Search::searchResults(QString strToFilter)
 {
-    QStringList = search(strToFilter,Count);
+    QStringList lst = search(strToFilter,Count);
+    for(int i = 0; i < lst.size();i+= Count.getMatches() )
+    {
+        QString size(lst.at(i));
+        QString txt(lst.at(i+1));
+        cityRequest->add(size.toInt(),txt);
+    }
     return;
 }
 
-/*******************************************************************************
- * QCityList getCitys()
- ******************************************************************************/
-QCityList *Search::getCitys()
-{
-    return cityList;
-}
 
 /*******************************************************************************
- * QResultListt getCityResults()
- ******************************************************************************/
-QResultList *Search::getCityResults() const
-{
-    return cityResults;
-}
-
-/*******************************************************************************
- * QCityList search()
+ * QStringList search()
  ******************************************************************************/
 QStringList Search::search(QString &txt,Pattern &pattern)
 {

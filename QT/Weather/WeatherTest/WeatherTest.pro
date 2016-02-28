@@ -27,7 +27,10 @@ SOURCES += main.cpp\
            Backend/RegExp/regexp.cpp \
            Backend/NetworkRequest/networkrequest.cpp \
            Backend/RegExp/regexpdefs.cpp \
-           Backend/WeatherCom/Search/search.cpp
+           Backend/WeatherCom/Search/search.cpp \
+           Backend/WeatherCom/Search/CityRequest/city.cpp \
+           Backend/WeatherCom/Search/CityRequest/cityrequest.cpp \
+           Backend/WeatherCom/Search/CityRequest/result.cpp
 
 
 HEADERS  += widget.h \
@@ -46,7 +49,9 @@ HEADERS  += widget.h \
             Data/datastorage.h \
             Backend/RegExp/regexpdefs.h \
             Backend/WeatherCom/Search/search.h \
-            Backend/WeatherCom/Search/searchtypes.h
+            Backend/WeatherCom/Search/CityRequest/city.h \
+            Backend/WeatherCom/Search/CityRequest/cityrequest.h \
+            Backend/WeatherCom/Search/CityRequest/result.h
 
 
 FORMS    += widget.ui \
@@ -64,6 +69,7 @@ INCLUDEPATH += Frontend \
                Backend \
                Backend/WeatherCom \
                Backend/WeatherCom/Search \
+               Backend/WeatherCom/Search/CityRequest/ \
                Backend/RegExp \
                Backend/NetworkRequest \
 

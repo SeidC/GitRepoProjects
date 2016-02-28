@@ -2,7 +2,8 @@
 #define SEARCH_H
 
 #include <QObject>
-#include "searchtypes.h"
+#include "regexpdefs.h"
+#include "cityrequest.h"
 
 
 
@@ -19,13 +20,8 @@ public:
     void searchCitys(QString strToFilter);
     void searchResults(QString strToFilter);
 
-
-    QCityList *getCitys(void);
-    QResultList *getCityResults() const;
-
 private:
-    QResultList *cityResults;
-    QCityList *cityList;
+    CityRequest *cityRequest;
 
 
 private:
