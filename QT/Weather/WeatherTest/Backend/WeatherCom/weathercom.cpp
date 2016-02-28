@@ -38,7 +38,7 @@ void WeatherCom::onFinishedRequest(NetworkRequest::RequestType type)
 }
 
 
-void WeatherCom::searchCity(QString &city)
+void WeatherCom::cityRequest(QString &city)
 {
     QString url = getWeatherComUrl() + city;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_CITY,url);

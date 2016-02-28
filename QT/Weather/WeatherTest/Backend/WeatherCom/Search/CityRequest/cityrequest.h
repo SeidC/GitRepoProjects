@@ -18,10 +18,10 @@ public:
     CitiRequest();
 
     QResultList getCityResults() const;
-    void setCityResults(QResultList *value);
+    void setCityResults(QResultList value);
 
     QCityList getCityList() const;
-    void setCityList(QCityList *value);
+    void setCityList(QCityList value);
 
     void add(QString city, QString url);
     void add(int size, QString txt);

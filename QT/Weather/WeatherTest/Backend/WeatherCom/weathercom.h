@@ -26,7 +26,7 @@ public:
 public:
     explicit WeatherCom(QObject *parent = 0);
     void setCity(QString cityName);
-    void searchCity(QString &city);
+    void cityRequest(QString &city);
 
 
 private:

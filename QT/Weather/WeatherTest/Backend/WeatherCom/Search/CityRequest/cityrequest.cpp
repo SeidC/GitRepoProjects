@@ -20,7 +20,7 @@ QResultList CityRequest::getCityResults() const
 /*******************************************************************************
  * void setCityResults
  ******************************************************************************/
-void CityRequest::setCityResults(QResultList *value)
+void CityRequest::setCityResults(QResultList value)
 {
     cityResults = value;
     return;
@@ -37,7 +37,7 @@ QCityList CityRequest::getCityList() const
 /*******************************************************************************
  * void setCityList()
  ******************************************************************************/
-void CityRequest::setCityList(QCityList *value)
+void CityRequest::setCityList(QCityList value)
 {
     cityList = value;
     return;
@@ -48,7 +48,7 @@ void CityRequest::setCityList(QCityList *value)
  ******************************************************************************/
 void CityRequest::add(QString city, QString url)
 {
-    cityList->push_back(City(city,url));
+    cityList.push_back(City(city,url));
 }
 
 /*******************************************************************************
@@ -56,6 +56,6 @@ void CityRequest::add(QString city, QString url)
  ******************************************************************************/
 void CityRequest::add(int size, QString txt)
 {
-    cityResults->push_back(Result(size,txt));
+    cityResults.push_back(Result(size,txt));
 }
 

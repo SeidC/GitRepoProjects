@@ -46,7 +46,7 @@ void Search::makeCityRequest(QString websiteToSearch)
 {
     newCityRequest();
     searchResults(websiteToSearch);
-    searchCitys(website);
+    searchCitys(websiteToSearch);
     return;
 }
 

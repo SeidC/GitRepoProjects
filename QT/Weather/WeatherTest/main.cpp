@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     WeatherCom weather;
     QString city("A");
 
-    weather.searchCity(city);
+    weather.cityRequest(city);
 
 
     return a.exec();

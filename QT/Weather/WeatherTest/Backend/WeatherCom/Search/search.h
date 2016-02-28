@@ -81,8 +81,6 @@ private:
      * be deleted.
      */
     void newCityRequest(void);
-
-
 signals:
 
 public slots:
