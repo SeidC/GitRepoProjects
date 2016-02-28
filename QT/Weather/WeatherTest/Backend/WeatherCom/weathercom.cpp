@@ -26,8 +26,8 @@ void WeatherCom::onFinishedRequest(NetworkRequest::RequestType type)
     {
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
-            search->searchCitys(web);
-
+            search->makeCityRequest(web);
+            search->getCityRequest();
         break;
         case NetworkRequest::REQUEST_WEATHER:
 

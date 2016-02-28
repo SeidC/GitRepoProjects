@@ -7,15 +7,15 @@
  ******************************************************************************/
 Search::Search(QObject *parent) : QObject(parent)
 {
-    cityRequest = new CityRequest(this);
+    cityRequest = NULL;
 }
 
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
-void Search::searchCitys(QString strToFilter)
+void Search::searchCitys(QString websiteToSearch)
 {
-    QStringList lst = search(strToFilter,CityAndUrl);
+    QStringList lst = search(websiteToSearch,CityAndUrl);
 
     for(int i = 0; i < lst.size(); i+= CityAndUrl.getMatches())
     {
@@ -27,15 +27,45 @@ void Search::searchCitys(QString strToFilter)
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchResults(QString strToFilter)
+void Search::searchResults(QString websiteToSearch)
 {
-    QStringList lst = search(strToFilter,Count);
+    QStringList lst = search(websiteToSearch,Count);
     for(int i = 0; i < lst.size();i+= Count.getMatches() )
     {
         QString size(lst.at(i));
         QString txt(lst.at(i+1));
         cityRequest->add(size.toInt(),txt);
     }
+    return;
+}
+
+/*******************************************************************************
+ * void makeCityRequest()
+ ******************************************************************************/
+void Search::makeCityRequest(QString websiteToSearch)
+{
+    newCityRequest();
+    searchResults(websiteToSearch);
+    searchCitys(website);
+    return;
+}
+
+CityRequest *Search::getCityRequest(void) const
+{
+    return cityRequest;
+}
+
+/*******************************************************************************
+ * void newCityRequest()
+ ******************************************************************************/
+void Search::newCityRequest()
+{
+    if (cityRequest != NULL)
+    {
+        delete cityRequest;
+    }
+
+    cityRequest = new CityRequest(this);
     return;
 }
 

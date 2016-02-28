@@ -17,10 +17,10 @@ public:
     explicit CityRequest(QObject *parent = 0);
     CitiRequest();
 
-    QResultList *getCityResults() const;
+    QResultList getCityResults() const;
     void setCityResults(QResultList *value);
 
-    QCityList *getCityList() const;
+    QCityList getCityList() const;
     void setCityList(QCityList *value);
 
     void add(QString city, QString url);
@@ -28,8 +28,8 @@ public:
 
 
 private:
-    QResultList *cityResults;
-    QCityList   *cityList;
+    QResultList cityResults;
+    QCityList   cityList;
 };
 
 #endif // CITYREQUEST_H

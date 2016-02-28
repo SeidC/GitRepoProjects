@@ -6,14 +6,13 @@
  ******************************************************************************/
 CityRequest::CityRequest(QObject *parent) : QObject(parent)
 {
-    cityList    = new QCityList();
-    cityResults = new QResultList();
+
 }
 
 /*******************************************************************************
  * QResultList getCityResults
  ******************************************************************************/
-QResultList *CityRequest::getCityResults() const
+QResultList CityRequest::getCityResults() const
 {
     return cityResults;
 }
@@ -30,7 +29,7 @@ void CityRequest::setCityResults(QResultList *value)
 /*******************************************************************************
  * QCityList getCityList
  ******************************************************************************/
-QCityList *CityRequest::getCityList() const
+QCityList CityRequest::getCityList() const
 {
     return cityList;
 }
