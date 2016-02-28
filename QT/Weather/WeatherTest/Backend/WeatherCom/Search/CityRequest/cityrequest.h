@@ -7,8 +7,8 @@
 #include "result.h"
 
 
-typedef QList<City> QCityList;
-typedef QList<Result> QResultList;
+typedef QList<City*> QCityList;
+typedef QList<Result*> QResultList;
 
 
 class CityRequest : public QObject
