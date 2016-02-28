@@ -64,7 +64,6 @@ void Search::newCityRequest()
     {
         delete cityRequest;
     }
-
     cityRequest = new CityRequest(this);
     return;
 }
