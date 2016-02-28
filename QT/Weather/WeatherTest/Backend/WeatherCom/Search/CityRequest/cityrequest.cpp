@@ -48,7 +48,7 @@ void CityRequest::setCityList(QCityList value)
  ******************************************************************************/
 void CityRequest::add(QString city, QString url)
 {
-    cityList.push_back(City(city,url));
+    cityList.push_back(new City(city,url));
 }
 
 /*******************************************************************************
@@ -56,6 +56,6 @@ void CityRequest::add(QString city, QString url)
  ******************************************************************************/
 void CityRequest::add(int size, QString txt)
 {
-    cityResults.push_back(Result(size,txt));
+    cityResults.push_back(new Result(size,txt));
 }
 

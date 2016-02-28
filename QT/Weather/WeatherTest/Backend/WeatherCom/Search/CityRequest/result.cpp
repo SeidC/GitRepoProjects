@@ -13,7 +13,7 @@ Result::Result(QObject *parent)
 /*******************************************************************************
  * Result
  ******************************************************************************/
-Result(int sSize,QString sTxt, QObject *parent)
+Result::Result(int sSize,QString sTxt, QObject *parent)
     : QObject(parent)
 {
     txt  = sTxt;
