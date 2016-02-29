@@ -9,7 +9,7 @@ Widget::Widget(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    ui->weather->requestWeather(URL);
+
 
 
 }

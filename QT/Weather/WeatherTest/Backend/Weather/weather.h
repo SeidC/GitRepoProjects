@@ -1,5 +1,5 @@
-#ifndef WEATHERCOM_H
-#define WEATHERCOM_H
+#ifndef WEATHER_H
+#define WEATHER_H
 
 #include <QObject>
 #include "networkrequest.h"
@@ -8,7 +8,7 @@
 #define WETHER_URL "http://mobile.wetter.com/suche/?q="
 
 
-class WeatherCom : public QObject
+class Weather : public QObject
 {
     Q_OBJECT
 public:
@@ -24,7 +24,7 @@ public:
 
 
 public:
-    explicit WeatherCom(QObject *parent = 0);
+    explicit Weather(QObject *parent = 0);
     void setCity(QString cityName);
     void cityRequest(QString &city);
 
@@ -32,7 +32,7 @@ public:
 private:
 
 private:
-    QString getWeatherComUrl(void);
+    QString getWeatherUrl(void);
 
 private:
     NetworkRequest* httpRequest;
@@ -43,4 +43,4 @@ private slots:
 
 };
 
-#endif // WEATHERCOM_H
+#endif // WEATHER_H

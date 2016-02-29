@@ -7,27 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>660</width>
-    <height>482</height>
+    <height>234</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="Weather" name="weather" native="true"/>
-   </item>
-  </layout>
+  <layout class="QGridLayout" name="gridLayout"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>Weather</class>
-   <extends>QWidget</extends>
-   <header location="global">weather.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

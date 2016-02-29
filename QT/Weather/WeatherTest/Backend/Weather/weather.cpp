@@ -1,6 +1,6 @@
-#include "weathercom.h"
+#include "weather.h"
 
-WeatherCom::WeatherCom(QObject *parent) : QObject(parent)
+Weather::Weather(QObject *parent) : QObject(parent)
 {
 
     httpRequest = new NetworkRequest(this);
@@ -13,12 +13,12 @@ WeatherCom::WeatherCom(QObject *parent) : QObject(parent)
 }
 
 
-QString WeatherCom::getWeatherComUrl(void)
+QString Weather::getWeatherUrl(void)
 {
     return QString(WETHER_URL);
 }
 
-void WeatherCom::onFinishedRequest(NetworkRequest::RequestType type)
+void Weather::onFinishedRequest(NetworkRequest::RequestType type)
 {
     QString web;
 
@@ -38,9 +38,9 @@ void WeatherCom::onFinishedRequest(NetworkRequest::RequestType type)
 }
 
 
-void WeatherCom::cityRequest(QString &city)
+void Weather::cityRequest(QString &city)
 {
-    QString url = getWeatherComUrl() + city;
+    QString url = getWeatherUrl() + city;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_CITY,url);
 }
 
