@@ -4,6 +4,7 @@
 #include <QObject>
 #include "regexpdefs.h"
 #include "cityrequest.h"
+#include "weatherforecast.h"
 
 
 
@@ -23,6 +24,7 @@ public:
      */
     explicit Search(QObject *parent = 0);
 
+
     /**
      * @brief searchCitys
      * @param websiteToSearch Website which should be searched
@@ -39,6 +41,14 @@ public:
      * Results are number of found citys in of different countrys.
      */
     void searchResults(QString websiteToSearch);
+
+    void searchRain(QString websiteToSerach);
+
+    void searchTemperature(QString websiteToSearch);
+
+    void searchSunshine(QString websiteToSearch);
+
+    void searchWind(QString websiteToSearch);
     /**
      * @brief makeCityRequest
      * @param websiteToSearch
@@ -62,6 +72,11 @@ private:
      * @brief cityRequest
      */
     CityRequest *cityRequest;
+    /**
+     * @brief weatherForecast
+     */
+    WeatherForecast *weatherForecast;
+
 
 
 private:

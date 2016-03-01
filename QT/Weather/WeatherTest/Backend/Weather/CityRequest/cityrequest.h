@@ -18,6 +18,11 @@ public:
      * @param parent
      */
     explicit CityRequest(QObject *parent = 0);
+
+    /**
+     *
+     */
+    ~CityRequest();
     /**
      * @brief getCityResults
      * @return
@@ -50,6 +55,20 @@ public:
      * @param txt
      */
     void add(int size, QString txt);
+
+    /**
+     * @brief deleteEntries
+     */
+    void deleteEntries(void);
+private:
+    /**
+     * @brief deleteResults
+     */
+    void deleteResults(void);
+    /**
+     * @brief deleteCitys
+     */
+    void deleteCitys(void);
 private:
     /**
      * @brief cityResults

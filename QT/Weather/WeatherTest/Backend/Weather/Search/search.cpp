@@ -10,6 +10,7 @@ Search::Search(QObject *parent) : QObject(parent)
     cityRequest = NULL;
 }
 
+
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
@@ -40,6 +41,38 @@ void Search::searchResults(QString websiteToSearch)
 }
 
 /*******************************************************************************
+ * void searchResults()
+ ******************************************************************************/
+void Search::searchRain(QString websiteToSerach)
+{
+    QStringList lst = search(websiteToSerach, WeatherType);
+}
+
+/*******************************************************************************
+ * void searchResults()
+ ******************************************************************************/
+void Search::searchTemperature(QString websiteToSearch)
+{
+     QStringList lst = search(websiteToSearch, WeatherTemp);
+}
+
+/*******************************************************************************
+ * void searchResults()
+ ******************************************************************************/
+void Search::searchSunshine(QString websiteToSearch)
+{
+     QStringList lst = search(websiteToSearch, WeatherSunshine);
+}
+
+/*******************************************************************************
+ * void searchResults()
+ ******************************************************************************/
+void Search::searchWind(QString websiteToSearch)
+{
+     QStringList lst = search(websiteToSearch, WeatherWind);
+}
+
+/*******************************************************************************
  * void makeCityRequest()
  ******************************************************************************/
 void Search::makeCityRequest(QString websiteToSearch)
@@ -50,9 +83,23 @@ void Search::makeCityRequest(QString websiteToSearch)
     return;
 }
 
+/*******************************************************************************
+ * CityRequest *getCityRequest()
+ ******************************************************************************/
 CityRequest *Search::getCityRequest(void) const
 {
     return cityRequest;
+}
+
+/*******************************************************************************
+ * void makeWeatherForecast()
+ ******************************************************************************/
+void Search::makeWeatherForecast(QString websiteToSearch)
+{
+    searchSunshine(websiteToSearch);
+    searchWind(websiteToSearch);
+    searchTemperature(websiteToSearch);
+    searchRain(websiteToSearch);
 }
 
 /*******************************************************************************
