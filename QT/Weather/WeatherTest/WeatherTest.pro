@@ -23,12 +23,13 @@ SOURCES += main.cpp\
            Backend/Weather/CityRequest/result.cpp \
            Backend/Weather/weather.cpp \
            Backend/Weather/WeatherForecast/weatherforecast.cpp \
-    Backend/Weather/WeatherForecast/day.cpp \
-    Backend/Weather/WeatherForecast/daytime.cpp \
-    Backend/Weather/WeatherForecast/sunshine.cpp \
-    Backend/Weather/WeatherForecast/rain.cpp \
-    Backend/Weather/WeatherForecast/temperature.cpp \
-    Backend/Weather/WeatherForecast/wind.cpp
+           Backend/Weather/WeatherForecast/day.cpp \
+           Backend/Weather/WeatherForecast/daytime.cpp \
+           Backend/Weather/WeatherForecast/Params/sunshine.cpp \
+           Backend/Weather/WeatherForecast/Params/rain.cpp \
+           Backend/Weather/WeatherForecast/Params/temperature.cpp \
+           Backend/Weather/WeatherForecast/Params/wind.cpp \
+           Backend/Weather/WeatherForecast/Clock/clock.cpp
 
 
 HEADERS  += widget.h \
@@ -43,10 +44,11 @@ HEADERS  += widget.h \
             Backend/Weather/WeatherForecast/weatherforecast.h \
             Backend/Weather/WeatherForecast/day.h \
             Backend/Weather/WeatherForecast/daytime.h \
-            Backend/Weather/WeatherForecast/sunshine.h \
-            Backend/Weather/WeatherForecast/rain.h \
-            Backend/Weather/WeatherForecast/temperature.h \
-            Backend/Weather/WeatherForecast/wind.h
+            Backend/Weather/WeatherForecast/Params/sunshine.h \
+            Backend/Weather/WeatherForecast/Params/rain.h \
+            Backend/Weather/WeatherForecast/Params/temperature.h \
+            Backend/Weather/WeatherForecast/Params/wind.h \
+            Backend/Weather/WeatherForecast/Clock/clock.h
 
 
 FORMS    += widget.ui \
@@ -58,5 +60,7 @@ INCLUDEPATH += Backend \
                Backend/Weather/CityRequest/ \
                Backend/RegExp \
                Backend/NetworkRequest \
-               Backend/Weather/WeatherForcast
+               Backend/Weather/WeatherForecast \
+               Backend/Weather/WeatherForecast/Clock \
+               Backend/Weather/WeatherForecast/Params \
 

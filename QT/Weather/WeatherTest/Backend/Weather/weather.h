@@ -27,7 +27,7 @@ public:
     explicit Weather(QObject *parent = 0);
     void setCity(QString cityName);
     void cityRequest(QString &city);
-
+    void weatherForcast(void);
 
 private:
 
