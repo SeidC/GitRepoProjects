@@ -85,7 +85,7 @@ void CityRequest::deleteEntries(void)
  ******************************************************************************/
 void CityRequest::deleteResults(void)
 {
-    for (int i = cityResults.size(); i >= 0; i--)
+    for (int i = cityResults.size()-1; i >= 0; i--)
     {
         if (cityResults.at(i) != NULL)
         {
@@ -100,7 +100,7 @@ void CityRequest::deleteResults(void)
  ******************************************************************************/
 void CityRequest::deleteCitys(void)
 {
-    for(int i = cityList.size(); i >= 0; i--)
+    for(int i = cityList.size()-1; i >= 0; i--)
     {
         if (cityList.at(i) != NULL)
         {

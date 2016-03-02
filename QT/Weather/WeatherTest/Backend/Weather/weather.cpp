@@ -1,5 +1,9 @@
 #include "weather.h"
 
+
+/*******************************************************************************
+ * Weather
+ ******************************************************************************/
 Weather::Weather(QObject *parent) : QObject(parent)
 {
 
@@ -12,12 +16,17 @@ Weather::Weather(QObject *parent) : QObject(parent)
 
 }
 
-
+/*******************************************************************************
+ * Weather
+ ******************************************************************************/
 QString Weather::getWeatherUrl(void)
 {
     return QString(WETHER_URL);
 }
 
+/*******************************************************************************
+ * Weather
+ ******************************************************************************/
 void Weather::onFinishedRequest(NetworkRequest::RequestType type)
 {
     QString web;
@@ -27,7 +36,7 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
             search->makeCityRequest(web);
-            search->getCityRequest();
+            emit cityRequestFinished();
         break;
         case NetworkRequest::REQUEST_WEATHER:
 
@@ -37,10 +46,33 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
     }
 }
 
-
+/*******************************************************************************
+ * void cityRequest()
+ ******************************************************************************/
 void Weather::cityRequest(QString &city)
 {
     QString url = getWeatherUrl() + city;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_CITY,url);
+}
+
+QCityList Weather::getCityList()
+{
+    return search->getCityRequest()->getCityList();
+}
+
+/*******************************************************************************
+ * CityRequest * getRequestData()
+ ******************************************************************************/
+CityRequest *Weather::getCityRequestData(void)
+{
+    return search->getCityRequest();
+}
+
+/*******************************************************************************
+ * void weatherForcast()
+ ******************************************************************************/
+void Weather::weatherForcast(QString &cityUrl)
+{
+
 }
 

@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "weather.h"
 
 namespace Ui {
 class Widget;
@@ -18,6 +19,11 @@ public:
 
 private:
     Ui::Widget *ui;
+    Weather weather;
+
+public slots:
+    void startRequest(bool clicked);
+    void execAfterRequest(void);
 
 
 

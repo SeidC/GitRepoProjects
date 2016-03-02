@@ -66,7 +66,12 @@ public:
      * found Citys and Results
      */
     CityRequest *getCityRequest(void) const;
-
+    
+    /**
+     * @brief makeWeatherForecast
+     * @param websiteToSearch
+     */
+    void makeWeatherForecast(QString websiteToSearch);
 private:
     /**
      * @brief cityRequest

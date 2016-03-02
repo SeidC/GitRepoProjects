@@ -27,7 +27,9 @@ public:
     explicit Weather(QObject *parent = 0);
     void setCity(QString cityName);
     void cityRequest(QString &city);
-    void weatherForcast(void);
+    void weatherForcast(QString &cityUrl);
+    CityRequest* getCityRequestData(void);
+    QCityList getCityList(void);
 
 private:
 
@@ -37,6 +39,10 @@ private:
 private:
     NetworkRequest* httpRequest;
     Search* search;
+
+
+signals:
+    void cityRequestFinished(void);
 
 private slots:
     void onFinishedRequest(NetworkRequest::RequestType type);
