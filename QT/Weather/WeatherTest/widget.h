@@ -20,9 +20,11 @@ public:
 private:
     Ui::Widget *ui;
     Weather weather;
+    bool requestStatus;
 
 public slots:
     void startRequest(bool clicked);
+    void startWeather(bool clicked);
     void execAfterRequest(void);
 
 

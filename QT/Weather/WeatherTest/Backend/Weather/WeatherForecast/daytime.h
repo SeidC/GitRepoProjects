@@ -21,7 +21,7 @@ public:
     explicit DayTime();
 
 private:
-    QString weahterStatus;
+
 
 };
 

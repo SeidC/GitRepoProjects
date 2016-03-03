@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include "regexp.h"
 
 class City;
 
@@ -52,6 +53,8 @@ public:
      * @param value
      */
     void setUrl(const QString &value);
+
+    QStringList getUrlId(QString url);
 
 private:
     /**

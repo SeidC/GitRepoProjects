@@ -27,7 +27,7 @@ public:
 
 
 private:
-    QString windDirectionStr[NUMBER_OF_WIND_DIRECTIONS] = { "North", "North_East", "East", "South_East", "South", "South_West", "North_West"};
+   //QString windDirectionStr[NUMBER_OF_WIND_DIRECTIONS] = { "North", "North_East", "East", "South_East", "South", "South_West", "North_West"};
     WindDirection_t windDriection;
     int windSpeed;
 

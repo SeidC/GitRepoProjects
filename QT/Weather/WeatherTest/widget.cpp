@@ -11,6 +11,8 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(startRequest(bool)));
     connect(&weather,SIGNAL(cityRequestFinished()),this,SLOT(execAfterRequest()));
+    connect(ui->pushButton_2,SIGNAL(clicked(bool)),this,SLOT(startWeather(bool)));
+    requestStatus = false;
 }
 
 Widget::~Widget()
@@ -29,6 +31,16 @@ void Widget::startRequest(bool clicked)
     weather.cityRequest(city);
 }
 
+void Widget::startWeather(bool clicked)
+{
+    QCityList lst = weather.getCityList();
+    int index = ui->comboBox->currentIndex();
+    QString url = lst.at(index)->getUrl();
+    url = lst.at(index)->getUrlId(url).at(0);
+    weather.weatherForcast(url);
+
+}
+
 void Widget::execAfterRequest()
 {
     QCityList req = weather.getCityList();
@@ -37,8 +49,7 @@ void Widget::execAfterRequest()
     {
        QString txt = req.at(i)->getCity();
        ui->comboBox->addItem(txt);
-
     }
-
+    requestStatus = true;
 }
 

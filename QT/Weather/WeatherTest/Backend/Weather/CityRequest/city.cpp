@@ -1,4 +1,6 @@
 #include "city.h"
+#include "regexp.h"
+
 
 /*******************************************************************************
  * City
@@ -50,3 +52,12 @@ void City::setUrl(const QString &value)
 {
     url = value;
 }
+
+QStringList City::getUrlId(QString url)
+{
+    Pattern pattern("([A-Z]\\w+)",1);
+    RegExp reg;
+    QStringList lst = reg.findRegExp(url,pattern);
+    return lst;
+}
+

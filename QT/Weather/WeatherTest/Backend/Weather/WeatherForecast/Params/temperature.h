@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QString>
 
+
+class Temperature;
+
 class Temperature : QObject
 {
     Q_OBJECT
@@ -35,7 +38,8 @@ private:
     int feelMin;
     int feelMax;
     Unit_t unit;
-    QString unitStr[NUMBER_OF_UNITS] = {"°C"};
+   // static QString unitStr[NUMBER_OF_UNITS];
+
 };
 
 #endif // TEMPERATURE_H
