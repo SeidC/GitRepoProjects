@@ -29,7 +29,9 @@ SOURCES += main.cpp\
            Backend/Weather/WeatherForecast/Params/rain.cpp \
            Backend/Weather/WeatherForecast/Params/temperature.cpp \
            Backend/Weather/WeatherForecast/Params/wind.cpp \
-           Backend/Weather/WeatherForecast/Clock/clock.cpp
+           Backend/Weather/WeatherForecast/Clock/clock.cpp \
+    Backend/RegExp/pattern.cpp \
+    Backend/RegExp/patternhandler.cpp
 
 
 HEADERS  += widget.h \
@@ -48,7 +50,9 @@ HEADERS  += widget.h \
             Backend/Weather/WeatherForecast/Params/rain.h \
             Backend/Weather/WeatherForecast/Params/temperature.h \
             Backend/Weather/WeatherForecast/Params/wind.h \
-            Backend/Weather/WeatherForecast/Clock/clock.h
+            Backend/Weather/WeatherForecast/Clock/clock.h \
+    Backend/RegExp/pattern.h \
+    Backend/RegExp/patternhandler.h
 
 
 FORMS    += widget.ui \

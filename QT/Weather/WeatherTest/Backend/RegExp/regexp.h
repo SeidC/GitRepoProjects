@@ -4,7 +4,7 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QRegularExpressionMatchIterator>
-#include "regexpdefs.h"
+#include "patternhandler.h"
 
 class RegExp : public QRegularExpression
 {

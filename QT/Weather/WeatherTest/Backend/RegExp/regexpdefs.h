@@ -4,80 +4,39 @@
 #include <QList>
 
 
-class Pattern;
-
+/**
+ *
+ */
+#define WEATHER_TEMP "\\s*([-]?\\d+)\\s*\\/\\s*\\<.*\\>([-]?\\d+)\\s*°C"
 
 /**
- * @brief PatternList
+ *
  */
-typedef QList<Pattern> PatternList;
-
-
-/**
- * @brief The Pattern class
- */
-class Pattern
-{
-
-public:
-    /**
-     * @brief Pattern
-     * @param sPattern
-     * @param iMatches
-     */
-    Pattern(QString sPattern, int iMatches);
-    /**
-     * @brief getPattern
-     * @return
-     */
-    QString getPattern() const;
-    /**
-     * @brief getMatches
-     * @return
-     */
-    int getMatches() const;
-
-
-private:
-    /**
-     * @brief pattern
-     */
-    QString pattern;
-    /**
-     * @brief matches
-     */
-    int matches;
-
-};
+#define WEATHER_DAY_DATE "\\>(\\s*\\w+)\\<.*\\>\\s*(\\d+\\.\\d+\\.\\d+)"
 
 /**
- * @brief WeatherTemp
+ *
  */
-extern Pattern WeatherTemp;
-/**
- * @brief WeatherDay
- */
-extern Pattern WeatherDay;
-/**
- * @brief WeatherSunshine
- */
-extern Pattern WeatherSunshine;
-/**
- * @brief WeatherWind
- */
-extern Pattern WeatherWind;
-/**
- * @brief WeatherType
- */
-extern Pattern WeatherType;
-/**
- * @brief CityAndUrl
- */
-extern Pattern CityAndUrl;
-/**
- * @brief Count
- */
-extern Pattern Count;
+#define WEATHER_SUNNSHINE "\\>\\w+\\:\\s+(\\d*[\\.\\d*]*)\\s+\\w\\<.*\\>(\\d*\\:\\d*)<.*>(\\d*\\:\\d*)"
 
+/**
+ *
+ */
+#define WEATHER_WIND ">(\\w+\\-*\\w+)\\<.*\\s*\\>\\s*\\<.*\\>(\\d+\\s+[\\w+|\\/]+)"
+
+/**
+ *
+ */
+#define WEATER_WTYPE "\\>\\s*(\\w+\\s*[\\w+|\\-|\\ö]+)[\\s*<\\/|\\w+|\\=\\\"\\-\\:\\;\\#\\>]+gefühlt"
+
+/**
+ *
+ */
+#define SEARCH_LIST_RESULT_COUNT "\\<.*resultcount\\\"\\>(\\d*)\\s*\\w*\\s*\\w*(.*)\\<\\/li\\>"
+
+/**
+ *
+ */
+#define SEARCH_LIST_PLACES_AND_URL "\\<.*resultcity.*\\s*.*.href\\=\\\"(.*)\\\"\\>\\s*(.*)\\<\\/a\\>"
 
 #endif // REGEXPDEFS_H
