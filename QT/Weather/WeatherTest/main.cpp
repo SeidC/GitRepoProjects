@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Widget w;
     w.show();
+
 //    Weather weather;
 //    QString city("A");
 
@@ -15,3 +16,5 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+

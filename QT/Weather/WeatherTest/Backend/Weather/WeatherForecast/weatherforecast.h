@@ -9,7 +9,7 @@ class WeatherForecast : public QObject
     Q_OBJECT
 public:
     explicit WeatherForecast(QObject *parent = 0);
-    void addDay();
+
 private:
     DayList days;
 signals:

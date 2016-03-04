@@ -1,6 +1,16 @@
 #ifndef REGEXPDEFS_H
 #define REGEXPDEFS_H
 #include <QString>
+#include <QList>
+
+
+class Pattern;
+
+
+/**
+ * @brief PatternList
+ */
+typedef QList<Pattern> PatternList;
 
 
 /**
@@ -15,11 +25,7 @@ public:
      * @param sPattern
      * @param iMatches
      */
-    Pattern(QString sPattern, int iMatches)
-                {
-                        pattern = sPattern;
-                        matches = iMatches;
-                }
+    Pattern(QString sPattern, int iMatches);
     /**
      * @brief getPattern
      * @return

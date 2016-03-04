@@ -1,17 +1,18 @@
 #include "regexp.h"
 #include <QDebug>
 
+/*******************************************************************************
+ * Result
+ ******************************************************************************/
 RegExp::RegExp()
 {
 
 }
 
-RegExp::RegExp(QString pattern)
-{
-    setPattern(pattern);
-}
 
-
+/*******************************************************************************
+ * QStringList findRegExp
+ ******************************************************************************/
 QStringList RegExp::findRegExp(QString &txt,Pattern &pattern)
 {
     QStringList ret;
@@ -32,3 +33,5 @@ QStringList RegExp::findRegExp(QString &txt,Pattern &pattern)
     }
     return ret;
 }
+
+

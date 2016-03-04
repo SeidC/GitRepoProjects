@@ -8,10 +8,18 @@
 
 class RegExp : public QRegularExpression
 {
+
+public:
+
+
+private:
+
+
 public:
     RegExp();
-    RegExp(QString pattern);
     QStringList findRegExp(QString &txt, Pattern &pattern);
+
+
 
 };
 

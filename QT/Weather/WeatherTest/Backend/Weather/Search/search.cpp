@@ -46,6 +46,10 @@ void Search::searchResults(QString websiteToSearch)
 void Search::searchRain(QString websiteToSerach)
 {
     QStringList lst = search(websiteToSerach, WeatherType);
+    for (int i = 0; i < lst.size(); i += WeatherType.getMatches())
+    {
+
+    }
 }
 
 /*******************************************************************************
