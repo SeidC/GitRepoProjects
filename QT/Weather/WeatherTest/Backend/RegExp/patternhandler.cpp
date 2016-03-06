@@ -1,5 +1,8 @@
 #include "patternhandler.h"
 
+
+PatternHandler* PatternHandler::handler = NULL;
+
 PatternHandler::PatternHandler(QObject *parent) : QObject(parent)
 {
     addPattern(QString(WEATHER_TEMP),2);
@@ -11,7 +14,32 @@ PatternHandler::PatternHandler(QObject *parent) : QObject(parent)
     addPattern(QString(SEARCH_LIST_RESULT_COUNT),2);
 }
 
+PatternHandler::PatternHandler(PatternHandler &)
+{
+
+}
+
+PatternHandler::~PatternHandler()
+{
+
+}
+
 void PatternHandler::addPattern(QString regExpStr, int match)
 {
-    patternList.push_back(Pattern(regExpStr,match));
+    patternList.push_back(new Pattern(regExpStr,match));
+}
+
+void PatternHandler::addPattern(Pattern *pattern)
+{
+    patternList.push_back(pattern);
+    return;
+}
+
+PatternHandler *PatternHandler::getInstance()
+{
+    if (handler == NULL)
+    {
+        handler = new PatternHandler();
+    }
+    return handler;
 }

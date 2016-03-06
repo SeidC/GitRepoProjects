@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "day.h"
+#include "search.h"
 
 class WeatherForecast : public QObject
 {
@@ -12,6 +13,7 @@ public:
 
 private:
     DayList days;
+    Search* search;
 signals:
 
 

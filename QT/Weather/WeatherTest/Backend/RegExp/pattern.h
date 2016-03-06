@@ -6,7 +6,7 @@
 
 class Pattern;
 
-typedef QList<Pattern> PatternList;
+typedef QList<Pattern*> PatternList;
 
 
 class Pattern : public QObject

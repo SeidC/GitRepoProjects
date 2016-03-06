@@ -10,7 +10,7 @@ class Result;
 /**
  * @brief QResultList
  */
-typedef QList<Result*> QResultList;
+typedef QList<Result*> ResultList;
 
 
 /**
@@ -33,31 +33,25 @@ public:
      */
     Result(int sSize,QString sTxt, QObject *parent = 0);
     /**
-     * @brief getTxt
+     * @brief getCountry
      * @return
      */
-    QString getTxt() const;
-    /**
-     * @brief setTxt
-     * @param value
-     */
-    void setTxt(const QString &value);
-    /**
-     * @brief getSize
-     * @return
-     */
-    int getSize() const;
-    void setSize(int value);
+
+    QString getCountry() const;
+    void setCountry(const QString &value);
+
+    int getNumberOfResults() const;
+    void setNumberOfResults(int value);
 
 private:
     /**
-     * @brief txt
+     * @brief country
      */
-    QString txt;
+    QString country;
     /**
-     * @brief size
+     * @brief numberOfResults
      */
-    int     size;
+    int numberOfResults;
 
 signals:
 

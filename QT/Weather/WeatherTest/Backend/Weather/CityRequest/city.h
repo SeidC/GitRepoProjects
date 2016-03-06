@@ -10,7 +10,7 @@ class City;
 /**
  * @brief QCityList
  */
-typedef QList<City*> QCityList;
+typedef QList<City*> CityList;
 
 
 /**

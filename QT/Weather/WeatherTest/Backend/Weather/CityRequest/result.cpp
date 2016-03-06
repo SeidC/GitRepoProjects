@@ -6,49 +6,51 @@
 Result::Result(QObject *parent)
     : QObject(parent)
 {
-    txt  = "";
-    size = 0;
+    country  = "";
+    numberOfResults = 0;
 }
 
 /*******************************************************************************
  * Result
  ******************************************************************************/
-Result::Result(int sSize,QString sTxt, QObject *parent)
+Result::Result(int numberOfResults,QString country, QObject *parent)
     : QObject(parent)
 {
-    txt  = sTxt;
-    size = sSize;
+    this->country  = country;
+    this->numberOfResults = numberOfResults;
 
 }
 
 /*******************************************************************************
- * QString getTxt
+ * QString getCountry
  ******************************************************************************/
-QString Result::getTxt() const
+QString Result::getCountry() const
 {
-    return txt;
+    return this->country;
 }
 
 /*******************************************************************************
- * void setTxt()
+ * void setCountry
  ******************************************************************************/
-void Result::setTxt(const QString &value)
+void Result::setCountry(const QString &value)
 {
-    txt = value;
+    this->country = value;
 }
 
 /*******************************************************************************
- * int getSize()
+ * int getNumberOfResults
  ******************************************************************************/
-int Result::getSize() const
+int Result::getNumberOfResults() const
 {
-    return size;
+    return this->numberOfResults;
 }
 
 /*******************************************************************************
- * void setSize()
+ * void setNumberOfResults
  ******************************************************************************/
-void Result::setSize(int value)
+void Result::setNumberOfResults(int value)
 {
-    size = value;
+    this->numberOfResults = value;
 }
+
+

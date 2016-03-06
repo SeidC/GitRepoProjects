@@ -1,7 +1,7 @@
 #ifndef REGEXPDEFS_H
 #define REGEXPDEFS_H
 #include <QString>
-#include <QList>
+#include "pattern.h"
 
 
 /**
@@ -38,5 +38,15 @@
  *
  */
 #define SEARCH_LIST_PLACES_AND_URL "\\<.*resultcity.*\\s*.*.href\\=\\\"(.*)\\\"\\>\\s*(.*)\\<\\/a\\>"
+
+
+
+extern Pattern WeatherTemp;
+extern Pattern WeatherDay;
+extern Pattern WeatherSunshine;
+extern Pattern WeatherWind;
+extern Pattern WeatherType;
+extern Pattern CityAndUrl;
+extern Pattern Count;
 
 #endif // REGEXPDEFS_H

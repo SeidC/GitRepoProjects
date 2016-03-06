@@ -7,116 +7,56 @@
  ******************************************************************************/
 Search::Search(QObject *parent) : QObject(parent)
 {
-    cityRequest = NULL;
+
 }
 
 
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
-void Search::searchCitys(QString websiteToSearch)
+QStringList Search::searchCitys(QString websiteToSearch)
 {
-    QStringList lst = search(websiteToSearch,CityAndUrl);
-
-    for(int i = 0; i < lst.size(); i+= CityAndUrl.getMatches())
-    {
-        cityRequest->add(lst.at(i+1),lst.at(i));
-    }
-    return;
+    return search(websiteToSearch,CityAndUrl);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchResults(QString websiteToSearch)
+QStringList Search::searchResults(QString websiteToSearch)
 {
-    QStringList lst = search(websiteToSearch,Count);
-    for(int i = 0; i < lst.size();i+= Count.getMatches() )
-    {
-        QString size(lst.at(i));
-        QString txt(lst.at(i+1));
-        cityRequest->add(size.toInt(),txt);
-    }
-    return;
+    return search(websiteToSearch,Count);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchRain(QString websiteToSerach)
+QStringList Search::searchRain(QString websiteToSerach)
 {
-    QStringList lst = search(websiteToSerach, WeatherType);
-    for (int i = 0; i < lst.size(); i += WeatherType.getMatches())
-    {
-
-    }
+    return search(websiteToSerach, WeatherType);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchTemperature(QString websiteToSearch)
+QStringList Search::searchTemperature(QString websiteToSearch)
 {
-     QStringList lst = search(websiteToSearch, WeatherTemp);
+    return search(websiteToSearch, WeatherTemp);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchSunshine(QString websiteToSearch)
+QStringList Search::searchSunshine(QString websiteToSearch)
 {
-     QStringList lst = search(websiteToSearch, WeatherSunshine);
+    return search(websiteToSearch, WeatherSunshine);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-void Search::searchWind(QString websiteToSearch)
+QStringList Search::searchWind(QString websiteToSearch)
 {
-     QStringList lst = search(websiteToSearch, WeatherWind);
-}
-
-/*******************************************************************************
- * void makeCityRequest()
- ******************************************************************************/
-void Search::makeCityRequest(QString websiteToSearch)
-{
-    newCityRequest();
-    searchResults(websiteToSearch);
-    searchCitys(websiteToSearch);
-    return;
-}
-
-/*******************************************************************************
- * CityRequest *getCityRequest()
- ******************************************************************************/
-CityRequest *Search::getCityRequest(void) const
-{
-    return cityRequest;
-}
-
-/*******************************************************************************
- * void makeWeatherForecast()
- ******************************************************************************/
-void Search::makeWeatherForecast(QString websiteToSearch)
-{
-    searchSunshine(websiteToSearch);
-    searchWind(websiteToSearch);
-    searchTemperature(websiteToSearch);
-    searchRain(websiteToSearch);
-}
-
-/*******************************************************************************
- * void newCityRequest()
- ******************************************************************************/
-void Search::newCityRequest()
-{
-    if (cityRequest != NULL)
-    {
-        delete cityRequest;
-    }
-    cityRequest = new CityRequest(this);
-    return;
+     return search(websiteToSearch, WeatherWind);
 }
 
 
