@@ -1,5 +1,5 @@
 #include "Search.h"
-#include "regexp.h"
+#include "patternhandler.h"
 #include <QDebug>
 
 /*******************************************************************************
@@ -16,6 +16,7 @@ Search::Search(QObject *parent) : QObject(parent)
  ******************************************************************************/
 QStringList Search::searchCitys(QString websiteToSearch)
 {
+    PatternHandler *handler = PatternHandler::getInstance();
     return search(websiteToSearch,CityAndUrl);
 }
 
