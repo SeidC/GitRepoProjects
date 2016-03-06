@@ -8,7 +8,6 @@ Weather::Weather(QObject *parent) : QObject(parent)
 {
 
     httpRequest = new NetworkRequest(this);
-    search      = new Search(this);
 
     connect(httpRequest,SIGNAL(requestCompleted(NetworkRequest::RequestType)),
             this,SLOT(onFinishedRequest(NetworkRequest::RequestType)));
@@ -51,12 +50,12 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
     {
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
-            search->makeCityRequest(web);
+           // search->makeCityRequest(web);
             emit cityRequestFinished();
         break;
         case NetworkRequest::REQUEST_WEATHER:
             web = httpRequest->getWebsite();
-            search->makeWeatherForecast(web);
+           // search->makeWeatherForecast(web);
             emit weatherRequestFinished();
         break;
         default:
@@ -67,32 +66,17 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
 /*******************************************************************************
  * void cityRequest()
  ******************************************************************************/
-void Weather::cityRequest(QString &city)
+void Weather::startCityRequest(QString &city)
 {
     QString url = getWeatherSearchUrl() + city;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_CITY,url);
 }
 
-/*******************************************************************************
- * QCityList getCityList()
- ******************************************************************************/
-QCityList Weather::getCityList()
-{
-    return search->getCityRequest()->getCityList();
-}
-
-/*******************************************************************************
- * CityRequest* getRequestData()
- ******************************************************************************/
-CityRequest *Weather::getCityRequestData(void)
-{
-    return search->getCityRequest();
-}
 
 /*******************************************************************************
  * void weatherForcast()
  ******************************************************************************/
-void Weather::weatherForcast(QString &cityUrl)
+void Weather::startWeatherForcast(QString &cityUrl)
 {
     QString url = getWeatherSevenDaysUrl() + cityUrl;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_WEATHER,url);

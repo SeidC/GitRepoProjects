@@ -14,6 +14,6 @@ void CityResult::addResult(QString country, int numberOfResults)
 
 void CityResult::addCity(QString city, QString url)
 {
-    cityList.push_back(City(city,url));
+    cityList.push_back(new City(city,url));
     return;
 }

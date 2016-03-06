@@ -26,10 +26,10 @@ PatternHandler::~PatternHandler()
 
 void PatternHandler::addPattern(QString regExpStr, int match)
 {
-    patternList.push_back(Pattern(regExpStr,match));
+    patternList.push_back(new Pattern(regExpStr,match));
 }
 
-void PatternHandler::addPattern(Pattern &pattern)
+void PatternHandler::addPattern(Pattern *pattern)
 {
     patternList.push_back(pattern);
     return;

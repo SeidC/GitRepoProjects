@@ -28,28 +28,28 @@ void Widget::startRequest(bool clicked)
         ui->comboBox->removeItem(i);
     }
 
-    weather.cityRequest(city);
+    weather.startCityRequest(city);
 }
 
 void Widget::startWeather(bool clicked)
 {
-    QCityList lst = weather.getCityList();
-    int index = ui->comboBox->currentIndex();
-    QString url = lst.at(index)->getUrl();
-    url = lst.at(index)->getUrlId(url).at(0);
-    weather.weatherForcast(url);
+//    QCityList lst = weather.getCityList();
+//    int index = ui->comboBox->currentIndex();
+//    QString url = lst.at(index)->getUrl();
+//    url = lst.at(index)->getUrlId(url).at(0);
+//    weather.weatherForcast(url);
 
 }
 
 void Widget::execAfterRequest()
 {
-    QCityList req = weather.getCityList();
+//    QCityList req = weather.getCityList();
 
-    for(int i = 0; i< req.size(); i++)
-    {
-       QString txt = req.at(i)->getCity();
-       ui->comboBox->addItem(txt);
-    }
-    requestStatus = true;
+//    for(int i = 0; i< req.size(); i++)
+//    {
+//       QString txt = req.at(i)->getCity();
+//       ui->comboBox->addItem(txt);
+//    }
+//    requestStatus = true;
 }
 
