@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include "city.h"
-#include "result.h"
+#include "cityresult.h"
 
 
 /**
@@ -70,14 +69,7 @@ private:
      */
     void deleteCitys(void);
 private:
-    /**
-     * @brief cityResults
-     */
-    QResultList cityResults;
-    /**
-     * @brief cityList
-     */
-    QCityList   cityList;
+    CityResult *cityResult;
 };
 
 #endif // CITYREQUEST_H

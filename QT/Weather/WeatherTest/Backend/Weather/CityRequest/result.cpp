@@ -22,33 +22,35 @@ Result::Result(int sSize,QString sTxt, QObject *parent)
 }
 
 /*******************************************************************************
- * QString getTxt
+ * QString getCountry
  ******************************************************************************/
-QString Result::getTxt() const
+QString Result::getCountry() const
 {
-    return txt;
+    return country;
 }
 
 /*******************************************************************************
- * void setTxt()
+ * void setCountry
  ******************************************************************************/
-void Result::setTxt(const QString &value)
+void Result::setCountry(const QString &value)
 {
-    txt = value;
+    country = value;
 }
 
 /*******************************************************************************
- * int getSize()
+ * int getNumberOfResults
  ******************************************************************************/
-int Result::getSize() const
+int Result::getNumberOfResults() const
 {
-    return size;
+    return numberOfResults;
 }
 
 /*******************************************************************************
- * void setSize()
+ * void setNumberOfResults
  ******************************************************************************/
-void Result::setSize(int value)
+void Result::setNumberOfResults(int value)
 {
-    size = value;
+    numberOfResults = value;
 }
+
+
