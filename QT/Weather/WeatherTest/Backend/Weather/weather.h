@@ -68,7 +68,6 @@ private:
 
 private:
     NetworkRequest* httpRequest;
-    Search* search;
     CityRequest *cityRequest;
     WeatherForecast *weatherForecast;
 

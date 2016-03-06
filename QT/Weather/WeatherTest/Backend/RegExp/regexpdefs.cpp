@@ -2,11 +2,6 @@
 
 
 
-
-PatternList pattern;
-
-
-
 Pattern WeatherTemp(QString(WEATHER_TEMP),2);
 Pattern WeatherDay(QString(WEATHER_DAY_DATE),2);
 Pattern WeatherSunshine(QString(WEATHER_SUNNSHINE),3);

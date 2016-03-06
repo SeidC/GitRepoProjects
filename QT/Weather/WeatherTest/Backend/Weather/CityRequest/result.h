@@ -37,6 +37,12 @@ public:
      * @return
      */
 
+    QString getCountry() const;
+    void setCountry(const QString &value);
+
+    int getNumberOfResults() const;
+    void setNumberOfResults(int value);
+
 private:
     /**
      * @brief country
