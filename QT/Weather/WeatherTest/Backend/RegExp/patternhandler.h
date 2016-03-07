@@ -10,6 +10,11 @@ class PatternHandler;
 class PatternHandler : public QObject
 {
     Q_OBJECT
+
+    typedef enum
+    {
+
+    }Handler_t;
 public:
      void addPattern(QString regExpStr, int match);
      void addPattern(Pattern *pattern);

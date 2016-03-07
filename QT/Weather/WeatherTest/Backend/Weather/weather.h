@@ -37,13 +37,6 @@ public:
      * @param cityUrl
      */
     void startWeatherForcast(QString &cityUrl);
-    /**
-     * @brief getCityRequestData
-     * @return Pointer of a City Request Object
-     *
-     * This Methode returns the data after a  cityRequest was done.
-     */
-    CityRequest* getCityRequestData(void);
 
 private:
 
