@@ -13,6 +13,14 @@ class PatternHandler : public QObject
 
     typedef enum
     {
+        TEMPERATURE   = 0x00,
+        DAY                 ,
+        SUNSHINE            ,
+        WIND                ,
+        TYPE                ,
+        CITY_AND_URL        ,
+        COUNT               ,
+        RAIN
 
     }Handler_t;
 public:

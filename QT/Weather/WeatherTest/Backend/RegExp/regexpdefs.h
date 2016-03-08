@@ -39,14 +39,19 @@
  */
 #define SEARCH_LIST_PLACES_AND_URL "\\<.*resultcity.*\\s*.*.href\\=\\\"(.*)\\\"\\>\\s*(.*)\\<\\/a\\>"
 
+/**
+ *
+ */
+#define WEATHER_RAIN "\\<.*\\>(\\d*[\\.\\d]+)*\\s+\\l\\/\\m.*\\s+(\\d*)\\%"
 
 
 extern Pattern WeatherTemp;
-extern Pattern WeatherDay;
+extern Pattern WeatherDayAndDate;
 extern Pattern WeatherSunshine;
 extern Pattern WeatherWind;
 extern Pattern WeatherType;
 extern Pattern CityAndUrl;
 extern Pattern Count;
+extern Pattern WeatherRain;
 
 #endif // REGEXPDEFS_H
