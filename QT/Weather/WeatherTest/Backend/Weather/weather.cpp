@@ -6,7 +6,8 @@
  ******************************************************************************/
 Weather::Weather(QObject *parent) : QObject(parent)
 {
-
+    cityRequest     = NULL;
+    weatherForecast = NULL;
     httpRequest = new NetworkRequest(this);
 
     connect(httpRequest,SIGNAL(requestCompleted(NetworkRequest::RequestType)),
@@ -61,6 +62,7 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
         default:
         break;
     }
+    return;
 }
 
 /*******************************************************************************
@@ -70,6 +72,7 @@ void Weather::startCityRequest(QString &city)
 {
     QString url = getWeatherSearchUrl() + city;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_CITY,url);
+    return;
 }
 
 
@@ -80,5 +83,19 @@ void Weather::startWeatherForcast(QString &cityUrl)
 {
     QString url = getWeatherSevenDaysUrl() + cityUrl;
     httpRequest->requestWebsite(NetworkRequest::REQUEST_WEATHER,url);
+    return;
+}
+
+/*******************************************************************************
+ * void filterCityRequest()
+ ******************************************************************************/
+void Weather::filterCityRequest(QString reqWebSite)
+{
+    if (cityRequest == NULL)
+    {
+        cityRequest = new CityRequest(this);
+    }
+    cityRequest->
+    return;
 }
 

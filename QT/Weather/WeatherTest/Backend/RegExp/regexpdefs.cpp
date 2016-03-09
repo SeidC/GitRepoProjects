@@ -11,3 +11,18 @@ Pattern CityAndUrl(QString(SEARCH_LIST_PLACES_AND_URL),2);
 Pattern Count(QString(SEARCH_LIST_RESULT_COUNT),2);
 Pattern WeatherRain(QString(WEATHER_RAIN),2);
 
+
+void initPatternHandler(void)
+{
+    PatternHandler* handler;
+    handler = PatternHandler::getInstance();
+    handler->addPattern(&WeatherTemp     );
+    handler->addPattern(&WeatherDayAndDate);
+    handler->addPattern(&WeatherSunshine );
+    handler->addPattern(&WeatherWind     );
+    handler->addPattern(&WeatherType     );
+    handler->addPattern(&CityAndUrl      );
+    handler->addPattern(&Count           );
+    handler->addPattern(&WeatherRain     );
+
+}

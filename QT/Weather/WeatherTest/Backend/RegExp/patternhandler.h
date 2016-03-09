@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include "pattern.h"
-#include "regexpdefs.h"
+
 
 class PatternHandler;
 

@@ -15,6 +15,16 @@ Pattern::Pattern(QString sPattern, int iMatches)
     matches = iMatches;
 }
 
+/*******************************************************************************
+ * Pattern
+ ******************************************************************************/
+Pattern::Pattern(QString sPattern, int iMatches, MatchTypeList matchList)
+{
+    pattern = sPattern;
+    matches = iMatches;
+    matchTypes = matchList;
+}
+
 
 /*******************************************************************************
  * QString getPattern
@@ -30,4 +40,9 @@ QString Pattern::getPattern() const
 int Pattern::getMatches() const
 {
     return matches;
+}
+
+MatchTypeList Pattern::getMatchTypes()
+{
+    return matchTypes;
 }

@@ -9,7 +9,7 @@
 
 class CityResult;
 
-typedef QList<CityResult> CityResultList;
+typedef QList<CityResult*> CityResultList;
 
 
 class CityResult : public QObject

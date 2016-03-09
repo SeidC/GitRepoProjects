@@ -1,7 +1,7 @@
 #ifndef REGEXPDEFS_H
 #define REGEXPDEFS_H
 #include <QString>
-#include "pattern.h"
+#include "patternhandler.h"
 
 
 /**
@@ -32,7 +32,7 @@
 /**
  *
  */
-#define SEARCH_LIST_RESULT_COUNT "\\<.*resultcount\\\"\\>(\\d*)\\s*\\w*\\s*\\w*(.*)\\<\\/li\\>"
+#define SEARCH_LIST_RESULT_COUNT "\\<.*r\\\"\\>(\\d*)\\s*\\w*\\s*\\w*(.*)\\<\\/li\\>"
 
 /**
  *
@@ -44,14 +44,5 @@
  */
 #define WEATHER_RAIN "\\<.*\\>(\\d*[\\.\\d]+)*\\s+\\l\\/\\m.*\\s+(\\d*)\\%"
 
-
-extern Pattern WeatherTemp;
-extern Pattern WeatherDayAndDate;
-extern Pattern WeatherSunshine;
-extern Pattern WeatherWind;
-extern Pattern WeatherType;
-extern Pattern CityAndUrl;
-extern Pattern Count;
-extern Pattern WeatherRain;
 
 #endif // REGEXPDEFS_H

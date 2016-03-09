@@ -7,6 +7,7 @@
 class Pattern;
 
 typedef QList<Pattern*> PatternList;
+typedef QList<int>      MatchTypeList;
 
 
 class Pattern : public QObject
@@ -22,6 +23,14 @@ public:
     Pattern(QString sPattern, int iMatches);
 
     /**
+     * @brief Pattern
+     * @param sPattern
+     * @param iMatches
+     * @param matchList
+     */
+    Pattern(QString sPattern, int iMatches, MatchTypeList matchList);
+
+    /**
      * @brief getPattern
      * @return
      */
@@ -31,6 +40,12 @@ public:
      * @return
      */
     int getMatches() const;
+
+    /**
+     * @brief getMatchTypes
+     * @return
+     */
+    MatchTypeList getMatchTypes(void);
 
 
 private:
@@ -42,6 +57,8 @@ private:
      * @brief matches
      */
     int matches;
+
+    MatchTypeList matchTypes;
 
 signals:
 

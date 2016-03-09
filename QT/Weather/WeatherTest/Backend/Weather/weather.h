@@ -39,6 +39,7 @@ public:
     void startWeatherForcast(QString &cityUrl);
 
 private:
+    void filterCityRequest(QString reqWebSite);
 
 private:
     QString getWeatherUrl(void);
@@ -46,7 +47,7 @@ private:
     QString getWeatherSevenDaysUrl(void);
 
 private:
-    NetworkRequest* httpRequest;
+    NetworkRequest *httpRequest;
     CityRequest *cityRequest;
     WeatherForecast *weatherForecast;
 

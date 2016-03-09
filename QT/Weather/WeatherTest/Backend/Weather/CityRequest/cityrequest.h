@@ -13,6 +13,13 @@
 class CityRequest : public QObject
 {
 public:
+    typedef enum
+    {
+        FILTER_OK   = 0x00,
+
+    }FilterStatus_t;
+
+public:
     /**
      * @brief CityRequest
      * @param parent
@@ -24,11 +31,15 @@ public:
      */
     ~CityRequest();
 
-private:
+    FilterStatus_t filterData(QString webData);
 
 private:
-    CityResult *cityResult;
-    Search* search;
+     CityResultList *createCityResultList(QStringList *citys, QStringList *results);
+
+private:
+    CityResultList *cityResultList;
+    Search search;
+
 };
 
 #endif // CITYREQUEST_H

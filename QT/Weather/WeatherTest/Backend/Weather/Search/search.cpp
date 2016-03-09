@@ -1,5 +1,7 @@
 #include "Search.h"
 #include "patternhandler.h"
+#include "regexp.h"
+
 #include <QDebug>
 
 /*******************************************************************************
