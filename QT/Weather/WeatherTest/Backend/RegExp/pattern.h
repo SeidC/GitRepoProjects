@@ -7,13 +7,44 @@
 class Pattern;
 
 typedef QList<Pattern*> PatternList;
-typedef QList<int>      MatchTypeList;
+typedef QList<Pattern::MatchType_t> MatchTypeList;
 
 
 class Pattern : public QObject
 {
     Q_OBJECT
 public:
+    typedef enum
+    {
+    /*--- Sunshine Match Types --------------*/
+        SUNSHINE_UP,
+        SUNSHINE_DOWN,
+        SUNSHINE_DURATION,
+    /*--- Day and Date Match Types ----------*/
+        DAY,
+        DATE,
+    /*--- Type Match Types ------------------*/
+        TYPE,
+    /*--- Temperature Match Types -----------*/
+        TEMPERATURE_MIN,
+        TEMPERATURE_MAX,
+    /*--- Rain Match Types ------------------*/
+        RAIN_QUANTITY,
+        RAIN_RISK,
+    /*--- Wind Match Types ------------------*/
+        WIND_DRIECTION,
+        WIND_FORCE,
+    /*--- City Match Types -------------------*/
+        URL,
+        CITY,
+    /*--- Result Match Types -----------------*/
+        RESULT_QUANTITY,
+        RESULT_COUNTRY,
+
+    }MatchType_t;
+
+public:
+
     explicit Pattern(QObject *parent = 0);
     /**
      * @brief Pattern
