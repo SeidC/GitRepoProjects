@@ -7,7 +7,6 @@
 class Pattern;
 
 typedef QList<Pattern*> PatternList;
-typedef QList<Pattern::MatchType_t> MatchTypeList;
 
 
 class Pattern : public QObject
@@ -42,6 +41,8 @@ public:
         RESULT_COUNTRY,
 
     }MatchType_t;
+
+    typedef QList<Pattern::MatchType_t> MatchTypeList;
 
 public:
 

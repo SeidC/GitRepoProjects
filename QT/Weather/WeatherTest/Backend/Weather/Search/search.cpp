@@ -19,7 +19,8 @@ Search::Search(QObject *parent) : QObject(parent)
 QStringList Search::searchCitys(QString websiteToSearch)
 {
     PatternHandler *handler = PatternHandler::getInstance();
-    return search(websiteToSearch,CityAndUrl);
+    Pattern *pattern = handler->getPattern(PatternHandler::CITY_AND_URL);
+    return search(websiteToSearch, *pattern);
 }
 
 /*******************************************************************************
@@ -27,7 +28,9 @@ QStringList Search::searchCitys(QString websiteToSearch)
  ******************************************************************************/
 QStringList Search::searchResults(QString websiteToSearch)
 {
-    return search(websiteToSearch,Count);
+    PatternHandler *handler = PatternHandler::getInstance();
+    Pattern *pattern = handler->getPattern(PatternHandler::COUNT);
+    return search(websiteToSearch, *pattern);
 }
 
 /*******************************************************************************
@@ -35,7 +38,9 @@ QStringList Search::searchResults(QString websiteToSearch)
  ******************************************************************************/
 QStringList Search::searchRain(QString websiteToSerach)
 {
-    return search(websiteToSerach, WeatherType);
+    PatternHandler *handler = PatternHandler::getInstance();
+    Pattern *pattern = handler->getPattern(PatternHandler::TYPE);
+    return search(websiteToSerach, *pattern);
 }
 
 /*******************************************************************************
@@ -43,7 +48,9 @@ QStringList Search::searchRain(QString websiteToSerach)
  ******************************************************************************/
 QStringList Search::searchTemperature(QString websiteToSearch)
 {
-    return search(websiteToSearch, WeatherTemp);
+    PatternHandler *handler = PatternHandler::getInstance();
+    Pattern *pattern = handler->getPattern(PatternHandler::TEMPERATURE);
+    return search(websiteToSearch, *pattern);
 }
 
 /*******************************************************************************
@@ -51,7 +58,9 @@ QStringList Search::searchTemperature(QString websiteToSearch)
  ******************************************************************************/
 QStringList Search::searchSunshine(QString websiteToSearch)
 {
-    return search(websiteToSearch, WeatherSunshine);
+    PatternHandler *handler = PatternHandler::getInstance();
+    Pattern *pattern = handler->getPattern(PatternHandler::SUNSHINE);
+    return search(websiteToSearch, *pattern);
 }
 
 /*******************************************************************************
@@ -59,7 +68,9 @@ QStringList Search::searchSunshine(QString websiteToSearch)
  ******************************************************************************/
 QStringList Search::searchWind(QString websiteToSearch)
 {
-     return search(websiteToSearch, WeatherWind);
+    PatternHandler *handler = PatternHandler::getInstance();
+    Pattern *pattern = handler->getPattern(PatternHandler::WIND);
+    return search(websiteToSearch, *pattern);
 }
 
 

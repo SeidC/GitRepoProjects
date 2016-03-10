@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "weather.h"
 #include "patternhandler.h"
+#include "regexpdefs.h"
 
 int main(int argc, char *argv[])
 {

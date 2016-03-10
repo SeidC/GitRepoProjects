@@ -95,7 +95,7 @@ void Weather::filterCityRequest(QString reqWebSite)
     {
         cityRequest = new CityRequest(this);
     }
-    cityRequest->
+   // cityRequest->
     return;
 }
 

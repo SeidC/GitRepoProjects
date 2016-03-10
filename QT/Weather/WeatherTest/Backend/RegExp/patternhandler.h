@@ -10,7 +10,7 @@ class PatternHandler;
 class PatternHandler : public QObject
 {
     Q_OBJECT
-
+public:
     typedef enum
     {
         TEMPERATURE   = 0x00,
@@ -27,6 +27,7 @@ public:
      void addPattern(QString regExpStr, int match);
      void addPattern(Pattern *pattern);
      static PatternHandler *getInstance(void);
+     Pattern* getPattern(Handler_t handle);
 
 private: /*Constructor/ CopyConstructor and Destructor for Singelton Pattern*/
      explicit PatternHandler(QObject *parent = 0);

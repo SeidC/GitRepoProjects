@@ -42,7 +42,7 @@ int Pattern::getMatches() const
     return matches;
 }
 
-MatchTypeList Pattern::getMatchTypes()
+Pattern::MatchTypeList Pattern::getMatchTypes()
 {
     return matchTypes;
 }

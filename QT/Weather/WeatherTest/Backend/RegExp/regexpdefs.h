@@ -3,5 +3,7 @@
 #include <QString>
 #include "patternhandler.h"
 
+void initPatternHandler(void);
+
 
 #endif // REGEXPDEFS_H

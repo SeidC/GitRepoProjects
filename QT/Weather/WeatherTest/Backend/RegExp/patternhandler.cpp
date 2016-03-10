@@ -37,3 +37,13 @@ PatternHandler *PatternHandler::getInstance()
     }
     return handler;
 }
+
+Pattern *PatternHandler::getPattern(PatternHandler::Handler_t handle)
+{
+    Pattern *pattern = NULL;
+    if(handle < patternList.size())
+    {
+        pattern = patternList.at((int)handle);
+    }
+    return pattern;
+}
