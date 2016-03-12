@@ -20,7 +20,8 @@ public:
         TYPE                ,
         CITY_AND_URL        ,
         COUNT               ,
-        RAIN
+        RAIN                ,
+        ULR_ID
 
     }Handler_t;
 public:

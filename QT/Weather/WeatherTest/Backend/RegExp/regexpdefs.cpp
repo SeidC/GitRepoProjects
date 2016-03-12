@@ -42,6 +42,8 @@
 #define WEATHER_RAIN "\\<.*\\>(\\d*[\\.\\d]+)*\\s+\\l\\/\\m.*\\s+(\\d*)\\%"
 
 
+#define SEARCH_URL_ID "([A-Z]\\w+)"
+
 
 Pattern WeatherTemp(QString(WEATHER_TEMP));
 Pattern WeatherDayAndDate(QString(WEATHER_DAY_DATE));
@@ -52,6 +54,7 @@ Pattern CityAndUrl(QString(SEARCH_LIST_PLACES_AND_URL));
 Pattern Count(QString(SEARCH_LIST_RESULT_COUNT));
 Pattern WeatherRain(QString(WEATHER_RAIN));
 
+Pattern UrlID(QString(SEARCH_URL_ID));
 
 void initPatternHandler(void)
 {
@@ -89,5 +92,9 @@ void initPatternHandler(void)
     WeatherRain.addMatchType(Pattern::RAIN_QUANTITY);
     WeatherRain.addMatchType(Pattern::RAIN_RISK);
     handler->addPattern(&WeatherRain);
+
+    UrlID.addMatchType(Pattern::URL_ID);
+    handler->addPattern(&UrlID);
+
     return;
 }

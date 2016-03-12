@@ -1,9 +1,9 @@
 #include "city.h"
-#include "regexp.h"
+#include "patternhandler.h"
 
 
 /*******************************************************************************
- * City
+ * City(...)
  ******************************************************************************/
 City::City(QObject *parent) : QObject(parent)
 {
@@ -12,7 +12,7 @@ City::City(QObject *parent) : QObject(parent)
 }
 
 /*******************************************************************************
- * City
+ * City(...)
  ******************************************************************************/
 City::City(QString sCity, QString sUrl, QObject *parent) : QObject(parent)
 {
@@ -22,7 +22,7 @@ City::City(QString sCity, QString sUrl, QObject *parent) : QObject(parent)
 }
 
 /*******************************************************************************
- * QString getCity()
+ * QString getCity(...)
  ******************************************************************************/
 QString City::getCity() const
 {
@@ -30,7 +30,7 @@ QString City::getCity() const
 }
 
 /*******************************************************************************
- * void setCity()
+ * void setCity(...)
  ******************************************************************************/
 void City::setCity(const QString &value)
 {
@@ -38,7 +38,7 @@ void City::setCity(const QString &value)
 }
 
 /*******************************************************************************
- * QString getUrl()
+ * QString getUrl(...)
  ******************************************************************************/
 QString City::getUrl() const
 {
@@ -46,19 +46,22 @@ QString City::getUrl() const
 }
 
 /*******************************************************************************
- * void setUrl()
+ * void setUrl(...)
  ******************************************************************************/
 void City::setUrl(const QString &value)
 {
     url = value;
 }
 
+/*******************************************************************************
+ * QStringList getUrlId(...)
+ *******************************************************************************/
 QStringList City::getUrlId(QString url)
 {
-    Pattern pattern("([A-Z]\\w+)");
-    pattern.addMatchType(Pattern::URL_ID);
+    Pattern *pattern = PatternHandler::getInstance()->
+                                getPattern(PatternHandler::ULR_ID);
     RegExp reg;
-    QStringList lst = reg.findRegExp(url,pattern);
+    QStringList lst = reg.findRegExp(url,*pattern);
     return lst;
 }
 
