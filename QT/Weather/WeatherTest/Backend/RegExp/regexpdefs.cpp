@@ -43,28 +43,51 @@
 
 
 
-
-Pattern WeatherTemp(QString(WEATHER_TEMP),2);
-Pattern WeatherDayAndDate(QString(WEATHER_DAY_DATE),2);
-Pattern WeatherSunshine(QString(WEATHER_SUNNSHINE),3);
-Pattern WeatherWind(QString(WEATHER_WIND),2);
-Pattern WeatherType(QString(WEATER_WTYPE),1);
-Pattern CityAndUrl(QString(SEARCH_LIST_PLACES_AND_URL),2);
-Pattern Count(QString(SEARCH_LIST_RESULT_COUNT),2);
-Pattern WeatherRain(QString(WEATHER_RAIN),2);
+Pattern WeatherTemp(QString(WEATHER_TEMP));
+Pattern WeatherDayAndDate(QString(WEATHER_DAY_DATE));
+Pattern WeatherSunshine(QString(WEATHER_SUNNSHINE));
+Pattern WeatherWind(QString(WEATHER_WIND));
+Pattern WeatherType(QString(WEATER_WTYPE));
+Pattern CityAndUrl(QString(SEARCH_LIST_PLACES_AND_URL));
+Pattern Count(QString(SEARCH_LIST_RESULT_COUNT));
+Pattern WeatherRain(QString(WEATHER_RAIN));
 
 
 void initPatternHandler(void)
 {
     PatternHandler* handler;
     handler = PatternHandler::getInstance();
-    handler->addPattern(&WeatherTemp     );
-    handler->addPattern(&WeatherDayAndDate);
-    handler->addPattern(&WeatherSunshine );
-    handler->addPattern(&WeatherWind     );
-    handler->addPattern(&WeatherType     );
-    handler->addPattern(&CityAndUrl      );
-    handler->addPattern(&Count           );
-    handler->addPattern(&WeatherRain     );
 
+    WeatherTemp.addMatchType(Pattern::TEMPERATURE_MIN);
+    WeatherTemp.addMatchType(Pattern::TEMPERATURE_MAX);
+    handler->addPattern(&WeatherTemp     );
+
+    WeatherDayAndDate.addMatchType(Pattern::DAY);
+    WeatherDayAndDate.addMatchType(Pattern::DATE);
+    handler->addPattern(&WeatherDayAndDate);
+
+    WeatherSunshine.addMatchType(Pattern::SUNSHINE_UP);
+    WeatherSunshine.addMatchType(Pattern::SUNSHINE_DOWN);
+    WeatherSunshine.addMatchType(Pattern::SUNSHINE_DURATION);
+    handler->addPattern(&WeatherSunshine);
+
+    WeatherWind.addMatchType(Pattern::WIND_DRIECTION);
+    WeatherWind.addMatchType(Pattern::WIND_FORCE);
+    handler->addPattern(&WeatherWind);
+
+    WeatherType.addMatchType(Pattern::TYPE);
+    handler->addPattern(&WeatherType);
+
+    CityAndUrl.addMatchType(Pattern::CITY);
+    CityAndUrl.addMatchType(Pattern::URL);
+    handler->addPattern(&CityAndUrl);
+
+    Count.addMatchType(Pattern::RESULT_QUANTITY);
+    Count.addMatchType(Pattern::RESULT_COUNTRY);
+    handler->addPattern(&Count);
+
+    WeatherRain.addMatchType(Pattern::RAIN_QUANTITY);
+    WeatherRain.addMatchType(Pattern::RAIN_RISK);
+    handler->addPattern(&WeatherRain);
+    return;
 }

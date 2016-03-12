@@ -55,7 +55,8 @@ void City::setUrl(const QString &value)
 
 QStringList City::getUrlId(QString url)
 {
-    Pattern pattern("([A-Z]\\w+)",1);
+    Pattern pattern("([A-Z]\\w+)");
+    pattern.addMatchType(Pattern::URL_ID);
     RegExp reg;
     QStringList lst = reg.findRegExp(url,pattern);
     return lst;

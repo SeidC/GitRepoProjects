@@ -24,14 +24,14 @@ public:
 
     }Handler_t;
 public:
-     void addPattern(QString regExpStr, int match);
+     void addPattern(QString regExpStr);
      void addPattern(Pattern *pattern);
      static PatternHandler *getInstance(void);
      Pattern* getPattern(Handler_t handle);
 
 private: /*Constructor/ CopyConstructor and Destructor for Singelton Pattern*/
      explicit PatternHandler(QObject *parent = 0);
-     PatternHandler (PatternHandler & );
+     PatternHandler (PatternHandler & pattern);
      ~PatternHandler();
 
 private:

@@ -8,7 +8,7 @@ PatternHandler::PatternHandler(QObject *parent) : QObject(parent)
 
 }
 
-PatternHandler::PatternHandler(PatternHandler &)
+PatternHandler::PatternHandler(PatternHandler & pattern)
 {
     /*--- Nothing To Do ---*/
 }
@@ -18,9 +18,9 @@ PatternHandler::~PatternHandler()
     /*--- Nothing To Do ---*/
 }
 
-void PatternHandler::addPattern(QString regExpStr, int match)
+void PatternHandler::addPattern(QString regExpStr)
 {
-    patternList.push_back(new Pattern(regExpStr,match));
+    patternList.push_back(new Pattern(regExpStr));
 }
 
 void PatternHandler::addPattern(Pattern *pattern)
