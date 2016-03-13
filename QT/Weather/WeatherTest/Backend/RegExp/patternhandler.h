@@ -19,7 +19,7 @@ public:
         WIND                ,
         TYPE                ,
         CITY_AND_URL        ,
-        COUNT               ,
+        COUNT_AND_COUNTRIES ,
         RAIN                ,
         ULR_ID
 

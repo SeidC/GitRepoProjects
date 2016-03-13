@@ -2,12 +2,12 @@
 
 
 /*******************************************************************************
- * Weather
+ * Weather(...)
  ******************************************************************************/
 Weather::Weather(QObject *parent) : QObject(parent)
 {
-    cityRequest     = NULL;
-    weatherForecast = NULL;
+    cityRequest     = new CityRequest(this);
+    weatherForecast = new WeatherForecast(this);
     httpRequest = new NetworkRequest(this);
 
     connect(httpRequest,SIGNAL(requestCompleted(NetworkRequest::RequestType)),
@@ -17,7 +17,7 @@ Weather::Weather(QObject *parent) : QObject(parent)
 }
 
 /*******************************************************************************
- * QString getWeatherUrl()
+ * QString getWeatherUrl(...)
  ******************************************************************************/
 QString Weather::getWeatherUrl(void)
 {
@@ -25,7 +25,7 @@ QString Weather::getWeatherUrl(void)
 }
 
 /*******************************************************************************
- * QString getWeatherSearchUrl()
+ * QString getWeatherSearchUrl(...)
  ******************************************************************************/
 QString Weather::getWeatherSearchUrl(void)
 {
@@ -33,7 +33,7 @@ QString Weather::getWeatherSearchUrl(void)
 }
 
 /*******************************************************************************
- * QString getWeatherSevenDaysUrl()
+ * QString getWeatherSevenDaysUrl(...)
  ******************************************************************************/
 QString Weather::getWeatherSevenDaysUrl()
 {
@@ -41,7 +41,7 @@ QString Weather::getWeatherSevenDaysUrl()
 }
 
 /*******************************************************************************
- * void onFinishedRequest()
+ * void onFinishedRequest(...)
  ******************************************************************************/
 void Weather::onFinishedRequest(NetworkRequest::RequestType type)
 {
@@ -51,12 +51,12 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
     {
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
-           // search->makeCityRequest(web);
+            execCityRequest(web);
             emit cityRequestFinished();
         break;
         case NetworkRequest::REQUEST_WEATHER:
             web = httpRequest->getWebsite();
-           // search->makeWeatherForecast(web);
+            execWeatherForecast(web);
             emit weatherRequestFinished();
         break;
         default:
@@ -66,7 +66,7 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
 }
 
 /*******************************************************************************
- * void cityRequest()
+ * void cityRequest(...)
  ******************************************************************************/
 void Weather::startCityRequest(QString &city)
 {
@@ -77,7 +77,7 @@ void Weather::startCityRequest(QString &city)
 
 
 /*******************************************************************************
- * void weatherForcast()
+ * void weatherForcast(...)
  ******************************************************************************/
 void Weather::startWeatherForcast(QString &cityUrl)
 {
@@ -87,15 +87,20 @@ void Weather::startWeatherForcast(QString &cityUrl)
 }
 
 /*******************************************************************************
- * void filterCityRequest()
+ * void filterCityRequest(...)
  ******************************************************************************/
-void Weather::filterCityRequest(QString reqWebSite)
+void Weather::execCityRequest(QString webSite)
 {
-    if (cityRequest == NULL)
-    {
-        cityRequest = new CityRequest(this);
-    }
-   // cityRequest->
+
+    return;
+}
+
+/*******************************************************************************
+ * void execWeatherForecast(...)
+ ******************************************************************************/
+void Weather::execWeatherForecast(QString website)
+{
+
     return;
 }
 

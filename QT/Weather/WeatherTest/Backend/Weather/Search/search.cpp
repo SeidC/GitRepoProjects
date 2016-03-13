@@ -16,61 +16,49 @@ Search::Search(QObject *parent) : QObject(parent)
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
-QStringList Search::searchCitys(QString websiteToSearch)
+QStringList Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::CITY_AND_URL);
-    return search(websiteToSearch, *pattern);
+    return search(websiteToSearch, cityPattern);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchResults(QString websiteToSearch)
+QStringList Search::searchResults(QString websiteToSearch, Pattern &resultPattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::COUNT);
-    return search(websiteToSearch, *pattern);
+    return search(websiteToSearch, resultPattern);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchRain(QString websiteToSerach)
+QStringList Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::TYPE);
-    return search(websiteToSerach, *pattern);
+    return search(websiteToSerach, rainPattern);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchTemperature(QString websiteToSearch)
+QStringList Search::searchTemperature(QString websiteToSearch, Pattern &temperaturePattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::TEMPERATURE);
-    return search(websiteToSearch, *pattern);
+    return search(websiteToSearch, temperaturePattern);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchSunshine(QString websiteToSearch)
+QStringList Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::SUNSHINE);
-    return search(websiteToSearch, *pattern);
+    return search(websiteToSearch, sunshinePattern);
 }
 
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchWind(QString websiteToSearch)
+QStringList Search::searchWind(QString websiteToSearch, Pattern &windPattern)
 {
-    PatternHandler *handler = PatternHandler::getInstance();
-    Pattern *pattern = handler->getPattern(PatternHandler::WIND);
-    return search(websiteToSearch, *pattern);
+    return search(websiteToSearch, windPattern);
 }
 
 

@@ -39,7 +39,8 @@ public:
     void startWeatherForcast(QString &cityUrl);
 
 private:
-    void filterCityRequest(QString reqWebSite);
+    void execCityRequest(QString webSite);
+    void execWeatherForecast(QString website);
 
 private:
     QString getWeatherUrl(void);
