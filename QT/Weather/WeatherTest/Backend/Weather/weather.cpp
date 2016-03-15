@@ -8,7 +8,7 @@ Weather::Weather(QObject *parent) : QObject(parent)
 {
     cityRequest     = new CityRequest(this);
     weatherForecast = new WeatherForecast(this);
-    httpRequest = new NetworkRequest(this);
+    httpRequest     = new NetworkRequest(this);
 
     connect(httpRequest,SIGNAL(requestCompleted(NetworkRequest::RequestType)),
             this,SLOT(onFinishedRequest(NetworkRequest::RequestType)));
@@ -51,7 +51,7 @@ void Weather::onFinishedRequest(NetworkRequest::RequestType type)
     {
         case NetworkRequest::REQUEST_CITY:
             web = httpRequest->getWebsite();
-            execCityRequest(web);
+            cityRequest->filterData(web);
             emit cityRequestFinished();
         break;
         case NetworkRequest::REQUEST_WEATHER:

@@ -29,7 +29,7 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
     QStringList citys  = search.searchCitys(webData,*pattern);
 
     pattern = PatternHandler::getInstance()->getPattern(PatternHandler::COUNT_AND_COUNTRIES);
-    QStringList result = search.searchResults(webData);
+    QStringList result = search.searchResults(webData,*pattern);
 
     cityResultList     = createCityResultList(&citys, &result);
     return FILTER_OK;

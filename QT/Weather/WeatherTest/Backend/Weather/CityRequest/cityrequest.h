@@ -30,7 +30,11 @@ public:
      *
      */
     ~CityRequest();
-
+    /**
+     * @brief filterData
+     * @param webData
+     * @return
+     */
     FilterStatus_t filterData(QString webData);
 
 private:
