@@ -32,7 +32,8 @@ SOURCES += main.cpp\
            Backend/Weather/WeatherForecast/Clock/clock.cpp \
     Backend/RegExp/pattern.cpp \
     Backend/RegExp/patternhandler.cpp \
-    Backend/Weather/CityRequest/cityresult.cpp
+    Backend/Weather/CityRequest/cityresult.cpp \
+    Backend/Weather/Data/data.cpp
 
 
 HEADERS  += widget.h \
@@ -54,7 +55,8 @@ HEADERS  += widget.h \
             Backend/Weather/WeatherForecast/Clock/clock.h \
     Backend/RegExp/pattern.h \
     Backend/RegExp/patternhandler.h \
-    Backend/Weather/CityRequest/cityresult.h
+    Backend/Weather/CityRequest/cityresult.h \
+    Backend/Weather/Data/data.h
 
 
 FORMS    += widget.ui \
@@ -69,4 +71,5 @@ INCLUDEPATH += Backend \
                Backend/Weather/WeatherForecast \
                Backend/Weather/WeatherForecast/Clock \
                Backend/Weather/WeatherForecast/Params \
+               Backend/Weather/Data/
 
