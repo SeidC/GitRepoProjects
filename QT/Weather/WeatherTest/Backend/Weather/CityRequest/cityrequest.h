@@ -38,8 +38,8 @@ public:
     FilterStatus_t filterData(QString webData);
 
 private:
-     CityResultList *createCityResultList(QStringList *citys, QStringList *results);
-
+     CityResultList *createCityResultList(QStringList *citys, QStringList *results, Pattern &cityPattern, Pattern &resultPattern);
+     void setResultsToList(QStringList *results, Pattern &resultPatten);
 private:
     CityResultList *cityResultList;
     Search search;

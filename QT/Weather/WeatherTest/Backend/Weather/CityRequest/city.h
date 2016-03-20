@@ -54,7 +54,7 @@ public:
      */
     void setUrl(const QString &value);
 
-    QStringList getUrlId(QString url);
+    QStringList *getUrlId(QString url);
 
 private:
     /**

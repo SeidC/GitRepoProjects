@@ -72,3 +72,16 @@ void Pattern::addMatchType(Pattern::MatchTypeList lst)
     matchTypes = lst;
     return;
 }
+
+/*******************************************************************************
+ * MatchType_t getMatchTypeAtIndex(...)
+ ******************************************************************************/
+Pattern::MatchType_t Pattern::getMatchTypeAtIndex(int index)
+{
+    Pattern::MatchType_t ret = INVALID_MATCH;
+    if (index < matchTypes.size())
+    {
+        ret = matchTypes.at(index);
+    }
+    return ret;
+}

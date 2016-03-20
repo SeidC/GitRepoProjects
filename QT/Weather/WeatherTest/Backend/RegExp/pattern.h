@@ -13,6 +13,9 @@ class Pattern : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief MatchTypeList
+     */
     typedef enum
     {
     /*--- Sunshine Match Types --------------*/
@@ -40,7 +43,9 @@ public:
         RESULT_QUANTITY,
         RESULT_COUNTRY,
     /*--- Ohter Match Types ------------------*/
-        URL_ID
+        URL_ID,
+    /*--- Invalid Return Type ----------------*/
+        INVALID_MATCH
     }MatchType_t;
 
     typedef QList<Pattern::MatchType_t> MatchTypeList;
@@ -79,10 +84,18 @@ public:
      * @return
      */
     MatchTypeList getMatchTypes(void);
-
+    /**
+     * @brief addMatchType
+     * @param type
+     */
     void addMatchType(MatchType_t type);
-
+    /**
+     * @brief addMatchType
+     * @param lst
+     */
     void addMatchType(MatchTypeList lst);
+
+    MatchType_t getMatchTypeAtIndex(int index);
 private:
     /**
      * @brief pattern

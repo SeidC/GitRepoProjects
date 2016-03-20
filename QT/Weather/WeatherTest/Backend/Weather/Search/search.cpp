@@ -12,11 +12,10 @@ Search::Search(QObject *parent) : QObject(parent)
 
 }
 
-
 /*******************************************************************************
  * void searchCitys
  ******************************************************************************/
-QStringList Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
+QStringList *Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
 {
     return search(websiteToSearch, cityPattern);
 }
@@ -24,7 +23,7 @@ QStringList Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchResults(QString websiteToSearch, Pattern &resultPattern)
+QStringList *Search::searchResults(QString websiteToSearch, Pattern &resultPattern)
 {
     return search(websiteToSearch, resultPattern);
 }
@@ -32,7 +31,7 @@ QStringList Search::searchResults(QString websiteToSearch, Pattern &resultPatter
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
+QStringList *Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
 {
     return search(websiteToSerach, rainPattern);
 }
@@ -40,7 +39,7 @@ QStringList Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchTemperature(QString websiteToSearch, Pattern &temperaturePattern)
+QStringList *Search::searchTemperature(QString websiteToSearch, Pattern &temperaturePattern)
 {
     return search(websiteToSearch, temperaturePattern);
 }
@@ -48,7 +47,7 @@ QStringList Search::searchTemperature(QString websiteToSearch, Pattern &temperat
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePattern)
+QStringList *Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePattern)
 {
     return search(websiteToSearch, sunshinePattern);
 }
@@ -56,16 +55,15 @@ QStringList Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePat
 /*******************************************************************************
  * void searchResults()
  ******************************************************************************/
-QStringList Search::searchWind(QString websiteToSearch, Pattern &windPattern)
+QStringList *Search::searchWind(QString websiteToSearch, Pattern &windPattern)
 {
     return search(websiteToSearch, windPattern);
 }
 
-
 /*******************************************************************************
  * QStringList search()
  ******************************************************************************/
-QStringList Search::search(QString &txt,Pattern &pattern)
+QStringList *Search::search(QString &txt,Pattern &pattern)
 {
     RegExp reg;
     return reg.findRegExp(txt,pattern);

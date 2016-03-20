@@ -24,7 +24,7 @@ public:
 
 
 
-private:
+public:
     /**
      * @brief searchCitys
      * @param websiteToSearch Website which should be searched
@@ -33,7 +33,7 @@ private:
      * This method allows to search Citys with URLs of a given Website
      * The results will be stored in the parameter cityRequest
      */
-    QStringList searchCitys(QString websiteToSearch, Pattern &cityPattern);
+    QStringList *searchCitys(QString websiteToSearch, Pattern &cityPattern);
     /**
      * @brief searchResults
      * @param websiteToSearch
@@ -42,42 +42,43 @@ private:
      * This method allows to search Results of the given Website.
      * Results are number of found citys in of different countrys.
      */
-    QStringList searchResults(QString websiteToSearch, Pattern &resultPattern);
+    QStringList *searchResults(QString websiteToSearch, Pattern &resultPattern);
     /**
      * @brief searchRain
      * @param websiteToSerach
      * @param rainPattern
      * @return
      */
-    QStringList searchRain(QString websiteToSerach, Pattern &rainPattern);
+    QStringList *searchRain(QString websiteToSerach, Pattern &rainPattern);
     /**
      * @brief searchTemperature
      * @param websiteToSearch
      * @param temperaturePattern
      * @return
      */
-    QStringList searchTemperature(QString websiteToSearch,Pattern &temperaturePattern);
+    QStringList *searchTemperature(QString websiteToSearch,Pattern &temperaturePattern);
     /**
      * @brief searchSunshine
      * @param websiteToSearch
      * @param sunshinePattern
      * @return
      */
-    QStringList searchSunshine(QString websiteToSearch, Pattern &sunshinePattern);
+    QStringList *searchSunshine(QString websiteToSearch, Pattern &sunshinePattern);
     /**
      * @brief searchWind
      * @param websiteToSearch
      * @param windPattern
      * @return
      */
-    QStringList searchWind(QString websiteToSearch, Pattern &windPattern);
+    QStringList *searchWind(QString websiteToSearch, Pattern &windPattern);
+private:
     /**
      * @brief search
      * @param txt
      * @param pattern
      * @return
      */
-    QStringList search(QString &txt, Pattern &pattern);
+    QStringList *search(QString &txt, Pattern &pattern);
 
 signals:
 

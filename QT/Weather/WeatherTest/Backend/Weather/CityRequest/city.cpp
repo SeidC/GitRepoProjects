@@ -56,12 +56,12 @@ void City::setUrl(const QString &value)
 /*******************************************************************************
  * QStringList getUrlId(...)
  *******************************************************************************/
-QStringList City::getUrlId(QString url)
+QStringList *City::getUrlId(QString url)
 {
     Pattern *pattern = PatternHandler::getInstance()->
                                 getPattern(PatternHandler::ULR_ID);
     RegExp reg;
-    QStringList lst = reg.findRegExp(url,*pattern);
+    QStringList *lst = reg.findRegExp(url,*pattern);
     return lst;
 }
 

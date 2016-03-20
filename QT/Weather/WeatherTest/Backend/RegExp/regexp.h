@@ -17,7 +17,7 @@ private:
 
 public:
     RegExp();
-    QStringList findRegExp(QString &txt, Pattern &pattern);
+    QStringList *findRegExp(QString &txt, Pattern &pattern);
 
 
 

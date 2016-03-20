@@ -13,12 +13,13 @@ RegExp::RegExp()
 /*******************************************************************************
  * QStringList findRegExp
  ******************************************************************************/
-QStringList RegExp::findRegExp(QString &txt,Pattern &pattern)
+QStringList *RegExp::findRegExp(QString &txt,Pattern &pattern)
 {
-    QStringList ret;
+    QStringList *ret;
     QRegularExpressionMatch match;
     QRegularExpressionMatchIterator iter;
 
+    ret = new QStringList();
     this->setPattern(pattern.getPattern());
     this->setPatternOptions(QRegularExpression::MultilineOption);
     iter = this->globalMatch(txt,0,QRegularExpression::PartialPreferCompleteMatch);
@@ -28,7 +29,7 @@ QStringList RegExp::findRegExp(QString &txt,Pattern &pattern)
         match = iter.next();
         for(int i = 1; i < pattern.getMatches() + 1; i++)
         {
-            ret.push_back(match.captured(i));
+            ret->push_back(match.captured(i));
         }
     }
     return ret;
