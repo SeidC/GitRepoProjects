@@ -21,9 +21,11 @@ public:
     void addResult(QString country, int numberOfResults);
     void addCity(QString city,QString url);
 
+    Result* getResult(void);
+
 private:
 
-    Result results;
+    Result result;
     CityList cityList;
 signals:
 
