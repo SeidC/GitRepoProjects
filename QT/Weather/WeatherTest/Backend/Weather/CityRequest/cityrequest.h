@@ -39,8 +39,8 @@ public:
 
 private:
      CityResultList *createCityResultList(QStringList *citys, QStringList *results, Pattern &cityPattern, Pattern &resultPattern);
-     void setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPatten);
-     void setCitysToList  (CityResultList *list, QStringList *citys, Pattern &cityPatten);
+     void setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPattern);
+     void setCitysToList  (CityResultList *list, QStringList *citys, Pattern &cityPattern);
 private:
     CityResultList *cityResultList;
     Search search;

@@ -51,24 +51,23 @@ CityResultList *CityRequest::createCityResultList(QStringList *citys, QStringLis
 /*******************************************************************************
  * void setResultsToList(...)
  ******************************************************************************/
-void CityRequest::setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPatten)
+void CityRequest::setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPattern)
 {
     int offset;
     CityResult* result;
     QString country;
     int quantity;
 
-    /*Ask the number of available matches*/
-    offset = resultPatten.getMatches();
+
     for(int i = 0; i < results->size(); i+= offset)
     {
         result = new CityResult();
         country = "";
         quantity = 0;
 
-        for(int j = 0; j < offset; j++)
+        for(int j = 0; j < resultPattern.getMatches(); j++)
         {
-            switch(resultPatten.getMatchTypeAtIndex(j+i))
+            switch(resultPattern.getMatchTypeAtIndex(j))
             {
                 case Pattern::RESULT_COUNTRY:
                     country = results->at(j+i);
@@ -91,9 +90,43 @@ void CityRequest::setResultsToList(CityResultList *list, QStringList *results, P
 /*******************************************************************************
  * void setCitysToList(...)
  ******************************************************************************/
-void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Pattern &cityPatten)
+void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Pattern &cityPattern)
 {
-    int jOffset;
+    Result *result;
+    CityResult* cityResult;
+    int listCounter;
+    for(int i = 0; i < list->size();i++)
+    {
+        cityResult = list->at(i);
+        result = list->at(i)->getResult();
+
+        if(result->isMaxStoredReached())
+        {
+            listCounter = result->getMaxStoredResults();
+        }
+        else
+        {
+            listCounter = result->getNumberOfResults();
+        }
+
+        for (int j = 0;j < listCounter; j++)
+        {
+            for(int k = 0; k < cityPattern.getMatches(); k++)
+            {
+                switch (cityPattern.getMatchTypeAtIndex(k))
+                {
+                    case Pattern::CITY:
+
+                        break;
+                    case Pattern::URL:
+
+                        break;
+                    default:
+                        break;
+                    }
+            }
+        }
+    }
 
 }
 

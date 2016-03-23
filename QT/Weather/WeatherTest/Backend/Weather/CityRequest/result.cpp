@@ -1,7 +1,7 @@
 #include "result.h"
 
 /*******************************************************************************
- * Result
+ * Result(...)
  ******************************************************************************/
 Result::Result(QObject *parent)
     : QObject(parent)
@@ -11,7 +11,7 @@ Result::Result(QObject *parent)
 }
 
 /*******************************************************************************
- * Result
+ * Result(...)
  ******************************************************************************/
 Result::Result(int numberOfResults,QString country, QObject *parent)
     : QObject(parent)
@@ -22,7 +22,7 @@ Result::Result(int numberOfResults,QString country, QObject *parent)
 }
 
 /*******************************************************************************
- * QString getCountry
+ * QString getCountry(...)
  ******************************************************************************/
 QString Result::getCountry() const
 {
@@ -30,7 +30,7 @@ QString Result::getCountry() const
 }
 
 /*******************************************************************************
- * void setCountry
+ * void setCountry(...)
  ******************************************************************************/
 void Result::setCountry(const QString &value)
 {
@@ -38,19 +38,42 @@ void Result::setCountry(const QString &value)
 }
 
 /*******************************************************************************
- * int getNumberOfResults
+ * int getNumberOfResults(...)
  ******************************************************************************/
-int Result::getNumberOfResults() const
+int Result::getNumberOfResults(void) const
 {
     return this->numberOfResults;
 }
 
 /*******************************************************************************
- * void setNumberOfResults
+ * void setNumberOfResults(...)
  ******************************************************************************/
 void Result::setNumberOfResults(int value)
 {
     this->numberOfResults = value;
+}
+
+
+/*******************************************************************************
+ * int getMaxStoredResults(...)
+ ******************************************************************************/
+int Result::getMaxStoredResults(void) const
+{
+    return maxStoredResults;
+}
+
+
+/*******************************************************************************
+ * bool isMaxStoredReached(...)
+ ******************************************************************************/
+bool Result::isMaxStoredReached() const
+{
+    bool ret = false;
+    if (this->numberOfResults > this->maxStoredResults)
+    {
+        ret = true;
+    }
+    return ret;
 }
 
 

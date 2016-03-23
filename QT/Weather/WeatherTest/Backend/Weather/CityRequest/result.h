@@ -19,7 +19,7 @@ typedef QList<Result*> ResultList;
 class Result : public QObject
 {
     Q_OBJECT
-public:
+public: //Methods
     /**
      * @brief Result
      * @param parent
@@ -37,13 +37,22 @@ public:
      * @return
      */
 
-    QString getCountry() const;
+    QString getCountry(void) const;
     void setCountry(const QString &value);
 
-    int getNumberOfResults() const;
+    int getNumberOfResults(void) const;
     void setNumberOfResults(int value);
 
-private:
+    int getMaxStoredResults(void) const;
+
+    bool isMaxStoredReached
+
+public:  //Parameter
+    const int maxStoredResults = 20;
+
+
+
+private: //Parameter
     /**
      * @brief country
      */
