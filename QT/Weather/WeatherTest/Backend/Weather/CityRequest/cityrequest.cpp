@@ -42,10 +42,12 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
 CityResultList *CityRequest::createCityResultList(QStringList *citys, QStringList *results, Pattern &cityPattern, Pattern& resultPattern)
 {
     CityResultList *lst;
-    CityResult *res;
+
 
     lst = new CityResultList();
     setResultsToList(lst,results,resultPattern);
+    setCitysToList(lst,citys,cityPattern);
+    return lst;
 }
 
 /*******************************************************************************
@@ -53,13 +55,12 @@ CityResultList *CityRequest::createCityResultList(QStringList *citys, QStringLis
  ******************************************************************************/
 void CityRequest::setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPattern)
 {
-    int offset;
     CityResult* result;
     QString country;
     int quantity;
 
 
-    for(int i = 0; i < results->size(); i+= offset)
+    for(int i = 0; i < results->size(); i+= resultPattern.getMatches())
     {
         result = new CityResult();
         country = "";
@@ -94,6 +95,8 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
 {
     Result *result;
     CityResult* cityResult;
+    QString city;
+    QString url;
     int listCounter;
     for(int i = 0; i < list->size();i++)
     {
@@ -116,18 +119,19 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
                 switch (cityPattern.getMatchTypeAtIndex(k))
                 {
                     case Pattern::CITY:
-
-                        break;
+                        city = citys->at(j+k);
+                    break;
                     case Pattern::URL:
-
-                        break;
+                        url = citys->at(j+k);
+                    break;
                     default:
-                        break;
-                    }
+                    break;
+                }
             }
+            cityResult->addCity(city,url);
         }
     }
-
+    return;
 }
 
 

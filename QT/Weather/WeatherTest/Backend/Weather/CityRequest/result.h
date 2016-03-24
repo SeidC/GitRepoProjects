@@ -45,10 +45,10 @@ public: //Methods
 
     int getMaxStoredResults(void) const;
 
-    bool isMaxStoredReached
+    bool isMaxStoredReached(void) const;
 
 public:  //Parameter
-    const int maxStoredResults = 20;
+    static const int maxStoredResults;
 
 
 

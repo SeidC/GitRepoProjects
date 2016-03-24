@@ -21,5 +21,5 @@ void CityResult::addCity(QString city, QString url)
 
 Result *CityResult::getResult(void)
 {
-    return &sresult;
+    return &result;
 }

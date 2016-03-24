@@ -29,7 +29,7 @@
 /**
  *
  */
-#define SEARCH_LIST_RESULT_COUNT "\\<.*r\\\"\\>(\\d*)\\s*\\w*\\s*\\w*(.*)\\<\\/li\\>"
+#define SEARCH_LIST_RESULT_COUNT "\\<.*resultcount\\\"\\>(\\d*)\\s*\\w*\\s*\\w*(.*)\\<\\/li\\>"
 
 /**
  *
@@ -81,8 +81,8 @@ void initPatternHandler(void)
     WeatherType.addMatchType(Pattern::TYPE);
     handler->addPattern(&WeatherType);
 
-    CityAndUrl.addMatchType(Pattern::CITY);
     CityAndUrl.addMatchType(Pattern::URL);
+    CityAndUrl.addMatchType(Pattern::CITY);
     handler->addPattern(&CityAndUrl);
 
     Count.addMatchType(Pattern::RESULT_QUANTITY);

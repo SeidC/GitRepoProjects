@@ -1,5 +1,8 @@
 #include "result.h"
 
+const int Result::maxStoredResults = 20;
+
+
 /*******************************************************************************
  * Result(...)
  ******************************************************************************/
@@ -66,7 +69,7 @@ int Result::getMaxStoredResults(void) const
 /*******************************************************************************
  * bool isMaxStoredReached(...)
  ******************************************************************************/
-bool Result::isMaxStoredReached() const
+bool Result::isMaxStoredReached(void) const
 {
     bool ret = false;
     if (this->numberOfResults > this->maxStoredResults)
