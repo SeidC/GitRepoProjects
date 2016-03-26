@@ -81,9 +81,9 @@ void CityRequest::setResultsToList(CityResultList *list, QStringList *results, P
                     quantity = 0;
                 break;
              }
-             result->addResult(country,quantity);
-             list->push_back(result);
         }
+        result->addResult(country,quantity);
+        list->push_back(result);
     }
     return;
 }
@@ -97,7 +97,8 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
     CityResult* cityResult;
     QString city;
     QString url;
-    int listCounter;
+    int listCounter,offset = 0;
+
     for(int i = 0; i < list->size();i++)
     {
         cityResult = list->at(i);
@@ -105,14 +106,16 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
 
         if(result->isMaxStoredReached())
         {
-            listCounter = result->getMaxStoredResults();
+            listCounter = result->getMaxStoredResults() *
+                          cityPattern.getMatches();
         }
         else
         {
-            listCounter = result->getNumberOfResults();
+            listCounter = result->getNumberOfResults() *
+                          cityPattern.getMatches();
         }
 
-        for (int j = 0;j < listCounter; j++)
+        for (int j = offset; j < (offset +listCounter); j+= cityPattern.getMatches())
         {
             for(int k = 0; k < cityPattern.getMatches(); k++)
             {
@@ -129,7 +132,10 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
                 }
             }
             cityResult->addCity(city,url);
+            url = "";
+            city = "";
         }
+        offset += listCounter;
     }
     return;
 }
