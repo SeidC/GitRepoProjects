@@ -18,9 +18,9 @@ SOURCES += main.cpp\
            Backend/NetworkRequest/networkrequest.cpp \
            Backend/RegExp/regexpdefs.cpp \
            Backend/Weather/Search/search.cpp \
-           Backend/Weather/CityRequest/city.cpp \
+           Backend/Weather/CityRequest/CityResult/City/city.cpp \
            Backend/Weather/CityRequest/cityrequest.cpp \
-           Backend/Weather/CityRequest/result.cpp \
+           Backend/Weather/CityRequest/CityResult/Result/result.cpp \
            Backend/Weather/weather.cpp \
            Backend/Weather/WeatherForecast/weatherforecast.cpp \
            Backend/Weather/WeatherForecast/day.cpp \
@@ -30,10 +30,10 @@ SOURCES += main.cpp\
            Backend/Weather/WeatherForecast/Params/temperature.cpp \
            Backend/Weather/WeatherForecast/Params/wind.cpp \
            Backend/Weather/WeatherForecast/Clock/clock.cpp \
-    Backend/RegExp/pattern.cpp \
-    Backend/RegExp/patternhandler.cpp \
-    Backend/Weather/CityRequest/cityresult.cpp \
-    Backend/Weather/Data/data.cpp
+           Backend/RegExp/pattern.cpp \
+           Backend/RegExp/patternhandler.cpp \
+           Backend/Weather/CityRequest/CityResult/cityresult.cpp \
+
 
 
 HEADERS  += widget.h \
@@ -41,9 +41,9 @@ HEADERS  += widget.h \
             Backend/NetworkRequest/networkrequest.h \
             Backend/RegExp/regexpdefs.h \
             Backend/Weather/Search/search.h \
-            Backend/Weather/CityRequest/city.h \
+            Backend/Weather/CityRequest/CityResult/City/city.h \
             Backend/Weather/CityRequest/cityrequest.h \
-            Backend/Weather/CityRequest/result.h \
+            Backend/Weather/CityRequest/CityResult/Result/result.h \
             Backend/Weather/weather.h \
             Backend/Weather/WeatherForecast/weatherforecast.h \
             Backend/Weather/WeatherForecast/day.h \
@@ -53,10 +53,10 @@ HEADERS  += widget.h \
             Backend/Weather/WeatherForecast/Params/temperature.h \
             Backend/Weather/WeatherForecast/Params/wind.h \
             Backend/Weather/WeatherForecast/Clock/clock.h \
-    Backend/RegExp/pattern.h \
-    Backend/RegExp/patternhandler.h \
-    Backend/Weather/CityRequest/cityresult.h \
-    Backend/Weather/Data/data.h
+            Backend/RegExp/pattern.h \
+            Backend/RegExp/patternhandler.h \
+            Backend/Weather/CityRequest/CityResult/cityresult.h \
+
 
 
 FORMS    += widget.ui \
@@ -66,6 +66,9 @@ INCLUDEPATH += Backend \
                Backend/Weather \
                Backend/Weather/Search \
                Backend/Weather/CityRequest/ \
+               Backend/Weather/CityRequest/CityResult \
+               Backend/Weather/CityRequest/CityResult/Result \
+               Backend/Weather/CityRequest/CityResult/City \
                Backend/RegExp \
                Backend/NetworkRequest \
                Backend/Weather/WeatherForecast \

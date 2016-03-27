@@ -5,12 +5,12 @@
 #include <QList>
 #include "cityresult.h"
 #include "search.h"
-#include "Data.h"
+
 
 /**
  * @brief The CityRequest class
  */
-class CityRequest : public QObject, public Data
+class CityRequest : public QObject
 {
 public:
     typedef enum

@@ -13,8 +13,6 @@
 class Weather : public QObject
 {
     Q_OBJECT
-public:
-
 
 public:
     /**
@@ -25,7 +23,7 @@ public:
      */
     explicit Weather(QObject *parent = 0);
     /**
-     * @brief cityRequest
+     * @brief Start City Request
      * @param city String of City which has to be searched
      *
      * Metode to initiate a search request of a City.
@@ -33,31 +31,77 @@ public:
      */
     void startCityRequest(QString &city);
     /**
-     * @brief weatherForcast
+     * @brief Start Weather Forcast
      * @param cityUrl
      */
     void startWeatherForcast(QString &cityUrl);
 
 private:
+    /**
+     * @brief Execute City Request
+     * @param webSite - String which contains the Website to filter all cities and results.
+     *
+     *
+     */
     void execCityRequest(QString webSite);
+    /**
+     * @brief Execute Weather Forecast
+     * @param website
+     */
     void execWeatherForecast(QString website);
 
 private:
+    /**
+     * @brief Get Weather Url
+     * @return String of the weather.com Url
+     *
+     * Getter Methode to get the weather.com url
+     */
     QString getWeatherUrl(void);
+    /**
+     * @brief Get Weather Search Url
+     * @return String of the weather.com Url with Search extension.
+     *
+     * Getter Methode to get the weather.com search url.
+     */
     QString getWeatherSearchUrl(void);
+    /**
+     * @brief Get Weather Seven Days Url
+     * @return String of the weather.com Url with seven days request.
+     *
+     * Getter Methode to get the weather.com seven days request.
+     */
     QString getWeatherSevenDaysUrl(void);
 
 private:
+    /**
+     * @brief Http Request
+     */
     NetworkRequest *httpRequest;
+    /**
+     * @brief City Request
+     */
     CityRequest *cityRequest;
+    /**
+     * @brief Weather Forecast
+     */
     WeatherForecast *weatherForecast;
 
-
 signals:
+    /**
+     * @brief City Request Finished
+     */
     void cityRequestFinished(void);
+    /**
+     * @brief Weather Request Finished
+     */
     void weatherRequestFinished(void);
 
 private slots:
+    /**
+     * @brief On Finished Request
+     * @param type
+     */
     void onFinishedRequest(NetworkRequest::RequestType type);
 
 };

@@ -25,13 +25,17 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
 {
     Pattern *cPattern, *rPattern;
     QStringList *citys, *result;
-
+    /*Request Reg Exp Pattern to filter all Citys*/
     cPattern = PatternHandler::getInstance()->getPattern(PatternHandler::CITY_AND_URL);
+    /*Filter all citys from website with the City Reg Exp*/
     citys  = search.searchCitys(webData,*cPattern);
 
+    /*Request Reg Exp Pattern to filter all Countries and  the Quantity*/
     rPattern = PatternHandler::getInstance()->getPattern(PatternHandler::COUNT_AND_COUNTRIES);
+    /*Filter all countrys and quantities from website wiht the Result Reg Exp*/
     result = search.searchResults(webData,*rPattern);
 
+    /*Split all returned value in the CityResultList*/
     cityResultList     = createCityResultList(citys, result,*cPattern,*rPattern);
     return FILTER_OK;
 }
@@ -42,7 +46,6 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
 CityResultList *CityRequest::createCityResultList(QStringList *citys, QStringList *results, Pattern &cityPattern, Pattern& resultPattern)
 {
     CityResultList *lst;
-
 
     lst = new CityResultList();
     setResultsToList(lst,results,resultPattern);
