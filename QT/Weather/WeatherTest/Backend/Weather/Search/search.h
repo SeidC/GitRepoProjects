@@ -13,6 +13,15 @@ class Search : public QObject
 {
     Q_OBJECT
 
+public: //Datatypes
+    typedef enum
+    {
+        FILTERN_OK            = 0x00,
+        FILTERN_NOT_SUPPORTED = 0xFF,
+
+    }FilterStatus_t;
+
+
 public:
     /**
      * @brief Search
@@ -21,10 +30,6 @@ public:
      * Constructor of the Search Class
      */
     explicit Search(QObject *parent = 0);
-
-
-
-public:
     /**
      * @brief searchCitys
      * @param websiteToSearch Website which should be searched
@@ -71,6 +76,9 @@ public:
      * @return
      */
     QStringList *searchWind(QString websiteToSearch, Pattern &windPattern);
+
+
+    virtual FilterStatus_t filterData(QString webData) = 0;
 private:
     /**
      * @brief search

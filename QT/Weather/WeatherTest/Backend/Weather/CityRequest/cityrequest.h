@@ -10,14 +10,10 @@
 /**
  * @brief The CityRequest class
  */
-class CityRequest : public QObject
+class CityRequest : public Search
 {
 public:
-    typedef enum
-    {
-        FILTER_OK   = 0x00,
 
-    }FilterStatus_t;
 
 public:
     /**
@@ -43,7 +39,7 @@ private:
      void setCitysToList  (CityResultList *list, QStringList *citys, Pattern &cityPattern);
 private:
     CityResultList *cityResultList;
-    Search search;
+
 
 };
 

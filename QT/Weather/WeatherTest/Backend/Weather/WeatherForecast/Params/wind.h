@@ -26,8 +26,16 @@ public:
 
 
 
+    int getWindSpeed() const;
+    void setWindSpeed(int value);
+
+    WindDirection_t getWindDriection() const;
+    void setWindDriection(const WindDirection_t &value);
+
+    QString windDirectionToString(WindDirection_t direction);
+
 private:
-   //QString windDirectionStr[NUMBER_OF_WIND_DIRECTIONS] = { "North", "North_East", "East", "South_East", "South", "South_West", "North_West"};
+    QStringList     windDirectionList;
     WindDirection_t windDriection;
     int windSpeed;
 
