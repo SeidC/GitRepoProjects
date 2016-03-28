@@ -22,6 +22,7 @@ public:
     void addCity(QString city,QString url);
 
     Result* getResult(void);
+    CityList *getCityList(void);
 
 private:
 

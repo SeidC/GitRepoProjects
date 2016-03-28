@@ -76,6 +76,13 @@ public:
      * @return
      */
     QStringList *searchWind(QString websiteToSearch, Pattern &windPattern);
+    /**
+     * @brief searchTypes
+     * @param websiteToSearch
+     * @param typePattern
+     * @return
+     */
+    QStringList *searchTypes(QString websiteToSearch, Pattern &typePattern);
 
 
     virtual FilterStatus_t filterData(QString webData) = 0;

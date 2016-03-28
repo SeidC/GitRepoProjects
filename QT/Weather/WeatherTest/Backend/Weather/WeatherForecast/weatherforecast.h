@@ -13,7 +13,12 @@ public:
 
     FilterStatus_t filterData(QString webData);
 private:
-    DayList days;
+    DayList *createWeatherData(QStringList &wind, QStringList &temp, QStringList &rain,
+                           QStringList &sun, QStringList &type);
+
+    void deleteWeatherForecast(void);
+private:
+    DayList *days;
 
 signals:
 

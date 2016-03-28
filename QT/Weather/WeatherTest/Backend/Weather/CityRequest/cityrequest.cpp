@@ -7,7 +7,7 @@
  ******************************************************************************/
 CityRequest::CityRequest(QObject *parent) : Search(parent)
 {
-
+    cityResultList = NULL;
 }
 
 /*******************************************************************************
@@ -15,7 +15,7 @@ CityRequest::CityRequest(QObject *parent) : Search(parent)
  ******************************************************************************/
 CityRequest::~CityRequest()
 {
-
+    deleteResultList();
 }
 
 /*******************************************************************************
@@ -25,16 +25,19 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
 {
     Pattern *cPattern, *rPattern;
     QStringList *citys, *result;
+
     /*Request Reg Exp Pattern to filter all Citys*/
     cPattern = PatternHandler::getInstance()->getPattern(PatternHandler::CITY_AND_URL);
-    /*Filter all citys from website with the City Reg Exp*/
-    citys  = searchCitys(webData,*cPattern);
-
     /*Request Reg Exp Pattern to filter all Countries and  the Quantity*/
     rPattern = PatternHandler::getInstance()->getPattern(PatternHandler::COUNT_AND_COUNTRIES);
+
+    /*Filter all citys from website with the City Reg Exp*/
+    citys  = searchCitys(webData,*cPattern);
     /*Filter all countrys and quantities from website wiht the Result Reg Exp*/
     result = searchResults(webData,*rPattern);
 
+    /*Delete ResultList if allready exists*/
+    deleteResultList();
     /*Split all returned value in the CityResultList*/
     cityResultList     = createCityResultList(citys, result,*cPattern,*rPattern);
     return FILTERN_OK;
@@ -139,6 +142,20 @@ void CityRequest::setCitysToList(CityResultList *list, QStringList *citys, Patte
             city = "";
         }
         offset += listCounter;
+    }
+    return;
+}
+
+
+/*******************************************************************************
+ * void deleteResultList(...)
+ ******************************************************************************/
+void CityRequest::deleteResultList(void)
+{
+    if(cityResultList != NULL)
+    {
+        delete cityResultList;
+        cityResultList = NULL;
     }
     return;
 }

@@ -13,7 +13,7 @@ Search::Search(QObject *parent) : QObject(parent)
 }
 
 /*******************************************************************************
- * void searchCitys(...)
+ * QStringList *searchCitys(...)
  ******************************************************************************/
 QStringList *Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
 {
@@ -21,7 +21,7 @@ QStringList *Search::searchCitys(QString websiteToSearch, Pattern &cityPattern)
 }
 
 /*******************************************************************************
- * void searchResults(...)
+ * QStringList *searchResults(...)
  ******************************************************************************/
 QStringList *Search::searchResults(QString websiteToSearch, Pattern &resultPattern)
 {
@@ -29,7 +29,7 @@ QStringList *Search::searchResults(QString websiteToSearch, Pattern &resultPatte
 }
 
 /*******************************************************************************
- * void searchResults(...)
+ * QStringList *searchRain(...)
  ******************************************************************************/
 QStringList *Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
 {
@@ -37,7 +37,7 @@ QStringList *Search::searchRain(QString websiteToSerach, Pattern &rainPattern)
 }
 
 /*******************************************************************************
- * void searchResults(...)
+ * QStringList *searchTemperature(...)
  ******************************************************************************/
 QStringList *Search::searchTemperature(QString websiteToSearch, Pattern &temperaturePattern)
 {
@@ -45,7 +45,7 @@ QStringList *Search::searchTemperature(QString websiteToSearch, Pattern &tempera
 }
 
 /*******************************************************************************
- * void searchResults(...)
+ * QStringList *searchSunshine(...)
  ******************************************************************************/
 QStringList *Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePattern)
 {
@@ -53,11 +53,19 @@ QStringList *Search::searchSunshine(QString websiteToSearch, Pattern &sunshinePa
 }
 
 /*******************************************************************************
- * void searchResults(...)
+ * QStringList *searchWind(...)
  ******************************************************************************/
 QStringList *Search::searchWind(QString websiteToSearch, Pattern &windPattern)
 {
     return search(websiteToSearch, windPattern);
+}
+
+/*******************************************************************************
+ * QStringList *searchTypes(...)
+ ******************************************************************************/
+QStringList *Search::searchTypes(QString websiteToSearch, Pattern &typePattern)
+{
+    return search(websiteToSearch,typePattern);
 }
 
 /*******************************************************************************
@@ -70,7 +78,7 @@ Search::FilterStatus_t Search::filterData(QString webData)
 }
 
 /*******************************************************************************
- * QStringList search(...)
+ * QStringList *search(...)
  ******************************************************************************/
 QStringList *Search::search(QString &txt,Pattern &pattern)
 {

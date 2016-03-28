@@ -23,3 +23,8 @@ Result *CityResult::getResult(void)
 {
     return &result;
 }
+
+CityList *CityResult::getCityList()
+{
+    return &cityList;
+}
