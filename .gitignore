@@ -13,3 +13,5 @@ QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Mak
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 .gitignore.orig
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
+QT/
+AutoIt/
