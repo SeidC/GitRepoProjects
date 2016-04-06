@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "weather.h"
+#include <QComboBox>
 
 namespace Ui {
 class Widget;
@@ -16,7 +17,8 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
-
+private:
+    void deleteCombobox(QComboBox *combo);
 private:
     Ui::Widget *ui;
     Weather weather;
@@ -25,6 +27,7 @@ private:
 public slots:
     void startRequest(bool clicked);
     void startWeather(bool clicked);
+    void onCountryChanged(QString country);
     void execAfterRequest(void);
 
 

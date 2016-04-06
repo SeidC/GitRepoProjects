@@ -36,6 +36,10 @@ public:
      */
     void startWeatherForcast(QString &cityUrl);
 
+    QStringList *getListOfCities(QString country);
+
+
+    QStringList *getListOfCountries(void);
 private:
     /**
      * @brief Execute City Request
@@ -50,7 +54,6 @@ private:
      */
     void execWeatherForecast(QString website);
 
-private:
     /**
      * @brief Get Weather Url
      * @return String of the weather.com Url

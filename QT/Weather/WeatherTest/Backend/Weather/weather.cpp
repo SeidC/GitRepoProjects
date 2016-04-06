@@ -86,6 +86,18 @@ void Weather::startWeatherForcast(QString &cityUrl)
     return;
 }
 
+QStringList *Weather::getListOfCities(QString country)
+{
+    return cityRequest->getListOfCities(country);
+}
+
+
+
+QStringList *Weather::getListOfCountries(void)
+{
+    return cityRequest->getListOfCountries();
+}
+
 /*******************************************************************************
  * void filterCityRequest(...)
  ******************************************************************************/

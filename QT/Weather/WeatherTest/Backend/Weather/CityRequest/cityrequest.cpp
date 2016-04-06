@@ -43,6 +43,53 @@ CityRequest::FilterStatus_t CityRequest::filterData(QString webData)
     return FILTERN_OK;
 }
 
+QStringList *CityRequest::getListOfCities(QString country)
+{
+    int index = getCountryListIndex(country);
+    int size = cityResultList->at(index)->getCityList()->size();
+    QStringList* lst = new QStringList();
+    QString txt;
+    for(int i = 0; i< size ; i++ )
+    {
+        txt = cityResultList->at(index)->getCityList()->at(i)->getCity();
+        lst->push_back(txt);
+    }
+    return lst;
+}
+
+
+/*******************************************************************************
+ * QStringList *getListOfCountries(...)
+ ******************************************************************************/
+QStringList *CityRequest::getListOfCountries(void)
+{
+    QStringList* cList = new QStringList();
+    QString country;
+    for(int i = 0; i < cityResultList->size(); i++)
+    {
+        country = cityResultList->at(i)->getResult()->getCountry();
+        cList->push_back(country);
+    }
+    return cList;
+}
+
+/*******************************************************************************
+ * int getCountryListIndex(...)
+ ******************************************************************************/
+int CityRequest::getCountryListIndex(QString country)
+{
+    int index = -1;
+    for(int i = 0; i < cityResultList->size(); i++)
+    {
+        if(country == cityResultList->at(i)->getResult()->getCountry())
+        {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
 /*******************************************************************************
  * CityResultList *createCityResultList(...)
  ******************************************************************************/

@@ -33,6 +33,11 @@ public:
      */
     FilterStatus_t filterData(QString webData);
 
+    QStringList* getListOfCities(QString country);
+
+    QStringList *getListOfCountries(void);
+
+    int getCountryListIndex(QString country);
 private:
      CityResultList *createCityResultList(QStringList *citys, QStringList *results, Pattern &cityPattern, Pattern &resultPattern);
      void setResultsToList(CityResultList *list, QStringList *results, Pattern &resultPattern);

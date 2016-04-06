@@ -33,9 +33,9 @@ WeatherForecast::FilterStatus_t WeatherForecast::filterData(QString webData)
  DayList *WeatherForecast::createWeatherData(QStringList &wind, QStringList &temp, QStringList &rain,
                                              QStringList &sun, QStringList &type)
  {
+     DayList* lst = new DayList();
 
-
-     return;
+     return lst;
  }
 
  void WeatherForecast::deleteWeatherForecast(void)

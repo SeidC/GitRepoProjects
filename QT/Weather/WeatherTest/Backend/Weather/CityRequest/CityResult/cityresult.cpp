@@ -24,7 +24,12 @@ Result *CityResult::getResult(void)
     return &result;
 }
 
-CityList *CityResult::getCityList()
+CityList *CityResult::getCityList(void)
 {
-    return &cityList;
+    CityList *ret = NULL;
+    if (!cityList.isEmpty())
+    {
+        ret = &cityList;
+    }
+    return ret;
 }
