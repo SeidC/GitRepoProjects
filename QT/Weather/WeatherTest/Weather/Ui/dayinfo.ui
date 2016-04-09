@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DayInfo</class>
+ <widget class="QWidget" name="DayInfo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>388</width>
+    <height>163</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="DayInfoColumn" name="Rain" native="true"/>
+   </item>
+   <item>
+    <widget class="DayInfoColumn" name="Temperatur" native="true"/>
+   </item>
+   <item>
+    <widget class="DayInfoColumn" name="Wind" native="true"/>
+   </item>
+   <item>
+    <widget class="DayInfoColumn" name="Sunshine" native="true"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DayInfoColumn</class>
+   <extends>QWidget</extends>
+   <header location="global">dayinfocolumn.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -17,9 +17,25 @@ QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Profile/
+
 =======
 .gitignore.orig
+QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_4_2_MinGW_32bit2-Debug/
+QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_4_2_MinGW_32bit2-Release/
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
-QT/
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/TcpServerClient/TcpServerClient/TcpServerClient.pro.user.22d566c
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Release/
+QT/Weather/WeatherTest/Backend/WeatherCom/Search/searchlist.cpp.autosave
+QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Profile/
+AutoIt/ImageLoader/Source/H2R_Dump.dd
+AutoIt/ImageLoader/Source/Test.txt
+AutoIt/InetGet/InetRegExpTest.au3
+AutoIt/InetGet/Output.txt
 AutoIt/
->>>>>>> SketchUp
+QT/QMLinWidget/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/QtQuick/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+SketchUp/
+>>>>>>> QT
