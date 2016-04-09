@@ -11,12 +11,15 @@ QT/ObjectInALoopTest/build-ObjectInALoopTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Animations/StatesAndTransitions/build-StatesAndTransitions-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
-<<<<<<< .merge_file_a04012
-.gitignore.orig
-AutoIt/ImageLoader/Source/API/H2R_Dump.dd
-AutoIt/ImageLoader/Source/H2R_Dump.dd
-AutoIt/ImageLoader/GUI/data.jpg
-AutoIt/ImageLoader/Source/H2R_Dump.html
-=======
+<<<<<<< HEAD
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
->>>>>>> .merge_file_a03540
+QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
+QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Profile/
+=======
+.gitignore.orig
+QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
+QT/
+AutoIt/
+>>>>>>> SketchUp
