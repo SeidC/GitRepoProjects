@@ -7,19 +7,15 @@ QT/MainMenu/debug/main.o
 QT/MainMenu/debug/qrc_qml.cpp
 QT/MainMenu/debug/qrc_qml.o
 QT/ObjectInALoopTest/build-ObjectInALoopTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
-/PHP/FristTry/nbproject/private/
 QT/Animations/StatesAndTransitions/build-StatesAndTransitions-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/Animations/Animations/build-Animations-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
-<<<<<<< HEAD
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Release/
+<<<<<<< HEAD
 QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
 QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Profile/
-
-=======
-.gitignore.orig
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_4_2_MinGW_32bit2-Debug/
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/TcpServerClient/build-TcpServerClient-Desktop_Qt_5_4_2_MinGW_32bit2-Release/
@@ -30,12 +26,13 @@ QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Release/
 QT/Weather/WeatherTest/Backend/WeatherCom/Search/searchlist.cpp.autosave
 QT/ObjectTest/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Profile/
-AutoIt/ImageLoader/Source/H2R_Dump.dd
-AutoIt/ImageLoader/Source/Test.txt
-AutoIt/InetGet/InetRegExpTest.au3
-AutoIt/InetGet/Output.txt
-AutoIt/
 QT/QMLinWidget/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
 QT/QtQuick/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
-SketchUp/
->>>>>>> QT
+
+=======
+QT/Weather/build-WeatherTest-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/QtQuick/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/qrc_qml.o
+QT/QtQuick/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/Makefile
+QT/QtQuick/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+QT/QMLinWidget/build-untitled-Desktop_Qt_5_5_1_MinGW_32bit-Debug/
+>>>>>>> origin/AVR
