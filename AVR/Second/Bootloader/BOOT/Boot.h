@@ -11,7 +11,7 @@
 
 #include "Boot_Cfg.h"
 
-void (*Bott_ApplicationStart)( void ) = BOOT_APPLICATION_START_ADDRESS;
+void (*Boot_ApplicationStart)( void ) = BOOT_APPLICATION_ADDRESS;
 
-
+void (*Boot_BootloaderStart)( void ) =  BOOT_BOOTLOADER_ADDRESS;
 #endif /* BOOT_H_ */

@@ -7,3 +7,13 @@
 
 
 #include "Boot.h"
+#include "avr/boot.h"
+
+
+
+void Boot_Init(void)
+{
+    
+  
+    
+}
