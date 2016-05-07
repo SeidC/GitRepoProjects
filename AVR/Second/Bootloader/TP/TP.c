@@ -48,17 +48,14 @@ static TP_Service_t TP_CreateService(TP_ServiceType_t serv, TP_SubserviceType_t 
 void TP_GenerateResponse(TP_Response_t response, TP_SubserviceType_t service, TP_Message_t *msg)
 {
     msg->header.service = TP_CreateService(TP_RESPONSE,service);  
-    if(response == TP_NEGATIVE_RESPONSE)
-    {
-        msg->body = &TP_NegativeResponse;
-    }   
-    else if(response == TP_POSITIVE_RESPONSE) 
+   
+    if(response == TP_POSITIVE_RESPONSE) 
     {
         msg->body = &TP_PositveResponse;
     } 
     else
     {
-        
+        msg->body = &TP_NegativeResponse;
     }
     return;
 }
