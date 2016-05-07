@@ -42,7 +42,12 @@ typedef uint8_t FIFO_Return_t;
  */
 #define FIFO_IS_BUFFER_EMPTY(bufPtr)                            \
         (bufPtr->status == FIFO_BUFFER_EMPTY)
-        
+
+/**
+ * @brief Buffer Status
+ *
+ * Status values which the FIFO can contains.
+ */       
 typedef enum
 {
     FIFO_BUFFER_EMPTY               = 0x00,
@@ -54,7 +59,11 @@ typedef enum
 
 
 /**
+ * @brief FiFo Counter 
  *
+ * Structure which contains all needed counter parameter to handle the 
+ * FIFO Buffer. This counter represents the read/write position. 
+ * To calculate the correct position, the overflow parameter is needed.
  */
 typedef struct
 {
@@ -64,14 +73,16 @@ typedef struct
 }FIFO_Counter_t;
 
 /**
+ * @brief Buffer Structure
  *
+ * This struct represents a FIFO Buffer.
  */
 typedef struct 
 {
 	uint8_t *bufferPtr;
 	uint8_t bufferSize;
     FIFO_BufferStatus_t status; 
-	FIFO_Counter_t counter;		
+	FIFO_Counter_t counter;	
 }FIFO_Buffer_t;
 
 
@@ -85,7 +96,7 @@ typedef struct
  *  
  *  @details Details
  */
-void FIOF_InitBuffer(FIFO_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize);
+void FIFO_InitBuffer(FIFO_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize);
 
 /**
  *  @brief Brief
