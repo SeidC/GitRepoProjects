@@ -46,7 +46,7 @@
  *
  * Address of the Bootloader.
  */
-#define BOOT_BOOTLOADER_ADDRESS                      (BOOT_FLASH_SIZE - BOOT_LOADER_SIZE_CFG)
+#define BOOT_BOOTLOADER_ADDRESS                      ((uint16_t*)(BOOT_FLASH_SIZE - BOOT_LOADER_SIZE_CFG))
 
 
 
