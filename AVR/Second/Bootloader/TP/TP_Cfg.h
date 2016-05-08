@@ -11,10 +11,7 @@
 
 #include "PR_DEF.h"
 
-#define TP_DELIMITER_CFG                                "|"
-
 #define TP_START_TOKEN_CFG                          0xAAAA
-
 
 #define TP_MAX_MESSAGE_LENGHT_CFG                       20u
 

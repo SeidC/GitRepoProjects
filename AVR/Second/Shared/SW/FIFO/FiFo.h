@@ -152,7 +152,14 @@ FIFO_Return_t FIFO_WriteString(FIFO_Buffer_t* ptr, char* str);
  */
 FIFO_BufferStatus_t FIFO_GetBufferStatus(FIFO_Buffer_t *ptr);
 
-
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] ptr Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
+uint16_t FIFO_GetFreeBufferSpace(FIFO_Buffer_t *ptr);
 
 #endif /* FIFO_H_ */

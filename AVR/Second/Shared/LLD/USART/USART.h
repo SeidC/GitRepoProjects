@@ -85,6 +85,11 @@
  */ 
  #define USART_USE_INTERRUPT                                TRUE
  
+ /** 
+  *
+  */
+ #define USART_DATA_DELIMITER                               "\r\n"
+ 
  /*=== USART Register Configuration =============================================================*/
 
 /**
@@ -143,6 +148,10 @@
         (USART_STATUS_C_REG = (USART_STATUS_C_REG | (1 << URSEL)) & ~(1 << bit))
         
 /*=== USART Data Types Definiton ================================================================*/
+
+/**
+ * @brief 
+ */
 typedef enum
 {
     USART_DISABLE       = 0x00,
@@ -150,7 +159,9 @@ typedef enum
      
 }USART_Enable_t;
 
-
+/**
+ * @brief 
+ */
 typedef enum 
 {
     USART_PARITY_DISABLED        = 0x00,
@@ -159,7 +170,9 @@ typedef enum
     
 }USART_ParityMode_t;
 
-
+/**
+ * @brief 
+ */
 typedef enum 
 {
     USART_USE_SYNCHRONOUS_MODE                  = 0x00,
@@ -167,13 +180,18 @@ typedef enum
     USART_USE_ASYNCHRONOUS_MODE_W_DOUBLE_SPEED  = 0x00,
 }USART_TransmitionMode_t;
 
-
+/**
+ * @brief 
+ */
 typedef enum 
 {
     USART_USE_1_STOP_BIT = 0x00,
     USART_USE_2_STOP_BIT = 0x01
 }USART_StopBit_t;
 
+/**
+ * @brief 
+ */
 typedef enum 
 {
     USART_5_BIT_DATA_SIZE     = 0x00,
@@ -183,9 +201,14 @@ typedef enum
     USART_9_BIT_DATA_SIZE     = 0x07,
 }USART_DataSize_t;
 
+/**
+ * @brief 
+ */
 typedef uint16_t USART_Baudrate_t;
 
-
+/**
+ * @brief 
+ */
 typedef struct
 {
     USART_Enable_t          rxEnableConfig;
@@ -288,7 +311,7 @@ USART_INLINE char USART_ReceiveChar(void);
  *  
  *  @details Details
  */
-USART_INLINE void USARt_ReceiveString(char *str, int size);
+USART_INLINE void USART_ReceiveString(char *str, int size);
 
 /*=== Error Output By Wrong Config ==============================================================*/
 

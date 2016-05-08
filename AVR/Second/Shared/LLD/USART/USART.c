@@ -365,7 +365,7 @@ char USART_ReceiveChar(void)
 /************************************************************************/
 /* void USARt_ReceiveString                                             */
 /************************************************************************/
-void USARt_ReceiveString(char *str, int size)
+void USART_ReceiveString(char *str, int size)
 {
     FIFO_ReadString(&USART_rxBuffer,str,size);
     return;   

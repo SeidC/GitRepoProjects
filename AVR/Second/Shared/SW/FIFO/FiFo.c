@@ -289,11 +289,32 @@ static void FIFO_UpdateBufferStatus(FIFO_Buffer_t* ptr)
     return;
 }
 
-/******************************************************************************
+/**************************************************************************************************
  * FUNCTION: FIFO_BufferStatus_t FIFO_GetBufferStatus(...)
- *****************************************************************************/
+ *************************************************************************************************/
 FIFO_BufferStatus_t FIFO_GetBufferStatus(FIFO_Buffer_t *ptr)
 {
     return FIFO_GET_BUFFER_STATUS(ptr);
 }
 
+/**************************************************************************************************
+ * FUNCTION: uint16_t FIFO_GetFreeBufferSpace(...)
+ *************************************************************************************************/
+uint16_t FIFO_GetFreeBufferSpace(FIFO_Buffer_t *ptr)
+{
+    uint8_t w,r,o;
+    uint16_t space = 0;
+    w = FIFO_GET_WRITE_COUNT(ptr);
+    r = FIFO_GET_READ_COUNT(ptr);
+    o = FIFO_GET_OVERFLOW_STATUS(ptr);
+    
+    if(o == TRUE)
+    {
+        space = FIFO_GET_BUFFER_SIZE(ptr) - (r - w ); 
+    }
+    else
+    {
+        space = FIFO_GET_BUFFER_SIZE(ptr) - (w - r ); 
+    }
+    return space,
+}
