@@ -349,6 +349,10 @@ void USART_TransmitString(char *str)
 {
     char c;
     FIFO_WriteString(&USART_txBuffer,str);
+    if(USART_ADD_DATA_DELIMITER == TRUE)
+    {
+        FIFO_WriteString(&USART_txBuffer,USART_DATA_DELIMITER);
+    }
     c = FIFO_Read(&USART_txBuffer);
     USART_TRANSMIT_DATA_BYTE(c);
     return;

@@ -86,9 +86,22 @@
  #define USART_USE_INTERRUPT                                TRUE
  
  /** 
+  * @brief Data Delimiter
   *
+  * Delimiter which will added each transmitted string. 
+  * @see USART_ADD_DATA_DELIMITER for activation/deactivation of the delimiter
   */
  #define USART_DATA_DELIMITER                               "\r\n"
+ 
+ /**
+  * @brief Activate Delimiter
+  *
+  * This define allows to active or deactivate the Data Delimiter. 
+  * Possible Values: 
+  *         TRUE  [1]:  Activated - Delimiter will be add at the end of the transmitted string
+  *         FALSE [0]:  Deactivated - Delimiter will not be added.
+  */
+ #define USART_ADD_DATA_DELIMITER                           TRUE
  
  /*=== USART Register Configuration =============================================================*/
 
