@@ -16,8 +16,13 @@ void USART_TP_Init(void)
 
 
 
-void USART_TP_TransmitTpMessage(void)
+void USART_TP_TransmitMessage(void)
 {
     
 }
 
+
+void USART_TP_ReceiveMessage(void)
+{
+    
+}
