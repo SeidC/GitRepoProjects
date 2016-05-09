@@ -316,5 +316,5 @@ uint16_t FIFO_GetFreeBufferSpace(FIFO_Buffer_t *ptr)
     {
         space = FIFO_GET_BUFFER_SIZE(ptr) - (w - r ); 
     }
-    return space,
+    return space;
 }
