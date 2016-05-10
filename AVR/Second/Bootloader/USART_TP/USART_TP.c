@@ -26,3 +26,9 @@ void USART_TP_ReceiveMessage(void)
 {
     
 }
+
+
+void USART_TP_MainFunction(void)
+{
+    
+}

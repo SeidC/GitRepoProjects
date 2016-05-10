@@ -10,19 +10,9 @@
 #define TP_H_
 
 #include "PR_DEF.h"
-
+#include "TP_Cfg.h"
 
 /*--- Configuration Defines ---------------------------------------------------------------------*/
-
-/**
- * @brief Maximum Message Size
- */
-#define TP_MAX_MESSAGE_SIZE         50
-
-/**
- * @brief Delimiter Configuration
- */
-#define TP_DELIMITER_CFG           "\r\n"
 
 /**
  * @brief Broadcast Id
@@ -55,11 +45,16 @@
         (sizeof(TP_DELIMITER_CFG))
 
 
+#define TP_MESSAGE_INDICATOR_SIZE()         \
+        (sizeof(TP_MESSAGE_INDICATOR))
+
+
 /**
  * @brief Header Structure Definition
  */            
 typedef struct
 {
+    uint8_t msgSign[TP_MESSAGE_INDICATOR_SIZE()];
     uint8_t id;
     uint8_t dataLen;
 }TP_Header_str;
@@ -114,6 +109,6 @@ typedef struct
 
 uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data);
 void TP_SetId(TP_Message_t *msg, uint8_t id);
-void TP_CreateMessage(TP_Message_t *msg, uint8_t id, uint8_t *data);
+void TP_SetMessageData(TP_Message_t *msg, uint8_t id, uint8_t *data);
 
 #endif /* TP_H_ */

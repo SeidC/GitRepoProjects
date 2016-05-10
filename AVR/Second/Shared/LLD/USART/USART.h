@@ -326,6 +326,16 @@ USART_INLINE char USART_ReceiveChar(void);
  */
 USART_INLINE void USART_ReceiveString(char *str, int size);
 
+/**
+ *  @brief Brief
+ *  
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
+USART_INLINE  boolean USART_IsDataAvailable(void);
+
+
 /*=== Error Output By Wrong Config ==============================================================*/
 
 /**

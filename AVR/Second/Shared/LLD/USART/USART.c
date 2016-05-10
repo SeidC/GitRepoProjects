@@ -375,6 +375,19 @@ void USART_ReceiveString(char *str, int size)
     return;   
 }
 
+/************************************************************************/
+/* boolean USART_IsDataAvailable(...)
+/************************************************************************/
+boolean USART_IsDataAvailable(void)
+{
+   boolean ret = FALSE;
+   if (FIFO_GetBufferStatus(&USART_rxBuffer) == FIFO_BUFFER_DATA_AVAILABLE)
+   {
+        ret = TRUE;   
+   }  
+   return ret;
+}
+
 
 
 #if (USART_USE_INTERRUPT == TRUE)
