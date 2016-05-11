@@ -78,9 +78,9 @@
 						</object>
 						<object type="TAInput" name="MaxMsgLenEdit">
 							<properties>
-								<property name="Left" vt="Int16">374</property>
+								<property name="Left" vt="Int16">150</property>
 								<property name="Top" vt="Int8">17</property>
-								<property name="Width" vt="Int8">79</property>
+								<property name="Width" vt="Int16">303</property>
 								<property name="Height" vt="Int8">21</property>
 								<property name="TabOrder" vt="Int8">1</property>
 								<property name="CtrlStyle" vt="Int32">1342382208</property>
@@ -117,14 +117,13 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TAInput" name="Input3">
+								<object type="TAInput" name="msgIndiStartEdit">
 									<properties>
 										<property name="Left" vt="Int8">114</property>
 										<property name="Top" vt="Int8">30</property>
 										<property name="Width" vt="Int8">111</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">1</property>
-										<property name="Text" vt="String">Input1</property>
 										<property name="CtrlStyle" vt="Int32">1342382210</property>
 										<property name="CtrlExStyle" vt="Int16">512</property>
 										<property name="Resizing" vt="Set">DockHeight</property>
@@ -146,7 +145,7 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TACombo" name="Combo3">
+								<object type="TACombo" name="msgIndiStartCombo">
 									<properties>
 										<property name="Left" vt="Int16">309</property>
 										<property name="Top" vt="Int8">30</property>
@@ -196,14 +195,13 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TAInput" name="Input2">
+								<object type="TAInput" name="msgIndiStopEdit">
 									<properties>
 										<property name="Left" vt="Int8">114</property>
 										<property name="Top" vt="Int8">30</property>
 										<property name="Width" vt="Int8">111</property>
 										<property name="Height" vt="Int8">21</property>
 										<property name="TabOrder" vt="Int8">1</property>
-										<property name="Text" vt="String">Input1</property>
 										<property name="CtrlStyle" vt="Int32">1342374018</property>
 										<property name="CtrlExStyle" vt="Int16">512</property>
 										<property name="Resizing" vt="Set">DockHeight</property>
@@ -225,7 +223,7 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TACombo" name="Combo2">
+								<object type="TACombo" name="msgIndiStopCombo">
 									<properties>
 										<property name="Left" vt="Int16">309</property>
 										<property name="Top" vt="Int8">30</property>
@@ -275,7 +273,7 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TAInput" name="Input5">
+								<object type="TAInput" name="DelimInput">
 									<properties>
 										<property name="Left" vt="Int16">146</property>
 										<property name="Top" vt="Int8">24</property>
@@ -304,7 +302,7 @@
 									</properties>
 									<components/>
 								</object>
-								<object type="TACombo" name="Combo5">
+								<object type="TACombo" name="DelimTypeCombo">
 									<properties>
 										<property name="Left" vt="Int16">309</property>
 										<property name="Top" vt="Int8">24</property>
@@ -335,7 +333,7 @@
 				<property name="Left" vt="Int8">13</property>
 				<property name="Top" vt="Int8">20</property>
 				<property name="Width" vt="Int8">53</property>
-				<property name="Height" vt="Int8">25</property>
+				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="String">TP Modul:</property>
 				<property name="TabOrder" vt="Int8">1</property>
 				<property name="HaveVariable" vt="False">False</property>
@@ -359,7 +357,7 @@
 						<li vt="String">SPI</li>
 					</list>
 				</property>
-				<property name="CtrlStyle" vt="Int32">1342374466</property>
+				<property name="CtrlStyle" vt="Int32">1342374467</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
 				<property name="Resizing" vt="Set">DockHeight</property>
 			</properties>
