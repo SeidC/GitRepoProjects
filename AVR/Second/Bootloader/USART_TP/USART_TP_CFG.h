@@ -11,19 +11,48 @@
 
 #include "TP.h"
 
-#define USART_TP_HANDLE_SIZE()              \
-        (USART_TP_NUMBER_OF_HANDLS)
+/*--- Defines -----------------------------------------------------------------------------------*/
+
+/**
+ * @brief Size of Tx Handles
+ */
+#define USART_TP_TX_HANDLE_SIZE()              \
+        (USART_TP_TX_NUMBER_OF_HANDLS)
+
+/**
+ * @brief Size of Rx Handles
+ */
+#define USART_TP_RX_HANDLE_SIZE()              \
+        (USART_TP_RX_NUMBER_OF_HANDLS)
+
+/*--- Configuration Defines ---------------------------------------------------------------------*/
+
+#define USART_TP_DELIMITER                      "\r\n"
 
 
+/*--- Type Definitions --------------------------------------------------------------------------*/
+/**
+ * @brief Tx Handles Definition
+ */
 typedef enum
 {
-    USART_TP_ID_0x0100              = 0x00,
-    USART_TP_ID_0x0250                    ,
+    USART_TP_TX_ID_0x0100              = 0x00,
+    USART_TP_TX_ID_0x0250                    ,
     
-    USART_TP_NUMBER_OF_HANDLS
-}USART_TP_IdHandle_t;
+    USART_TP_TX_NUMBER_OF_HANDLS
+}USART_TP_TxIdHandle_t;
 
-
+/**
+ * @brief Rx Handles Definition
+ */
+typedef enum 
+{
+    USART_TP_RX_ID_0x0200              = 0x00,
+    USART_TP_RX_ID_0x0350                    ,
+    
+    
+    USART_TP_RX_NUMBER_OF_HANDLS
+}USART_TP_RxIdHandle_t;
 
 
 

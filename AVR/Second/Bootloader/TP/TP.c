@@ -12,6 +12,7 @@
 
 
 
+
 uint8_t TP_GetHeader(TP_Message_t *msg, uint8_t* av);
 
 uint8_t TP_GetFooter(TP_Message_t *msg, uint8_t* av);
@@ -121,11 +122,13 @@ void TP_SetDelimiter(TP_Message_t *msg)
 void TP_SetMessageIndicator(TP_Message_t *msg)
 {
     uint8_t i;
-    uint8_t indi = TP_MESSAGE_INDICATOR;
+    //uint8_t indi = TP_MESSAGE_INDICATOR;
     
     for(i = 0; i < TP_MESSAGE_INDICATOR_SIZE(); i++)
     {
-        msg->header.header_str.msgSign[i] = indi[i];
+        //msg->header.header_str.msgSign[i] = indi[i];
     }
     return;
+
 }
+

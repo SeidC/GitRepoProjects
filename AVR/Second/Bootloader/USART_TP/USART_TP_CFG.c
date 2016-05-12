@@ -9,23 +9,37 @@
 #include "USART_TP_CFG.h"
 
 
-static const TP_Message_t msg_ID_0x100 = 
+ TP_Message_t msg_ID_0x100 = 
             {
-                .header.header_str = {
-                    .id = 0x100, 
-                }
-            }
+//                 .header.header_str = {
+//                     .id = 0x100, 
+//                 }
+            };
 
-static const TP_Message_t msg_ID_0x250 =
+ TP_Message_t msg_ID_0x250 =
 {
-    .header.header_str = {
-        .id = 0x250,
-    }
-}
+//     .header.header_str = {
+//         .id = 0x250,
+//     }
+};
 
 
-static const TP_Message_t USART_TP_MessageList[USART_TP_HANDLE_SIZE()] =
+static TP_Message_t USART_TP_Tx_MessageList[2] =
 {
-    &msg_ID_0x100,
-    &msg_ID_0x0250,
+    {
+        .header.header_str = {.id = 0x250},
+        
+    },
+    
+};
+
+
+
+#define TP_NEW_MESSAGE(id)                              \
+{                                                       \
+ .header.header_str.id = 22,                            \
+ .header.header_str.dataLen = 0,                        \
+ .footer.footer_str.delim = TP_DELIMITER_CFG,           \
+ .footer.footer_str.crc = 0x00,                         \
+ .footer.footer_str.sqc = 0x00,                         \
 }
