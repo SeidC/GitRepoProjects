@@ -33,3 +33,5 @@ static TP_Message_t USART_TP_Tx_MessageList[2] =
     
 };
 
+
+USART_TP_NEW_MESSAGE(id0x250,0x250,20);

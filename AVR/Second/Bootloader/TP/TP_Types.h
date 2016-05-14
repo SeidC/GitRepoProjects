@@ -9,6 +9,8 @@
 #ifndef TP_TYPES_H_
 #define TP_TYPES_H_
 
+#include "PR_DEF.h"
+
 /*--- Size Configuration Defines ----------------------------------------------------------------*/
 
 /**
@@ -55,7 +57,7 @@
             {                                                                          \
                 .dataLen  = 0u,                                                        \
                 .id       = msgId,                                                     \
-                .msgStart = msgStart,                                                  \
+                .msgStart = msgStart_i,                                                  \
             },                                                                         \
             .body =                                                                    \
             {                                                                          \

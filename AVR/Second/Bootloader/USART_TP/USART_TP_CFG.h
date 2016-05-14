@@ -9,6 +9,7 @@
 #ifndef USART_TP_CFG_H_
 #define USART_TP_CFG_H_
 
+#include "USART_TP_Types.h"
 #include "TP.h"
 
 /*--- Defines -----------------------------------------------------------------------------------*/
@@ -24,10 +25,6 @@
  */
 #define USART_TP_RX_HANDLE_SIZE()              \
         (USART_TP_RX_NUMBER_OF_HANDLS)
-
-/*--- Configuration Defines ---------------------------------------------------------------------*/
-
-#define USART_TP_DELIMITER                      "\r\n"
 
 
 /*--- Type Definitions --------------------------------------------------------------------------*/

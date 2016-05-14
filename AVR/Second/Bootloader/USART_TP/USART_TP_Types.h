@@ -16,8 +16,9 @@
 
 #define USART_TP_DELIMITER "\r\n"
 
-#define USART_NEW_MESSAGE                                           \
-TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStart_i,msgDelim_Str)
+#define USART_TP_NEW_MESSAGE(uMsgName,uMsgId,uMsgLen)                                           \
+        TP_NEW_MESSAGE(uMsgName,uMsgId,uMsgLen,USART_TP_START_SIGN,USART_TP_DELIMITER)
+
 
 
 
