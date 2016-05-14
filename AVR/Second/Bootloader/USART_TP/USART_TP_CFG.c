@@ -33,13 +33,3 @@ static TP_Message_t USART_TP_Tx_MessageList[2] =
     
 };
 
-
-
-#define TP_NEW_MESSAGE(id)                              \
-{                                                       \
- .header.header_str.id = 22,                            \
- .header.header_str.dataLen = 0,                        \
- .footer.footer_str.delim = TP_DELIMITER_CFG,           \
- .footer.footer_str.crc = 0x00,                         \
- .footer.footer_str.sqc = 0x00,                         \
-}

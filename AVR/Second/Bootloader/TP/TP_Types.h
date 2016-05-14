@@ -9,6 +9,8 @@
 #ifndef TP_TYPES_H_
 #define TP_TYPES_H_
 
+/*--- Size Configuration Defines ----------------------------------------------------------------*/
+
 /**
  * @brief Header Size
  */
@@ -33,10 +35,45 @@
 #define TP_DELIMITER_CFG_SIZE()             \
         (sizeof(TP_DELIMITER_CFG))
 
-
+/**
+ * @brief 
+ */
 #define TP_MESSAGE_INDICATOR_SIZE()         \
         (sizeof(TP_MESSAGE_INDICATOR))
 
+
+/*--- Defines to Initialize Messages ------------------------------------------------------------*/
+
+/**
+ * @brief
+ */
+#define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStart_i,msgDelim_Str)                \
+        static uint8_t msgName##_av[msgLength];                                        \
+        static TP_Message_t msg_##msgName =                                            \
+        {                                                                              \
+            .header.header_str =                                                       \
+            {                                                                          \
+                .dataLen  = 0u,                                                        \
+                .id       = msgId,                                                     \
+                .msgStart = msgStart,                                                  \
+            },                                                                         \
+            .body =                                                                    \
+            {                                                                          \
+                .dataAv   = msgName##_av,                                              \
+                .size     = msgLength,                                                 \
+            },                                                                         \
+            .footer.footer_str =                                                       \
+            {                                                                          \
+                .delim    = msgDelim_Str,                                              \
+                .sqc      = 0,                                                         \
+                .crc      = 0,                                                         \
+            },                                                                         \
+        }                                                       
+        
+
+
+
+/*--- TP Message Types Definition ---------------------------------------------------------------*/
 
 /**
  * @brief Header Structure Definition

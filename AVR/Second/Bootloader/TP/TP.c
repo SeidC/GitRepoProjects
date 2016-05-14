@@ -46,7 +46,7 @@ uint8_t TP_GetFooter(TP_Message_t *msg, uint8_t* av)
  *************************************************************************************************/
 uint8_t TP_GetBody(TP_Message_t *msg, uint8_t* av)
 {
-    av = msg->body;
+   // av = msg->body;
     return TP_BODY_SIZE();
 }
 /**************************************************************************************************
@@ -75,7 +75,7 @@ uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data)
     {
         if (count < TP_MAX_MESSAGE_SIZE)
         {
-            msg->body[count] = *data;
+            //msg->body[count] = *data;
         }
         else
         {
@@ -131,4 +131,3 @@ void TP_SetMessageIndicator(TP_Message_t *msg)
     return;
 
 }
-
