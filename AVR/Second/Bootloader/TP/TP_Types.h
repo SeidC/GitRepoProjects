@@ -73,7 +73,8 @@
         }                                                       
         
 
-
+#define TP_GET_MESSAGE_REFERENCE(msgName)                                               \
+        ((TP_Message_t*) &msg_##msgName)
 
 /*--- TP Message Types Definition ---------------------------------------------------------------*/
 

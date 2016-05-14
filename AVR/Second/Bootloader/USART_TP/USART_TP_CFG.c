@@ -6,32 +6,36 @@
  */ 
 
 
-#include "USART_TP_CFG.h"
+#include "USART_TP_Cfg.h"
 
 
- TP_Message_t msg_ID_0x100 = 
-            {
-//                 .header.header_str = {
-//                     .id = 0x100, 
-//                 }
-            };
+/*--- Definition of Tx - TP Messages ------------------------------------------------------------*/
 
- TP_Message_t msg_ID_0x250 =
+USART_TP_NEW_MESSAGE(msg_ID100,0x250,20);
+
+USART_TP_NEW_MESSAGE(msg_ID250,0x250,20);
+
+
+
+/*--- Definition of Rx - TP Messages ------------------------------------------------------------*/
+
+USART_TP_NEW_MESSAGE(msg_ID200,0x250,20);
+
+USART_TP_NEW_MESSAGE(msg_ID350,0x250,20);
+
+/*--- Tx and Rx Message List --------------------------------------------------------------------*/
+static TP_Message_t* USART_TP_Tx_MessageList[USART_TP_TX_HANDLE_SIZE()] =
 {
-//     .header.header_str = {
-//         .id = 0x250,
-//     }
-};
-
-
-static TP_Message_t USART_TP_Tx_MessageList[2] =
-{
-    {
-        .header.header_str = {.id = 0x250},
-        
-    },
+   USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
+   USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
     
 };
 
 
-USART_TP_NEW_MESSAGE(id0x250,0x250,20);
+static TP_Message_t* USART_TP_Rx_MessageList[USART_TP_RX_HANDLE_SIZE()] = 
+{
+    USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
+    USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
+}
+
+

@@ -228,13 +228,10 @@
     <Compile Include="USART_TP\USART_TP.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="USART_TP\USART_TP_CFG.c">
+    <Compile Include="USART_TP\USART_TP_Cfg.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="USART_TP\USART_TP_CFG.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="USART_TP\USART_TP_Types.h">
+    <Compile Include="USART_TP\USART_TP_Cfg.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
