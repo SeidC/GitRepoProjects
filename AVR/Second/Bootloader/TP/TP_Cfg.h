@@ -16,17 +16,10 @@
  * @brief Maximum Message Size
  */
 #define TP_MAX_MESSAGE_SIZE         10
-
 /**
  * @brief Delimiter Configuration
  */
 #define TP_DELIMITER_CFG           "\r\n"
-
-/**
- * @brief Broadcast Id
- */
-#define TP_BROADCAST_ID             0xFF
-
 /**
  * @brief
  */

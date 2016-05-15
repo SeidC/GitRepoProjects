@@ -4,26 +4,52 @@
  * Created: 06.05.2016 22:16:43
  *  Author: AP02
  */ 
-
-
 #include "TP.h"
 
 
 
 
 
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] msg Parameter_Description
+ *  @param [in] av Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
 uint8_t TP_GetHeader(TP_Message_t *msg, uint8_t* av);
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] msg Parameter_Description
+ *  @param [in] av Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
 uint8_t TP_GetFooter(TP_Message_t *msg, uint8_t* av);
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] msg Parameter_Description
+ *  @param [in] av Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
 uint8_t TP_GetBody(TP_Message_t *msg, uint8_t* av);
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] msg Parameter_Description
+ *  @param [in] len Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
 void TP_SetMessagLength(TP_Message_t *msg, uint8_t len);
-
-void TP_SetDelimiter(TP_Message_t *msg);
-
-void TP_SetMessageIndicator(TP_Message_t *msg);
 
 /**************************************************************************************************
  * FUNCTION: uint8_t TP_GetHeader(...)
@@ -46,8 +72,8 @@ uint8_t TP_GetFooter(TP_Message_t *msg, uint8_t* av)
  *************************************************************************************************/
 uint8_t TP_GetBody(TP_Message_t *msg, uint8_t* av)
 {
-   // av = msg->body;
-    return TP_BODY_SIZE();
+    av = msg->body.dataAv;
+    return TP_BODY_SIZE(msg);
 }
 /**************************************************************************************************
  * FUNCTION: void TP_SetId(...)
@@ -55,6 +81,7 @@ uint8_t TP_GetBody(TP_Message_t *msg, uint8_t* av)
 void TP_SetId(TP_Message_t *msg, uint8_t id)
 {
     msg->header.header_str.id = id;
+    
     return;
 }
 /**************************************************************************************************
@@ -75,7 +102,7 @@ uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data)
     {
         if (count < TP_MAX_MESSAGE_SIZE)
         {
-            //msg->body[count] = *data;
+            msg->body.dataAv[count] = *data;
         }
         else
         {
@@ -90,44 +117,13 @@ uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data)
 /**************************************************************************************************
  * FUNCTION: uint8_t TP_SetMessage(...)
  *************************************************************************************************/
-void TP_SetMessageData(TP_Message_t *msg, uint8_t id, uint8_t *data)
+void TP_SetMessageData(TP_Message_t *msg, uint8_t *data)
 {
-    uint8_t length;
-    TP_SetMessageIndicator(msg);
+    uint8_t length,id;
+    id = TP_GET_MESSAGE_ID(msg);
     TP_SetId(msg,id);
     length = TP_SetMessage(msg,data);
     TP_SetMessagLength(msg,length);
-    TP_SetDelimiter(msg);
     return;
 }
 
-/**************************************************************************************************
- * FUNCTION: void TP_SetDelimiter(...)
- *************************************************************************************************/
-void TP_SetDelimiter(TP_Message_t *msg)
-{
-    uint8_t i;
-    uint8_t delim[TP_DELIMITER_CFG_SIZE()] = TP_DELIMITER_CFG; 
-    
-    for (i = 0; i < TP_DELIMITER_CFG_SIZE(); i++)
-    {
-        msg->footer.footer_str.delim[i] = delim[i];
-    }
-    return;
-}
-
-/**************************************************************************************************
- * FUNCTION: void TP_SetMessageIndicator(...)
- *************************************************************************************************/
-void TP_SetMessageIndicator(TP_Message_t *msg)
-{
-    uint8_t i;
-    //uint8_t indi = TP_MESSAGE_INDICATOR;
-    
-    for(i = 0; i < TP_MESSAGE_INDICATOR_SIZE(); i++)
-    {
-        //msg->header.header_str.msgSign[i] = indi[i];
-    }
-    return;
-
-}

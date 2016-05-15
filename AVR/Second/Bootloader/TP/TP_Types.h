@@ -28,8 +28,8 @@
 /** 
  * @brief Max Body Size
  */            
-#define TP_BODY_SIZE()                      \
-        (TP_MAX_MESSAGE_SIZE)
+#define TP_BODY_SIZE(msgPtr)                      \
+        (msgPtr->body->size)
         
 /**
  * @brief Delimiter Size
@@ -43,11 +43,29 @@
 #define TP_MESSAGE_INDICATOR_SIZE()         \
         (sizeof(TP_MESSAGE_INDICATOR))
 
+/*--- Getter Macros definition ------------------------------------------------------------------*/
+
+#define TP_GET_MESSAGE_ID(msgPtr)           \
+        (msgPtr->header.header_str.id)
+
 
 /*--- Defines to Initialize Messages ------------------------------------------------------------*/
 
 /**
- * @brief
+ *  @brief New Message
+ *  
+ *  @param [in] msgName Name of the new message
+ *  @param [in] msgId Id which should be used for this message
+ *  @param [in] msgLength Length of this message
+ *  @param [in] msgStart_i Start sign of the message
+ *  @param [in] msgDelim_Str Deliminator of this message
+ *  @return None
+ *  
+ *  @details This macro should be used for each definition of messages. This macro defines 
+ *           automatically a buffer array and the corresponding message. 
+ *           This parameter will be set as static (local).
+ *           To get the message as reference, use @see TP_GET_MESSAGE_REFERENCE to the a pointer 
+ *           reference.
  */
 #define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStart_i,msgDelim_Str)                \
         static uint8_t msgName##_av[msgLength];                                        \
@@ -57,7 +75,7 @@
             {                                                                          \
                 .dataLen  = 0u,                                                        \
                 .id       = msgId,                                                     \
-                .msgStart = msgStart_i,                                                  \
+                .msgStart = msgStart_i,                                                \
             },                                                                         \
             .body =                                                                    \
             {                                                                          \
@@ -72,7 +90,15 @@
             },                                                                         \
         }                                                       
         
-
+/**
+ *  @brief Get Message Reference 
+ *  
+ *  @param [in] msgName Name of the message which was defined and the reference needed.
+ *  @return Message Pointer of type TP_Message_t*
+ *  
+ *  @details This macro should be used to get a pointer reference of a message which was defined 
+ *           with the macro @see TP_NEW_MESSAGE
+ */
 #define TP_GET_MESSAGE_REFERENCE(msgName)                                               \
         ((TP_Message_t*) &msg_##msgName)
 
@@ -83,9 +109,9 @@
  */            
 typedef struct
 {
-    uint16_t msgStart;
-    uint16_t id;
-    uint8_t  dataLen;
+    uint16_t msgStart;  /**< Message Start Sign to identify a TP Message                                */
+    uint16_t id;        /**< Id of the current Message. This allows a to define specific messages       */
+    uint8_t  dataLen;   /**< Length of the Message                                                      */
 }TP_Header_str;
 
 /**
@@ -119,7 +145,7 @@ typedef struct
 }TP_Footer_str;
 
 /**
- * @brief Footer Union Definiton
+ * @brief Footer Union Definition
  */
 typedef union
 {
