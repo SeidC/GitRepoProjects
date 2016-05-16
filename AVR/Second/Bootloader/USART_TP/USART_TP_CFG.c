@@ -25,31 +25,23 @@ USART_TP_NEW_MESSAGE(msg_ID200,0x250,20);
 USART_TP_NEW_MESSAGE(msg_ID350,0x250,20);
 
 /*--- Tx and Rx Message List --------------------------------------------------------------------*/
-static TP_Message_t* USART_TP_Tx_MessageList[USART_TP_TX_HANDLE_SIZE()] =
-{
-   USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
-   USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
-    
-};
-
-
-static TP_Message_t* USART_TP_Rx_MessageList[USART_TP_RX_HANDLE_SIZE()] = 
-{
-    USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
-    USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
-};
-
 
 static TP_MessageConfig_t USART_TP_txConfig = 
 {
-    .list = USART_TP_Tx_MessageList,
+    .list = {
+               USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
+               USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
+            },
     .size = USART_TP_TX_HANDLE_SIZE(),
     
 };
 
 static TP_MessageConfig_t USART_TP_rxConfig =
 {
-    .list = USART_TP_Rx_MessageList,
+    .list = {
+                USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
+                USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
+            },            
     .size = USART_TP_RX_HANDLE_SIZE(),
 };
 
