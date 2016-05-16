@@ -29,7 +29,7 @@
  * @brief Max Body Size
  */            
 #define TP_BODY_SIZE(msgPtr)                      \
-        (msgPtr->body->size)
+        (msgPtr->body.size)
         
 /**
  * @brief Delimiter Size
@@ -45,15 +45,24 @@
 
 /*--- Getter Macros definition ------------------------------------------------------------------*/
 
+/**
+ * @brief 
+ */
 #define TP_GET_MESSAGE_ID(msgPtr)           \
         (msgPtr->header.header_str.id)
-
+/**
+ * @brief 
+ */
 #define TP_GET_BODY_LENGTH(msgPtr)          \
         (msgPtr->header.header_str.dataLen)
-        
+/**
+ * @brief 
+ */        
 #define TP_GET_CURRENT_BODY_LENGTH(msgPtr)  \
         (msgPtr->header.header_str.dataLen)
-
+/**
+ * @brief 
+ */
 #define TP_GET_MAX_BODY_LENGTH(msgPtr)  \
         (msgPtr->body.size)
 
@@ -110,6 +119,13 @@
 #define TP_GET_MESSAGE_REFERENCE(msgName)                                               \
         ((TP_Message_t*) &msg_##msgName)
 
+
+#define TP_INIT_TIMER(msTime, initStatus)                                               \
+        {                                                                               \
+             msThreshold = msTime,                                                      \
+             msCurrTime  = msTime,                                                      \
+             timerStatus  = initStatus,                                                 \
+        }                                                                               \
 /*--- TP Message Types Definition ---------------------------------------------------------------*/
 
 /**
@@ -118,8 +134,8 @@
 typedef struct
 {
     uint16_t startSign;  /**< Message Start Sign to identify a TP Message                                */
-    uint16_t id;        /**< Id of the current Message. This allows a to define specific messages       */
-    uint8_t  dataLen;   /**< Length of the Message                                                      */
+    uint16_t id;         /**< Id of the current Message. This allows a to define specific messages       */
+    uint8_t  dataLen;    /**< Length of the Message                                                      */
 }TP_Header_str;
 
 /**
@@ -173,37 +189,36 @@ typedef struct
     
 }TP_Message_t;
 
+/*--- Timer Types Definition --------------------------------------------------------------------*/
+
 /**
- * @brief TP Configuration
+ * @brief Timer Status
+ *
+ * This type will be used, to show the status of a timer. 
  */
-typedef struct 
+typedef enum
 {
-    
-    TP_Message_t *rxList;
-    uint8_t rxListSize;
-    TP_Message_t *txList;
-    uint8_t txListSize;
-    uint8_t startSign;
-    uint8_t delim[];   
-}TP_Config_t;
-
-
-typedef enum 
-{
-    TP_TIMER_OFF        = 0x00,
-    TP_TIMER_RUN        = 0x01,
-    TP_TIMER_READY      = 0x02,
+    TP_TIMER_OFF        = 0x00, /**< Timer is disabled and not running.        */
+    TP_TIMER_RUN        = 0x01, /**< Timer is active and will be counted down .*/
+    TP_TIMER_EXPIRED    = 0x02, /**< Timer is active but expired. Timer has to be reloaded*/
 }TP_TimerStatus_t;
 
-typedef struct 
+/**
+ * @brief Timer Type Definition
+ *
+ * This structure defines a Timer. 
+ */
+typedef struct
 {
-    int8_t msThreshold;
-    int8_t msCurrTime;
-    TP_TimerStatus_t timerStatus;    
-
+    int8_t msThreshold;             /**< Threshold in ms. If timer will be reloaded this time will be set */
+    int8_t msCurrTime;              /**< Count down time. Also current expired time of this timer         */
+    TP_TimerStatus_t timerStatus;   /**< Status of the timer. @see TP_TimerStatus_t                       */
 }TP_Timer_t;
 
-typedef enum 
+/*--- Other Types -------------------------------------------------------------------------------*/
+
+
+typedef enum
 {
     TP_MAX_BODY_LENGTH,
     TP_MAX_MESSAGE_LENGTH,
@@ -213,5 +228,55 @@ typedef enum
     TP_BODY_LENGTH,
     
 }TP_SizeValue_t;
+
+
+/*--- TP Configuration Defines ------------------------------------------------------------------*/
+
+/**
+ * @brief Message TP Configuration
+ *
+ * This type contains a list of messages and the amount of messages.
+ * It is needed as RX and TX list for the TP.
+ */
+typedef struct  
+{
+    TP_Message_t *list;         /**< Pointer to a list of TP Messages                 */
+    uint8_t       size;         /**< The size of the list                             */
+}TP_MessageConfig_t;
+/**
+ * @brief TP Settings Configuration
+ *
+ * Standard configuration for the TP.
+ */
+typedef struct 
+{
+    uint8_t startSign;      /**< Start Sign which will identify a TP message */
+    uint8_t delimiter[];    /**< Delimiter which identifiy the end of a TP message*/
+}TP_Settings_t;
+
+/**
+ * @brief TP Timer Configuration 
+ *
+ * Configuration  of timer especially needed for the TP Tx Messages.
+ */
+typedef struct 
+{
+    uint8_t     size;       
+    TP_Timer_t  list[];    
+}TP_TimerConfig_t;
+
+/**
+ * @brief TP Configuration
+ */
+typedef struct 
+{
+    
+    TP_MessageConfig_t *rxConfig;           /**< Rx Message configuration               */
+    TP_MessageConfig_t *txConfig;           /**< Tx Message configuration               */
+    TP_Settings_t      *settings;           /**< Std Settings configuration             */
+    TP_TimerConfig_t   *txTmConfig;         /**< Tx Message timer configuration         */
+    void (*txClbk)(char *data);             /**< Tx Callback to transmit TP data        */
+    void (*rxClbk)(char *str, int size);    /**< Rx Callback to receive TP data         */
+}TP_Config_t;
 
 #endif /* TP_TYPES_H_ */

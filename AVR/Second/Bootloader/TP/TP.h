@@ -53,6 +53,6 @@ void TP_SetId(TP_Message_t *msg, uint8_t id);
  *  
  *  @details Details
  */
-void TP_SetMessageData(TP_Message_t *msg, uint8_t id, uint8_t *data);
+void TP_SetMessageData(TP_Message_t *msg, uint8_t *data);
 
 #endif /* TP_H_ */

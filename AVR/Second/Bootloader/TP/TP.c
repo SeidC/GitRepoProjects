@@ -180,7 +180,7 @@ void TP_Timer(TP_Timer_t *timer)
         }
         else
         {
-            timer->timerStatus = TP_TIMER_READY;
+            timer->timerStatus = TP_TIMER_EXPIRED;
         }
     }   
     return;    

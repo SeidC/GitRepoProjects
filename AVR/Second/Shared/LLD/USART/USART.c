@@ -367,7 +367,7 @@ char USART_ReceiveChar(void)
 }
 
 /************************************************************************/
-/* void USARt_ReceiveString                                             */
+/* void USART_ReceiveString                                             */
 /************************************************************************/
 void USART_ReceiveString(char *str, int size)
 {
@@ -375,9 +375,9 @@ void USART_ReceiveString(char *str, int size)
     return;   
 }
 
-/************************************************************************/
-/* boolean USART_IsDataAvailable(...)
-/************************************************************************/
+/************************************************************************
+ * boolean USART_IsDataAvailable(...)
+ ************************************************************************/
 boolean USART_IsDataAvailable(void)
 {
    boolean ret = FALSE;

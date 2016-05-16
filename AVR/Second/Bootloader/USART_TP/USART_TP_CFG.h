@@ -87,15 +87,10 @@ typedef enum
     USART_TP_RX_NUMBER_OF_HANDLS
 }USART_TP_RxIdHandle_t;
 
-
 /**
- * @brief USART Tx Message List
+ * @brief USART Tp Config
  */
-extern TP_Message_t* USART_TP_Tx_MessageList;
-/**
- * @brief USART Rx Message List
- */
-extern TP_Message_t* USART_TP_Rx_MessageList;
+extern TP_Config_t USART_TP_config;
 
 
 #endif /* USART_TP_CFG_H_ */
