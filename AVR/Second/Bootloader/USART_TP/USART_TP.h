@@ -9,6 +9,10 @@
 #ifndef USART_TP_H_
 #define USART_TP_H_
 
+#include "PR_DEF.h"
+#include "TP.h"
+#include "USART.h"
+#include "USART_TP_Cfg.h"
 
 
 

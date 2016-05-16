@@ -21,10 +21,6 @@ USART_Config_t usartConfig =
     };
     
     
-TP_Config_t usartTp = 
-    {
-        
-    }
 
 int main(void)
 {

@@ -132,12 +132,13 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
       <Value>BOOT</Value>
       <Value>../../Shared/LIBS</Value>
       <Value>../../Shared/LLD/USART</Value>
       <Value>../../Shared/SW/FIFO</Value>
       <Value>../TP</Value>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>../USART_TP</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
@@ -208,7 +209,7 @@
     <Compile Include="BOOT\Boot_Cfg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.cpp">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="TP\TP.c">

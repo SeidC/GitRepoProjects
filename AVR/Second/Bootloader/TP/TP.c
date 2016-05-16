@@ -6,10 +6,6 @@
  */ 
 #include "TP.h"
 
-
-
-
-
 /**
  *  @brief Brief
  *  

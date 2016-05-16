@@ -4,9 +4,8 @@
  * Created: 07.05.2016 15:40:52
  *  Author: AP02
  */ 
+#include "USART_TP.h"
 
-#include "TP.h"
-#include "USART.h"
 
 TP_Config_t *USART_TP_Confg = NULL;
 
@@ -24,7 +23,7 @@ void USART_TP_Init(TP_Config_t *config)
 
 void USART_TP_Transmit(void)
 {
-    USART_Ta
+    
 }
 
 

@@ -60,7 +60,7 @@
  *
  */
 #define USART_TP_GET_MESSAGE_REFERENCE(uMsgName)                                                \
-        TP_GET_MESSAGE_REFERENCE(msgName)
+        TP_GET_MESSAGE_REFERENCE(uMsgName)
         
            
 /*--- Type Definitions --------------------------------------------------------------------------*/

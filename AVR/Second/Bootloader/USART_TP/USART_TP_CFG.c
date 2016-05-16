@@ -69,10 +69,10 @@ static TP_TimerConfig_t USART_TP_timerConfig =
                 TP_INIT_TIMER(500,TP_TIMER_RUN),
                 TP_INIT_TIMER(750,TP_TIMER_RUN),
             },            
-}
+};
 
 
-static TP_Config_t USART_TP_config =   
+TP_Config_t USART_TP_config =   
 {
     .rxConfig   = &USART_TP_rxConfig,
     .txConfig   = &USART_TP_txConfig,

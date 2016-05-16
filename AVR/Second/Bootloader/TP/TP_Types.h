@@ -122,9 +122,9 @@
 
 #define TP_INIT_TIMER(msTime, initStatus)                                               \
         {                                                                               \
-             msThreshold = msTime,                                                      \
-             msCurrTime  = msTime,                                                      \
-             timerStatus  = initStatus,                                                 \
+           .msThreshold = msTime,                                                       \
+           .msCurrTime  = msTime,                                                       \
+           .timerStatus  = initStatus,                                                  \
         }                                                                               \
 /*--- TP Message Types Definition ---------------------------------------------------------------*/
 
@@ -210,8 +210,8 @@ typedef enum
  */
 typedef struct
 {
-    int8_t msThreshold;             /**< Threshold in ms. If timer will be reloaded this time will be set */
-    int8_t msCurrTime;              /**< Count down time. Also current expired time of this timer         */
+    int16_t msThreshold;             /**< Threshold in ms. If timer will be reloaded this time will be set */
+    int16_t msCurrTime;              /**< Count down time. Also current expired time of this timer         */
     TP_TimerStatus_t timerStatus;   /**< Status of the timer. @see TP_TimerStatus_t                       */
 }TP_Timer_t;
 
@@ -240,7 +240,7 @@ typedef enum
  */
 typedef struct  
 {
-    TP_Message_t *list;         /**< Pointer to a list of TP Messages                 */
+    TP_Message_t **list;         /**< Pointer to a list of TP Messages                 */
     uint8_t       size;         /**< The size of the list                             */
 }TP_MessageConfig_t;
 /**
