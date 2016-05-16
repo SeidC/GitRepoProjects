@@ -126,4 +126,75 @@ void TP_SetMessageData(TP_Message_t *msg, uint8_t *data)
     TP_SetMessagLength(msg,length);
     return;
 }
+/**************************************************************************************************
+ * FUNCTION: uint8_t TP_GetMessageSize(...)
+ *************************************************************************************************/
+uint8_t TP_GetMessageSize(TP_Message_t *msg, TP_SizeValue_t sizeType)
+{
+    uint8_t header,body,maxBody,footer,ret;
 
+    switch(sizeType)
+    {
+     case TP_MAX_BODY_LENGTH     :
+         ret = TP_GET_MAX_BODY_LENGTH(msg);
+         break;         
+     case TP_MAX_MESSAGE_LENGTH  :
+         header  = TP_HEADER_SIZE();
+         footer  = TP_FOOTER_SIZE();
+         maxBody = TP_GET_MAX_BODY_LENGTH(msg);
+         ret = (header + maxBody + footer);
+         break; 
+     case TP_CURR_MESSAGE_LENGTH :
+         header  = TP_HEADER_SIZE();
+         body    = TP_GET_CURRENT_BODY_LENGTH(msg);
+         footer  = TP_FOOTER_SIZE();
+         ret = (header + body + footer);
+         break;
+     case TP_FOOTER_LENGTH       :
+        ret = TP_FOOTER_SIZE();
+        break;
+     case TP_HEADER_LENGTH       :
+        ret = TP_HEADER_SIZE();
+        break;
+     case TP_BODY_LENGTH         :
+        ret = TP_GET_CURRENT_BODY_LENGTH(msg);
+        break;
+     default:
+        ret = 0;
+        break;
+    }    
+    
+    return ret;
+}
+
+/**************************************************************************************************
+ * FUNCTION: void TP_Timer(...)
+ *************************************************************************************************/
+void TP_Timer(TP_Timer_t *timer)
+{
+    if (timer->timerStatus != TP_TIMER_OFF)
+    {        
+        if (timer->msCurrTime > 0x00)
+        {
+            timer->msCurrTime --;
+        }
+        else
+        {
+            timer->timerStatus = TP_TIMER_READY;
+        }
+    }   
+    return;    
+}
+
+/**************************************************************************************************
+ * FUNCTION: void TP_TImerReload(...)
+ *************************************************************************************************/
+void TP_TImerReload(TP_Timer_t *timer)
+{
+    if (timer->timerStatus != TP_TIMER_OFF)
+    {
+        timer->msCurrTime = timer->msThreshold;
+        timer->timerStatus = TP_TIMER_RUN;
+    }    
+    return;
+}

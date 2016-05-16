@@ -48,6 +48,14 @@
 #define TP_GET_MESSAGE_ID(msgPtr)           \
         (msgPtr->header.header_str.id)
 
+#define TP_GET_BODY_LENGTH(msgPtr)          \
+        (msgPtr->header.header_str.dataLen)
+        
+#define TP_GET_CURRENT_BODY_LENGTH(msgPtr)  \
+        (msgPtr->header.header_str.dataLen)
+
+#define TP_GET_MAX_BODY_LENGTH(msgPtr)  \
+        (msgPtr->body.size)
 
 /*--- Defines to Initialize Messages ------------------------------------------------------------*/
 
@@ -58,7 +66,7 @@
  *  @param [in] msgId Id which should be used for this message
  *  @param [in] msgLength Length of this message
  *  @param [in] msgStart_i Start sign of the message
- *  @param [in] msgDelim_Str Deliminator of this message
+ *  @param [in] msgDelim_Str Delimiter of this message
  *  @return None
  *  
  *  @details This macro should be used for each definition of messages. This macro defines 
@@ -67,15 +75,15 @@
  *           To get the message as reference, use @see TP_GET_MESSAGE_REFERENCE to the a pointer 
  *           reference.
  */
-#define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStart_i,msgDelim_Str)                \
+#define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStSign,msgDelim)                     \
         static uint8_t msgName##_av[msgLength];                                        \
         static TP_Message_t msg_##msgName =                                            \
         {                                                                              \
             .header.header_str =                                                       \
             {                                                                          \
-                .dataLen  = 0u,                                                        \
-                .id       = msgId,                                                     \
-                .msgStart = msgStart_i,                                                \
+                .dataLen   = 0u,                                                       \
+                .id        = msgId,                                                    \
+                .startSign = msgStSign,                                                \
             },                                                                         \
             .body =                                                                    \
             {                                                                          \
@@ -84,7 +92,7 @@
             },                                                                         \
             .footer.footer_str =                                                       \
             {                                                                          \
-                .delim    = msgDelim_Str,                                              \
+                .delim    = msgDelim,                                                  \
                 .sqc      = 0,                                                         \
                 .crc      = 0,                                                         \
             },                                                                         \
@@ -109,7 +117,7 @@
  */            
 typedef struct
 {
-    uint16_t msgStart;  /**< Message Start Sign to identify a TP Message                                */
+    uint16_t startSign;  /**< Message Start Sign to identify a TP Message                                */
     uint16_t id;        /**< Id of the current Message. This allows a to define specific messages       */
     uint8_t  dataLen;   /**< Length of the Message                                                      */
 }TP_Header_str;
@@ -165,6 +173,45 @@ typedef struct
     
 }TP_Message_t;
 
+/**
+ * @brief TP Configuration
+ */
+typedef struct 
+{
+    
+    TP_Message_t *rxList;
+    uint8_t rxListSize;
+    TP_Message_t *txList;
+    uint8_t txListSize;
+    uint8_t startSign;
+    uint8_t delim[];   
+}TP_Config_t;
 
+
+typedef enum 
+{
+    TP_TIMER_OFF        = 0x00,
+    TP_TIMER_RUN        = 0x01,
+    TP_TIMER_READY      = 0x02,
+}TP_TimerStatus_t;
+
+typedef struct 
+{
+    int8_t msThreshold;
+    int8_t msCurrTime;
+    TP_TimerStatus_t timerStatus;    
+
+}TP_Timer_t;
+
+typedef enum 
+{
+    TP_MAX_BODY_LENGTH,
+    TP_MAX_MESSAGE_LENGTH,
+    TP_CURR_MESSAGE_LENGTH,
+    TP_FOOTER_LENGTH,
+    TP_HEADER_LENGTH,
+    TP_BODY_LENGTH,
+    
+}TP_SizeValue_t;
 
 #endif /* TP_TYPES_H_ */

@@ -8,23 +8,27 @@
 #include "TP.h"
 #include "USART.h"
 
-void USART_TP_Init(void)
+TP_Config_t *USART_TP_Confg = NULL;
+
+
+void USART_TP_Init(TP_Config_t *config)
 {
-    
-    
-    
+    if (config != NULL)
+    {
+        USART_TP_Confg = config;
+    }    
     return;
 }
 
 
 
-void USART_TP_TransmitMessage(void)
+void USART_TP_Transmit(void)
 {
-    
+    USART_Ta
 }
 
 
-void USART_TP_ReceiveMessage(void)
+void USART_TP_Receive(void)
 {
     
 }
