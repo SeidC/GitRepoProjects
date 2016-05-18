@@ -12,7 +12,7 @@
 
 /*--- Definition of Tx - TP Messages ------------------------------------------------------------*/
 
-USART_TP_NEW_MESSAGE(msg_ID100,0x250,20);
+USART_TP_NEW_MESSAGE(msg_ID100,0x100,20);
 
 USART_TP_NEW_MESSAGE(msg_ID250,0x250,20);
 
@@ -20,9 +20,9 @@ USART_TP_NEW_MESSAGE(msg_ID250,0x250,20);
 
 /*--- Definition of Rx - TP Messages ------------------------------------------------------------*/
 
-USART_TP_NEW_MESSAGE(msg_ID200,0x250,20);
+USART_TP_NEW_MESSAGE(msg_ID200,0x200,20);
 
-USART_TP_NEW_MESSAGE(msg_ID350,0x250,20);
+USART_TP_NEW_MESSAGE(msg_ID350,0x350,20);
 
 /*--- Tx and Rx Message List --------------------------------------------------------------------*/
 
@@ -69,7 +69,7 @@ TP_Config_t USART_TP_config =
     .rxConfig   = &USART_TP_rxConfig,
     .txConfig   = &USART_TP_txConfig,
     .settings   = &USART_TP_settings,
+    .txTmConfig = &USART_TP_timerConfig,
     .txClbk     = USART_TransmitString,
     .rxClbk     = USART_ReceiveString,
-    .txTmConfig = &USART_TP_timerConfig,
 };

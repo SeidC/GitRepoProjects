@@ -117,7 +117,7 @@
  *           with the macro @see TP_NEW_MESSAGE
  */
 #define TP_GET_MESSAGE_REFERENCE(msgName)                                               \
-        ((TP_Message_t) msg_##msgName)
+        ((TP_Message_t*) &msg_##msgName)
 
 
 #define TP_INIT_TIMER(msTime, initStatus)                                               \
@@ -241,7 +241,7 @@ typedef enum
 typedef struct  
 {
     uint8_t       size;         /**< The size of the list                             */
-    TP_Message_t  list[];         /**< Pointer to a list of TP Messages                 */
+    TP_Message_t* list[];         /**< Pointer to a list of TP Messages                 */
 }TP_MessageConfig_t;
 /**
  * @brief TP Settings Configuration
