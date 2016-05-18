@@ -54,18 +54,13 @@
  * @brief 
  */
 #define TP_GET_BODY_LENGTH(msgPtr)          \
-        (msgPtr->header.header_str.dataLen)
-/**
- * @brief 
- */        
-#define TP_GET_CURRENT_BODY_LENGTH(msgPtr)  \
-        (msgPtr->header.header_str.dataLen)
+        (msgPtr->body.size)
+
 /**
  * @brief 
  */
-#define TP_GET_MAX_BODY_LENGTH(msgPtr)  \
-        (msgPtr->body.size)
-
+#define TP_GET_MESSAGE_LENGTH(msgPtr)  \
+        (msgPtr->header.header_str.dataLen)
 /*--- Defines to Initialize Messages ------------------------------------------------------------*/
 
 /**
@@ -220,9 +215,8 @@ typedef struct
 
 typedef enum
 {
-    TP_MAX_BODY_LENGTH,
-    TP_MAX_MESSAGE_LENGTH,
-    TP_CURR_MESSAGE_LENGTH,
+    TP_MESSAGE_DATA_LENGTH,
+    TP_MESSAGE_TP_LENGTH,
     TP_FOOTER_LENGTH,
     TP_HEADER_LENGTH,
     TP_BODY_LENGTH,
@@ -277,6 +271,7 @@ typedef struct
     TP_TimerConfig_t   *txTmConfig;         /**< Tx Message timer configuration         */
     void (*txClbk)(char *data);             /**< Tx Callback to transmit TP data        */
     void (*rxClbk)(char *str, int size);    /**< Rx Callback to receive TP data         */
+    uint8_t             curTxIndex;
 }TP_Config_t;
 
 #endif /* TP_TYPES_H_ */

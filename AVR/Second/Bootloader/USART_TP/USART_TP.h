@@ -15,6 +15,14 @@
 #include "USART_TP_Cfg.h"
 
 
+void USART_TP_Init(TP_Config_t *config);
+
+void USART_TP_MainFunction(void);
+
+void USART_TP_TimerTask(void);
+
+void USART_TP_SetData(USART_TP_TxIdHandle_t hndl, uint8_t *data);
+
 
 
 

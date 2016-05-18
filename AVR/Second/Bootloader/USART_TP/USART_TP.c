@@ -21,19 +21,21 @@ void USART_TP_Init(TP_Config_t *config)
 
 
 
-void USART_TP_Transmit(void)
-{
-    
-}
-
-
-void USART_TP_Receive(void)
-{
-    
-}
-
-
 void USART_TP_MainFunction(void)
 {
-    
+    TP_Task(USART_TP_Confg);
+}
+
+
+void USART_TP_TimerTask(void)
+{
+    TP_TimerTask(USART_TP_Confg);
+}
+
+void USART_TP_SetData(USART_TP_TxIdHandle_t hndl, uint8_t *data)
+{
+    TP_Message_t *msg;
+    msg = &USART_TP_config.txConfig->list[hndl];
+    TP_SetMessageData(msg,data);
+    return;
 }

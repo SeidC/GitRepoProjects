@@ -32,7 +32,7 @@
  *  
  *  @details Details
  */
-uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data);
+uint8_t TP_SetMessageData(TP_Message_t *msg, uint8_t *data);
 /**
  *  @brief Brief
  *  
@@ -43,16 +43,12 @@ uint8_t TP_SetMessage(TP_Message_t *msg, uint8_t *data);
  *  @details Details
  */
 void TP_SetId(TP_Message_t *msg, uint8_t id);
-/**
- *  @brief Brief
- *  
- *  @param [in] msg Parameter_Description
- *  @param [in] id Parameter_Description
- *  @param [in] data Parameter_Description
- *  @return Return_Description
- *  
- *  @details Details
- */
-void TP_SetMessageData(TP_Message_t *msg, uint8_t *data);
+
+
+
+void TP_TimerTask(TP_Config_t *config);
+
+
+void TP_Task(TP_Config_t *config);
 
 #endif /* TP_H_ */
