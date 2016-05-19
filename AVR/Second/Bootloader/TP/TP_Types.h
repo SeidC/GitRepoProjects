@@ -79,7 +79,7 @@
  *           To get the message as reference, use @see TP_GET_MESSAGE_REFERENCE to the a pointer 
  *           reference.
  */
-#define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStSign,msgDelim)                     \
+#define TP_NEW_MESSAGE(msgName,msgId,msgLength,msgStSign,msgStopSign)                     \
         static uint8_t msgName##_av[msgLength];                                        \
         static TP_Message_t msg_##msgName =                                            \
         {                                                                              \
@@ -96,10 +96,10 @@
             },                                                                         \
             .footer.footer_str =                                                       \
             {                                                                          \
-                .delim    = msgDelim,                                                  \
                 .sqc      = 0,                                                         \
                 .crc      = 0,                                                         \
-            },                                                                         \
+                .stopSign    = msgStopSign,                                            \
+            },                                                                         \   
         }                                                       
         
 /**
@@ -159,7 +159,7 @@ typedef struct
 {
     uint8_t sqc;
     uint8_t crc;
-    uint8_t delim[];
+    uint16_t stopSign;
             
 }TP_Footer_str;
 
@@ -234,9 +234,11 @@ typedef enum
  */
 typedef struct  
 {
-    uint8_t       size;         /**< The size of the list                             */
-    TP_Message_t* list[];         /**< Pointer to a list of TP Messages                 */
-}TP_MessageConfig_t;
+    TP_Message_t* txMsgLst[];                          
+    TP_Message_t* rxMsgLst[];       
+    int8_t        txLstSize;
+    uint8_t       rxLstSize;
+}TP_MessageList_t;
 /**
  * @brief TP Settings Configuration
  *
@@ -245,7 +247,7 @@ typedef struct
 typedef struct 
 {
     uint16_t startSign;      /**< Start Sign which will identify a TP message */
-    uint8_t delimiter[];    /**< Delimiter which identify the end of a TP message*/
+    uint16_t stopSign;    /**< Delimiter which identify the end of a TP message*/
 }TP_Settings_t;
 
 /**
@@ -259,19 +261,24 @@ typedef struct
     TP_Timer_t  list[];    
 }TP_TimerConfig_t;
 
+
+typedef struct 
+{
+     void (*txClbk)(char *data);             /**< Tx Callback to transmit TP data        */
+     void (*rxClbk)(char *str, int size);    /**< Rx Callback to receive TP data         */
+}TP_Callback_t;
+
 /**
  * @brief TP Configuration
  */
 typedef struct 
 {
     
-    TP_MessageConfig_t *rxConfig;           /**< Rx Message configuration               */
-    TP_MessageConfig_t *txConfig;           /**< Tx Message configuration               */
-    TP_Settings_t      *settings;           /**< Std Settings configuration             */
-    TP_TimerConfig_t   *txTmConfig;         /**< Tx Message timer configuration         */
-    void (*txClbk)(char *data);             /**< Tx Callback to transmit TP data        */
-    void (*rxClbk)(char *str, int size);    /**< Rx Callback to receive TP data         */
-    uint8_t             curTxIndex;
+    TP_MessageList_t   *msgList;
+    TP_Callback_t       clbk;
+    TP_Settings_t      *settings;           /**< Std Settings configuration             */  
+    TP_TimerConfig_t   *txTimerCfg;         /**< Tx Message timer configuration         */
+
 }TP_Config_t;
 
 #endif /* TP_TYPES_H_ */

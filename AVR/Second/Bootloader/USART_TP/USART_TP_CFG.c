@@ -26,30 +26,27 @@ USART_TP_NEW_MESSAGE(msg_ID350,0x350,5);
 
 /*--- Tx and Rx Message List --------------------------------------------------------------------*/
 
-static TP_MessageConfig_t USART_TP_txConfig = 
-{
-    .list = {
-               USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
-               USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
-            },
-    .size = USART_TP_TX_HANDLE_SIZE(),
-    
-};
-
-static TP_MessageConfig_t USART_TP_rxConfig =
-{
-    .list = {
-                USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
-                USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
-            },            
-    .size = USART_TP_RX_HANDLE_SIZE(),
-};
+TP_MessageList_t msgList = 
+    {
+        
+        .txMsgLst = 
+        {
+           USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
+           USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
+        },
+        .rxMsgLst = 
+        {
+           USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
+           USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
+        },
+        .txLstSize = USART_TP_TX_HANDLE_SIZE(),
+    };  .rxLstSize = USART_TP_RX_HANDLE_SIZE(),
 
 
 static TP_Settings_t USART_TP_settings = 
 {
     .startSign = USART_TP_START_SIGN,
-    .delimiter = USART_TP_DELIMITER, 
+    .stopSign = USART_TP_STOP_SIGN, 
     
 };
 
@@ -66,8 +63,7 @@ static TP_TimerConfig_t USART_TP_timerConfig =
 
 TP_Config_t USART_TP_config =   
 {
-    .rxConfig   = &USART_TP_rxConfig,
-    .txConfig   = &USART_TP_txConfig,
+     .msgList   =
     .settings   = &USART_TP_settings,
     .txTmConfig = &USART_TP_timerConfig,
     .txClbk     = USART_TransmitString,

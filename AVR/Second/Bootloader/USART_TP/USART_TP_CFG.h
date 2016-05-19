@@ -26,7 +26,7 @@
  *
  * Indicator of the end of a TP Message
  */
-#define USART_TP_DELIMITER                                          "\r\n"
+#define USART_TP_STOP_SIGN                                         0x55AA
 
 
 
@@ -53,7 +53,7 @@
  * @brief New Message Definition
  */
 #define USART_TP_NEW_MESSAGE(uMsgName,uMsgId,uMsgLen)                                           \
-        TP_NEW_MESSAGE(uMsgName,uMsgId,uMsgLen,USART_TP_START_SIGN,USART_TP_DELIMITER)
+        TP_NEW_MESSAGE(uMsgName,uMsgId,uMsgLen,USART_TP_START_SIGN,USART_TP_STOP_SIGN)
 
 /**
  * @brief Get Message Reference

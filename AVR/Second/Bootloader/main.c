@@ -22,32 +22,6 @@ USART_Config_t usartConfig =
     };
     
 
-
-uint8_t av[20];
-
-TP_Message_t msg = 
-    {
-        .header.header_str =
-        {
-             .startSign = USART_TP_START_SIGN,
-             .id        = 0x100,
-             .dataLen   = 0,
-        },
-        
-        .body = 
-        {
-            .dataAv = av,
-            .size = 20,
-        },
-        
-        .footer.footer_str = 
-        {
-            .crc = 5,
-            .sqc = 10,
-            .delim = USART_TP_DELIMITER,
-        },        
- };
-
 int main(void)
 {
     /* Replace with your application code */
@@ -57,7 +31,7 @@ int main(void)
     USART_TP_SetData(USART_TP_TX_ID_0x0100,"Hallo Welt");
     USART_TP_SetData(USART_TP_TX_ID_0x0250,"Blubb");
     
-    msg.body.size = 15;
+  
     
     while (1) 
     {
