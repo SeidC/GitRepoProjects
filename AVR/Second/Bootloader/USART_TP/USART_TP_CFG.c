@@ -26,22 +26,32 @@ USART_TP_NEW_MESSAGE(msg_ID350,0x350,5);
 
 /*--- Tx and Rx Message List --------------------------------------------------------------------*/
 
-TP_MessageList_t USART_TP_msgList = 
+TP_MessageList_t USART_TP_txList = 
+{
+    .messages =
     {
-         .txMsgLst = 
-        {
-           USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
-           USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
-        },
-        .rxMsgLst = 
-        {
-           USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
-           USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
-        },
-        .txLstSize = USART_TP_TX_HANDLE_SIZE(),
-        .rxLstSize = USART_TP_RX_HANDLE_SIZE(),
-    };  
+        USART_TP_GET_MESSAGE_REFERENCE(msg_ID100),
+        USART_TP_GET_MESSAGE_REFERENCE(msg_ID250),
+    },
+    .numberOfMessages = USART_TP_TX_HANDLE_SIZE(),
+};
 
+TP_MessageList_t USART_TP_rxList =
+{
+    .messages = 
+    {
+        USART_TP_GET_MESSAGE_REFERENCE(msg_ID200),
+        USART_TP_GET_MESSAGE_REFERENCE(msg_ID350),
+    },
+    .numberOfMessages = USART_TP_RX_HANDLE_SIZE(),
+};  
+
+
+TP_Messages_t USART_TP_messages = 
+{
+    .rxMessageList = &USART_TP_rxList,
+    .txMessageList = &USART_TP_txList,
+};
 
 static TP_Settings_t USART_TP_settings = 
 {
@@ -70,8 +80,8 @@ static TP_TimerConfig_t USART_TP_timerConfig =
 
 TP_Config_t USART_TP_config =   
 {
-    .msgList    = &USART_TP_msgList,
+    .messages   = &USART_TP_messages,
     .settings   = &USART_TP_settings,
     .txTimerCfg = &USART_TP_timerConfig,
-    .clbk       = &USART_TP_callback,
+    .callbacks  = &USART_TP_callback,
 };

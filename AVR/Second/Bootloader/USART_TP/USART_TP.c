@@ -35,7 +35,7 @@ void USART_TP_TimerTask(void)
 void USART_TP_SetData(USART_TP_TxIdHandle_t hndl, uint8_t *data)
 {
     TP_Message_t *msg;
-    msg = &USART_TP_config.txConfig->list[hndl];
-    TP_SetMessageData(msg,data);
+    //msg = &USART_TP_config.txConfig->list[hndl];
+    //TP_SetMessageData(msg,data);
     return;
 }

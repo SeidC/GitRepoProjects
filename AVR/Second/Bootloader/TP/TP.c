@@ -7,17 +7,17 @@
 #include "TP.h"
 
 
-void TP_Transmit(TP_Config_t *config, uint8_t index);
+void TP_Transmit(TP_Config_t *config);
 
 
-void TP_Receive(TP_Config_t *config, uint8_t *data, uint8_t size);
+void TP_Receive(TP_Config_t *config);
 
 
 
 /**************************************************************************************************
  * FUNCTION: void TP_SetTpData(...)
  *************************************************************************************************/
-void TP_SetTpData(TP_Message_t *msg, uint8_t *data, uint8_t size))
+void TP_SetTpData(TP_Message_t *msg, uint8_t *data, uint8_t size)
 {
     uint8_t i;
     
@@ -25,7 +25,7 @@ void TP_SetTpData(TP_Message_t *msg, uint8_t *data, uint8_t size))
     {    
         for(i = 0; i < size; i++)
         {
-            msg->body.dataAv[i] == data[i];        
+            msg->body.dataAv[i] = data[i];        
         }
     }    
     return;
@@ -110,18 +110,16 @@ void TP_TimerTask(TP_Config_t *config)
 }
 
 
-void TP_Transmit(TP_Config_t *config, uint8_t index)
+void TP_Transmit(TP_Config_t *config)
 {
     uint8_t i;
     TP_Timer_t *timer;
-    
+       
     for(i = 0; i < config->txTimerCfg->size; i++)
     {
         timer = &(config->txTimerCfg->list[i]);
         if(config->txTimerCfg->list[i].timerStatus == TP_TIMER_EXPIRED)
         {
-            
-            
             
             TP_TimerReload(timer);
         }
@@ -130,7 +128,7 @@ void TP_Transmit(TP_Config_t *config, uint8_t index)
 }
 
 
-void TP_Receive(TP_Config_t *config, uint8_t *data, uint8_t size);
+void TP_Receive(TP_Config_t *config)
 {
     
     

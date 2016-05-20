@@ -324,7 +324,18 @@ USART_INLINE char USART_ReceiveChar(void);
  *  
  *  @details Details
  */
-USART_INLINE void USART_ReceiveString(char *str, int size);
+USART_INLINE void USART_ReceiveString(char *str, uint8_t size);
+
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] str Parameter_Description
+ *  @param [in] size Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
+USART_INLINE void USART_ReceiveData(uint8_t* str, uint8_t size);
 
 /**
  *  @brief Brief

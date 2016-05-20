@@ -33,17 +33,6 @@
  *  @details Details
  */
 void TP_SetTpData(TP_Message_t *msg, uint8_t *data, uint8_t size);
-/**
- *  @brief Brief
- *  
- *  @param [in] msg Parameter_Description
- *  @param [in] id Parameter_Description
- *  @return Return_Description
- *  
- *  @details Details
- */
-void TP_SetId(TP_Message_t *msg, uint8_t id);
-
 
 
 void TP_TimerTask(TP_Config_t *config);

@@ -99,7 +99,7 @@
                 .sqc      = 0,                                                         \
                 .crc      = 0,                                                         \
                 .stopSign    = msgStopSign,                                            \
-            },                                                                         \   
+            },                                                                         \
         }                                                       
         
 /**
@@ -233,12 +233,17 @@ typedef enum
  * It is needed as RX and TX list for the TP.
  */
 typedef struct  
-{
-    TP_Message_t* txMsgLst[];                          
-    TP_Message_t* rxMsgLst[];       
-    int8_t        txLstSize;
-    uint8_t       rxLstSize;
+{    
+    int8_t        numberOfMessages;
+    TP_Message_t* messages[];
+ 
 }TP_MessageList_t;
+
+typedef struct 
+{
+    TP_MessageList_t *txMessageList;
+    TP_MessageList_t *rxMessageList;
+}TP_Messages_t;
 /**
  * @brief TP Settings Configuration
  *
@@ -264,8 +269,8 @@ typedef struct
 
 typedef struct 
 {
-     void (*txClbk)(char *data);             /**< Tx Callback to transmit TP data        */
-     void (*rxClbk)(char *str, int size);    /**< Rx Callback to receive TP data         */
+     void (*txClbk)(uint8_t* data, uint8_t size);             /**< Tx Callback to transmit TP data        */
+     void (*rxClbk)(uint8_t* data, uint8_t size);             /**< Rx Callback to receive TP data         */
 }TP_Callback_t;
 
 /**
@@ -274,8 +279,8 @@ typedef struct
 typedef struct 
 {
     
-    TP_MessageList_t   *msgList;
-    TP_Callback_t      *clbk;
+    TP_Messages_t      *messages;
+    TP_Callback_t      *callbacks;
     TP_Settings_t      *settings;           /**< Std Settings configuration             */  
     TP_TimerConfig_t   *txTimerCfg;         /**< Tx Message timer configuration         */
 

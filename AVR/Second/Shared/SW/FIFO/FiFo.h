@@ -107,7 +107,7 @@ void FIFO_InitBuffer(FIFO_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize);
  *  
  *  @details Details
  */
-void FIFO_Write(FIFO_Buffer_t* ptr, char p);
+void FIFO_Write(FIFO_Buffer_t* ptr, uint8_t p);
 
 /**
  *  @brief Brief

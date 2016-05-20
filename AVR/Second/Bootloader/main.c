@@ -28,9 +28,7 @@ int main(void)
     USART_Init(&usartConfig);
     USART_TP_Init(&USART_TP_config);
     
-    USART_TP_SetData(USART_TP_TX_ID_0x0100,"Hallo Welt");
-    USART_TP_SetData(USART_TP_TX_ID_0x0250,"Blubb");
-    
+      
   
     
     while (1) 
