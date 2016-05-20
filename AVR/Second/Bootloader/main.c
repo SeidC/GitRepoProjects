@@ -28,14 +28,16 @@ int main(void)
     USART_Init(&usartConfig);
     USART_TP_Init(&USART_TP_config);
     
-      
+    USART_TP_SetData(USART_TP_TX_ID_0x0100,"Hallo",5);
   
+    TP_TransmitOnce(&USART_TP_config,USART_TP_TX_ID_0x0100);
+    
     
     while (1) 
     {
-        USART_TP_TimerTask();
-        USART_TP_MainFunction();
-        _delay_ms(100);
+        asm("nop");
+        //USART_TP_MainFunction();
+        //_delay_ms(100);
         
     }
 }

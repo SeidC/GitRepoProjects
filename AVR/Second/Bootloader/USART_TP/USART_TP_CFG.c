@@ -63,8 +63,8 @@ static TP_Settings_t USART_TP_settings =
 
 static TP_Callback_t USART_TP_callback =
 {
-    .txClbk = USART_TransmitString,
-    .rxClbk = USART_ReceiveString,
+    .txClbk = USART_TransmitData,
+    .rxClbk = USART_ReceiveData,
 };
 
 static TP_TimerConfig_t USART_TP_timerConfig = 
@@ -72,7 +72,7 @@ static TP_TimerConfig_t USART_TP_timerConfig =
      .list = 
      {
         TP_INIT_TIMER(10,TP_TIMER_RUN),
-        TP_INIT_TIMER(10,TP_TIMER_RUN),
+        TP_INIT_TIMER(10,TP_TIMER_OFF),
      },
      .size = USART_TP_TX_HANDLE_SIZE(),       
 };

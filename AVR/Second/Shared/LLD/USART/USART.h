@@ -310,6 +310,16 @@ USART_INLINE void USART_TransmitString(char *str);
 /**
  *  @brief Brief
  *  
+ *  @param [in] str Parameter_Description
+ *  @param [in] size Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
+USART_INLINE void USART_TransmitData(uint8_t* data, uint8_t size);
+/**
+ *  @brief Brief
+ *  
  *  @return Return_Description
  *  
  *  @details Details

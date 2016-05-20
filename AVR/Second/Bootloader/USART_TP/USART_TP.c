@@ -32,10 +32,10 @@ void USART_TP_TimerTask(void)
     TP_TimerTask(USART_TP_Confg);
 }
 
-void USART_TP_SetData(USART_TP_TxIdHandle_t hndl, uint8_t *data)
+void USART_TP_SetData(USART_TP_TxIdHandle_t hndl, uint8_t *data, uint8_t size)
 {
     TP_Message_t *msg;
-    //msg = &USART_TP_config.txConfig->list[hndl];
-    //TP_SetMessageData(msg,data);
+    msg = TP_GetMessage(&USART_TP_config, (uint8_t)hndl);
+    TP_SetTpData(msg,data,size);
     return;
 }

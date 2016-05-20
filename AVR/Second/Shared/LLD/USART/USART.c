@@ -393,11 +393,14 @@ boolean USART_IsDataAvailable(void)
  *************************************************************************************************/
 void USART_TransmitData(uint8_t* data, uint8_t size)
 {
-    uint8_t i;
-    for(i = 0; i < size; i++ )
+    char c;
+    FIFO_WriteString(&USART_txBuffer,(char*)data);
+    if(USART_ADD_DATA_DELIMITER == TRUE)
     {
-        USART_TransmitChar((char)data[i]);
+        FIFO_WriteString(&USART_txBuffer,USART_DATA_DELIMITER);
     }
+    c = FIFO_Read(&USART_txBuffer);
+    USART_TRANSMIT_DATA_BYTE(c);
     return;
 }
 

@@ -40,4 +40,9 @@ void TP_TimerTask(TP_Config_t *config);
 
 void TP_Task(TP_Config_t *config);
 
+
+TP_Message_t* TP_GetMessage(TP_Config_t *config, uint8_t index);
+
+void TP_TransmitOnce(TP_Config_t *config, uint8_t index);
+
 #endif /* TP_H_ */
