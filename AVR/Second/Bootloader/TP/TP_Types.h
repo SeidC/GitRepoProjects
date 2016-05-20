@@ -275,7 +275,7 @@ typedef struct
 {
     
     TP_MessageList_t   *msgList;
-    TP_Callback_t       clbk;
+    TP_Callback_t      *clbk;
     TP_Settings_t      *settings;           /**< Std Settings configuration             */  
     TP_TimerConfig_t   *txTimerCfg;         /**< Tx Message timer configuration         */
 

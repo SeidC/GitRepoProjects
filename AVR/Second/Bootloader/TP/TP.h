@@ -32,7 +32,7 @@
  *  
  *  @details Details
  */
-uint8_t TP_SetMessageData(TP_Message_t *msg, uint8_t *data);
+void TP_SetTpData(TP_Message_t *msg, uint8_t *data, uint8_t size);
 /**
  *  @brief Brief
  *  
