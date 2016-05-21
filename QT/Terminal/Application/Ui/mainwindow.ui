@@ -22,7 +22,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">
@@ -83,8 +83,8 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset resource="terminal.qrc">
-     <normaloff>:/images/connect.png</normaloff>:/images/connect.png</iconset>
+    <iconset>
+     <normaloff>:/Images/connect.png</normaloff>:/Images/connect.png</iconset>
    </property>
    <property name="text">
     <string>C&amp;onnect</string>
@@ -98,8 +98,8 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset resource="terminal.qrc">
-     <normaloff>:/images/disconnect.png</normaloff>:/images/disconnect.png</iconset>
+    <iconset>
+     <normaloff>:/Images/disconnect.png</normaloff>:/Images/disconnect.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Disconnect</string>
@@ -113,8 +113,8 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="terminal.qrc">
-     <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
+    <iconset>
+     <normaloff>:/Images/settings.png</normaloff>:/Images/settings.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Configure</string>
@@ -128,8 +128,8 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="terminal.qrc">
-     <normaloff>:/images/clear.png</normaloff>:/images/clear.png</iconset>
+    <iconset>
+     <normaloff>:/Images/clear.png</normaloff>:/Images/clear.png</iconset>
    </property>
    <property name="text">
     <string>C&amp;lear</string>
@@ -143,7 +143,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="terminal.qrc">
+    <iconset resource="C:/DevelopmentTools/Qt5.5/Examples/Qt-5.5/serialport/terminal/terminal.qrc">
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -155,8 +155,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="terminal.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

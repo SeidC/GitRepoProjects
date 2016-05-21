@@ -7,19 +7,19 @@ INCLUDEPATH +=  \
     Sources/
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    settingsdialog.cpp \
-    console.cpp
+    Sources/main.cpp \
+    Sources/mainwindow.cpp \
+    Sources/settingsdialog.cpp \
+    Sources/console.cpp
 
 HEADERS += \
-    mainwindow.h \
-    settingsdialog.h \
-    console.h
+    Sources/mainwindow.h \
+    Sources/settingsdialog.h \
+    Sources/console.h
 
 FORMS += \
-    mainwindow.ui \
-    settingsdialog.ui
+    Ui/mainwindow.ui \
+    Ui/settingsdialog.ui
 
 RESOURCES += \
     terminal.qrc

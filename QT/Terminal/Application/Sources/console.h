@@ -36,8 +36,9 @@
 #define CONSOLE_H
 
 #include <QPlainTextEdit>
+#include <QTableWidget>
 
-class Console : public QPlainTextEdit
+class Console : public QTableWidget
 {
     Q_OBJECT
 
