@@ -3,6 +3,9 @@ QT += widgets serialport
 TARGET = terminal
 TEMPLATE = app
 
+INCLUDEPATH +=  \
+    Sources/
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
