@@ -42,8 +42,19 @@ Console::Console(QWidget *parent)
     : QTableWidget(parent)
     , localEchoEnabled(false)
 {
+    headerColums = new QList<QTableWidgetItem*>();
+    headerColums->push_back(new QTableWidgetItem("Time",0));
+    headerColums->push_back(new QTableWidgetItem("ID",0));
+    headerColums->push_back(new QTableWidgetItem("Direction",0));
+    headerColums->push_back(new QTableWidgetItem("Data",0));
 
-    setHorizontalHeaderItem(0,new QTableWidgetItem("Test",0));
+    setColumnCount(headerColums->size());
+
+    for(int i = 0; i < headerColums->size(); i++)
+    {
+        setHorizontalHeaderItem(i,headerColums->at(i));
+    }
+
     //document()->setMaximumBlockCount(100);
     QPalette p = palette();
     p.setColor(QPalette::Base, Qt::black);

@@ -37,6 +37,8 @@
 
 #include <QPlainTextEdit>
 #include <QTableWidget>
+#include <QList>
+
 
 class Console : public QTableWidget
 {
@@ -60,6 +62,8 @@ protected:
 
 private:
     bool localEchoEnabled;
+    QList<QTableWidgetItem*> *headerColums;
+
 
 };
 
