@@ -14,7 +14,7 @@ class TpHandler : public QObject
     Q_OBJECT
 public:
     explicit TpHandler(QObject *parent = 0);
-    void checkData(QByteArray *data);
+    void checkData(QByteArray &data);
 
 private:
     TpList *tpMessages;
