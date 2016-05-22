@@ -4,18 +4,29 @@ TARGET = terminal
 TEMPLATE = app
 
 INCLUDEPATH +=  \
-    Sources/
+    Sources/    \
+    Sources/Tp/
 
 SOURCES += \
     Sources/main.cpp \
     Sources/mainwindow.cpp \
     Sources/settingsdialog.cpp \
-    Sources/console.cpp
+    Sources/console.cpp \
+    Sources/Tp/header.cpp \
+    Sources/Tp/footer.cpp \
+    Sources/Tp/body.cpp \
+    Sources/tp.cpp \
+    Sources/tphandler.cpp
 
 HEADERS += \
     Sources/mainwindow.h \
     Sources/settingsdialog.h \
-    Sources/console.h
+    Sources/console.h \
+    Sources/Tp/header.h \
+    Sources/Tp/footer.h \
+    Sources/Tp/body.h \
+    Sources/tp.h \
+    Sources/tphandler.h
 
 FORMS += \
     Ui/mainwindow.ui \

@@ -38,6 +38,7 @@
 #include <QPlainTextEdit>
 #include <QTableWidget>
 #include <QList>
+#include <QTimer>
 
 
 class Console : public QTableWidget
@@ -63,6 +64,7 @@ protected:
 private:
     bool localEchoEnabled;
     QList<QTableWidgetItem*> *headerColums;
+    QTimer *msgTimer;
 
 
 };

@@ -48,6 +48,8 @@ Console::Console(QWidget *parent)
     headerColums->push_back(new QTableWidgetItem("Direction",0));
     headerColums->push_back(new QTableWidgetItem("Data",0));
 
+    msgTimer = new QTimer();
+
     setColumnCount(headerColums->size());
 
     for(int i = 0; i < headerColums->size(); i++)
