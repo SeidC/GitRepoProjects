@@ -6,10 +6,40 @@
 #include "footer.h"
 
 
+class Statemachine;
+
 class TP : public Header, public Body, public Footer
 {
 
 public: //Enum
+
+public:
+    TP();
+    void stateMachine(Statemachine &sm);
+
+private:
+    Statemachine sm;
+
+public slots:
+    void doEnterState(Statemachine::State_t state);
+    void doExitState(Statemachine::State_t state);
+    void doStateTransition(Statemachine::Transition_t transition);
+
+};
+
+
+class Statemachine : public QObject
+{
+     Q_OBJECT
+
+public:
+
+    typedef enum
+    {
+
+
+    }Transition_t;
+
     typedef enum
     {
         TP_HEADER_START         = 0x00,
@@ -23,12 +53,19 @@ public: //Enum
         TP_FOOTER_CRC           = 0x21,
         TP_FOOTER_STOP          = 0x22,
 
-    }Tp_StateMachine_t;
-public:
-    TP();
-    void stateMachine(Tp_StateMachine_t state);
+    }State_t;
 
-private:
+public:
+    State_t lastState;
+    State_t currentState;
+    Transition_t transition;
+
+signals:
+    void onEnter(State_t state);
+    void onTransition(Transition_t transition);
+    void onExit(State_t state);
+    void onCyclic(State_t state);
+
 
 };
 

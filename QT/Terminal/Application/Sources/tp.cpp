@@ -5,10 +5,17 @@ TP::TP()
 
 }
 
-void TP::stateMachine(TP::Tp_StateMachine_t state)
+void TP::doEnterState(Statemachine::State_t state)
 {
-    switch(state)
-    {
 
-    }
+}
+
+void TP::doExitState(Statemachine::State_t state)
+{
+
+}
+
+void TP::doStateTransition(Statemachine::Transition_t transition)
+{
+
 }

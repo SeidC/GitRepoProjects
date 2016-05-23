@@ -4,6 +4,7 @@
 #include <QObject>
 #include "Tp.h"
 #include <QList>
+#include "QTimer"
 
 
 typedef QList<TP*> TpList;
@@ -18,10 +19,13 @@ public:
 
 private:
     TpList *tpMessages;
+    QByteArray *buffer;
+    QTimer *timer;
 
 signals:
 
 public slots:
+
 };
 
 #endif // TPHANDLER_H
