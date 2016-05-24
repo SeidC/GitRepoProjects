@@ -4,7 +4,7 @@
 #include <QObject>
 #include "Tp.h"
 #include <QList>
-#include "QTimer"
+#include <QTimer>
 
 
 typedef QList<TP*> TpList;
@@ -15,7 +15,7 @@ class TpHandler : public QObject
     Q_OBJECT
 public:
     explicit TpHandler(QObject *parent = 0);
-    void checkData(QByteArray &data);
+
 
 private:
     TpList *tpMessages;
@@ -25,7 +25,7 @@ private:
 signals:
 
 public slots:
-
+    void checkData(void);
 };
 
 #endif // TPHANDLER_H

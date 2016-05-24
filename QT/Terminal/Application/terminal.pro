@@ -16,7 +16,8 @@ SOURCES += \
     Sources/Tp/footer.cpp \
     Sources/Tp/body.cpp \
     Sources/tp.cpp \
-    Sources/tphandler.cpp
+    Sources/tphandler.cpp \
+    Sources/statemachine.cpp
 
 HEADERS += \
     Sources/mainwindow.h \
@@ -26,7 +27,8 @@ HEADERS += \
     Sources/Tp/footer.h \
     Sources/Tp/body.h \
     Sources/tp.h \
-    Sources/tphandler.h
+    Sources/tphandler.h \
+    Sources/statemachine.h
 
 FORMS += \
     Ui/mainwindow.ui \

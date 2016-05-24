@@ -7,10 +7,10 @@ TpHandler::TpHandler(QObject *parent) : QObject(parent)
     timer      = new QTimer();
 
     timer->start(50);
-    connect(timer,SIGNAL(timeout()),this,
+    connect(timer,SIGNAL(timeout()),this,SLOT(checkData()));
 }
 
-void TpHandler::checkData(QByteArray &data)
+void TpHandler::checkData(void)
 {
 
 }
