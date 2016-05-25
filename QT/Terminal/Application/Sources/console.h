@@ -39,6 +39,7 @@
 #include <QTableWidget>
 #include <QList>
 #include <QTimer>
+#include "tphandler.h"
 
 
 class Console : public QTableWidget
@@ -65,6 +66,7 @@ private:
     bool localEchoEnabled;
     QList<QTableWidgetItem*> *headerColums;
     QTimer *msgTimer;
+    TpHandler *msgHandler;
 
 
 };

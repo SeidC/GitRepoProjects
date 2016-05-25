@@ -63,6 +63,8 @@ Console::Console(QWidget *parent)
     p.setColor(QPalette::Text, Qt::green);
     setPalette(p);
 
+    msgHandler = new TpHandler();
+
 }
 
 void Console::putData(const QByteArray &data)

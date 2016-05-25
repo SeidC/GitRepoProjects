@@ -15,13 +15,14 @@ class TpHandler : public QObject
     Q_OBJECT
 public:
     explicit TpHandler(QObject *parent = 0);
-
+    void startCheck(void);
+    void putData(QByteArray &data);
 
 private:
     TpList *tpMessages;
     QByteArray *buffer;
     QTimer *timer;
-
+    static const int DEFAULT_CHECK_TIME = 50;
 signals:
 
 public slots:

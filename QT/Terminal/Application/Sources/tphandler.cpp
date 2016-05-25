@@ -1,4 +1,6 @@
 #include "tphandler.h"
+#include "QDebug"
+
 
 TpHandler::TpHandler(QObject *parent) : QObject(parent)
 {
@@ -6,8 +8,20 @@ TpHandler::TpHandler(QObject *parent) : QObject(parent)
     buffer     = new QByteArray();
     timer      = new QTimer();
 
-    timer->start(50);
     connect(timer,SIGNAL(timeout()),this,SLOT(checkData()));
+}
+
+void TpHandler::startCheck(void)
+{
+    timer->start(DEFAULT_CHECK_TIME);
+    return;
+}
+
+void TpHandler::putData(QByteArray &data)
+{
+    buffer->append(data);
+    start();
+    return;
 }
 
 void TpHandler::checkData(void)
