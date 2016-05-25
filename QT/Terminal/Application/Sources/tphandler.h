@@ -23,6 +23,7 @@ private:
     QByteArray *buffer;
     QTimer *timer;
     static const int DEFAULT_CHECK_TIME = 50;
+    bool start;
 signals:
 
 public slots:

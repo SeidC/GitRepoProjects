@@ -1,13 +1,13 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-#include <QObject>
 
-class Header : public QObject
+
+class Header
 {
-    Q_OBJECT
+
 public:
-    explicit Header(QObject *parent = 0);
+    explicit Header();
 
     int getStartSign() const;
     void setStartSign(int value);
@@ -20,9 +20,6 @@ private:
     int id;
     int dataLenth;
 
-signals:
-
-public slots:
 };
 
 #endif // HEADER_H

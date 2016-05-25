@@ -1,6 +1,6 @@
 #include "footer.h"
 
-Footer::Footer(QObject *parent) : QObject(parent)
+Footer::Footer()
 {
 
 }

@@ -31,16 +31,26 @@ public:
 public:
     explicit Statemachine(QObject *parent = 0);
 public:
-    State_t lastState;
-    State_t currentState;
+    State_t lState;
+    State_t state;
     Transition_t transition;
 
+public:
+
+
+    State_t getState() const;
+    void setState(const State_t &value);
 
 signals:
-    void onEnter(State_t state);
-    void onTransition(Transition_t transition);
-    void onExit(State_t state);
-    void onCyclic(State_t state);
+    void onHeaderStart(void);
+    void onHeaderId(void);
+    void onHeaderDataLength(void);
+    void onBodySize(void);
+    void onBodyData(void);
+    void onFooterSqc(void);
+    void onFooterCrc(void);
+    void onFooterStop(void);
+
 
 public slots:
 };

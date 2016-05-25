@@ -7,23 +7,32 @@
 #include "statemachine.h"
 
 
-class TP : public Header, public Body, public Footer
+class TP : public QObject, public Header, public Body, public Footer
 {
+    Q_OBJECT
 
 public: //Enum
 
 public:
-    TP();
+    explicit TP();
     void stateMachine(Statemachine &sm);
+    Statemachine::State_t getState(void);
+    int getNextDataSize(void);
+    bool isTpMessage(void);
 
 private:
     Statemachine sm;
+    bool tpMessage;
 
 public slots:
-    void doEnterState(Statemachine::State_t state);
-    void doExitState(Statemachine::State_t state);
-    void doStateTransition(Statemachine::Transition_t transition);
-
+    void doHeaderStart(void);
+    void doHeaderId(void);
+    void doHeaderDataLength(void);
+    void doBodySize(void);
+    void doBodyData(void);
+    void doFooterSqc(void);
+    void doFooterCrc(void);
+    void doFooterStop(void);
 };
 
 

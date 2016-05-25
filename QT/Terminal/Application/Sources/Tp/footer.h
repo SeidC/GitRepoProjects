@@ -1,13 +1,12 @@
 #ifndef FOOTER_H
 #define FOOTER_H
 
-#include <QObject>
 
-class Footer : public QObject
+class Footer
 {
-    Q_OBJECT
+
 public:
-    explicit Footer(QObject *parent = 0);
+    explicit Footer();
 
     int getSqc() const;
     void setSqc(int value);
@@ -23,9 +22,6 @@ private:
     int crc;
     int stopSign;
 
-signals:
-
-public slots:
 };
 
 #endif // FOOTER_H

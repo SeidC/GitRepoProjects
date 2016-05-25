@@ -1,13 +1,12 @@
 #ifndef BODY_H
 #define BODY_H
+#include <QByteArray>
 
-#include <QWidget>
-
-class Body : public QWidget
+class Body
 {
-    Q_OBJECT
+
 public:
-    explicit Body(QWidget *parent = 0);
+    explicit Body();
 
     int getLength() const;
     void setLength(int value);
@@ -19,9 +18,7 @@ private:
     int length;
     QByteArray *data;
 
-signals:
 
-public slots:
 };
 
 #endif // BODY_H

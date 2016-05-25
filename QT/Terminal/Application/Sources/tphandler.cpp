@@ -20,7 +20,7 @@ void TpHandler::startCheck(void)
 void TpHandler::putData(QByteArray &data)
 {
     buffer->append(data);
-    start();
+    startCheck();
     return;
 }
 
