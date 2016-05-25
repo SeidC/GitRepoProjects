@@ -20,6 +20,8 @@ private:
     int id;
     int dataLenth;
 
+    static const int SIZE_OF_START_SING = 2;
+
 };
 
 #endif // HEADER_H
