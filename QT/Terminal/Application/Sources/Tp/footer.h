@@ -17,10 +17,20 @@ public:
     int getStopSign() const;
     void setStopSign(int value);
 
+    static int getSIZE_OF_SQC();
+
+    static int getSIZE_OF_CRC();
+
+    static int getSIZE_OF_STOP_SIGN();
+
 private:
     int sqc;
     int crc;
     int stopSign;
+
+    static const int SIZE_OF_SQC  = 1;
+    static const int SIZE_OF_CRC  = 1;
+    static const int SIZE_OF_STOP_SIGN = 2;
 
 };
 

@@ -14,10 +14,14 @@ public:
     QByteArray *getData() const;
     void setData(QByteArray *value);
 
+    static int getSIZE_OF_LENGTH();
+
+    int getBoyLength(void);
 private:
     int length;
     QByteArray *data;
 
+    static const int SIZE_OF_LENGTH = 1;
 
 };
 

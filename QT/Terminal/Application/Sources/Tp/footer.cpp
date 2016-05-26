@@ -34,3 +34,18 @@ void Footer::setStopSign(int value)
 {
     stopSign = value;
 }
+
+int Footer::getSIZE_OF_SQC()
+{
+    return SIZE_OF_SQC;
+}
+
+int Footer::getSIZE_OF_CRC()
+{
+    return SIZE_OF_CRC;
+}
+
+int Footer::getSIZE_OF_STOP_SIGN()
+{
+    return SIZE_OF_STOP_SIGN;
+}

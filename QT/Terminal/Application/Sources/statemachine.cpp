@@ -14,3 +14,13 @@ void Statemachine::setState(const State_t &value)
 {
     state = value;
 }
+
+void Statemachine::exec()
+{
+
+}
+
+void Statemachine::setTransition(Statemachine::Transition_t transition)
+{
+
+}

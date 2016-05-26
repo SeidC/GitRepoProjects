@@ -19,6 +19,7 @@ public:
     Statemachine::State_t getState(void);
     int getNextDataSize(void);
     bool isTpMessage(void);
+    void doStatemachine(void);
 
 private:
     Statemachine sm;

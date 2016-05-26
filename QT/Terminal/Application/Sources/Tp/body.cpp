@@ -24,3 +24,13 @@ void Body::setData(QByteArray *value)
 {
     data = value;
 }
+
+int Body::getSIZE_OF_LENGTH()
+{
+    return SIZE_OF_LENGTH;
+}
+
+int Body::getBoyLength()
+{
+    return length;
+}

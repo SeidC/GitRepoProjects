@@ -17,10 +17,12 @@ public:
     explicit TpHandler(QObject *parent = 0);
     void startCheck(void);
     void putData(QByteArray &data);
+    void createNewTp(void);
 
 private:
     TpList *tpMessages;
     QByteArray *buffer;
+    TP *bufferTp;
     QTimer *timer;
     static const int DEFAULT_CHECK_TIME = 50;
     bool start;

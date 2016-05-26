@@ -9,7 +9,7 @@ class Statemachine : public QObject
 public:
     enum Transition_t
     {
-            Trans,
+        NO_Transition           = 0x00,
 
     };
 
@@ -40,6 +40,8 @@ public:
 
     State_t getState() const;
     void setState(const State_t &value);
+    void exec(void);
+    void setTransition(Transition_t transition);
 
 signals:
     void onHeaderStart(void);
