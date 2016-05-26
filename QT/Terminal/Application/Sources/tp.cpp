@@ -20,8 +20,17 @@ Statemachine::State_t TP::getState(void)
 int TP::getNextDataSize()
 {
     int ret;
-    Statemachine::State_t state = getState();
-    swtich(state)
+     Statemachine::State_t state;
+    if(sm.hasStateChanged())
+    {
+        state = getState();
+    }
+    else
+    {
+        state = Statemachine::TP_NO_STATE;
+    }
+
+    switch(state)
     {
         case Statemachine::TP_HEADER_START:
             ret = getSIZE_OF_START_SIGN();
@@ -54,43 +63,67 @@ int TP::getNextDataSize()
     return ret;
 }
 
-void TP::doStatemachine()
+bool TP::isTpMessage(void)
+{
+
+}
+
+void TP::doStatemachine(void)
 {
     sm.exec();
     return;
 }
 
-void TP::doHeaderStart()
+void TP::setNextData(const QByteArray &data)
+{
+    nextData = data;
+}
+
+void TP::doHeaderStart(void)
+{
+    unsigned int signA,signB;
+    if(!nextData.isEmpty())
+    {
+        //for(int i = 0; i < getSIZE_OF_START_SIGN(); i++)
+        {
+            signA = (unsigned int) nextData.at(0) ;
+            signB = (unsigned int) nextData.at(1) ;
+        }
+        nextData.clear();
+        //if(sign == getStartSign())
+        {
+            sm.setTransition(Statemachine::GO_TO_ID_STATE);
+        }
+    }
+    return;
+}
+
+void TP::doHeaderId(void)
 {
 
 }
 
-void TP::doHeaderId()
+void TP::doHeaderDataLength(void)
 {
 
 }
 
-void TP::doHeaderDataLength()
+void TP::doBodySize(void)
 {
 
 }
 
-void TP::doBodySize()
+void TP::doBodyData(void)
 {
 
 }
 
-void TP::doBodyData()
+void TP::doFooterSqc(void)
 {
 
 }
 
-void TP::doFooterSqc()
-{
-
-}
-
-void TP::doFooterCrc()
+void TP::doFooterCrc(void)
 {
 
 }

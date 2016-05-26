@@ -1,6 +1,9 @@
 #ifndef BODY_H
 #define BODY_H
 #include <QByteArray>
+#include <QList>
+
+typedef QList<unsigned int> QIntegerArray;
 
 class Body
 {

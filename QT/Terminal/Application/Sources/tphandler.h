@@ -16,8 +16,9 @@ class TpHandler : public QObject
 public:
     explicit TpHandler(QObject *parent = 0);
     void startCheck(void);
-    void putData(QByteArray &data);
+    void putData(const QByteArray &data);
     void createNewTp(void);
+    void bufferData(const QByteArray &data);
 
 private:
     TpList *tpMessages;

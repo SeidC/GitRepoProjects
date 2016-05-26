@@ -9,8 +9,15 @@ class Statemachine : public QObject
 public:
     enum Transition_t
     {
-        NO_Transition           = 0x00,
-
+        NO_STATE_CHANGFE         = 0x00,
+        GO_TO_HEADER_START_STATE       ,
+        GO_TO_ID_STATE                 ,
+        GO_TO_DATALENGTH_STATE         ,
+        GO_TO_BODY_SIZE_STATE          ,
+        GO_TO_BODY_DATA_STATE          ,
+        GO_TO_FOOTER_SQC_STATE         ,
+        GO_TO_FOOTER_CRC_STATE         ,
+        GO_TO_FOOTER_STOP_STATE        ,
     };
 
     enum State_t
@@ -26,6 +33,8 @@ public:
         TP_FOOTER_CRC           = 0x21,
         TP_FOOTER_STOP          = 0x22,
 
+        TP_NO_STATE             = 0xFF,
+
     };
 
 public:
@@ -33,7 +42,7 @@ public:
 public:
     State_t lState;
     State_t state;
-    Transition_t transition;
+    Transition_t stateTrans;
 
 public:
 
@@ -42,6 +51,9 @@ public:
     void setState(const State_t &value);
     void exec(void);
     void setTransition(Transition_t transition);
+    bool hasStateChanged(void);
+    void emitSignal(Statemachine::State_t state);
+    void switchState(Statemachine::Transition_t transition);
 
 signals:
     void onHeaderStart(void);

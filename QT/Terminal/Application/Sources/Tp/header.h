@@ -9,8 +9,7 @@ class Header
 public:
     explicit Header();
 
-    int getStartSign() const;
-    void setStartSign(int value);
+    unsigned int getStartSign() const;
 
     int getId() const;
     void setId(int value);
@@ -22,7 +21,7 @@ public:
     static int getSIZE_OF_START_SIGN();
 
 private:
-    int startSign;
+    static const unsigned int startSign = 0xAA55;
     int id;
     int dataLenth;
 

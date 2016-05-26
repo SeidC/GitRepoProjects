@@ -21,9 +21,12 @@ public:
     bool isTpMessage(void);
     void doStatemachine(void);
 
+    void setNextData(const QByteArray &data);
+
 private:
     Statemachine sm;
     bool tpMessage;
+    QByteArray nextData;
 
 public slots:
     void doHeaderStart(void);

@@ -2,6 +2,9 @@
 #include "QDebug"
 
 
+
+
+
 TpHandler::TpHandler(QObject *parent) : QObject(parent)
 {
     tpMessages = new TpList();
@@ -17,9 +20,9 @@ void TpHandler::startCheck(void)
     return;
 }
 
-void TpHandler::putData(QByteArray &data)
+void TpHandler::putData(const QByteArray &data)
 {
-    buffer->push_front(data);
+    bufferData(data);
     createNewTp();
     startCheck();
     return;
@@ -27,20 +30,24 @@ void TpHandler::putData(QByteArray &data)
 
 void TpHandler::checkData(void)
 {
-    QByteArray quickBuf;
     int nByte;
-    if(bufferTp != NULL)
+    /*check data only when new Tp Message was generated
+     *and buffer is not empty (data is available
+     */
+    if(bufferTp != NULL && !buffer->isEmpty())
     {
-       bufferTp->doStatemachine();
-
        nByte = bufferTp->getNextDataSize();
        if (nByte > 0)
        {
-           for(i = 0; i  < nByte; i++)
-           {
-                //quickBuf.append(buffer->)
-           }
+            /*Copy buffered data into a new Byte Arry*/
+            QByteArray quickBuf(buffer->right(nByte));
+            /*Handover Byte Arry to TP Message*/
+            bufferTp->setNextData(quickBuf);
+            /*Chope last read data from Byte Array*/
+            buffer->chop(nByte);
        }
+       /*Execute Statemachine*/
+       bufferTp->doStatemachine();
     }
     return;
 }
@@ -52,3 +59,11 @@ void TpHandler::createNewTp(void)
     return;
 }
 
+void TpHandler::bufferData(const QByteArray &data)
+{
+    for(int i = data.size()-1; i >= 0; i-- )
+    {
+        buffer->push_back(data.at(i));
+    }
+    return;
+}
