@@ -31,7 +31,7 @@ public:
     int getNextDataSize(void);
     int getDataSize(Statemachine::State_t state);
 
-    int prepareIncomingStaticData(Statemachine::State_t state);
+    unsigned short prepareIncomingStaticData(Statemachine::State_t state);
 
 
 private:
