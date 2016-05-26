@@ -19,12 +19,28 @@ void Statemachine::exec(void)
 {
     emitSignal(getState());
     lState = state;
+
+    if(isStateChangeRequested())
+    {
+        switchState(stateTrans);
+    }
+    return;
 }
 
 void Statemachine::setTransition(Statemachine::Transition_t transition)
 {
     stateTrans = transition;
     return;
+}
+
+bool Statemachine::isStateChangeRequested(void)
+{
+    bool ret = false;
+    if(stateTrans != Statemachine::NO_STATE_CHANGFE)
+    {
+        ret = true;
+    }
+    return ret;
 }
 
 bool Statemachine::hasStateChanged(void)
@@ -68,7 +84,7 @@ void Statemachine::emitSignal(Statemachine::State_t state)
         default:
             break;
    }
-    return;
+   return;
 }
 
 void Statemachine::switchState(Statemachine::Transition_t transition)
@@ -101,4 +117,6 @@ void Statemachine::switchState(Statemachine::Transition_t transition)
         default:
             break;
    }
+   stateTrans = NO_STATE_CHANGFE;
+   return;
 }

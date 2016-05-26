@@ -81,16 +81,15 @@ void TP::setNextData(const QByteArray &data)
 
 void TP::doHeaderStart(void)
 {
-    unsigned int signA,signB;
+    unsigned short int sign = 0;
     if(!nextData.isEmpty())
     {
-        //for(int i = 0; i < getSIZE_OF_START_SIGN(); i++)
+        for(int i = getSIZE_OF_START_SIGN() - 1; i >= 0; i--)
         {
-            signA = (unsigned int) nextData.at(0) ;
-            signB = (unsigned int) nextData.at(1) ;
+            sign |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
         }
         nextData.clear();
-        //if(sign == getStartSign())
+        if(sign == getStartSign())
         {
             sm.setTransition(Statemachine::GO_TO_ID_STATE);
         }
@@ -100,7 +99,20 @@ void TP::doHeaderStart(void)
 
 void TP::doHeaderId(void)
 {
-
+    unsigned short int id = 0;
+    if(!nextData.isEmpty())
+    {
+        for(int i = getSIZE_OF_ID() - 1; i >= 0; i--)
+        {
+            sign |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
+        }
+        nextData.clear();
+        if(id > 0)
+        {
+            setId(id);
+            sm.setTransition(Statemachine::GO_TO_ID_STATE);
+        }
+    }
 }
 
 void TP::doHeaderDataLength(void)

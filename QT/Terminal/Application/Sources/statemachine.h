@@ -54,6 +54,7 @@ public:
     bool hasStateChanged(void);
     void emitSignal(Statemachine::State_t state);
     void switchState(Statemachine::Transition_t transition);
+    bool isStateChangeRequested(void);
 
 signals:
     void onHeaderStart(void);
