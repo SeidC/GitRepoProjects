@@ -34,3 +34,13 @@ int Header::getSIZE_OF_START_SIGN()
 {
     return SIZE_OF_START_SIGN;
 }
+
+int Header::getDataLenth() const
+{
+    return dataLenth;
+}
+
+void Header::setDataLenth(int value)
+{
+    dataLenth = value;
+}

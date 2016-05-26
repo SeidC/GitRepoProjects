@@ -94,10 +94,10 @@ void Statemachine::switchState(Statemachine::Transition_t transition)
         case Statemachine::GO_TO_HEADER_START_STATE  :
             state = Statemachine::TP_HEADER_START;
             break;
-        case Statemachine::GO_TO_ID_STATE            :
+        case Statemachine::GO_TO_HEADER_ID_STATE            :
             state = Statemachine::TP_HEADER_ID;
             break;
-        case Statemachine::GO_TO_DATALENGTH_STATE    :
+        case Statemachine::GO_TO_HEADER_DATALENGTH_STATE    :
             state = Statemachine::TP_HEADER_DATA_LENGTH;
         break;
         case Statemachine::GO_TO_BODY_SIZE_STATE     :

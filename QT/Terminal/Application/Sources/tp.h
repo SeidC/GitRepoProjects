@@ -15,28 +15,11 @@ public: //Enum
 
 public:
     explicit TP();
-    void stateMachine(Statemachine &sm);
-    Statemachine::State_t getState(void);
-    int getNextDataSize(void);
-    bool isTpMessage(void);
-    void doStatemachine(void);
-
-    void setNextData(const QByteArray &data);
 
 private:
-    Statemachine sm;
-    bool tpMessage;
-    QByteArray nextData;
 
 public slots:
-    void doHeaderStart(void);
-    void doHeaderId(void);
-    void doHeaderDataLength(void);
-    void doBodySize(void);
-    void doBodyData(void);
-    void doFooterSqc(void);
-    void doFooterCrc(void);
-    void doFooterStop(void);
+
 };
 
 

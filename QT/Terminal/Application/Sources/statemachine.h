@@ -11,8 +11,8 @@ public:
     {
         NO_STATE_CHANGFE         = 0x00,
         GO_TO_HEADER_START_STATE       ,
-        GO_TO_ID_STATE                 ,
-        GO_TO_DATALENGTH_STATE         ,
+        GO_TO_HEADER_ID_STATE          ,
+        GO_TO_HEADER_DATALENGTH_STATE  ,
         GO_TO_BODY_SIZE_STATE          ,
         GO_TO_BODY_DATA_STATE          ,
         GO_TO_FOOTER_SQC_STATE         ,

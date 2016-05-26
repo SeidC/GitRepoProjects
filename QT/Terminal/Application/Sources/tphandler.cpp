@@ -12,6 +12,17 @@ TpHandler::TpHandler(QObject *parent) : QObject(parent)
     timer      = new QTimer();
     bufferTp   = NULL;
     connect(timer,SIGNAL(timeout()),this,SLOT(checkData()));
+
+
+    connect(&sm,SIGNAL(onHeaderStart()     ),this,SLOT(doHeaderStart()      ));
+    connect(&sm,SIGNAL(onHeaderId()        ),this,SLOT(doHeaderId()         ));
+    connect(&sm,SIGNAL(onHeaderDataLength()),this,SLOT(doHeaderDataLength() ));
+    connect(&sm,SIGNAL(onBodySize()        ),this,SLOT(doBodySize()         ));
+    connect(&sm,SIGNAL(onBodyData()        ),this,SLOT(doBodyData()         ));
+    connect(&sm,SIGNAL(onFooterSqc()       ),this,SLOT(doFooterSqc()        ));
+    connect(&sm,SIGNAL(onFooterCrc()       ),this,SLOT(doFooterCrc()        ));
+    connect(&sm,SIGNAL(onFooterStop()      ),this,SLOT(doFooterStop()       ));
+
 }
 
 void TpHandler::startCheck(void)
@@ -36,18 +47,18 @@ void TpHandler::checkData(void)
      */
     if(bufferTp != NULL && !buffer->isEmpty())
     {
-       nByte = bufferTp->getNextDataSize();
+       nByte = getNextDataSize();
        if (nByte > 0)
        {
             /*Copy buffered data into a new Byte Arry*/
             QByteArray quickBuf(buffer->right(nByte));
             /*Handover Byte Arry to TP Message*/
-            bufferTp->setNextData(quickBuf);
+            setNextData(quickBuf);
             /*Chope last read data from Byte Array*/
             buffer->chop(nByte);
        }
        /*Execute Statemachine*/
-       bufferTp->doStatemachine();
+       doStatemachine();
     }
     return;
 }
@@ -66,4 +77,206 @@ void TpHandler::bufferData(const QByteArray &data)
         buffer->push_back(data.at(i));
     }
     return;
+}
+
+Statemachine::State_t TpHandler::getState(void)
+{
+    return sm.getState();
+}
+
+
+int TpHandler::getDataSize(Statemachine::State_t state)
+{
+    switch(state)
+    {
+        case Statemachine::TP_HEADER_START:
+            ret = bufferTp->getSIZE_OF_START_SIGN();
+            break;
+        case Statemachine::TP_HEADER_ID:
+            ret = bufferTp->getSIZE_OF_ID();
+            break;
+        case Statemachine::TP_HEADER_DATA_LENGTH:
+            ret = bufferTp->getSIZE_OF_DATA_LEN();
+            break;
+        case Statemachine::TP_BODY_SIZE:
+            ret = bufferTp->getSIZE_OF_LENGTH();
+            break;
+        case Statemachine::TP_BODY_DATA:
+            ret = bufferTp->getBoyLength();
+            break;
+        case Statemachine::TP_FOOTER_SQC:
+            ret = bufferTp->getSIZE_OF_SQC();
+             break;
+        case Statemachine::TP_FOOTER_CRC:
+            ret = bufferTp->getSIZE_OF_CRC();
+             break;
+        case Statemachine::TP_FOOTER_STOP:
+            ret = bufferTp->getSIZE_OF_STOP_SIGN();
+            break;
+        default:
+            ret = 0;
+            break;
+    }
+    return ret;
+}
+
+
+int TpHandler::getNextDataSize()
+{
+    int ret;
+     Statemachine::State_t state;
+    if(sm.hasStateChanged())
+    {
+        state = getState();
+    }
+    else
+    {
+        state = Statemachine::TP_NO_STATE;
+    }
+
+    switch(state)
+    {
+        case Statemachine::TP_HEADER_START:
+            ret = bufferTp->getSIZE_OF_START_SIGN();
+            break;
+        case Statemachine::TP_HEADER_ID:
+            ret = bufferTp->getSIZE_OF_ID();
+            break;
+        case Statemachine::TP_HEADER_DATA_LENGTH:
+            ret = bufferTp->getSIZE_OF_DATA_LEN();
+            break;
+        case Statemachine::TP_BODY_SIZE:
+            ret = bufferTp->getSIZE_OF_LENGTH();
+            break;
+        case Statemachine::TP_BODY_DATA:
+            ret = bufferTp->getBoyLength();
+            break;
+        case Statemachine::TP_FOOTER_SQC:
+            ret = bufferTp->getSIZE_OF_SQC();
+             break;
+        case Statemachine::TP_FOOTER_CRC:
+            ret = bufferTp->getSIZE_OF_CRC();
+             break;
+        case Statemachine::TP_FOOTER_STOP:
+            ret = bufferTp->getSIZE_OF_STOP_SIGN();
+            break;
+        default:
+            ret = 0;
+            break;
+    }
+    return ret;
+}
+
+bool TpHandler::isTpMessage(void)
+{
+
+}
+
+void TpHandler::doStatemachine(void)
+{
+    sm.exec();
+    return;
+}
+
+void TpHandler::setNextData(const QByteArray &data)
+{
+    nextData = data;
+}
+
+void TpHandler::doHeaderStart(void)
+{
+   unsigned short sign = prepareIncomingStaticData(Statemachine::TP_HEADER_START);
+   if(sign == bufferTp->getStartSign())
+   {
+     sm.setTransition(Statemachine::GO_TO_HEADER_ID_STATE);
+
+   }
+    return;
+}
+
+void TpHandler::doHeaderId(void)
+{
+    unsigned short id = prepareIncomingStaticData(Statemachine::TP_HEADER_ID);
+    if(id > 0)
+    {
+        bufferTp->setId(id);
+        sm.setTransition(Statemachine::GO_TO_HEADER_DATALENGTH_STATE);
+    }
+    return;
+}
+
+void TpHandler::doHeaderDataLength(void)
+{
+    unsigned short dataLen = prepareIncomingStaticData(Statemachine::TP_HEADER_DATA_LENGTH);
+    if(dataLen > 0)
+    {
+        bufferTp->setDataLenth(dataLen);
+        sm.setTransition(Statemachine::GO_TO_BODY_SIZE_STATE);
+    }
+    return;
+}
+
+void TpHandler::doBodySize(void)
+{
+    unsigned short int length = 0;
+    if(!nextData.isEmpty())
+    {
+        for(int i = bufferTp->getSIZE_OF_LENGTH() - 1; i >= 0; i--)
+        {
+            length |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
+        }
+        nextData.clear();
+        if(length > 0)
+        {
+            bufferTp->setLength(length);
+            sm.setTransition(Statemachine::GO_TO_BODY_SIZE_STATE);
+        }
+    }
+}
+
+void TpHandler::doBodyData(void)
+{
+    unsigned short int length = 0;
+    if(!nextData.isEmpty())
+    {
+        for(int i = bufferTp->getSIZE_OF_LENGTH() - 1; i >= 0; i--)
+        {
+            length |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
+        }
+        nextData.clear();
+        if(length > 0)
+        {
+            bufferTp->setLength(length);
+            sm.setTransition(Statemachine::GO_TO_BODY_SIZE_STATE);
+        }
+    }
+}
+
+void TpHandler::doFooterSqc(void)
+{
+
+}
+
+void TpHandler::doFooterCrc(void)
+{
+
+}
+
+void TpHandler::doFooterStop()
+{
+
+}
+
+unsigned short int TpHandler::prepareIncomingStaticData(Statemachine::State_t state)
+{
+    unsigned short int data = 0;
+    if(!nextData.isEmpty())
+    {
+        for(int i = getDataSize(state) - 1; i >= 0; i--)
+        {
+            data |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
+        }
+        nextData.clear();
+    }
+    return data;
 }

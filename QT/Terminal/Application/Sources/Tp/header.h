@@ -20,6 +20,9 @@ public:
 
     static int getSIZE_OF_START_SIGN();
 
+    int getDataLenth() const;
+    void setDataLenth(int value);
+
 private:
     static const unsigned int startSign = 0xAA55;
     int id;
