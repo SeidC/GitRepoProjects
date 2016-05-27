@@ -68,7 +68,9 @@ private:
     QTimer *msgTimer;
     TpHandler *msgHandler;
 
-
+public slots:
+    void tpMessageReceived(void);
+    void tpError(TpHandler::Error_t error);
 };
 
 #endif // CONSOLE_H

@@ -65,6 +65,8 @@ Console::Console(QWidget *parent)
 
     msgHandler = new TpHandler();
 
+    connect(msgHandler,SIGNAL(tpMessageReceived()),this,SLOT(tpMessageReceived()));
+    connect(msgHandler,SIGNAL(tpMessageError(Error_t)),this,SLOT(tpError(TpHandler::Error_t)));
 }
 
 void Console::putData(const QByteArray &data)
@@ -109,4 +111,15 @@ void Console::mouseDoubleClickEvent(QMouseEvent *e)
 void Console::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_UNUSED(e)
+}
+
+void Console::tpMessageReceived(void)
+{
+    return;
+}
+
+void Console::tpError(TpHandler::Error_t error)
+{
+
+    return;
 }

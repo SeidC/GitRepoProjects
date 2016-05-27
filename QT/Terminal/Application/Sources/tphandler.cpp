@@ -79,9 +79,24 @@ void TpHandler::bufferData(const QByteArray &data)
     return;
 }
 
-Statemachine::State_t TpHandler::getState(void)
+void TpHandler::storeTpMessage(TP *msg)
 {
-    return sm.getState();
+    if(msg != NULL)
+    {
+        tpMessages->push_back(msg);
+    }
+}
+
+TP *TpHandler::getLastReceivedMessage(void)
+{
+    TP* tp = NULL;
+    int i;
+    if(tpMessages->size() > 0)
+    {
+        i = tpMessages->size() - 1;
+        tp = tpMessages->at(i);
+    }
+    return tp;
 }
 
 
@@ -128,7 +143,7 @@ int TpHandler::getNextDataSize()
      Statemachine::State_t state;
     if(sm.hasStateChanged())
     {
-        state = getState();
+        state = sm.getState();
     }
     else
     {

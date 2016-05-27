@@ -32,7 +32,9 @@ public:
     void createNewTp(void);
     void bufferData(const QByteArray &data);
     void stateMachine(Statemachine &sm);
-    Statemachine::State_t getState(void);
+
+    void storeTpMessage(TP* msg);
+    TP *getLastReceivedMessage(void);
 
     bool isTpMessage(void);
     void doStatemachine(void);
@@ -55,7 +57,7 @@ private:
     QByteArray nextData;
 
     QTimer *timer;
-    static const int DEFAULT_CHECK_TIME = 50;
+    static const int DEFAULT_CHECK_TIME = 5;
 
 
     Statemachine sm;

@@ -18,7 +18,6 @@ SOURCES += \
     Sources/tp.cpp \
     Sources/tphandler.cpp \
     Sources/statemachine.cpp \
-    Sources/ErrH/errh.cpp
 
 HEADERS += \
     Sources/mainwindow.h \
@@ -30,7 +29,6 @@ HEADERS += \
     Sources/tp.h \
     Sources/tphandler.h \
     Sources/statemachine.h \
-    Sources/ErrH/errh.h
 
 FORMS += \
     Ui/mainwindow.ui \
