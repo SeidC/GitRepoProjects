@@ -87,6 +87,7 @@ Statemachine::State_t TpHandler::getState(void)
 
 int TpHandler::getDataSize(Statemachine::State_t state)
 {
+    int ret;
     switch(state)
     {
         case Statemachine::TP_HEADER_START:
@@ -229,7 +230,7 @@ void TpHandler::doBodySize(void)
         if(length > 0)
         {
             bufferTp->setLength(length);
-            sm.setTransition(Statemachine::GO_TO_BODY_SIZE_STATE);
+            sm.setTransition(Statemachine::GO_TO_BODY_DATA_STATE);
         }
     }
 }
@@ -247,24 +248,40 @@ void TpHandler::doBodyData(void)
         if(length > 0)
         {
             bufferTp->setLength(length);
-            sm.setTransition(Statemachine::GO_TO_BODY_SIZE_STATE);
+            sm.setTransition(Statemachine::GO_TO_FOOTER_SQC_STATE);
         }
     }
 }
 
 void TpHandler::doFooterSqc(void)
 {
-
+    unsigned short sqc = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
+    if(sqc > 0)
+    {
+        bufferTp->setSqc(sqc);
+        sm.setTransition(Statemachine::GO_TO_FOOTER_CRC_STATE);
+    }
+    return;
 }
 
 void TpHandler::doFooterCrc(void)
 {
-
+    unsigned short crc = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
+    if(crc > 0)
+    {
+        bufferTp->setSqc(crc);
+        sm.setTransition(Statemachine::GO_TO_FOOTER_STOP_STATE);
+    }
+    return;
 }
 
 void TpHandler::doFooterStop()
 {
-
+    unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
+    if(stopSign == bufferTp->getStopSign())
+    {
+        sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
+    }
 }
 
 unsigned short int TpHandler::prepareIncomingStaticData(Statemachine::State_t state)
@@ -279,4 +296,17 @@ unsigned short int TpHandler::prepareIncomingStaticData(Statemachine::State_t st
         nextData.clear();
     }
     return data;
+}
+
+void TpHandler::pepareIncomingDynamicData(Statemachine::State_t state, QByteArray &data)
+{
+    if(!nextData.isEmpty())
+    {
+        for(int i = getDataSize(state) - 1; i >= 0; i-- )
+        {
+            data.push_back(nextData.at(i));
+        }
+        nextData.clear();
+    }
+    return;
 }
