@@ -219,44 +219,32 @@ void TpHandler::doHeaderDataLength(void)
 
 void TpHandler::doBodySize(void)
 {
-    unsigned short int length = 0;
-    if(!nextData.isEmpty())
+    unsigned short int length = prepareIncomingStaticData(Statemachine::TP_BODY_SIZE);
+    if(length > 0)
     {
-        for(int i = bufferTp->getSIZE_OF_LENGTH() - 1; i >= 0; i--)
-        {
-            length |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
-        }
-        nextData.clear();
-        if(length > 0)
-        {
-            bufferTp->setLength(length);
-            sm.setTransition(Statemachine::GO_TO_BODY_DATA_STATE);
-        }
+        bufferTp->setLength(length);
+        sm.setTransition(Statemachine::GO_TO_BODY_DATA_STATE);
     }
+    return;
 }
 
 void TpHandler::doBodyData(void)
 {
-    unsigned short int length = 0;
-    if(!nextData.isEmpty())
+    QByteArray bodyData;
+    pepareIncomingDynamicData(Statemachine::TP_BODY_DATA, bodyData);
+
+    if(!bodyData.isEmpty())
     {
-        for(int i = bufferTp->getSIZE_OF_LENGTH() - 1; i >= 0; i--)
-        {
-            length |= (((unsigned int) nextData.at(i) & 0x00FF) << (8*i));
-        }
-        nextData.clear();
-        if(length > 0)
-        {
-            bufferTp->setLength(length);
-            sm.setTransition(Statemachine::GO_TO_FOOTER_SQC_STATE);
-        }
+        bufferTp->setData(&bodyData);
+        sm.setTransition(Statemachine::GO_TO_FOOTER_SQC_STATE);
     }
+    return;
 }
 
 void TpHandler::doFooterSqc(void)
 {
     unsigned short sqc = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
-    if(sqc > 0)
+    if(sqc >= 0)
     {
         bufferTp->setSqc(sqc);
         sm.setTransition(Statemachine::GO_TO_FOOTER_CRC_STATE);
@@ -267,7 +255,7 @@ void TpHandler::doFooterSqc(void)
 void TpHandler::doFooterCrc(void)
 {
     unsigned short crc = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
-    if(crc > 0)
+    if(crc >= 0)
     {
         bufferTp->setSqc(crc);
         sm.setTransition(Statemachine::GO_TO_FOOTER_STOP_STATE);
@@ -277,7 +265,7 @@ void TpHandler::doFooterCrc(void)
 
 void TpHandler::doFooterStop()
 {
-    unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_SQC);
+    unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_STOP);
     if(stopSign == bufferTp->getStopSign())
     {
         sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);

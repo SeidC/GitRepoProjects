@@ -30,10 +30,6 @@ int Footer::getStopSign() const
     return stopSign;
 }
 
-void Footer::setStopSign(int value)
-{
-    stopSign = value;
-}
 
 int Footer::getSIZE_OF_SQC()
 {

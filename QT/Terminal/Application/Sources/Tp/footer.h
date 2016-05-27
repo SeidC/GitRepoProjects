@@ -15,7 +15,6 @@ public:
     void setCrc(int value);
 
     int getStopSign() const;
-    void setStopSign(int value);
 
     static int getSIZE_OF_SQC();
 
@@ -26,7 +25,7 @@ public:
 private:
     int sqc;
     int crc;
-    int stopSign;
+    static const int stopSign = 0x55AA;
 
     static const int SIZE_OF_SQC  = 1;
     static const int SIZE_OF_CRC  = 1;
