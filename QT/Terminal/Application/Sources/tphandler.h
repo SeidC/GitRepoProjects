@@ -40,7 +40,7 @@ public:
     void doStatemachine(void);
 
     void setNextData(const QByteArray &data);
-
+    void resetBufferTp(void);
 
     int getNextDataSize(void);
     int getDataSize(Statemachine::State_t state);

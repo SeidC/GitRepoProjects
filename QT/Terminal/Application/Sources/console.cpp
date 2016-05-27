@@ -81,6 +81,24 @@ void Console::setLocalEchoEnabled(bool set)
     localEchoEnabled = set;
 }
 
+void Console::addNewRow(void)
+{
+    if(rowCount() == 0)
+    {
+        setRowCount(1);
+    }
+    else
+    {
+        setRowCount(rowCount() + 1);
+    }
+
+    for(int i = 0;i < colorCount(); i++)
+    {
+        setItem(rowCount(),i,new QTableWidgetItem());
+    }
+    return;
+}
+
 void Console::keyPressEvent(QKeyEvent *e)
 {
 //    switch (e->key()) {
@@ -115,6 +133,7 @@ void Console::contextMenuEvent(QContextMenuEvent *e)
 
 void Console::tpMessageReceived(void)
 {
+    addNewRow();
     return;
 }
 

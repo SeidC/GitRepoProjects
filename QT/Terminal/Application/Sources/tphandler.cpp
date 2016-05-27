@@ -199,6 +199,12 @@ void TpHandler::setNextData(const QByteArray &data)
     nextData = data;
 }
 
+void TpHandler::resetBufferTp(void)
+{
+    bufferTp = NULL;
+    return;
+}
+
 void TpHandler::doHeaderStart(void)
 {
    unsigned short sign = prepareIncomingStaticData(Statemachine::TP_HEADER_START);
@@ -283,7 +289,10 @@ void TpHandler::doFooterStop()
     unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_STOP);
     if(stopSign == bufferTp->getStopSign())
     {
+        storeTpMessage(bufferTp);
+        resetBufferTp();
         sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
+        emit tpMessageReceived();
     }
 }
 

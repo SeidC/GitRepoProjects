@@ -56,6 +56,8 @@ public:
 
     void setLocalEchoEnabled(bool set);
 
+    void addNewRow(void);
+
 protected:
     virtual void keyPressEvent(QKeyEvent *e);
     virtual void mousePressEvent(QMouseEvent *e);
