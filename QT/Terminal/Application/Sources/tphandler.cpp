@@ -79,6 +79,14 @@ void TpHandler::bufferData(const QByteArray &data)
     return;
 }
 
+void TpHandler::setTpError(TpHandler::Error_t error)
+{
+    delete bufferTp;
+    emit tpMessageError(error);
+    sm.setTransition(Statemachine::TP_HEADER_START);
+    return;
+}
+
 void TpHandler::storeTpMessage(TP *msg)
 {
     if(msg != NULL)
@@ -214,7 +222,7 @@ void TpHandler::doHeaderStart(void)
    }
    else
    {
-     emit tpMessageError(TpHandler::START_SIGN_ERROR);
+     setTpError(TpHandler::START_SIGN_ERROR);
    }
     return;
 }
@@ -229,7 +237,7 @@ void TpHandler::doHeaderId(void)
     }
     else
     {
-        emit tpMessageError(TpHandler::ID_ERROR);
+       setTpError(TpHandler::ID_ERROR);
     }
     return;
 }
@@ -255,24 +263,25 @@ void TpHandler::doBodySize(void)
     }
     else
     {
-        emit tpMessageError(TpHandler::BODY_SIZE_ERROR);
+        setTpError(TpHandler::BODY_SIZE_ERROR);
     }
     return;
 }
 
 void TpHandler::doBodyData(void)
 {
-    QByteArray bodyData;
+    QByteArray *bodyData = new QByteArray();
     pepareIncomingDynamicData(Statemachine::TP_BODY_DATA, bodyData);
 
-    if(!bodyData.isEmpty() && bodyData.size() == bufferTp->getBoyLength())
+    if(!bodyData->isEmpty() && bodyData->size() == bufferTp->getBoyLength())
     {
-        bufferTp->setData(&bodyData);
+        bufferTp->setData(bodyData);
         sm.setTransition(Statemachine::GO_TO_FOOTER_SQC_STATE);
     }
     else
     {
-        emit tpMessageError(TpHandler::MESSAGE_DATA_ERROR);
+        delete bodyData;
+        setTpError(TpHandler::MESSAGE_DATA_ERROR);
     }
     return;
 }
@@ -311,7 +320,7 @@ void TpHandler::doFooterStop(void)
     }
     else
     {
-        emit tpMessageError(TpHandler::STOP_SIGN_ERROR);
+       setTpError(TpHandler::STOP_SIGN_ERROR);
     }
 }
 
@@ -329,13 +338,13 @@ unsigned short int TpHandler::prepareIncomingStaticData(Statemachine::State_t st
     return data;
 }
 
-void TpHandler::pepareIncomingDynamicData(Statemachine::State_t state, QByteArray &data)
+void TpHandler::pepareIncomingDynamicData(Statemachine::State_t state, QByteArray *data)
 {
-    if(!nextData.isEmpty())
+    if(!nextData.isEmpty() && nextData.size() >= getDataSize(state))
     {
         for(int i = getDataSize(state) - 1; i >= 0; i-- )
         {
-            data.push_back(nextData.at(i));
+            data->push_back(nextData.at(i));
         }
         nextData.clear();
     }

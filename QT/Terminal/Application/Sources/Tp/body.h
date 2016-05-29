@@ -10,6 +10,7 @@ class Body
 
 public:
     explicit Body();
+    ~Body();
 
     int getLength() const;
     void setLength(int value);

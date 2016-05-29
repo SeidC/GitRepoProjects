@@ -2,7 +2,15 @@
 
 Body::Body()
 {
+    data = NULL;
+}
 
+Body::~Body()
+{
+    if(data != NULL)
+    {
+        delete data;
+    }
 }
 
 int Body::getLength() const

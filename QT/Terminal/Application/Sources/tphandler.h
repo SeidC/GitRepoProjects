@@ -33,6 +33,7 @@ public:
     void bufferData(const QByteArray &data);
     void stateMachine(Statemachine &sm);
 
+    void setTpError(Error_t error);
     void storeTpMessage(TP* msg);
     TP *getLastReceivedMessage(void);
 
@@ -46,7 +47,7 @@ public:
     int getDataSize(Statemachine::State_t state);
 
     unsigned short prepareIncomingStaticData(Statemachine::State_t state);
-    void pepareIncomingDynamicData(Statemachine::State_t state, QByteArray &data);
+    void pepareIncomingDynamicData(Statemachine::State_t state, QByteArray *data);
 
 
 
