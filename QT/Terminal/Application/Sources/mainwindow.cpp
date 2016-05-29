@@ -63,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     status = new QLabel;
     ui->statusBar->addWidget(status);
+    console->setOutputLable(status);
 
     initActionsConnections();
 

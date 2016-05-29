@@ -39,6 +39,7 @@
 #include <QTableWidget>
 #include <QList>
 #include <QTimer>
+#include <QLabel>
 #include "tphandler.h"
 
 
@@ -58,6 +59,9 @@ public:
 
     void addNewRow(void);
 
+    void setOutputLable(QLabel *statusOutput);
+
+    void showStatusMessage(const QString &message);
 protected:
     virtual void keyPressEvent(QKeyEvent *e);
     virtual void mousePressEvent(QMouseEvent *e);
@@ -69,6 +73,7 @@ private:
     QList<QTableWidgetItem*> *headerColums;
     QTimer *msgTimer;
     TpHandler *msgHandler;
+    QLabel* statusOutputLabel;
 
 public slots:
     void tpMessageReceived(void);

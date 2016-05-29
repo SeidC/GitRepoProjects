@@ -50,6 +50,8 @@ Console::Console(QWidget *parent)
 
     msgTimer = new QTimer();
 
+    statusOutputLabel = NULL;
+
     setColumnCount(headerColums->size());
 
     for(int i = 0; i < headerColums->size(); i++)
@@ -99,6 +101,11 @@ void Console::addNewRow(void)
     return;
 }
 
+void Console::setOutputLable(QLabel *statusOutput)
+{
+    statusOutputLabel = statusOutput;
+}
+
 void Console::keyPressEvent(QKeyEvent *e)
 {
 //    switch (e->key()) {
@@ -139,6 +146,40 @@ void Console::tpMessageReceived(void)
 
 void Console::tpError(TpHandler::Error_t error)
 {
-
+    QString message;
+    message = "Error in ";
+    switch(error)
+    {
+        case TpHandler::START_SIGN_ERROR  :
+            message += "START SIGN Field";
+        break;
+        case TpHandler::ID_ERROR          :
+            message += "ID Field";
+        break;
+        case TpHandler::BODY_SIZE_ERROR   :
+            message += "BODY SIZE Field";
+        break;
+        case TpHandler::MESSAGE_DATA_ERROR:
+            message += "MESSAGE DATA Field";
+        break;
+        case TpHandler::SQC_ERROR         :
+            message += "SQC Field";
+        break;
+        case TpHandler::CRC_ERROR         :
+            message += "CRC Field";
+        break;
+        case TpHandler::STOP_SIGN_ERROR   :
+            message += "STOP SIGN Field";
+        break;
+        default:
+            message = "Unkown Error";
+    }
+    showStatusMessage(message);
     return;
+}
+
+void Console::showStatusMessage(const QString &message)
+{
+    if(statusOutputLabel != NULL)
+        statusOutputLabel->setText(message);
 }

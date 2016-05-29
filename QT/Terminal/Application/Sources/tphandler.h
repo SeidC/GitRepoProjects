@@ -49,6 +49,7 @@ public:
     void pepareIncomingDynamicData(Statemachine::State_t state, QByteArray &data);
 
 
+
 private:
     TpList *tpMessages;
     TP *bufferTp;

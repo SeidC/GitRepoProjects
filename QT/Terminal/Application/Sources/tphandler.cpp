@@ -211,7 +211,10 @@ void TpHandler::doHeaderStart(void)
    if(sign == bufferTp->getStartSign())
    {
      sm.setTransition(Statemachine::GO_TO_HEADER_ID_STATE);
-
+   }
+   else
+   {
+     emit tpMessageError(TpHandler::START_SIGN_ERROR);
    }
     return;
 }
@@ -223,6 +226,10 @@ void TpHandler::doHeaderId(void)
     {
         bufferTp->setId(id);
         sm.setTransition(Statemachine::GO_TO_HEADER_DATALENGTH_STATE);
+    }
+    else
+    {
+        emit tpMessageError(TpHandler::ID_ERROR);
     }
     return;
 }
@@ -246,6 +253,10 @@ void TpHandler::doBodySize(void)
         bufferTp->setLength(length);
         sm.setTransition(Statemachine::GO_TO_BODY_DATA_STATE);
     }
+    else
+    {
+        emit tpMessageError(TpHandler::BODY_SIZE_ERROR);
+    }
     return;
 }
 
@@ -254,10 +265,14 @@ void TpHandler::doBodyData(void)
     QByteArray bodyData;
     pepareIncomingDynamicData(Statemachine::TP_BODY_DATA, bodyData);
 
-    if(!bodyData.isEmpty())
+    if(!bodyData.isEmpty() && bodyData.size() == bufferTp->getBoyLength())
     {
         bufferTp->setData(&bodyData);
         sm.setTransition(Statemachine::GO_TO_FOOTER_SQC_STATE);
+    }
+    else
+    {
+        emit tpMessageError(TpHandler::MESSAGE_DATA_ERROR);
     }
     return;
 }
@@ -284,7 +299,7 @@ void TpHandler::doFooterCrc(void)
     return;
 }
 
-void TpHandler::doFooterStop()
+void TpHandler::doFooterStop(void)
 {
     unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_STOP);
     if(stopSign == bufferTp->getStopSign())
@@ -293,6 +308,10 @@ void TpHandler::doFooterStop()
         resetBufferTp();
         sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
         emit tpMessageReceived();
+    }
+    else
+    {
+        emit tpMessageError(TpHandler::STOP_SIGN_ERROR);
     }
 }
 
@@ -322,3 +341,4 @@ void TpHandler::pepareIncomingDynamicData(Statemachine::State_t state, QByteArra
     }
     return;
 }
+
