@@ -7,12 +7,13 @@
 
 TpHandler::TpHandler(QObject *parent) : QObject(parent)
 {
-    tpMessages = new TpList();
-    buffer     = new QByteArray();
-    timer      = new QTimer();
-    bufferTp   = NULL;
+    tpMessages      = new TpList();
+    buffer          = new QByteArray();
+    timer           = new QTimer();
+    timeOutTimer    = new QTimer();
+    bufferTp        = NULL;
     connect(timer,SIGNAL(timeout()),this,SLOT(checkData()));
-
+    connect(timeOutTimer,SIGNAL(timeout()),this,SLOT(dataTimeout()));
 
     connect(&sm,SIGNAL(onHeaderStart()     ),this,SLOT(doHeaderStart()      ));
     connect(&sm,SIGNAL(onHeaderId()        ),this,SLOT(doHeaderId()         ));
@@ -34,7 +35,6 @@ void TpHandler::startCheck(void)
 void TpHandler::putData(const QByteArray &data)
 {
     bufferData(data);
-    createNewTp();
     startCheck();
     return;
 }
@@ -45,8 +45,13 @@ void TpHandler::checkData(void)
     /*check data only when new Tp Message was generated
      *and buffer is not empty (data is available
      */
-    if(bufferTp != NULL && !buffer->isEmpty())
+    if(!buffer->isEmpty())
     {
+       if (timeOutTimer->isActive())
+       {
+           timeOutTimer->stop();
+       }
+
        nByte = getNextDataSize();
        if (nByte > 0)
        {
@@ -60,13 +65,26 @@ void TpHandler::checkData(void)
        /*Execute Statemachine*/
        doStatemachine();
     }
+    else
+    {
+        timeOutTimer->start(DEFAULT_TIMEOUT_TIME);
+    }
+
     return;
+}
+
+void TpHandler::dataTimeout(void)
+{
+    setTpError(TpHandler::DATA_TIMEOUT);
 }
 
 
 void TpHandler::createNewTp(void)
 {
-    bufferTp = new TP();
+    if(bufferTp == NULL)
+    {
+        bufferTp = new TP();
+    }
     return;
 }
 
@@ -83,7 +101,8 @@ void TpHandler::setTpError(TpHandler::Error_t error)
 {
     delete bufferTp;
     emit tpMessageError(error);
-    sm.setTransition(Statemachine::TP_HEADER_START);
+    sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
+    timer->stop();
     return;
 }
 
@@ -218,6 +237,7 @@ void TpHandler::doHeaderStart(void)
    unsigned short sign = prepareIncomingStaticData(Statemachine::TP_HEADER_START);
    if(sign == bufferTp->getStartSign())
    {
+     createNewTp();
      sm.setTransition(Statemachine::GO_TO_HEADER_ID_STATE);
    }
    else
@@ -313,15 +333,13 @@ void TpHandler::doFooterStop(void)
     unsigned short stopSign = prepareIncomingStaticData(Statemachine::TP_FOOTER_STOP);
     if(stopSign == bufferTp->getStopSign())
     {
-        storeTpMessage(bufferTp);
-        resetBufferTp();
-        sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
-        emit tpMessageReceived();
+        tpReceived();
     }
     else
     {
        setTpError(TpHandler::STOP_SIGN_ERROR);
     }
+    return;
 }
 
 unsigned short int TpHandler::prepareIncomingStaticData(Statemachine::State_t state)
@@ -349,5 +367,20 @@ void TpHandler::pepareIncomingDynamicData(Statemachine::State_t state, QByteArra
         nextData.clear();
     }
     return;
+}
+
+
+
+void TpHandler::tpReceived(void)
+{
+    storeTpMessage(bufferTp);
+    resetBufferTp();
+    sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
+    emit tpMessageReceived();
+
+    if (buffer->isEmpty())
+    {
+        timer->stop();
+    }
 }
 

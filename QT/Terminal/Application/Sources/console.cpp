@@ -68,7 +68,7 @@ Console::Console(QWidget *parent)
     msgHandler = new TpHandler();
 
     connect(msgHandler,SIGNAL(tpMessageReceived()),this,SLOT(tpMessageReceived()));
-    connect(msgHandler,SIGNAL(tpMessageError(Error_t)),this,SLOT(tpError(TpHandler::Error_t)));
+    connect(msgHandler,SIGNAL(tpMessageError(TpHandler::Error_t)),this,SLOT(tpError(TpHandler::Error_t)));
 }
 
 void Console::putData(const QByteArray &data)
@@ -170,6 +170,9 @@ void Console::tpError(TpHandler::Error_t error)
         break;
         case TpHandler::STOP_SIGN_ERROR   :
             message += "STOP SIGN Field";
+        break;
+        case TpHandler::DATA_TIMEOUT:
+            message = "Data Timeout Error!!";
         break;
         default:
             message = "Unkown Error";

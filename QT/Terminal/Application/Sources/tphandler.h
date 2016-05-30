@@ -21,7 +21,8 @@ public:
         MESSAGE_DATA_ERROR               ,
         SQC_ERROR                        ,
         CRC_ERROR                        ,
-        STOP_SIGN_ERROR
+        STOP_SIGN_ERROR                  ,
+        DATA_TIMEOUT
 
     };
 
@@ -49,7 +50,7 @@ public:
     unsigned short prepareIncomingStaticData(Statemachine::State_t state);
     void pepareIncomingDynamicData(Statemachine::State_t state, QByteArray *data);
 
-
+    void tpReceived(void);
 
 private:
     TpList *tpMessages;
@@ -59,7 +60,9 @@ private:
     QByteArray nextData;
 
     QTimer *timer;
+    QTimer *timeOutTimer;
     static const int DEFAULT_CHECK_TIME = 5;
+    static const int DEFAULT_TIMEOUT_TIME = 2000;
 
 
     Statemachine sm;
@@ -67,10 +70,11 @@ private:
 
 signals:
     void tpMessageReceived(void);
-    void tpMessageError(Error_t error);
+    void tpMessageError(TpHandler::Error_t error);
 
 public slots:
     void checkData(void);
+    void dataTimeout(void);
 
     void doHeaderStart(void);
     void doHeaderId(void);
