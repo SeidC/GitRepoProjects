@@ -85,8 +85,17 @@ void Console::setLocalEchoEnabled(bool set)
 
 void Console::addNewRow(void)
 {
-    setRowCount(rowCount() + 1);
-    for(int i = 0;i < colorCount(); i++)
+    if(rowCount() == 0)
+    {
+        setRowCount(1);
+    }
+    else
+    {
+        setRowCount(rowCount() + 1);
+    }
+
+   //setRowCount(rowCount() + 1);
+    for(int i = 0;i < columnCount(); i++)
     {
         setItem(rowCount(),i,new QTableWidgetItem());
     }
@@ -183,8 +192,8 @@ void Console::showStatusMessage(const QString &message)
 
 void Console::setData(TP *msg)
 {
-    int row = rowCount() - 1;
-    item(row,1)->setText(QString(msg->getId()));
+    int row = rowCount();
+    item(row,1)->setText("QString(msg->getId())");
     item(row,2)->setText(QString("RX"));
     item(row,3)->setText(QString(msg->getData()->toHex()));
 }
