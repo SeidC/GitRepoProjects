@@ -56,6 +56,8 @@ public:
     void switchState(Statemachine::Transition_t transition);
     bool isStateChangeRequested(void);
 
+    void setLState(const State_t &value);
+
 signals:
     void onHeaderStart(void);
     void onHeaderId(void);

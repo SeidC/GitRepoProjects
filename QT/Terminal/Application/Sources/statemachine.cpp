@@ -3,6 +3,12 @@
 Statemachine::Statemachine(QObject *parent) : QObject(parent)
 {
     setState(TP_HEADER_START);
+    setLState(TP_NO_STATE);
+}
+
+void Statemachine::setLState(const State_t &value)
+{
+    lState = value;
 }
 
 Statemachine::State_t Statemachine::getState() const

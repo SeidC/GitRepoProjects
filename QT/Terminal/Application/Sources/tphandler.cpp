@@ -167,14 +167,10 @@ int TpHandler::getDataSize(Statemachine::State_t state)
 int TpHandler::getNextDataSize()
 {
     int ret;
-     Statemachine::State_t state;
+     Statemachine::State_t state = Statemachine::TP_NO_STATE;
     if(sm.hasStateChanged())
     {
         state = sm.getState();
-    }
-    else
-    {
-        state = Statemachine::TP_NO_STATE;
     }
 
     switch(state)
