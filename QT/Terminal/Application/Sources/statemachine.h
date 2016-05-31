@@ -55,6 +55,7 @@ public:
     void emitSignal(Statemachine::State_t state);
     void switchState(Statemachine::Transition_t transition);
     bool isStateChangeRequested(void);
+    void reset(void);
 
     void setLState(const State_t &value);
 

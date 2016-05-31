@@ -52,16 +52,13 @@ signals:
 
 public:
     explicit Console(QWidget *parent = 0);
-
     void putData(const QByteArray &data);
-
     void setLocalEchoEnabled(bool set);
-
     void addNewRow(void);
-
     void setOutputLable(QLabel *statusOutput);
-
     void showStatusMessage(const QString &message);
+    void setData(TP *msg);
+
 protected:
     virtual void keyPressEvent(QKeyEvent *e);
     virtual void mousePressEvent(QMouseEvent *e);

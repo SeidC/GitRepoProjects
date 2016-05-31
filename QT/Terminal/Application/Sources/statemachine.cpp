@@ -4,6 +4,7 @@ Statemachine::Statemachine(QObject *parent) : QObject(parent)
 {
     setState(TP_HEADER_START);
     setLState(TP_NO_STATE);
+    setTransition(NO_STATE_CHANGFE);
 }
 
 void Statemachine::setLState(const State_t &value)
@@ -47,6 +48,13 @@ bool Statemachine::isStateChangeRequested(void)
         ret = true;
     }
     return ret;
+}
+
+void Statemachine::reset(void)
+{
+    setState(TP_HEADER_START);
+    setLState(TP_NO_STATE);
+    setTransition(NO_STATE_CHANGFE);
 }
 
 bool Statemachine::hasStateChanged(void)

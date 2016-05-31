@@ -12,6 +12,7 @@ TpHandler::TpHandler(QObject *parent) : QObject(parent)
     timer           = new QTimer();
     timeOutTimer    = new QTimer();
     bufferTp        = NULL;
+
     connect(timer,SIGNAL(timeout()),this,SLOT(checkData()));
     connect(timeOutTimer,SIGNAL(timeout()),this,SLOT(dataTimeout()));
 
@@ -101,7 +102,7 @@ void TpHandler::setTpError(TpHandler::Error_t error)
 {
     delete bufferTp;
     emit tpMessageError(error);
-    sm.setTransition(Statemachine::GO_TO_HEADER_START_STATE);
+    sm.reset();
     timer->stop();
     return;
 }

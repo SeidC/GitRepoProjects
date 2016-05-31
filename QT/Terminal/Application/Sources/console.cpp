@@ -85,15 +85,7 @@ void Console::setLocalEchoEnabled(bool set)
 
 void Console::addNewRow(void)
 {
-    if(rowCount() == 0)
-    {
-        setRowCount(1);
-    }
-    else
-    {
-        setRowCount(rowCount() + 1);
-    }
-
+    setRowCount(rowCount() + 1);
     for(int i = 0;i < colorCount(); i++)
     {
         setItem(rowCount(),i,new QTableWidgetItem());
@@ -140,7 +132,9 @@ void Console::contextMenuEvent(QContextMenuEvent *e)
 
 void Console::tpMessageReceived(void)
 {
+    TP* tp = msgHandler->getLastReceivedMessage();
     addNewRow();
+    setData(tp);
     return;
 }
 
@@ -186,3 +180,12 @@ void Console::showStatusMessage(const QString &message)
     if(statusOutputLabel != NULL)
         statusOutputLabel->setText(message);
 }
+
+void Console::setData(TP *msg)
+{
+    int row = rowCount() - 1;
+    item(row,1)->setText(QString(msg->getId()));
+    item(row,2)->setText(QString("RX"));
+    item(row,3)->setText(QString(msg->getData()->toHex()));
+}
+

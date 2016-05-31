@@ -61,7 +61,7 @@ private:
 
     QTimer *timer;
     QTimer *timeOutTimer;
-    static const int DEFAULT_CHECK_TIME = 5;
+    static const int DEFAULT_CHECK_TIME = 10;
     static const int DEFAULT_TIMEOUT_TIME = 2000;
 
 
