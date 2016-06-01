@@ -49,6 +49,7 @@ class Console : public QTableWidget
 
 signals:
     void getData(const QByteArray &data);
+    void addRow(int row);
 
 public:
     explicit Console(QWidget *parent = 0);
@@ -58,6 +59,7 @@ public:
     void setOutputLable(QLabel *statusOutput);
     void showStatusMessage(const QString &message);
     void setData(TP *msg);
+    QString byteArrayToHexString(QByteArray &data);
 
 protected:
     virtual void keyPressEvent(QKeyEvent *e);

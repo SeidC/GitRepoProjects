@@ -45,7 +45,7 @@ Console::Console(QWidget *parent)
     headerColums = new QList<QTableWidgetItem*>();
     headerColums->push_back(new QTableWidgetItem("Time",0));
     headerColums->push_back(new QTableWidgetItem("ID",0));
-    headerColums->push_back(new QTableWidgetItem("Direction",0));
+    headerColums->push_back(new QTableWidgetItem("DIR",0));
     headerColums->push_back(new QTableWidgetItem("Data",0));
 
     msgTimer = new QTimer();
@@ -61,14 +61,15 @@ Console::Console(QWidget *parent)
 
     //document()->setMaximumBlockCount(100);
     QPalette p = palette();
-    p.setColor(QPalette::Base, Qt::black);
-    p.setColor(QPalette::Text, Qt::green);
+    //p.setColor(QPalette::Base, Qt::black);
+    //p.setColor(QPalette::Text, Qt::green);
     setPalette(p);
 
     msgHandler = new TpHandler();
 
     connect(msgHandler,SIGNAL(tpMessageReceived()),this,SLOT(tpMessageReceived()));
     connect(msgHandler,SIGNAL(tpMessageError(TpHandler::Error_t)),this,SLOT(tpError(TpHandler::Error_t)));
+
 }
 
 void Console::putData(const QByteArray &data)
@@ -85,20 +86,12 @@ void Console::setLocalEchoEnabled(bool set)
 
 void Console::addNewRow(void)
 {
-    if(rowCount() == 0)
-    {
-        setRowCount(1);
-    }
-    else
-    {
-        setRowCount(rowCount() + 1);
-    }
-
-   //setRowCount(rowCount() + 1);
-    for(int i = 0;i < columnCount(); i++)
-    {
-        setItem(rowCount(),i,new QTableWidgetItem());
-    }
+//    setRowCount(rowCount() + 1);
+//    for(int i = 0;i < columnCount(); i++)
+//    {
+//        setItem(rowCount(),i,new QTableWidgetItem());
+//    }
+    emit addRow(rowCount() + 1);
     return;
 }
 
@@ -142,7 +135,6 @@ void Console::contextMenuEvent(QContextMenuEvent *e)
 void Console::tpMessageReceived(void)
 {
     TP* tp = msgHandler->getLastReceivedMessage();
-    addNewRow();
     setData(tp);
     return;
 }
@@ -184,6 +176,8 @@ void Console::tpError(TpHandler::Error_t error)
     return;
 }
 
+
+
 void Console::showStatusMessage(const QString &message)
 {
     if(statusOutputLabel != NULL)
@@ -192,9 +186,26 @@ void Console::showStatusMessage(const QString &message)
 
 void Console::setData(TP *msg)
 {
-    int row = rowCount();
-    item(row,1)->setText("QString(msg->getId())");
-    item(row,2)->setText(QString("RX"));
-    item(row,3)->setText(QString(msg->getData()->toHex()));
+    int row;
+    QString id("0x" + QString::number(msg->getId(),16));
+    QString dir("Rx");
+    QString data = byteArrayToHexString(*msg->getData());
+    row = rowCount();
+    setRowCount(row + 1);
+    setItem(row,1,new QTableWidgetItem(id,0));
+    setItem(row,2,new QTableWidgetItem(dir,0));
+    setItem(row,3,new QTableWidgetItem(data,0));
+
+    return;
 }
 
+
+QString Console::byteArrayToHexString(QByteArray &data)
+{
+    QString ret;
+    for(int i = 0; i < data.size(); i++)
+    {
+        ret += "0x" + QString::number(data.at(i),16) + " ";
+    }
+    return ret;
+}
