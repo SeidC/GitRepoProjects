@@ -43,7 +43,7 @@ public:
     State_t lState;
     State_t state;
     Transition_t stateTrans;
-
+    bool smReset;
 public:
 
 
@@ -58,6 +58,9 @@ public:
     void reset(void);
 
     void setLState(const State_t &value);
+
+    bool getSmReset() const;
+    void setSmReset(bool value);
 
 signals:
     void onHeaderStart(void);

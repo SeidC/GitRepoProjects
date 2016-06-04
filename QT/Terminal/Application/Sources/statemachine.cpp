@@ -7,6 +7,16 @@ Statemachine::Statemachine(QObject *parent) : QObject(parent)
     setTransition(NO_STATE_CHANGFE);
 }
 
+bool Statemachine::getSmReset() const
+{
+    return smReset;
+}
+
+void Statemachine::setSmReset(bool value)
+{
+    smReset = value;
+}
+
 void Statemachine::setLState(const State_t &value)
 {
     lState = value;
@@ -25,7 +35,20 @@ void Statemachine::setState(const State_t &value)
 void Statemachine::exec(void)
 {
     emitSignal(getState());
-    lState = state;
+    /*Verify whether SM was reseted*/
+    if(getSmReset() == false)
+    {
+        /*If SM wasn't reseted copy current state to old state*/
+        lState = state;
+    }
+    else
+    {
+        /*If SM was reseted don't copy state, because it were set
+         *in the reset methode. Reset only the Reset flag to avoid
+         * multiple executions
+         */
+        setSmReset(false);
+    }
 
     if(isStateChangeRequested())
     {
@@ -55,6 +78,7 @@ void Statemachine::reset(void)
     setState(TP_HEADER_START);
     setLState(TP_NO_STATE);
     setTransition(NO_STATE_CHANGFE);
+    setSmReset(true);
 }
 
 bool Statemachine::hasStateChanged(void)

@@ -5,7 +5,7 @@ Header::Header()
 
 }
 
-unsigned int Header::getStartSign() const
+unsigned int Header::getStartSign()
 {
     return startSign;
 }

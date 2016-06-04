@@ -9,7 +9,7 @@ class Header
 public:
     explicit Header();
 
-    unsigned int getStartSign() const;
+    static unsigned int getStartSign();
 
     int getId() const;
     void setId(int value);

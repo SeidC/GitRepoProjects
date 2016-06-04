@@ -146,7 +146,7 @@ void Console::tpError(TpHandler::Error_t error)
     switch(error)
     {
         case TpHandler::START_SIGN_ERROR  :
-            message += "START SIGN Field";
+            message = "Waiting for Sync. START SIGN Not Received";
         break;
         case TpHandler::ID_ERROR          :
             message += "ID Field";

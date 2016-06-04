@@ -35,6 +35,7 @@ public:
     void stateMachine(Statemachine &sm);
 
     void setTpError(Error_t error);
+    void setTpSyncInfo(void);
     void storeTpMessage(TP* msg);
     TP *getLastReceivedMessage(void);
 
@@ -51,7 +52,7 @@ public:
     void pepareIncomingDynamicData(Statemachine::State_t state, QByteArray *data);
 
     void tpReceived(void);
-
+    void deleteBufferTp(void);
 private:
     TpList *tpMessages;
     TP *bufferTp;
@@ -61,7 +62,7 @@ private:
 
     QTimer *timer;
     QTimer *timeOutTimer;
-    static const int DEFAULT_CHECK_TIME = 10;
+    static const int DEFAULT_CHECK_TIME = 1;
     static const int DEFAULT_TIMEOUT_TIME = 2000;
 
 

@@ -15,7 +15,7 @@ public: //Enum
 
 public:
     explicit TP();
-    ~TP();
+
 
 private:
 

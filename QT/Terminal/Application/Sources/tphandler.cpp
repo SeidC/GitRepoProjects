@@ -100,11 +100,16 @@ void TpHandler::bufferData(const QByteArray &data)
 
 void TpHandler::setTpError(TpHandler::Error_t error)
 {
-    delete bufferTp;
+    deleteBufferTp();
     emit tpMessageError(error);
     sm.reset();
     timer->stop();
     return;
+}
+
+void TpHandler::setTpSyncInfo(void)
+{
+    emit tpMessageError(TpHandler::START_SIGN_ERROR);
 }
 
 void TpHandler::storeTpMessage(TP *msg)
@@ -177,28 +182,28 @@ int TpHandler::getNextDataSize()
     switch(state)
     {
         case Statemachine::TP_HEADER_START:
-            ret = bufferTp->getSIZE_OF_START_SIGN();
+            ret = TP::getSIZE_OF_START_SIGN();
             break;
         case Statemachine::TP_HEADER_ID:
-            ret = bufferTp->getSIZE_OF_ID();
+            ret = TP::getSIZE_OF_ID();
             break;
         case Statemachine::TP_HEADER_DATA_LENGTH:
-            ret = bufferTp->getSIZE_OF_DATA_LEN();
+            ret = TP::getSIZE_OF_DATA_LEN();
             break;
         case Statemachine::TP_BODY_SIZE:
-            ret = bufferTp->getSIZE_OF_LENGTH();
+            ret = TP::getSIZE_OF_LENGTH();
             break;
         case Statemachine::TP_BODY_DATA:
             ret = bufferTp->getBoyLength();
             break;
         case Statemachine::TP_FOOTER_SQC:
-            ret = bufferTp->getSIZE_OF_SQC();
+            ret = TP::getSIZE_OF_SQC();
              break;
         case Statemachine::TP_FOOTER_CRC:
-            ret = bufferTp->getSIZE_OF_CRC();
+            ret = TP::getSIZE_OF_CRC();
              break;
         case Statemachine::TP_FOOTER_STOP:
-            ret = bufferTp->getSIZE_OF_STOP_SIGN();
+            ret = TP::getSIZE_OF_STOP_SIGN();
             break;
         default:
             ret = 0;
@@ -232,14 +237,15 @@ void TpHandler::resetBufferTp(void)
 void TpHandler::doHeaderStart(void)
 {
    unsigned short sign = prepareIncomingStaticData(Statemachine::TP_HEADER_START);
-   if(sign == bufferTp->getStartSign())
+   if(sign == TP::getStartSign())
    {
      createNewTp();
      sm.setTransition(Statemachine::GO_TO_HEADER_ID_STATE);
    }
    else
    {
-     setTpError(TpHandler::START_SIGN_ERROR);
+     setTpSyncInfo();
+     sm.reset();
    }
     return;
 }
@@ -379,5 +385,12 @@ void TpHandler::tpReceived(void)
     {
         timer->stop();
     }
+}
+
+void TpHandler::deleteBufferTp(void)
+{
+    delete bufferTp;
+    bufferTp = NULL;
+    return;
 }
 
