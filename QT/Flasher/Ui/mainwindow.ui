@@ -7,30 +7,26 @@
     <x>0</x>
     <y>0</y>
     <width>513</width>
-    <height>388</height>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Simple Terminal</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QWidget" name="consoleWidget" native="true"/>
-      </item>
-      <item>
-       <widget class="QWidget" name="flashWidget" native="true">
-        <property name="maximumSize">
-         <size>
-          <width>243</width>
-          <height>16777215</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-     </layout>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="Console" name="consoleWidget" native="true"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="Flash" name="flashWidget" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>243</width>
+        <height>16777215</height>
+       </size>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -101,8 +97,8 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/connect.png</normaloff>:/images/connect.png</iconset>
+    <iconset resource="../terminal.qrc">
+     <normaloff>:/Images/connect.png</normaloff>:/Images/connect.png</iconset>
    </property>
    <property name="text">
     <string>C&amp;onnect</string>
@@ -116,8 +112,8 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/disconnect.png</normaloff>:/images/disconnect.png</iconset>
+    <iconset resource="../terminal.qrc">
+     <normaloff>:/Images/disconnect.png</normaloff>:/Images/disconnect.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Disconnect</string>
@@ -131,8 +127,8 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
+    <iconset resource="../terminal.qrc">
+     <normaloff>:/Images/settings.png</normaloff>:/Images/settings.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Configure</string>
@@ -146,8 +142,8 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/clear.png</normaloff>:/images/clear.png</iconset>
+    <iconset resource="../terminal.qrc">
+     <normaloff>:/Images/clear.png</normaloff>:/Images/clear.png</iconset>
    </property>
    <property name="text">
     <string>C&amp;lear</string>
@@ -161,8 +157,8 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
+    <iconset resource="../terminal.qrc">
+     <normaloff>:/Images/application-exit.png</normaloff>:/Images/application-exit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -173,6 +169,22 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>Console</class>
+   <extends>QWidget</extends>
+   <header>console.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Flash</class>
+   <extends>QWidget</extends>
+   <header>flash.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../terminal.qrc"/>
+ </resources>
  <connections/>
 </ui>

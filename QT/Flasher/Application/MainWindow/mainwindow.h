@@ -53,6 +53,7 @@ QT_END_NAMESPACE
 
 class Console;
 class SettingsDialog;
+class Flash;
 
 class MainWindow : public QMainWindow
 {
@@ -80,6 +81,7 @@ private:
     Ui::MainWindow *ui;
     QLabel *status;
     Console *console;
+    Flash *flash;
     SettingsDialog *settings;
     QSerialPort *serial;
 };

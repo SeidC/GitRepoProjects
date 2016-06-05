@@ -48,10 +48,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 //! [0]
     ui->setupUi(this);
-    console = new Console;
+   //console = new Console(ui->consoleWidget);
+
+    console = ui->consoleWidget;
+    flash   = ui->flashWidget;
     console->setEnabled(false);
 
-    setCentralWidget(console);
+
+
+    //setCentralWidget(console);
 //! [1]
     serial = new QSerialPort(this);
 //! [1]
