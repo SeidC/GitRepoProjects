@@ -68,6 +68,8 @@ public:
         QSerialPort::FlowControl flowControl;
         QString stringFlowControl;
         bool localEchoEnabled;
+        bool tpTxMessageFiler;
+        bool tpRxMessageFilter;
     };
 
     explicit SettingsDialog(QWidget *parent = 0);

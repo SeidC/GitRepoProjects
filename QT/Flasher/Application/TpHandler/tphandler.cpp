@@ -5,22 +5,32 @@ TpHandler::TpHandler(QObject *parent) : QObject(parent)
 
 }
 
-bool TpHandler::isCrcCheckActive() const
+bool TpHandler::isCrcCheckActive(void) const
 {
     return crcCheck;
 }
 
-void TpHandler::setCrcCheck(bool value)
+void TpHandler::setCrcCheck(bool status)
 {
-    crcCheck = value;
+    crcCheck = status;
 }
 
-bool TpHandler::isSqcCheckActive() const
+bool TpHandler::isSqcCheckActive(void) const
 {
     return sqcCheck;
 }
 
-void TpHandler::setSqcCheck(bool value)
+bool TpHandler::isTpHandlingActive(void) const
 {
-    sqcCheck = value;
+    return tpHandling;
+}
+
+void TpHandler::setSqcCheck(bool status)
+{
+    sqcCheck = status;
+}
+
+void TpHandler::setTpHandling(bool status)
+{
+    tpHandling = status;
 }

@@ -202,4 +202,8 @@ void SettingsDialog::updateSettings()
     currentSettings.stringFlowControl = ui->flowControlBox->currentText();
 
     currentSettings.localEchoEnabled = ui->localEchoCheckBox->isChecked();
+
+    currentSettings.tpRxMessageFilter = ui->tpRxCheckBox->isChecked();
+
+    currentSettings.tpTxMessageFiler = ui->tpTxCheckBox->isChecked();
 }

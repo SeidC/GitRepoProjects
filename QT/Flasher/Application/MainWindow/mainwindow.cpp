@@ -52,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
     console = ui->consoleWidget;
     flash   = ui->flashWidget;
     console->setEnabled(false);
+    txHandler = new TpTxHandler;
+    rxHandler = new TpRxHandler;
 
 //! [1]
     serial = new QSerialPort(this);
@@ -66,18 +68,11 @@ MainWindow::MainWindow(QWidget *parent) :
     status = new QLabel;
     ui->statusBar->addWidget(status);
 
+    initApplicationConnections();
     initActionsConnections();
 
-    connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this,
-            SLOT(handleError(QSerialPort::SerialPortError)));
-
-//! [2]
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-//! [2]
-    connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
-//! [3]
 }
-//! [3]
+
 
 MainWindow::~MainWindow()
 {
@@ -101,6 +96,9 @@ void MainWindow::openSerialPort()
         ui->actionConnect->setEnabled(false);
         ui->actionDisconnect->setEnabled(true);
         ui->actionConfigure->setEnabled(false);
+        rxHandler->setTpHandling(p.tpRxMessageFilter);
+        txHandler->setTpHandling(p.tpTxMessageFiler);
+
         showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
                           .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                           .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
@@ -158,7 +156,7 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
 }
 //! [8]
 
-void MainWindow::initActionsConnections()
+void MainWindow::initActionsConnections(void)
 {
     connect(ui->actionConnect, SIGNAL(triggered()), this, SLOT(openSerialPort()));
     connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(closeSerialPort()));
@@ -170,6 +168,16 @@ void MainWindow::initActionsConnections()
     connect(ui->actionFlash, SIGNAL(triggered()),flash,SLOT(showOrHideUi()));
     connect(ui->actionConnect,SIGNAL(triggered()),flash,SLOT(enableUi()));
     connect(ui->actionDisconnect,SIGNAL(triggered()),flash,SLOT(disableUi()));
+}
+
+void MainWindow::initApplicationConnections(void)
+{
+    connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this,
+            SLOT(handleError(QSerialPort::SerialPortError)));
+
+    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+    connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
+
 }
 
 void MainWindow::showStatusMessage(const QString &message)

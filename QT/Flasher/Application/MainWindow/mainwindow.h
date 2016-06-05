@@ -41,6 +41,9 @@
 
 #include <QtSerialPort/QSerialPort>
 
+#include "tprxhandler.h"
+#include "tptxhandler.h"
+
 QT_BEGIN_NAMESPACE
 
 class QLabel;
@@ -74,7 +77,8 @@ private slots:
 
 
 private:
-    void initActionsConnections();
+    void initActionsConnections(void);
+    void initApplicationConnections(void);
 
 private:
     void showStatusMessage(const QString &message);
@@ -85,6 +89,8 @@ private:
     Flash *flash;
     SettingsDialog *settings;
     QSerialPort *serial;
+    TpRxHandler *rxHandler;
+    TpTxHandler *txHandler;
 };
 
 #endif // MAINWINDOW_H

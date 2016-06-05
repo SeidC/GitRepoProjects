@@ -11,11 +11,11 @@ public: //methods
 
 public: //static methods
     static uint getHeaderSign(void);
+
 private: //parameter
     static const uint HEADER_SIGN = 0xAA55;
-
-
-
+    uint id;
+    uint dataLength;
 };
 
 #endif // TPHEADER_H
