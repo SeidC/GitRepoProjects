@@ -48,15 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 //! [0]
     ui->setupUi(this);
-   //console = new Console(ui->consoleWidget);
 
     console = ui->consoleWidget;
     flash   = ui->flashWidget;
     console->setEnabled(false);
 
-
-
-    //setCentralWidget(console);
 //! [1]
     serial = new QSerialPort(this);
 //! [1]
@@ -171,6 +167,9 @@ void MainWindow::initActionsConnections()
     connect(ui->actionClear, SIGNAL(triggered()), console, SLOT(clear()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(ui->actionFlash, SIGNAL(triggered()),flash,SLOT(showOrHideUi()));
+    connect(ui->actionConnect,SIGNAL(triggered()),flash,SLOT(enableUi()));
+    connect(ui->actionDisconnect,SIGNAL(triggered()),flash,SLOT(disableUi()));
 }
 
 void MainWindow::showStatusMessage(const QString &message)

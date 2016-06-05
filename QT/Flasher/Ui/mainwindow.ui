@@ -10,19 +10,53 @@
     <height>473</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Simple Terminal</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="Console" name="consoleWidget" native="true"/>
-    </item>
-    <item row="0" column="1">
-     <widget class="Flash" name="flashWidget" native="true">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="Console" name="consoleWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="maximumSize">
        <size>
-        <width>243</width>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Flash" name="flashWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
         <height>16777215</height>
        </size>
       </property>
@@ -45,6 +79,7 @@
     </property>
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
+    <addaction name="actionFlash"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -75,6 +110,7 @@
    </attribute>
    <addaction name="actionConnect"/>
    <addaction name="actionDisconnect"/>
+   <addaction name="actionFlash"/>
    <addaction name="actionConfigure"/>
    <addaction name="actionClear"/>
   </widget>
@@ -97,7 +133,7 @@
   </action>
   <action name="actionConnect">
    <property name="icon">
-    <iconset resource="../terminal.qrc">
+    <iconset resource="../Flasher.qrc">
      <normaloff>:/Images/connect.png</normaloff>:/Images/connect.png</iconset>
    </property>
    <property name="text">
@@ -112,7 +148,7 @@
   </action>
   <action name="actionDisconnect">
    <property name="icon">
-    <iconset resource="../terminal.qrc">
+    <iconset resource="../Flasher.qrc">
      <normaloff>:/Images/disconnect.png</normaloff>:/Images/disconnect.png</iconset>
    </property>
    <property name="text">
@@ -127,7 +163,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="../terminal.qrc">
+    <iconset resource="../Flasher.qrc">
      <normaloff>:/Images/settings.png</normaloff>:/Images/settings.png</iconset>
    </property>
    <property name="text">
@@ -142,7 +178,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="../terminal.qrc">
+    <iconset resource="../Flasher.qrc">
      <normaloff>:/Images/clear.png</normaloff>:/Images/clear.png</iconset>
    </property>
    <property name="text">
@@ -157,7 +193,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../terminal.qrc">
+    <iconset resource="../Flasher.qrc">
      <normaloff>:/Images/application-exit.png</normaloff>:/Images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -165,6 +201,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionFlash">
+   <property name="icon">
+    <iconset>
+     <normalon>:/Images/flash.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Flash</string>
+   </property>
+   <property name="toolTip">
+    <string>Flash Application</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>
@@ -184,7 +236,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../terminal.qrc"/>
+  <include location="../Flasher.qrc"/>
  </resources>
  <connections/>
 </ui>
