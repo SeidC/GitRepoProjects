@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     console = new Console;
     console->setEnabled(false);
+
     setCentralWidget(console);
 //! [1]
     serial = new QSerialPort(this);

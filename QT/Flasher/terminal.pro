@@ -3,20 +3,26 @@ QT += widgets serialport
 TARGET = terminal
 TEMPLATE = app
 
+INCLUDEPATH +=              \
+    Application             \
+    Application\Console     \
+    Application\MainWindow  \
+    Application\Settings    \
+
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    settingsdialog.cpp \
-    console.cpp
+    Application\main.cpp \
+    Application\MainWindow\mainwindow.cpp \
+    Application\Settings\settingsdialog.cpp \
+    Application\Console\console.cpp
 
 HEADERS += \
-    mainwindow.h \
-    settingsdialog.h \
-    console.h
+    Application\MainWindow\mainwindow.h \
+    Application\Settings\settingsdialog.h \
+    Application\Console\console.h
 
 FORMS += \
-    mainwindow.ui \
-    settingsdialog.ui
+    Ui\mainwindow.ui \
+    Ui\settingsdialog.ui
 
 RESOURCES += \
     terminal.qrc
