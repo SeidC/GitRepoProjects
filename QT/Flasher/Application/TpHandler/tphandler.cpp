@@ -1,6 +1,6 @@
 #include "tphandler.h"
 
-TpHandler::TpHandler(QObject *parent) : QObject(parent)
+TpHandler::TpHandler(QObject *parent) : QThread(parent)
 {
 
 }

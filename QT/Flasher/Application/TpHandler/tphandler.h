@@ -1,10 +1,10 @@
 #ifndef TPHANDLER_H
 #define TPHANDLER_H
 
-#include <QObject>
+#include <QThread>
 #include "tp.h"
 
-class TpHandler : public QObject
+class TpHandler : public QThread
 {
     Q_OBJECT
 public:

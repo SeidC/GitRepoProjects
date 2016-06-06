@@ -131,22 +131,20 @@ void MainWindow::about()
                           "using Qt, with a menu bar, toolbars, and a status bar."));
 }
 
-//! [6]
+
 void MainWindow::writeData(const QByteArray &data)
 {
     serial->write(data);
 }
-//! [6]
 
-//! [7]
+
 void MainWindow::readData()
 {
     QByteArray data = serial->readAll();
     console->putData(data);
 }
-//! [7]
 
-//! [8]
+
 void MainWindow::handleError(QSerialPort::SerialPortError error)
 {
     if (error == QSerialPort::ResourceError) {
@@ -154,7 +152,7 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
         closeSerialPort();
     }
 }
-//! [8]
+
 
 void MainWindow::initActionsConnections(void)
 {
