@@ -18,11 +18,18 @@ public:
 private:
     void setConnections(void);
 
+
+signals:
+    void start(void);
+    void cancle(void);
+
 public slots:
     void showOrHideUi(void);
     void enableUi(void);
     void disableUi(void);
     void openDialog(void);
+    void onStart(void);
+    void onCancle(void);
 
 private:
     Ui::Flash *ui;

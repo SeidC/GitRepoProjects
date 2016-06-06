@@ -12,6 +12,7 @@ Flash::Flash(QWidget *parent) :
     hide();
     setEnabled(false);
     setConnections();
+    onCancle();
 }
 
 
@@ -20,10 +21,15 @@ Flash::~Flash()
     delete ui;
 }
 
-void Flash::setConnections()
+void Flash::setConnections(void)
 {
     connect(ui->hexButton,SIGNAL(clicked(bool)),this,SLOT(openDialog()));
 
+    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SIGNAL(start()));
+    connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SIGNAL(cancle()));
+
+    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SLOT(onCancle()));
+    connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SLOT(onCancle()));
 }
 
 void Flash::enableUi(void)
@@ -46,6 +52,18 @@ void Flash::openDialog(void)
     {
         ui->hexLineEdit->setText(fileName);
     }
+}
+
+void Flash::onCancle(void)
+{
+    ui->flashButton->setEnabled(true);
+    ui->cancleButton->setEnabled(false);
+}
+
+void Flash::onStart(void)
+{
+    ui->flashButton->setEnabled(false);
+    ui->cancleButton->setEnabled(true);
 }
 
 void Flash::showOrHideUi(void)
