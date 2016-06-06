@@ -28,7 +28,7 @@ void Flash::setConnections(void)
     connect(ui->flashButton,SIGNAL(clicked(bool)),this,SIGNAL(start()));
     connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SIGNAL(cancle()));
 
-    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SLOT(onCancle()));
+    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SLOT(onStart()));
     connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SLOT(onCancle()));
 }
 
@@ -58,12 +58,19 @@ void Flash::onCancle(void)
 {
     ui->flashButton->setEnabled(true);
     ui->cancleButton->setEnabled(false);
+    ui->hexButton->setEnabled(true);
+    ui->hexLineEdit->setEnabled(true);
+    ui->progressBar->setEnabled(false);
+
 }
 
 void Flash::onStart(void)
 {
     ui->flashButton->setEnabled(false);
     ui->cancleButton->setEnabled(true);
+    ui->hexButton->setEnabled(false);
+    ui->hexLineEdit->setEnabled(false);
+    ui->progressBar->setEnabled(true);
 }
 
 void Flash::showOrHideUi(void)
