@@ -74,7 +74,8 @@ private slots:
     void readData();
 
     void handleError(QSerialPort::SerialPortError error);
-
+    void startFlash(void);
+    void stopFlash(void);
 
 private:
     void initActionsConnections(void);

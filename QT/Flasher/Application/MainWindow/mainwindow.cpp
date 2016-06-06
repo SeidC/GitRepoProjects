@@ -153,6 +153,32 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
     }
 }
 
+void MainWindow::startFlash(void)
+{
+    Flash::FlashSettings_t set = flash->getSettings();
+    QByteArray hexDump;
+    QFile *hexFile = new QFile();
+
+    hexFile->setFileName(set.path);
+    if(hexFile->open(QIODevice::ReadOnly))
+    {
+        hexDump = hexFile->readAll();
+        hexFile->close();
+        delete hexFile;
+    }
+    else
+    {
+        showStatusMessage("Could not open Hex-File: "
+                          + hexFile->errorString());
+    }
+
+}
+
+void MainWindow::stopFlash(void)
+{
+
+}
+
 
 void MainWindow::initActionsConnections(void)
 {
@@ -176,6 +202,8 @@ void MainWindow::initApplicationConnections(void)
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
 
+    connect(flash,SIGNAL(start()),this,SLOT(startFlash()));
+    connect(flash,SIGNAL(cancle()),this,SLOT(stopFlash()));
 }
 
 void MainWindow::showStatusMessage(const QString &message)

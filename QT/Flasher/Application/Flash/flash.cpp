@@ -8,11 +8,13 @@ Flash::Flash(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->progressBar->setValue(0);
+    ui->tpLengthBox->setValue(10);
 
     hide();
     setEnabled(false);
     setConnections();
     onCancle();
+    updateSettings();
 }
 
 
@@ -25,11 +27,18 @@ void Flash::setConnections(void)
 {
     connect(ui->hexButton,SIGNAL(clicked(bool)),this,SLOT(openDialog()));
 
-    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SIGNAL(start()));
-    connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SIGNAL(cancle()));
-
     connect(ui->flashButton,SIGNAL(clicked(bool)),this,SLOT(onStart()));
     connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SLOT(onCancle()));
+
+    connect(ui->flashButton,SIGNAL(clicked(bool)),this,SIGNAL(start()));
+    connect(ui->cancleButton,SIGNAL(clicked(bool)),this,SIGNAL(cancle()));    
+}
+
+void Flash::updateSettings(void)
+{
+    settings.useCrc = ui->crcCheckBox->isChecked();
+    settings.useSqc = ui->sqcCheckBox->isChecked();
+    settings.tpLength = ui->tpLengthBox->value();
 }
 
 void Flash::enableUi(void)
@@ -66,6 +75,7 @@ void Flash::onCancle(void)
 
 void Flash::onStart(void)
 {
+    updateSettings();
     ui->flashButton->setEnabled(false);
     ui->cancleButton->setEnabled(true);
     ui->hexButton->setEnabled(false);
