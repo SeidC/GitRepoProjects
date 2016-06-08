@@ -2,7 +2,8 @@
 
 TpHandler::TpHandler(QObject *parent) : QThread(parent)
 {
-
+    serialPort = NULL;
+    buffer = new QByteArray;
 }
 
 bool TpHandler::isCrcCheckActive(void) const
@@ -23,6 +24,26 @@ bool TpHandler::isSqcCheckActive(void) const
 bool TpHandler::isTpHandlingActive(void) const
 {
     return tpHandling;
+}
+
+bool TpHandler::isDataAvailable()
+{
+    return dataAvailable;
+}
+
+void TpHandler::setDataAvailableStatus(bool status)
+{
+    dataAvailable = status;
+}
+
+void TpHandler::setConnections()
+{
+
+}
+
+void TpHandler::setSerialPort(QSerialPort *port)
+{
+    serialPort = port;
 }
 
 void TpHandler::setSqcCheck(bool status)

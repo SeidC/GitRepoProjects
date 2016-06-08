@@ -5,7 +5,7 @@ uint TpBody::getDataLength() const
     return dataLength;
 }
 
-QUintArray *TpBody::getData() const
+QByteArray *TpBody::getData() const
 {
     return data;
 }

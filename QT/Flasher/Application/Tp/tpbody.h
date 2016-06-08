@@ -8,13 +8,13 @@ class TpBody
 
 private: //Parameter
 
-    QUintArray *data;
+    QByteArray *data;
     uint dataLength;
 
 public:
     TpBody();
     uint getDataLength() const;
-    QUintArray *getData() const;
+    QByteArray *getData() const;
 };
 
 #endif // TPBODY_H

@@ -14,9 +14,6 @@ typedef unsigned int uint;
  */
 typedef signed int sint;
 
-/**
- * @brief QUintArray
- */
-typedef QList<uint> QUintArray;
+
 
 #endif // TYPES_H

@@ -2,6 +2,8 @@
 #define TPHANDLER_H
 
 #include <QThread>
+#include <QSerialPort>
+#include <QByteArray>
 #include "tp.h"
 
 class TpHandler : public QThread
@@ -26,13 +28,26 @@ public:
      */
     bool isTpHandlingActive(void) const;
 
+    bool isDataAvailable(void);
+
+    void setDataAvailableStatus(bool status);
+
+private:
+    virtual void setConnections(void);
 
 private:
     bool crcCheck;
     bool sqcCheck;
     bool tpHandling;
+protected:
+    QSerialPort *serialPort;
+    QByteArray *buffer;
+    bool dataAvailable;
+    Tp *tp;
+
 
 signals:
+
 
 public slots:
     /**
@@ -50,6 +65,11 @@ public slots:
      * @param status
      */
     void setTpHandling(bool status);
+    /**
+     * @brief setSerialPort
+     * @param port
+     */
+    void setSerialPort(QSerialPort *port);
 
 };
 

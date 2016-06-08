@@ -8,6 +8,10 @@ class TpTxHandler : public TpHandler
 {
 public:
     TpTxHandler();
+private:
+    void setConnections(void);
+protected:
+    void run(void);
 };
 
 #endif // TPTXHANDLER_H

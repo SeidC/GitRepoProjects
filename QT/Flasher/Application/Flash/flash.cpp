@@ -23,6 +23,11 @@ Flash::~Flash()
     delete ui;
 }
 
+Flash::FlashSettings_t Flash::getSettings()
+{
+    return settings;
+}
+
 void Flash::setConnections(void)
 {
     connect(ui->hexButton,SIGNAL(clicked(bool)),this,SLOT(openDialog()));

@@ -52,11 +52,11 @@ MainWindow::MainWindow(QWidget *parent) :
     console = ui->consoleWidget;
     flash   = ui->flashWidget;
     console->setEnabled(false);
-    txHandler = new TpTxHandler;
-    rxHandler = new TpRxHandler;
 
 //! [1]
     serial = new QSerialPort(this);
+    rxHandler = new TpRxHandler();
+    txHandler = new TpTxHandler();
 //! [1]
     settings = new SettingsDialog;
 
@@ -199,7 +199,7 @@ void MainWindow::initApplicationConnections(void)
     connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this,
             SLOT(handleError(QSerialPort::SerialPortError)));
 
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+
     connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
 
     connect(flash,SIGNAL(start()),this,SLOT(startFlash()));
