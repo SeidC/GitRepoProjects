@@ -1,17 +1,14 @@
 #ifndef TPTXHANDLER_H
 #define TPTXHANDLER_H
 
-#include "tphandler.h"
+#include "tp.h"
 
 
-class TpTxHandler : public TpHandler
+class TpTxHandler : public Tp
 {
 public:
     TpTxHandler();
-private:
-    void setConnections(void);
-protected:
-    void run(void);
+
 };
 
 #endif // TPTXHANDLER_H

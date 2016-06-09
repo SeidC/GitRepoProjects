@@ -41,8 +41,7 @@
 
 #include <QtSerialPort/QSerialPort>
 
-#include "tprxhandler.h"
-#include "tptxhandler.h"
+#include "datahandler.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -90,8 +89,7 @@ private:
     Flash *flash;
     SettingsDialog *settings;
     QSerialPort *serial;
-    TpRxHandler *rxHandler;
-    TpTxHandler *txHandler;
+    DataHandler *dataHandler;
 };
 
 #endif // MAINWINDOW_H

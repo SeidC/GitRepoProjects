@@ -3,35 +3,31 @@
 
 TpRxHandler::TpRxHandler()
 {
-
+    tpTimer = new QTimer();
+    connect(tpTimer,SIGNAL(timeout()),this,SLOT(run()));
 }
 
-void TpRxHandler::setConnections()
+void TpRxHandler::validateData(QByteArray &data)
 {
-    if(serialPort != NULL)
+    buffer->append(data);
+    tpTimer->start(0);
+}
+
+void TpRxHandler::run()
+{
+    QByteArray nextData;
+    int count;
+    if(!buffer->isEmpty())
     {
-        connect(serialPort,SIGNAL(readyRead()),this,SLOT(readData()));
+        count = getNextData();
+
+
+        setToNextPart();
+    }
+    else
+    {
+        tpTimer->stop();
     }
 }
 
-void TpRxHandler::readData(void)
-{
-   QByteArray data = serialPort->readAll();
-   buffer->append(data);
-   setDataAvailableStatus(true);
-}
 
-void TpRxHandler::run(void)
-{
-    forever
-    {
-        if(isDataAvailable())
-        {
-
-            if(buffer->isEmpty())
-            {
-                setDataAvailableStatus(false);
-            }
-        }
-    }
-}

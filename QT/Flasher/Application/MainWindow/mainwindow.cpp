@@ -55,8 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //! [1]
     serial = new QSerialPort(this);
-    rxHandler = new TpRxHandler();
-    txHandler = new TpTxHandler();
+    dataHandler = new DataHandler(this);
 //! [1]
     settings = new SettingsDialog;
 
@@ -96,8 +95,6 @@ void MainWindow::openSerialPort()
         ui->actionConnect->setEnabled(false);
         ui->actionDisconnect->setEnabled(true);
         ui->actionConfigure->setEnabled(false);
-        rxHandler->setTpHandling(p.tpRxMessageFilter);
-        txHandler->setTpHandling(p.tpTxMessageFiler);
 
         showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
                           .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
@@ -141,7 +138,7 @@ void MainWindow::writeData(const QByteArray &data)
 void MainWindow::readData()
 {
     QByteArray data = serial->readAll();
-    console->putData(data);
+
 }
 
 
@@ -199,6 +196,7 @@ void MainWindow::initApplicationConnections(void)
     connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this,
             SLOT(handleError(QSerialPort::SerialPortError)));
 
+    connect(serial,SIGNAL(readyRead()),this,SLOT(readData()));
 
     connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
 

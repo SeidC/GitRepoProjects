@@ -1,23 +1,19 @@
 #ifndef TPRXHANDLER_H
 #define TPRXHANDLER_H
-#include "tphandler.h"
+#include "tp.h"
 #include "QByteArray"
 
 
-class TpRxHandler : public TpHandler
+class TpRxHandler : public Tp
 {
 public:
     TpRxHandler();
-
+    void validateData(QByteArray &data);
 private:
-   void setConnections(void);
+
 
 private slots:
-    void readData(void);
-
-protected:
-     void run(void);
-
+    void run(void);
 };
 
 #endif // TPRXHANDLER_H

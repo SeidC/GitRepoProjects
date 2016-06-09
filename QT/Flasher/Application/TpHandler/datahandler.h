@@ -1,16 +1,25 @@
-#ifndef TPHANDLER_H
-#define TPHANDLER_H
+#ifndef DATAHANDLER_H
+#define DATAHANDLER_H
 
-#include <QThread>
-#include <QSerialPort>
+#include <QObject>
 #include <QByteArray>
+#include <QTimer>
+#include "tprxhandler.h"
+#include "tptxhandler.h"
 #include "tp.h"
 
-class TpHandler : public QThread
+class DataHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit TpHandler(QObject *parent = 0);
+    enum Job_t
+    {
+        FLASH_JOB       = 0x01,
+        RAW_DATA_JOB    = 0x02,
+    };
+
+public:
+    explicit DataHandler(QObject *parent = 0);
 
     /**
      * @brief isCrcCheckActive
@@ -32,19 +41,19 @@ public:
 
     void setDataAvailableStatus(bool status);
 
-private:
-    virtual void setConnections(void);
+    void receiveData(QByteArray &data);
 
+    void setJob(Job_t job);
 private:
     bool crcCheck;
     bool sqcCheck;
-    bool tpHandling;
-protected:
-    QSerialPort *serialPort;
-    QByteArray *buffer;
-    bool dataAvailable;
-    Tp *tp;
 
+    Job_t activeJob;
+
+    TpRxHandler *rxHandler;
+    TpTxHandler *txHandler;
+
+protected:
 
 signals:
 
@@ -60,17 +69,9 @@ public slots:
      * @param status
      */
     void setSqcCheck(bool status);
-    /**
-     * @brief setTpHandling
-     * @param status
-     */
-    void setTpHandling(bool status);
-    /**
-     * @brief setSerialPort
-     * @param port
-     */
-    void setSerialPort(QSerialPort *port);
+
+
 
 };
 
-#endif // TPHANDLER_H
+#endif // DataHandler_H

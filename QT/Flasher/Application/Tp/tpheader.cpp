@@ -7,7 +7,8 @@ TpHeader::TpHeader()
 
 }
 
-uint TpHeader::getHeaderSign()
+uint TpHeader::getHeaderSign(void)
 {
     return HEADER_SIGN;
 }
+

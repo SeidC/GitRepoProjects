@@ -15,6 +15,7 @@ public:
     TpBody();
     uint getDataLength() const;
     QByteArray *getData() const;
+    static const unsigned int BODY_DATA_LENGTH_SIZE = 1;
 };
 
 #endif // TPBODY_H
