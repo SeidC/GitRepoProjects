@@ -9,6 +9,6 @@ TpHeader::TpHeader()
 
 uint TpHeader::getHeaderSign(void)
 {
-    return HEADER_SIGN;
+    return HEADER_SIGN_VALUE;
 }
 

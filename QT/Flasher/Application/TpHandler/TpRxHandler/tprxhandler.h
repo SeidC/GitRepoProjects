@@ -3,12 +3,14 @@
 #include "tp.h"
 #include "QByteArray"
 
-
 class TpRxHandler : public Tp
 {
 public:
     TpRxHandler();
     void validateData(QByteArray &data);
+    void verifyTpOffsetData(Tp::TpParts_t part, QByteArray &data);
+    bool isHeaderSign(uint data);
+    bool isFooterSign(uint data);
 private:
 
 

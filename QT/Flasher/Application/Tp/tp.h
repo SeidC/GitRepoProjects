@@ -10,7 +10,7 @@
 class Tp : public QObject, public TpHeader, public TpBody, public TpFooter
 {
     Q_OBJECT
-
+public:
     enum TpParts_t
     {
         HEADER_START_SIGN       = 0x00,
@@ -30,6 +30,7 @@ public:
 protected:
     int getNextData(void);
     void setToNextPart(void);
+    TpParts_t getCurrentPart(void);
 
 protected:
     QTimer *tpTimer;
@@ -38,7 +39,7 @@ protected:
 private:
 
     TpParts_t currentPart;
-    //static const uint dataAv[];
+    static uint dataAv[PART_QUANTITY];
 
 signals:
 
