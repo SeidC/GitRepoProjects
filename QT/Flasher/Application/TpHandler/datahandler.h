@@ -4,9 +4,11 @@
 #include <QObject>
 #include <QByteArray>
 #include <QTimer>
-#include "tprxhandler.h"
-#include "tptxhandler.h"
 #include "tp.h"
+#include "QList"
+
+typedef QList<Tp*> TpBuffer;
+
 
 class DataHandler : public QObject
 {
@@ -39,9 +41,11 @@ public:
 
     bool isDataAvailable(void);
 
-    void setDataAvailableStatus(bool status);
-
     void receiveData(QByteArray &data);
+
+    void addTp(Tp *tp);
+
+    Tp* getLastTp(void);
 
     void setJob(Job_t job);
 private:
@@ -50,11 +54,10 @@ private:
 
     Job_t activeJob;
 
-    TpRxHandler *rxHandler;
-    TpTxHandler *txHandler;
-
 protected:
-
+    QTimer *tpTimer;
+    QByteArray *buffer;
+    TpBuffer *tpBuffer;
 signals:
 
 

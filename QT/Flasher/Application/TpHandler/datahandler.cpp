@@ -2,7 +2,7 @@
 
 DataHandler::DataHandler(QObject *parent) : QObject(parent)
 {
-
+    tpBuffer = new TpBuffer();
 
 }
 
@@ -26,8 +26,7 @@ void DataHandler::receiveData(QByteArray &data)
     switch(activeJob)
     {
         case FLASH_JOB:
-            rxHandler = new TpRxHandler();
-            rxHandler->validateData(data);
+
         break;
         case RAW_DATA_JOB:
 
@@ -35,6 +34,16 @@ void DataHandler::receiveData(QByteArray &data)
         default:
         break;
     }
+}
+
+void DataHandler::addTp(Tp *tp)
+{
+    tpBuffer->push_back(tp);
+}
+
+Tp *DataHandler::getLastTp()
+{
+    return tpBuffer->last();
 }
 
 void DataHandler::setJob(DataHandler::Job_t job)
@@ -47,5 +56,7 @@ void DataHandler::setSqcCheck(bool status)
 {
     sqcCheck = status;
 }
+
+
 
 

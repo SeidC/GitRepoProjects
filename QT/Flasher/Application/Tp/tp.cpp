@@ -12,22 +12,27 @@ uint Tp::dataAv[Tp::PART_QUANTITY] = {HEADER_SIGN_SIZE     ,
 
 Tp::Tp(QObject *parent) : QObject(parent)
 {
-
+    setMsgValidStatus(false);
 }
 
-
-int Tp::getNextData(void)
+void Tp::setMsgValidStatus(bool val)
 {
-    int i = dataAv[(int)currentPart];
-    return i;
+    valid = val;
 }
+
+bool Tp::isMsgValid()
+{
+    return valid;
+}
+
+
 
 void Tp::setToNextPart(void)
 {
     if(currentPart < PART_QUANTITY)
     {
         int i = (int)currentPart;
-        currentPart = ((TpParts_t)++i);
+        currentPart = ((MsgPart_t)++i);
     }
     else
     {
@@ -35,7 +40,13 @@ void Tp::setToNextPart(void)
     }
 }
 
-Tp::TpParts_t Tp::getCurrentPart()
+Tp::MsgPart_t Tp::getCurrentMsgPart()
 {
     return currentPart;
+}
+
+uint Tp::getNextMsgPartSize(Tp::MsgPart_t part)
+{
+    if(part < Tp::PART_QUANTITY)
+        return dataAv[part];
 }

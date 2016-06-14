@@ -71,7 +71,7 @@ void TpRxHandler::run()
                 status = checkHeaderSign(nextData);
             break;
             case Tp::HEADER_LENGTH:
-                status = checkHeaderLength(nextData)
+                status = checkHeaderLength(nextData);
             break;
             case Tp::BODY_SIZE:
 

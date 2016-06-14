@@ -11,6 +11,8 @@ public: //methods
 
 public: //static methods
     static uint getHeaderSign(void);
+    static uint getHeaderSignSize(void);
+    static bool isHeader(uint value);
 
 protected:
     static const uint HEADER_SIGN_SIZE = 2;

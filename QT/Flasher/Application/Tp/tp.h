@@ -11,7 +11,7 @@ class Tp : public QObject, public TpHeader, public TpBody, public TpFooter
 {
     Q_OBJECT
 public:
-    enum TpParts_t
+    enum MsgPart_t
     {
         HEADER_START_SIGN       = 0x00,
         HEADER_LENGTH           = 0x01,
@@ -27,19 +27,17 @@ public:
 
 public:
     explicit Tp(QObject *parent = 0);
-protected:
-    int getNextData(void);
+    void setMsgValidStatus(bool val);
+    bool isMsgValid(void);
     void setToNextPart(void);
-    TpParts_t getCurrentPart(void);
-
-protected:
-    QTimer *tpTimer;
-    QByteArray *buffer;
+    MsgPart_t getCurrentMsgPart(void);
+    static uint getNextMsgPartSize(MsgPart_t part);
 
 private:
 
-    TpParts_t currentPart;
+    MsgPart_t currentPart;
     static uint dataAv[PART_QUANTITY];
+    bool valid;
 
 signals:
 

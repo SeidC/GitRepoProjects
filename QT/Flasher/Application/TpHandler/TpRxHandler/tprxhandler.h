@@ -2,15 +2,19 @@
 #define TPRXHANDLER_H
 #include "tp.h"
 #include "QByteArray"
+#include "datahandler.h"
 
-class TpRxHandler : public Tp
+class TpRxHandler : public DataHandler
 {
 public:
     TpRxHandler();
-    void validateData(QByteArray &data);
-    void verifyTpOffsetData(Tp::TpParts_t part, QByteArray &data);
-    bool isHeaderSign(uint data);
-    bool isFooterSign(uint data);
+    void validateReceivedData(QByteArray &data);
+    void verifyTpOffsetData(Tp::MsgPart_t part, QByteArray &data);
+    QByteArray getNextData(uint nBytes);
+
+    bool checkHeaderSign(QByteArray &data);
+    bool checkHeaderLength(QByteArray &data);
+
 private:
 
 
