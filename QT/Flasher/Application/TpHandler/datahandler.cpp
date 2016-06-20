@@ -51,6 +51,11 @@ void DataHandler::setJob(DataHandler::Job_t job)
     activeJob = job;
 }
 
+Tp* DataHandler::newTp(void)
+{
+    return new Tp(this);
+}
+
 
 void DataHandler::setSqcCheck(bool status)
 {

@@ -12,7 +12,10 @@ public: //methods
 public: //static methods
     static uint getHeaderSign(void);
     static uint getHeaderSignSize(void);
+    static uint getHeaderLengthSize(void);
     static bool isHeader(uint value);
+
+    void setDataLength(const uint &value);
 
 protected:
     static const uint HEADER_SIGN_SIZE = 2;

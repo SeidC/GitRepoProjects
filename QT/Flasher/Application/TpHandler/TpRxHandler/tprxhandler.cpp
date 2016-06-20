@@ -9,11 +9,8 @@ TpRxHandler::TpRxHandler()
 
 void TpRxHandler::validateReceivedData(QByteArray &data)
 {
-   Tp *tp;
    if(!tpTimer->isActive())
    {
-       tp = new Tp();
-       addTp(tp);
        buffer->append(data);
        tpTimer->start(0);
    }
@@ -24,9 +21,27 @@ QByteArray TpRxHandler::getNextData(uint nBytes)
     return buffer->mid(0,nBytes);
 }
 
+uint TpRxHandler::convertUintValue(QByteArray &data)
+{
+    uint value;
+    for(int i = 0; i < data.size(); i++)
+    {
+        value |= ((data.at(i) & 0x00FF) << (i*4));
+    }
+    return value;
+}
+
 bool TpRxHandler::checkHeaderLength(QByteArray &data)
 {
-
+    bool ret = false;
+    if(((uint)data.size()) == Tp::getHeaderLengthSize())
+    {
+        if(convertUintValue(data) > 0)
+        {
+            ret = true;
+        }
+    }
+    return ret;
 }
 
 bool TpRxHandler::checkHeaderSign(QByteArray &data)
@@ -35,10 +50,7 @@ bool TpRxHandler::checkHeaderSign(QByteArray &data)
     bool ret = false;
     if(((uint)data.size()) == Tp::getHeaderSignSize())
     {
-        for(int i = 0; i < data.size(); i++)
-        {
-            header |= ((data.at(i) & 0x00FF) << (i*4));
-        }
+        header = convertUintValue(data);
 
         if(Tp::isHeader(header))
         {
@@ -60,7 +72,9 @@ void TpRxHandler::run()
 
     if(!buffer->isEmpty())
     {
-        tp = getLastTp();
+        if(tp == NULL)
+            tp = newTp();
+
         part = tp->getCurrentMsgPart();
         nextDataSize = tp->getNextMsgPartSize(part);
         nextData = getNextData(nextDataSize);
@@ -72,6 +86,10 @@ void TpRxHandler::run()
             break;
             case Tp::HEADER_LENGTH:
                 status = checkHeaderLength(nextData);
+                if(status == true)
+                {
+                   tp->setDataLength(convertUintValue(nextData));
+                }
             break;
             case Tp::BODY_SIZE:
 

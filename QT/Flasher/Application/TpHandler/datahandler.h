@@ -48,6 +48,8 @@ public:
     Tp* getLastTp(void);
 
     void setJob(Job_t job);
+
+    Tp *newTp(void);
 private:
     bool crcCheck;
     bool sqcCheck;
