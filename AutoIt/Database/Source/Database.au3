@@ -5,7 +5,7 @@
 #include <File.au3>
 #include <Array.au3>
 
-Global $loadPath = "W:\Movies"
+Global $loadPath = "U:\Filmdatenbank\Filme"
 Global $savePath = "C:\Users\AP\Desktop"
 Global $dbName   = "Dat.txt"
 Global $type 	= "*.mkv"
@@ -50,8 +50,24 @@ EndFunc
 
 Func WriteDb($savePath, ByRef $db)
 	Local $hndl = FileOpen($savePath & "\" & $dbName,1)
+	Local $oPath,$nPath,$data,$delimPos
 	For $i = 0 To UBound($db) - 1
-		FileWrite($hndl,$db[$i] & @CRLF)
+
+		$delimPos = StringInStr($db[$i],'\',0,-1)
+
+		$nPath = StringLeft($db[$i],$delimPos)
+
+		$data  = StringRight($db[$i],StringLen($db[$i]) - $delimPos)
+
+		if($nPath <> $oPath) Then
+
+			FileWrite($hndl,$nPath & @CRLF)
+
+		EndIf
+
+		FileWrite($hndl,$data & @CRLF)
+
+		$oPath = $nPath
 	Next
 	FileClose($hndl)
 EndFunc
