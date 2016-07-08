@@ -9,7 +9,7 @@
 #include "Io.h"
 
 // default constructor
-Io::Io(volatile uint8_t &port)
+Io::Io(volatile uint8_t* port)
 {
     
 } //Io

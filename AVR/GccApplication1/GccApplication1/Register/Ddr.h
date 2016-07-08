@@ -12,6 +12,15 @@
 
 class Ddr : public BaseTypes
 {
+    
+// Datatypes
+public:
+    enum Direction_e
+    {
+        DDR_OUTPUT          = 0x00,
+        DDR_INPUT           = 0x01,    
+    };
+    
 //variables
 public:
 protected:
@@ -26,7 +35,7 @@ public:
     void setBit(BaseTypes::Bits_e bit);
     void setBits(uint8_t bits);
     BaseTypes::BitRegister_t* getRegister(void);
-    
+    void
 protected:
 private:
 	Ddr( const Ddr &c );
