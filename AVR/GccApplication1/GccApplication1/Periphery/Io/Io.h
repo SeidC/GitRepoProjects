@@ -16,7 +16,7 @@
 #include "Pin.h"
 
 
-class Io : public BaseTypes
+class Io : public Ddr, public Port , public Pin
 {
 //types    
 public: 
