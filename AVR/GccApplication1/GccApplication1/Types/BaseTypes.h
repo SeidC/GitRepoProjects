@@ -18,6 +18,17 @@
 #define SET_BITS(value,bits)                                        \
         (value |= bits)
 
+#define RESET_BIT(value,bit)                                        \
+        (value &= ~(1 << bit))
+        
+#define RESET_BITS(value,bits)                                      \
+        (value &= ~(bits))
+        
+#define GET_BIT(value,bit)                                          \
+        ((value & bit) >> bit)
+
+#define GET_BITS(value,bits)                                        \
+        (value & bits)
 class BaseTypes 
 {
     public:    
@@ -52,7 +63,7 @@ class BaseTypes
     };    
     union BitRegister_t
     {
-        struct   Bits_s*  bits;
+        struct   Bits_s * bits;
         volatile uint8_t* byte;
     };
     

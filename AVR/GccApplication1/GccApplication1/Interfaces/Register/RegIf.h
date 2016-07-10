@@ -12,22 +12,26 @@
 #include "BaseTypes.h"
 
 
-class RegIf 
+class RegIf : public BaseTypes
 {
+//parameter
+private:
+    BitRegister_t register;
+
 //functions
 public:
-    virtual ~RegIf(){}
+    ~RegIf(){}
 protected:
-	
-//Interface Setter:
-	virtual void setRegister(volatile uint8_t *reg) = 0;
-	virtual void setBit(BaseTypes::Bits_e bit) = 0;
-    virtual void setBits(uint8_t bits) = 0;
-    virtual void resetBit(BaseTypes::Bits_e bit) = 0;
-//Interface Getter:    
-    virtual uint8_t getBits(void) = 0;
-    virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit) = 0;
-    virtual BaseTypes::BitRegister_t* getRegister(void) = 0;
+//Setter
+	void setRegister(volatile uint8_t *reg)                 {register.byte = reg;}
+	void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*register.byte,bit);}
+	void setBits(uint8_t bits)                              {SET_BITS(*register.byte,bits);}
+	void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*register.byte,bit);}
+    void resetBits(uint8_t bits)                            {RESET_BITS(*register.byte,bits);}
+//Getter:    
+    uint8_t getBits(uint8_t bits);                          {return GET_BITS(*register.byte,bits);}
+    BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit);   {return (BaseTypes::BitStatus_e)GET_BIT(*register.byte,bit);}
+    BaseTypes::BitRegister_t* getRegister(void);            {return &register;}
 }; //RegIf
 
 #endif //__REGIF_H__

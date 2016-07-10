@@ -10,13 +10,11 @@
 #define __PORT_H__
 #include "BaseTypes.h"
 
-class Port : public BaseTypes
+class Port : public RegIf
 {
 //variables
 public:
 protected:
-private:
-    BitRegister_t port;
 
 //functions
 public:
@@ -24,12 +22,6 @@ public:
 	~Port();
     void setOutput(BaseTypes::Bits_e bit,BaseTypes::boolean status);
     void setPullUp(BaseTypes::Bits_e bit,BaseTypes::boolean status);
-    
-protected:
-    void setRegister(volatile uint8_t *reg);
-    void setBit(BaseTypes::Bits_e bit);
-    void setBits(uint8_t bits);
-    BaseTypes::BitRegister_t* getRegister(void);
     
 private:
 	Port( const Port &c );

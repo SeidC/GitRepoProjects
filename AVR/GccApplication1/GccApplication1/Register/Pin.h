@@ -11,7 +11,7 @@
 #include "BaseTypes.h"
 #include "RegIf.h"
 
-class Pin : public BaseTypes , public RegIf
+class Pin : public RegIf
 {
 //variables
 public:
@@ -28,8 +28,6 @@ public:
     };
     
 protected:
-private:
-    BitRegister_t pin;
 
 //functions
 public:
@@ -37,11 +35,6 @@ public:
 	~Pin();
     BaseTypes::BitStatus_e getPin(Pin::Pin_e pin);
     
-protected:
-     void setRegister(volatile uint8_t *reg);
-     void setBit(BaseTypes::Bits_e bit);
-     void setBits(uint8_t bits);
-     BaseTypes::BitRegister_t* getRegister(void);
 private:
 	Pin( const Pin &c );
 	Pin& operator=( const Pin &c );

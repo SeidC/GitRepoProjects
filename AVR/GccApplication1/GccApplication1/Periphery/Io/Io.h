@@ -11,12 +11,13 @@
 
 #include <avr/io.h>
 #include <stdint.h>
+#include "BaseTypes.h"
 #include "Ddr.h"
 #include "Port.h"
 #include "Pin.h"
 
 
-class Io : public Ddr, public Port , public Pin
+class Io : public Pin , public Port, public Ddr
 {
 //types    
 public: 
