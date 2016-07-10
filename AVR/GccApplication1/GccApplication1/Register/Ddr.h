@@ -17,8 +17,8 @@ class Ddr : public BaseTypes
 public:
     enum Direction_e
     {
-        DDR_OUTPUT          = 0x00,
-        DDR_INPUT           = 0x01,    
+        OUTPUT          = 0x00,
+        INPUT           = 0x01,    
     };
     
 //variables
@@ -31,12 +31,12 @@ private:
 public:
 	Ddr();
 	~Ddr();
+    void setDirection(BaseTypes::Bits_e, Direction_e dirStatus);
+protected:
     void setRegister(volatile uint8_t *reg);
     void setBit(BaseTypes::Bits_e bit);
     void setBits(uint8_t bits);
     BaseTypes::BitRegister_t* getRegister(void);
-    void
-protected:
 private:
 	Ddr( const Ddr &c );
 	Ddr& operator=( const Ddr &c );

@@ -22,12 +22,15 @@ private:
 public:
 	Port();
 	~Port();
+    void setOutput(BaseTypes::Bits_e bit,BaseTypes::boolean status);
+    void setPullUp(BaseTypes::Bits_e bit,BaseTypes::boolean status);
+    
+protected:
     void setRegister(volatile uint8_t *reg);
     void setBit(BaseTypes::Bits_e bit);
     void setBits(uint8_t bits);
     BaseTypes::BitRegister_t* getRegister(void);
     
-protected:
 private:
 	Port( const Port &c );
 	Port& operator=( const Port &c );

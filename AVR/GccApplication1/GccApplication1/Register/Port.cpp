@@ -39,3 +39,13 @@ void Port::setBits(uint8_t bits)
  {
      return &port;
  }
+ 
+ void Port::setOutput(BaseTypes::Bits_e bit,BaseTypes::boolean status)
+ {
+     
+     
+ }
+ void Port::setPullUp(BaseTypes::Bits_e bit,BaseTypes::boolean status)
+ {
+     
+ }

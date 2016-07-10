@@ -38,3 +38,9 @@ void Ddr::setBits(uint8_t bits)
  {
      return &ddr;
  }
+ 
+ 
+ void Ddr::setDirection(BaseTypes::Bits_e, Ddr::Direction_e dirStatus)
+ {
+     
+ }

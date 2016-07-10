@@ -45,12 +45,18 @@ class BaseTypes
         BIT_7                   = 7,        
     };
     
+    enum BitStatus_e    
+    {
+        BIT_LOW                 = 0,
+        BIT_HIGH                = 1,  
+    };    
     union BitRegister_t
     {
         struct   Bits_s*  bits;
         volatile uint8_t* byte;
     };
     
+    typedef uint8_t boolean;
 };
 
 
