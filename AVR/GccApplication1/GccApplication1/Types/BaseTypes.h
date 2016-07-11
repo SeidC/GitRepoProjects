@@ -29,6 +29,9 @@
 
 #define GET_BITS(value,bits)                                        \
         (value & bits)
+
+
+
 class BaseTypes 
 {
     public:    

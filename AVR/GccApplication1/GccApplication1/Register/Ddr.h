@@ -8,7 +8,7 @@
 
 #ifndef __DDR_H__
 #define __DDR_H__
-#include "BaseTypes.h"
+#include "RegIf.h"
 
 class Ddr : public RegIf
 {

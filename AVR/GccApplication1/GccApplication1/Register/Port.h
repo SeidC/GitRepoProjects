@@ -8,7 +8,7 @@
 
 #ifndef __PORT_H__
 #define __PORT_H__
-#include "BaseTypes.h"
+#include "RegIf.h"
 
 class Port : public RegIf
 {
