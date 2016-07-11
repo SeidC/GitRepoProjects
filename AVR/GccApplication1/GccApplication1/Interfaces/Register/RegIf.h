@@ -16,22 +16,23 @@ class RegIf : public BaseTypes
 {
 //parameter
 private:
-    BitRegister_t avrRegister;
+  
 
 //functions
 public:
     ~RegIf(){}
 protected:
 //Setter
-	void setRegister(volatile uint8_t *reg)                 {avrRegister.byte = reg;}
-	void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
-	void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}
-	void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
-    void resetBits(uint8_t bits)                            {RESET_BITS(*avrRegister.byte,bits);}
+	virtual void setRegister(volatile uint8_t *reg) = 0;               
+	virtual void setBit(BaseTypes::Bits_e bit)      = 0;               
+	virtual void setBits(uint8_t bits)              = 0;               
+	virtual void resetBit(BaseTypes::Bits_e bit)    = 0;               
+    virtual void resetBits(uint8_t bits)            = 0;               
 //Getter:    
-    uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
-    BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
-    BaseTypes::BitRegister_t* getRegister(void)             {return &avrRegister;}
+    virtual uint8_t getBits(uint8_t bits)                           = 0;
+    virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    = 0;
+    virtual BaseTypes::Bit8Register_t* getRegister(void)            = 0;
+    virtual BaseTypes::Bit16Register_t* getRegister(void)           = 0;
 }; //RegIf
 
 #endif //__REGIF_H__

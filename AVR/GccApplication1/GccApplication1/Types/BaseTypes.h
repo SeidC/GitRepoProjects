@@ -35,7 +35,7 @@
 class BaseTypes 
 {
     public:    
-    struct Bits_s
+    struct Bits8_s
     {
         uint8_t bit0             :1;
         uint8_t bit1             :1;
@@ -46,6 +46,28 @@ class BaseTypes
         uint8_t bit6             :1;
         uint8_t bit7             :1;    
     };
+    
+    
+    struct Bits16_s
+    {
+        uint8_t bit0             :1;
+        uint8_t bit1             :1;
+        uint8_t bit2             :1;
+        uint8_t bit3             :1;
+        uint8_t bit4             :1;
+        uint8_t bit5             :1;
+        uint8_t bit6             :1;
+        uint8_t bit7             :1;
+        uint8_t bit8             :1;
+        uint8_t bit9             :1;
+        uint8_t bit10            :1;
+        uint8_t bit11            :1;
+        uint8_t bit12            :1;
+        uint8_t bit13            :1;
+        uint8_t bit14            :1;
+        uint8_t bit15            :1;
+    };
+        
     
     enum Bits_e
     {
@@ -64,11 +86,18 @@ class BaseTypes
         BIT_LOW                 = 0,
         BIT_HIGH                = 1,  
     };    
-    union BitRegister_t
+    union Bit8Register_t
     {
-        struct   Bits_s * bits;
+        struct   Bits8_s * bits;
         volatile uint8_t* byte;
     };
+    
+    
+      union Bit16Register_t
+      {
+          struct   Bits16_s * bits;
+          volatile uint16_t* byte;
+      };
     
     typedef uint8_t boolean;
 };
