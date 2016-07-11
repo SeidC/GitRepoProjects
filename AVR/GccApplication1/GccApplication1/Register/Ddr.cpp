@@ -1,7 +1,20 @@
 
 #include "Ddr.h"
  
- void Ddr::setDirection(BaseTypes::Bits_e, Ddr::Direction_e dirStatus)
+ Ddr::Ddr(volatile uint8_t* ddrPtr)
  {
-     
+     setRegister(ddrPtr);
+ }
+ 
+ 
+ void Ddr::setDirection(BaseTypes::Bits_e bit, Ddr::Direction_e dirStatus)
+ {
+     if(dirStatus == INPUT) 
+     {
+          setBit(bit);
+     }     
+     else
+     {
+         resetBit(bit);
+     }     
  }

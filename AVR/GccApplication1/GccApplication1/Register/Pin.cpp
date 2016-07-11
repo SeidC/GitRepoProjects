@@ -9,7 +9,7 @@
 #include "Pin.h"
 
 // default constructor
-Pin::Pin()
+Pin::Pin(volatile uint8_t* pinPtr)
 {
 } //Pin
 
@@ -19,3 +19,7 @@ Pin::~Pin()
 } //~Pin
 
 
+BaseTypes::BitStatus_e Pin::getPin(Pin::Pin_e pin)
+{
+    return (BaseTypes::BitStatus_e)getPin(pin);
+}

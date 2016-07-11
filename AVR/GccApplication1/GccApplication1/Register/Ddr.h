@@ -27,9 +27,9 @@ protected:
 
 //functions
 public:
-	Ddr();
+	Ddr(volatile uint8_t* ddrPtr);
 	~Ddr();
-    void setDirection(BaseTypes::Bits_e, Direction_e dirStatus);
+    void setDirection(BaseTypes::Bits_e bit, Direction_e dirStatus);
 
 private:
 	Ddr( const Ddr &c );

@@ -31,12 +31,12 @@ protected:
 
 //functions
 public:
-	Pin();
+	Pin(volatile uint8_t* pinPtr);
 	~Pin();
     BaseTypes::BitStatus_e getPin(Pin::Pin_e pin);
     
 private:
-	Pin( const Pin &c );
+	//Pin( const Pin &c );
 	Pin& operator=( const Pin &c );
 
 }; //Pin

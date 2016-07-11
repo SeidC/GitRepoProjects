@@ -18,10 +18,10 @@ protected:
 
 //functions
 public:
-	Port();
+	Port(volatile uint8_t* portPtr);
 	~Port();
-    void setOutput(BaseTypes::Bits_e bit,BaseTypes::boolean status);
-    void setPullUp(BaseTypes::Bits_e bit,BaseTypes::boolean status);
+    void setOutput(BaseTypes::Bits_e bit,BaseTypes::BitStatus_e status);
+    void setPullUp(BaseTypes::Bits_e bit,BaseTypes::BitStatus_e status);
     
 private:
 	Port( const Port &c );

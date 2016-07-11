@@ -10,12 +10,13 @@
 
 // default constructor
 Io::Io(volatile uint8_t* port)
+        : Port(port), Ddr(port - 1 ), Pin(port - 2)
 {
     
 } //Io
 
 // default destructor
-Io::~Io()
+Io::~Io() 
 {
     
 } //~Io
