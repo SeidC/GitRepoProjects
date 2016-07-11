@@ -8,10 +8,10 @@
 
 #ifndef __UDR_H__
 #define __UDR_H__
-#include "RegIf.h"
+#include "RegIf8.h"
 
 
-class Udr : public RegIf
+class Udr : public RegIf8
 {
 //variables
 public:

@@ -8,7 +8,7 @@
 
 #ifndef REGIF16_H_
 #define REGIF16_H_
-#include "RegIf"
+#include "RegIf.h"
 
 
 class RegIf16 : public RegIf
@@ -22,7 +22,7 @@ class RegIf16 : public RegIf
     ~RegIf16(){}
     protected:
     //Setter
-    void setRegister(volatile uint8_t *reg)                 {avrRegister.byte = reg;}
+    void setRegister(volatile uint16_t *reg)                {avrRegister.byte = reg;}
     void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
     void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}
     void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
@@ -30,7 +30,7 @@ class RegIf16 : public RegIf
     //Getter:
     uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
     BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
-    BaseTypes::BitRegister_t* getRegister(void)             {return &avrRegister;}
+    BaseTypes::Bit16Register_t* getRegister(void)           {return &avrRegister;}
 
 
 };

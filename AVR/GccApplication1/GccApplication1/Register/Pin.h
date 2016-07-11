@@ -9,9 +9,9 @@
 #ifndef __PIN_H__
 #define __PIN_H__
 #include "BaseTypes.h"
-#include "RegIf.h"
+#include "RegIf8.h"
 
-class Pin : public RegIf
+class Pin : public RegIf8
 {
 //variables
 public:

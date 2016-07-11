@@ -96,7 +96,7 @@ class BaseTypes
       union Bit16Register_t
       {
           struct   Bits16_s * bits;
-          volatile uint16_t* byte;
+          volatile uint16_t * byte;
       };
     
     typedef uint8_t boolean;

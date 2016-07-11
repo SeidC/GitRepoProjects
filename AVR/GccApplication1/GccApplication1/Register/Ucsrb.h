@@ -8,9 +8,9 @@
 
 #ifndef __UCSRB_H__
 #define __UCSRB_H__
-#include "RegIf.h"
+#include "RegIf8.h"
 
-class Ucsrb : public RegIf
+class Ucsrb : public RegIf8
 {
 //variables
 public:

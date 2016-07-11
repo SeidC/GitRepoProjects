@@ -8,9 +8,9 @@
 
 #ifndef __PORT_H__
 #define __PORT_H__
-#include "RegIf.h"
+#include "RegIf8.h"
 
-class Port : public RegIf
+class Port : public RegIf8
 {
 //variables
 public:

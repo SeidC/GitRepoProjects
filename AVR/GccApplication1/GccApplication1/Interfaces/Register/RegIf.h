@@ -31,8 +31,8 @@ protected:
 //Getter:    
     virtual uint8_t getBits(uint8_t bits)                           = 0;
     virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    = 0;
-    virtual BaseTypes::Bit8Register_t* getRegister(void)            = 0;
-    virtual BaseTypes::Bit16Register_t* getRegister(void)           = 0;
+    virtual BaseTypes::Bit8Register_t*  getRegister(void)           = 0;
+    
 }; //RegIf
 
 #endif //__REGIF_H__

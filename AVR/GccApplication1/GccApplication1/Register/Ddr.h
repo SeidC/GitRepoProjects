@@ -8,9 +8,9 @@
 
 #ifndef __DDR_H__
 #define __DDR_H__
-#include "RegIf.h"
+#include "RegIf8.h"
 
-class Ddr : public RegIf
+class Ddr : public RegIf8
 {
     
 // Datatypes

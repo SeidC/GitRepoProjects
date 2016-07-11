@@ -175,6 +175,12 @@
     <Compile Include="Interfaces\Register\RegIf.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Interfaces\Register\RegIf16.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Register\RegIf8.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>

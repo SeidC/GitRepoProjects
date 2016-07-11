@@ -8,9 +8,9 @@
 
 #ifndef __UBRR_H__
 #define __UBRR_H__
-#include "RegIf.h"
+#include "RegIf16.h"
 
-class Ubrr : public RegIf
+class Ubrr : public RegIf16
 {
 //variables
 public:
