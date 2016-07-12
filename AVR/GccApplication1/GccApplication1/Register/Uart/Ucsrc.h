@@ -14,22 +14,40 @@ class Ucsrc : public RegIf8
 {
 //types
 public:
-    enum Uart_ParityMode_t
+    enum ParityMode_t
     {
-        UART_PARITY_DISABLED        = 0x00,
-        UART_EVEN_PARITY            = 0x02,
-        UART_ODD_PARITY             = 0x03,
+       PARITY_DISABLED        = 0x00,
+       EVEN_PARITY            = 0x02,
+       ODD_PARITY             = 0x03,
         
     };
     
     /**
  * @brief 
  */
-    enum Uart_TransmitionMode_t
+    enum TransmitionMode_t
     {
-        UART_USE_SYNCHRONOUS_MODE                  = 0x00,
-        UART_USE_ASYNCHRONOUS_MODE                 = 0x01,
-        UART_USE_ASYNCHRONOUS_MODE_W_DOUBLE_SPEED  = 0x00,
+        SYNCHRONOUS_MODE                  = 0x00,
+        ASYNCHRONOUS_MODE                 = 0x01,
+        ASYNCHRONOUS_MODE_W_DOUBLE_SPEED  = 0x00,
+    };
+    
+    enum StopBit_t
+    {
+        ONE_STOP_BIT = 0x00,
+        TWO_STOP_BIT = 0x01
+    };
+
+    /**
+     * @brief 
+     */
+    enum DataSize_t
+    {
+       DATA_SIZE_5_BIT    = 0x00,
+       DATA_SIZE_6_BIT    = 0x01,
+       DATA_SIZE_7_BIT    = 0x02,
+       DATA_SIZE_8_BIT    = 0x03,
+       DATA_SIZE_9_BIT    = 0x07,
     };
 //variables
 public:
