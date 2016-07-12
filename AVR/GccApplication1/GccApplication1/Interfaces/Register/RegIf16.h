@@ -30,7 +30,7 @@ class RegIf16 : public RegIf
     //Getter:
     uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
     BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
-    BaseTypes::Bit16Register_t* getRegister(void)           {return &avrRegister;}
+    void getRegister( BaseTypes::Bit16Register_t* regPtr)    {regPtr =  &avrRegister;}
 
 
 };
