@@ -17,3 +17,35 @@ Ucsrb::Ucsrb()
 Ucsrb::~Ucsrb()
 {
 } //~Ucsrb
+
+
+void Ucsrb::toggleRxInterrupt(Uart_Enable_t status)
+{
+    
+}
+
+void Ucsrb::toggleTxInterrupt(Uart_Enable_t status)
+{
+    
+    
+}
+void Ucsrb::toggleEmptyInterrupt(Uart_Enable_t status
+{
+    
+    
+}
+
+void Ucsrb::toggleRx(Uart_Enable_t status)
+{
+    
+}
+
+void Ucsrb::toggleTx(Uart_Enable_t status)
+{
+    
+}
+
+void Ucsrb::setCharacterSize2Bit(BaseTypes::BitStatus_e status)
+{
+    
+}
