@@ -8,9 +8,13 @@
 
 #ifndef __UART_H__
 #define __UART_H__
+#include "Ubrr.h"
+#include "Ucsra.h"
+#include "Ucsrb.h"
+#include "Ucsrc.h"
 
 
-class Uart
+class Uart : public Ubrr , public Ucsra , public Ucsrb , public Ucsrc
 {
 //variables
 public:
@@ -19,7 +23,7 @@ private:
 
 //functions
 public:
-	Uart();
+	Uart(volatile uint8_t* udrPtr);
 	~Uart();
 protected:
 private:

@@ -56,9 +56,9 @@ private:
 
 //functions
 public:
-	Ucsrc();
+	Ucsrc(volatile uint8_t* ucsrcPtr);
 	~Ucsrc();
-    void setMode()
+    void setMode();
 protected:
 private:
 	Ucsrc( const Ucsrc &c );

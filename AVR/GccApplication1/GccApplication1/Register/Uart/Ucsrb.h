@@ -29,14 +29,14 @@ private:
 
 //functions
 public:
-	Ucsrb();
+	Ucsrb(volatile uint8_t* ucsrbPtr);
 	~Ucsrb();
     void toggleRxInterrupt(Uart_Enable_t status);
     void toggleTxInterrupt(Uart_Enable_t status);
     void toggleEmptyInterrupt(Uart_Enable_t status);
     void toggleRx(Uart_Enable_t status);
     void toggleTx(Uart_Enable_t status);    
-    void setCharacterSize2Bit(BaseTypes::BitStatus_e status);
+    void setCharacterSize2Bit(Ucsrb::BitStatus_e status);
     
 protected:
 private:

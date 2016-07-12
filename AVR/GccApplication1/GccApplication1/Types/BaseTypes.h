@@ -10,6 +10,7 @@
 #define BASETYPES_H_
 
 #include <stdint.h>
+#include <avr/io.h>
 
 #define SET_BIT(value,bit)                                          \
         (value |= (1 << bit))

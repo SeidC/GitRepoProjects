@@ -9,8 +9,9 @@
 #include "Ubrr.h"
 
 // default constructor
-Ubrr::Ubrr()
+Ubrr::Ubrr(value uint8_t * ubrrPtr)
 {
+    setRegister(ubrrPtr);
 } //Ubrr
 
 // default destructor

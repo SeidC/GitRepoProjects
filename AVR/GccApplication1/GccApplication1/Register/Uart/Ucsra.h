@@ -19,8 +19,18 @@ private:
 
 //functions
 public:
-	Ucsra();
+	Ucsra(volatile uint8_t *ucsraPtr);
 	~Ucsra();
+    
+    bool isDataAvailable(void);
+    bool isTransmitCompleted(void);
+    bool canReceiveNewData(void);
+    bool isFrameError(void);
+    bool isDataOverRun(void);
+    bool isParityError(void);
+    
+    void activateDoubleSpeed(Ucsra::BitStatus_e status);
+    
 protected:
 private:
 	Ucsra( const Ucsra &c );
