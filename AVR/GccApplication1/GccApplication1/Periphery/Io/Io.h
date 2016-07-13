@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 #include <stdint.h>
+#include "AVRConfig.h"
 #include "BaseTypes.h"
 #include "Ddr.h"
 #include "Port.h"

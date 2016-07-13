@@ -10,7 +10,11 @@
 
 // default constructor
 Uart::Uart(volatile uint8_t* udrPtr) : 
-    Udr(udrPtr), Ucsra(udrPtr -1), Ucsrb(udrPtr-2) 
+    Udr(udrPtr), 
+    Ucsra(udrPtr - UCSRA_ADR_CNT), 
+    Ucsrb(udrPtr-UCSRB_ADR_CNT),
+    Ucsrc(udrPtr - UDSRC_ADR_CNT),
+    Ubrr(udrPtr - UBRRH_ADR_CNT,udrPtr - UBRRL_ADR_CNT)
 {
     
 } //Uart
