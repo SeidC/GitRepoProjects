@@ -89,33 +89,29 @@ class BaseTypes
     };    
     union Bit8Register_t
     {
-        struct   Bits8_s * bits;
+        struct   Bits8_s* bits;
         volatile uint8_t* byte;
     };
     
     
      union Bit16Register_t
      {
-         struct   Bits16_s * bits;
-         volatile uint16_t * byte;
+         struct   Bits16_s* bits;
+         volatile uint16_t* byte;
      };
      
      
-     struct UbrrRegister_t
-     {
-         union UbrrhRegister_t
-         {
-             struct   Bits8_s * bits;
-             volatile uint8_t* byte;
-         };
-         
-         union UbrrlRegister_t
-         {
-              struct   Bits8_s * bits;
-              volatile uint8_t* byte;
-         };
-     };
+    struct UbrrRegister_t
+    {
+        Bit8Register_t UbrrH;
+        Bit8Register_t UbrrL;
+    };
     
+     enum ByteType_e
+     {
+         HIGHER_BYTE,
+         LOWER_BYTE
+     };
     typedef uint8_t boolean;
 };
 

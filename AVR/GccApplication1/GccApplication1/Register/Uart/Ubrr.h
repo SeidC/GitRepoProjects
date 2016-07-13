@@ -8,9 +8,9 @@
 
 #ifndef __UBRR_H__
 #define __UBRR_H__
-#include "RegIf16.h"
+#include "RegIfUbrr.h"
 
-class Ubrr : public RegIf16
+class Ubrr : public RegIfUbrr
 {
 //variables
 public:
@@ -19,7 +19,7 @@ private:
 
 //functions
 public:
-	Ubrr(volatile uint8_t * ubrrPtr);
+	Ubrr(volatile uint8_t* ubrrHPtr,volatile uint8_t* ubrrLPtr);
 	~Ubrr();
 protected:
 private:

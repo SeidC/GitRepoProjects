@@ -12,6 +12,7 @@
 Uart::Uart(volatile uint8_t* udrPtr) : 
     Udr(udrPtr), Ucsra(udrPtr -1), Ucsrb(udrPtr-2) 
 {
+    
 } //Uart
 
 // default destructor
