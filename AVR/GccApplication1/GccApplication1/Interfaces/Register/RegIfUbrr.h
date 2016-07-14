@@ -15,7 +15,7 @@
             if(byte == BaseTypes::HIGHER_BYTE)      \
                 SET_BIT(*reg.UbrrH.byte,bit);       \
             else                                    \
-                SET_BIT(*reg.UbrrL.byte,bit);       \    
+                SET_BIT(*reg.UbrrL.byte,bit);       \
         }                                           \
         
         
@@ -25,7 +25,7 @@
                 SET_BITS(*reg.UbrrH.byte,bits);     \
             else                                    \
                 SET_BITS(*reg.UbrrL.byte,bits);     \
-        }                                           \
+        }                                           
         
 #define RESET_UBRR_BIT(byte,reg,bit)                \
         {                                           \
@@ -33,7 +33,7 @@
                 RESET_BIT(*reg.UbrrH.byte,bit);     \
             else                                    \
                 RESET_BIT(*reg.UbrrL.byte,bit);     \
-        }                                           \
+        }                                           
 
 
 #define RESET_UBRR_BITS(byte,reg,bits)                \
@@ -53,13 +53,13 @@
                retVal = GET_BIT(*reg.UbrrL.byte,bit);      \
         }                                                   \          
         
-#define GET_UBRR_BITS(byte,reg,bits,retVal)                 \              
+#define GET_UBRR_BITS(byte,reg,bits,retVal)                 \
         {                                                   \
             if(byte == BaseTypes::HIGHER_BYTE)              \
             retVal =  GET_BITS(*reg.UbrrH.byte,bits);       \
             else                                            \
             retVal = GET_BITS(*reg.UbrrL.byte,bits);        \
-        }                                                   \
+        }                                                   
 
 
 
