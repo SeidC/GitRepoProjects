@@ -51,7 +51,7 @@
                retVal = GET_BIT(*reg.UbrrH.byte,bit);      \
             else                                            \
                retVal = GET_BIT(*reg.UbrrL.byte,bit);      \
-        }                                                   \          
+        }                                                   \
         
 #define GET_UBRR_BITS(byte,reg,bits,retVal)                 \
         {                                                   \
