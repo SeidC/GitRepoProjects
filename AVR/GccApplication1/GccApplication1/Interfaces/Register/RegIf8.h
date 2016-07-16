@@ -25,6 +25,7 @@ class RegIf8 : public RegIf
     void setRegister(volatile uint8_t *reg)                 {avrRegister.byte = reg;}
     void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
     void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}
+    void setValue(uint8_t value)                            {*avrRegister.byte = value;}
     void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
     void resetBits(uint8_t bits)                            {RESET_BITS(*avrRegister.byte,bits);}
     //Getter:
