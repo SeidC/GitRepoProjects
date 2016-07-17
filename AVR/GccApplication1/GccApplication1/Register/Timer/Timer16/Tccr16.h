@@ -25,6 +25,8 @@ private:
 public:
 	Tccr16();
 	~Tccr16();
+    void toggleTimer(Toggle_e stauts);
+    
 protected:
 private:
 	Tccr16( const Tccr16 &c );

@@ -68,7 +68,12 @@ class BaseTypes
         uint8_t bit14            :1;
         uint8_t bit15            :1;
     };
-        
+    
+    enum Toggle_e
+    {
+        ENABLE,
+        DISABLE    
+    };   
     
     enum Bits_e
     {

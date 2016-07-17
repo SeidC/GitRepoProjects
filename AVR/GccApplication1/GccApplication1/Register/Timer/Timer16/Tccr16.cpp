@@ -17,3 +17,16 @@ Tccr16::Tccr16()
 Tccr16::~Tccr16()
 {
 } //~Tccr16
+
+
+void Tccr16::toggleTimer(Toggle_e status)
+{
+    if(status == BaseTypes::ENABLE)
+    {
+        
+    }
+    else
+    {
+                
+    }
+}

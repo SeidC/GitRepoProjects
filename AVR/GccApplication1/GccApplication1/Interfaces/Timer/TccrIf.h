@@ -12,10 +12,28 @@
 
 class TccrIf : public BaseTypes
 {
+//types
+public:
+   enum Prescaler_e
+   {
+        NO_PRESCALER,
+        PRESCALER_8,
+        PRESCALER_64,
+        PRESCALER_256,
+        PRESCALER_1024,
+        EXTERNAL_SOURCE_FALLING_EDGE, // Only for Timer 0/1
+        EXTERNAL_SOURCE_RISING_EDGE,  // Only for Timer 0/1
+        PRESCALER_32,                 // Only for Timer 2
+   }      
+//parameter 
+private:
+    Prescaler_e psclBckUp;
+    
 //functions
 public:
 	virtual ~TccrIf(){}
-	
+	virtual void setPreScaler(Prescaler_e prescaler)  {psclBckUp = prescaler;}
+    virtual void toggleTimer(Toggle_e stauts) {} 
 
 }; //TccrIf
 
