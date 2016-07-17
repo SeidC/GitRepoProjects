@@ -22,6 +22,7 @@ private:
 public:
 	Tcnt16();
 	~Tcnt16();
+    uint16_t getTime(void);
 protected:
 private:
 	Tcnt16( const Tcnt16 &c );

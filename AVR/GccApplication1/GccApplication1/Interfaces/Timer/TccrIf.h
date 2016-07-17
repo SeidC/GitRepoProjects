@@ -8,15 +8,14 @@
 
 #ifndef __TCCRIF_H__
 #define __TCCRIF_H__
+#include "BaseTypes.h"
 
-
-class TccrIf
+class TccrIf : public BaseTypes
 {
 //functions
 public:
 	virtual ~TccrIf(){}
-	virtual void Method1() = 0;
-	virtual void Method2() = 0;
+	
 
 }; //TccrIf
 

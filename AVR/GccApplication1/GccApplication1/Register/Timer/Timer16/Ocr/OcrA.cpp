@@ -19,12 +19,3 @@ OcrA::~OcrA()
 } //~OcrA
 
 
-void OcrA::setOutputCompare(uint16_t value)
-{
-    
-}
-
-void OcrA::getOutputCompare(uint16_t *ptr)
-{
-    
-}

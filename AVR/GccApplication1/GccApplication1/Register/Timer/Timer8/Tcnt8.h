@@ -23,6 +23,8 @@ private:
 public:
 	Tcnt8();
 	~Tcnt8();
+    uint16_t getTime(void);
+     
 protected:
 private:
 	Tcnt8( const Tcnt8 &c );

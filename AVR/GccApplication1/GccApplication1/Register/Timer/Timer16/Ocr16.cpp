@@ -17,3 +17,28 @@ Ocr16::Ocr16()
 Ocr16::~Ocr16()
 {
 } //~Ocr16
+
+
+ void Ocr16::setOutputCompare(OutputCompareRegister_e ocr, uint16_t value)
+ {
+     if(ocr == OCR_A) 
+     {
+         ocra.setValue(value);
+     }
+     else
+     {
+        ocrb.setValue(value);        
+     }
+ }
+ 
+ void Ocr16::getOutputCompare(OutputCompareRegister_e ocr, uint16_t* ptr)
+ {
+     if(ocr == OCR_A)
+     {
+         ocra.getValue(ptr);
+     }
+     else
+     {
+         ocrb.getValue(ptr);
+     }
+ }

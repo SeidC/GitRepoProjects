@@ -21,7 +21,7 @@ private:
 public:
 	OcrA();
 	~OcrA();
-       
+    
 protected:
 private:
 	OcrA( const OcrA &c );

@@ -14,6 +14,14 @@
 
 class Ocr16 : public OcrIf
 {
+//types 
+public: 
+    enum OutputCompareRegister_e
+    {
+        OCR_A,
+        OCR_B  
+    };     
+    
 //variables
 public:
 protected:
@@ -24,7 +32,10 @@ private:
 public:
 	Ocr16();
 	~Ocr16();
-protected:
+    
+    void setOutputCompare(OutputCompareRegister_e ocr, uint16_t value);
+    void getOutputCompare(OutputCompareRegister_e ocr, uint16_t* ptr);
+protected: 
 private:
 	Ocr16( const Ocr16 &c );
 	Ocr16& operator=( const Ocr16 &c );

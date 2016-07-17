@@ -8,14 +8,14 @@
 
 #ifndef __TCNTIF_H__
 #define __TCNTIF_H__
+#include "BaseTypes.h"
 
-
-class TcntIf
+class TcntIf : public BaseTypes
 {
 //functions
 public:
 	virtual ~TcntIf(){}
-
+    virtual uint16_t getTime(void) { return 0;}
 
 }; //TcntIf
 

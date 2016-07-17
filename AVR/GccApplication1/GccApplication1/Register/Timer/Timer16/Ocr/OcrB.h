@@ -11,6 +11,7 @@
 #include "RegIf16.h"
 
 class OcrB : public RegIf16
+{
 //variables
 public:
 protected:

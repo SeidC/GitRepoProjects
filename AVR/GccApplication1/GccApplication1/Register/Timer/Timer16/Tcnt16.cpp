@@ -17,3 +17,11 @@ Tcnt16::Tcnt16()
 Tcnt16::~Tcnt16()
 {
 } //~Tcnt16
+
+
+uint16_t Tcnt16::getTime(void)
+{
+    uint16_t ptr;
+    getValue(&ptr);
+    return ptr;
+}

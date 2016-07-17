@@ -18,12 +18,3 @@ OcrB::~OcrB()
 {
 } //~OcrB
 
-void OcrB::setOutputCompare(uint16_t value)
-{
-    
-}
-
-void OcrB::getOutputCompare(uint16_t *ptr)
-{
-    
-}
