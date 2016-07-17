@@ -8,9 +8,10 @@
 
 #ifndef __TIMSK_H__
 #define __TIMSK_H__
+#include "RegIf8.h"
 
 
-class Timsk
+class Timsk : public RegIf8
 {
 //variables
 public:

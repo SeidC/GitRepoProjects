@@ -8,9 +8,9 @@
 
 #ifndef __TCCRB_H__
 #define __TCCRB_H__
+#include "RegIf16.h"
 
-
-class TccrB
+class TccrB : public RegIf16
 {
 //variables
 public:

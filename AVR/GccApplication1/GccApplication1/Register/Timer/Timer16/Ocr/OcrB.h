@@ -9,10 +9,8 @@
 #ifndef __OCRB_H__
 #define __OCRB_H__
 #include "RegIf16.h"
-#include "OcrIf.h"
 
-class OcrB : public RegIf16 , public OcrIf
-{
+class OcrB : public RegIf16
 //variables
 public:
 protected:
@@ -22,8 +20,6 @@ private:
 public:
 	OcrB();
 	~OcrB();
-    void setOutputCompare(uint16_t value);
-    void getOutputCompare(uint16_t *ptr);
 protected:
 private:
 	OcrB( const OcrB &c );

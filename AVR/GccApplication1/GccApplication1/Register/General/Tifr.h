@@ -8,9 +8,9 @@
 
 #ifndef __TIFR_H__
 #define __TIFR_H__
+#include "RegIf8.h"
 
-
-class Tifr
+class Tifr : public RegIf8
 {
 //variables
 public:
