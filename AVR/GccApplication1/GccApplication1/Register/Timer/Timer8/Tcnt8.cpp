@@ -21,7 +21,5 @@ Tcnt8::~Tcnt8()
 
 uint16_t Tcnt8::getTime(void)
 {
-    uint8_t ptr;
-    getValue(&ptr);
-    return (uint16_t)ptr;
+    return getValue();
 }

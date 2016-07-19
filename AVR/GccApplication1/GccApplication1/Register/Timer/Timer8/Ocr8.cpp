@@ -23,7 +23,7 @@ void Ocr8::setOutputCompare(uint8_t value)
     setValue(value);
 }
 
-void Ocr8::getOutputCompare(uint8_t *ptr)
+uint16_t Ocr8::getOutputCompare(void)
 {
-    getValue(ptr);
+    return getValue();
 }

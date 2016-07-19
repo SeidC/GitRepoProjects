@@ -24,7 +24,7 @@ public:
         EXTERNAL_SOURCE_FALLING_EDGE, // Only for Timer 0/1
         EXTERNAL_SOURCE_RISING_EDGE,  // Only for Timer 0/1
         PRESCALER_32,                 // Only for Timer 2
-   }      
+   };      
 //parameter 
 private:
     Prescaler_e psclBckUp;

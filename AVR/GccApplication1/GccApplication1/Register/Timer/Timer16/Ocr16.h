@@ -33,8 +33,8 @@ public:
 	Ocr16();
 	~Ocr16();
     
-    void setOutputCompare(OutputCompareRegister_e ocr, uint16_t value);
-    void getOutputCompare(OutputCompareRegister_e ocr, uint16_t* ptr);
+    void     setOutputCompare(OutputCompareRegister_e ocr, uint16_t value);
+    uint16_t getOutputCompare(OutputCompareRegister_e ocr);
 protected: 
 private:
 	Ocr16( const Ocr16 &c );

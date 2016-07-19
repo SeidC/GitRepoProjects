@@ -20,8 +20,8 @@ class RegIf16 : public RegIf
     //functions
     public:
     ~RegIf16(){}
-     void getValue(uint16_t* ptr)                            {*ptr = *avrRegister.byte;}
-     void setValue(uint16_t value)                           {*avrRegister.byte = value;}
+     uint16_t getValue(void)                                {return *avrRegister.byte;}
+     void setValue(uint16_t value)                          {*avrRegister.byte = value;}
 
     protected:
     //Setter

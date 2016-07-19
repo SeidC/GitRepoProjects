@@ -33,7 +33,7 @@ protected:
     virtual uint8_t getBits(uint8_t bits)                           { return 0;};
     virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    { return BaseTypes::BIT_LOW;};
     virtual void getRegister( BaseTypes::Bit8Register_t* regPtr)    {};
-    virtual void getValue(uint8_t* ptr)                             {};
+    virtual uint16_t getValue(void)                                 {return 0;};
     
 }; //RegIf
 

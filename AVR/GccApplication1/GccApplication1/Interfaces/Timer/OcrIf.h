@@ -15,9 +15,10 @@ class OcrIf : public BaseTypes
 //functions
 public:
 	virtual ~OcrIf(){}
-	virtual void setOutputCompare(uint8_t value)  = 0;
+        
+	virtual void     setOutputCompare(uint8_t value)  = 0;
     	
-    virtual void getOutputCompare(uint8_t *ptr)   = 0;
+    virtual uint16_t getOutputCompare(void)           = 0;
     
 }; //OcrIf
 

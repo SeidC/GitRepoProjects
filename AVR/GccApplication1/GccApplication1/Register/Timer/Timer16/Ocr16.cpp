@@ -31,14 +31,15 @@ Ocr16::~Ocr16()
      }
  }
  
- void Ocr16::getOutputCompare(OutputCompareRegister_e ocr, uint16_t* ptr)
- {
+ uint16_t Ocr16::getOutputCompare(OutputCompareRegister_e ocr)
+ {  
+     
      if(ocr == OCR_A)
      {
-         ocra.getValue(ptr);
+         return ocra.getValue();
      }
      else
      {
-         ocrb.getValue(ptr);
+         return ocrb.getValue();
      }
  }

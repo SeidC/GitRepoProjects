@@ -22,8 +22,8 @@ private:
 public:
 	Ocr8();
 	~Ocr8();
-    void setOutputCompare(uint8_t value);
-    void getOutputCompare(uint8_t *ptr);
+    void     setOutputCompare(uint8_t value);
+    uint16_t getOutputCompare(void);
 protected:
 private:
 	Ocr8( const Ocr8 &c );
