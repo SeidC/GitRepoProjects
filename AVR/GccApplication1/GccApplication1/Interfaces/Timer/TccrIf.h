@@ -25,6 +25,8 @@ public:
         EXTERNAL_SOURCE_RISING_EDGE,  // Only for Timer 0/1
         PRESCALER_32,                 // Only for Timer 2
    };      
+   
+   enum Mode_e{};
 //parameter 
 private:
     Prescaler_e psclBckUp;
@@ -34,6 +36,7 @@ public:
 	virtual ~TccrIf(){}
 	virtual void setPreScaler(Prescaler_e prescaler)  {psclBckUp = prescaler;}
     virtual void toggleTimer(Toggle_e stauts) {} 
+    virtual void setMode(Mode_e mode)   {}
 
 }; //TccrIf
 

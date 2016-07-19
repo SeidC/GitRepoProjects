@@ -13,6 +13,15 @@
 
 class Tcrr8 : public TccrIf, public RegIf8
 {
+//types
+public:
+    enum Mode_e
+    {
+        TIMER_NORMAL,
+        PHASE_CORRECT_PWM,
+        CLEAR_ON_COMPARE,
+        FAST_PWM,        
+    };   
 //variables
 public:
 protected:
@@ -26,6 +35,7 @@ protected:
 private:
 	Tcrr8( const Tcrr8 &c );
 	Tcrr8& operator=( const Tcrr8 &c );
+    void setMode(Mode_e mode);
 
 }; //Tcrr8
 
