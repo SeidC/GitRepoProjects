@@ -26,7 +26,8 @@ public:
         PRESCALER_32,                 // Only for Timer 2
    };      
    
-   enum Mode_e{};
+   enum TimerMode_e{};
+   enum OutputMode_e{};
 //parameter 
 private:
     Prescaler_e psclBckUp;
@@ -35,8 +36,9 @@ private:
 public:
 	virtual ~TccrIf(){}
 	virtual void setPreScaler(Prescaler_e prescaler)  {psclBckUp = prescaler;}
-    virtual void toggleTimer(Toggle_e stauts) {} 
-    virtual void setMode(Mode_e mode)   {}
+    virtual void toggleTimer(Toggle_e stauts) = 0; 
+    virtual void setTimerMode(TimerMode_e tmode)  = 0;
+    virtual void outputMode(OutputMode_e omode) = 0;
 
 }; //TccrIf
 
