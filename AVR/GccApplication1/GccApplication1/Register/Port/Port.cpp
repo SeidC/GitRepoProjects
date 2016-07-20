@@ -19,26 +19,37 @@ Port::~Port()
 {
 } //~Port
 
- void Port::setOutput(BaseTypes::Bits_e bit,BaseTypes::BitStatus_e status)
+ void Port::setPin(Port::Pin_e pin,Port::PinStatus_e status);
  {
-    if(status == BaseTypes::BIT_HIGH)
+    if(pin == Port::PIN_HIGH)
     {
-        setBit(bit);
+        setBit(pin);
     }
     else
     {
-        resetBit(bit);
+        resetBit(pin);
     }
  }
  
- void Port::setPullUp(BaseTypes::Bits_e bit,BaseTypes::BitStatus_e status)
+ void Port::setPullUp(Pin_e pin,PullUpStatus_e status)
  {
-     if(status == BaseTypes::BIT_HIGH)
+     if(pin == Port::PULL_UP_ENABLE)
      {
-         setBit(bit);
+         setBit(pin);
      }
      else
      {
-         resetBit(bit);
+         resetBit(pin);
      }
+ }
+ 
+ 
+ void Port::setPinsHigh(uint8_t pinMask)
+ {
+     setBits(pinMask);
+ }
+ 
+ void Port::setPinsLow(uint8_t pinMask)
+ {
+     resetBits(pinMask);
  }
