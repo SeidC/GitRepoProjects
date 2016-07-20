@@ -4,6 +4,7 @@
  Ddr::Ddr(volatile uint8_t* ddrPtr)
  {
      setRegister(ddrPtr);
+     
  }
  
  
@@ -11,10 +12,11 @@
  {
      if(dirStatus == INPUT) 
      {
-          setBit(bit);
+        resetBit(bit);
      }     
      else
      {
-         resetBit(bit);
+        setBit(bit);
+         
      }     
  }

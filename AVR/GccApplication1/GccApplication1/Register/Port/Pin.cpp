@@ -21,5 +21,5 @@ Pin::~Pin()
 
 BaseTypes::BitStatus_e Pin::getPin(Pin::Pin_e pin)
 {
-    return (BaseTypes::BitStatus_e)getPin(pin);
+    return (BaseTypes::BitStatus_e)getBit((BaseTypes::Bits_e)pin);
 }

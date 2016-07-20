@@ -19,7 +19,7 @@ Tccr8::~Tccr8()
 } //~Tccr8
 
 
- void Tccr8::setMode(Tccr8::TimerMode_e tmode)
+ void Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
  {
      
      uint8_t bits;
