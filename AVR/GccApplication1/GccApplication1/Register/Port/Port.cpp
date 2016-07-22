@@ -9,9 +9,10 @@
 #include "Port.h"
 
 // default constructor
-Port::Port(volatile uint8_t* portPtr)
+Port::Port(vuint8_t* portPtr)
 {
     setRegister(portPtr);
+    setBits(0x00);
 } //Port
 
 // default destructor
@@ -19,27 +20,27 @@ Port::~Port()
 {
 } //~Port
 
- void Port::setPin(Port::Pin_e pin,Port::PinStatus_e status);
+ void Port::setPin(Port::Pin_e pin,Port::PinStatus_e status)
  {
-    if(pin == Port::PIN_HIGH)
+    if(status == Port::PIN_HIGH)
     {
-        setBit(pin);
+        setBit((BaseTypes::Bits_e)pin);
     }
     else
     {
-        resetBit(pin);
+        resetBit((BaseTypes::Bits_e)pin);
     }
  }
  
  void Port::setPullUp(Pin_e pin,PullUpStatus_e status)
  {
-     if(pin == Port::PULL_UP_ENABLE)
+     if(status == Port::PULL_UP_ENABLE)
      {
-         setBit(pin);
+         setBit((BaseTypes::Bits_e)pin);
      }
      else
      {
-         resetBit(pin);
+         resetBit((BaseTypes::Bits_e)pin);
      }
  }
  

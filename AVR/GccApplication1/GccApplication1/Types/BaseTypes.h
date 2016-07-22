@@ -12,6 +12,33 @@
 #include <stdint.h>
 #include <avr/io.h>
 
+typedef volatile uint8_t vuint8_t;
+
+
+typedef struct
+{
+    vuint8_t* tcnt;
+    vuint8_t* tccr;
+    vuint8_t* ocr;
+    vuint8_t* timsk;
+    vuint8_t* tifr;
+    vuint8_t* assr;
+    
+}Timer8Config_t;
+
+
+
+typedef struct
+{
+    vuint8_t* port;
+    vuint8_t* pin;
+    vuint8_t* ddr;
+    
+}PortConfig_t;
+
+
+
+
 #define SET_BIT(value,bit)                                          \
         (value |= (1 << bit))
 
@@ -26,7 +53,7 @@
         (value &= ~(bits))
         
 #define GET_BIT(value,bit)                                          \
-        ((value & bit) >> bit)
+        ((value & (bit+1)) >> bit )
 
 #define GET_BITS(value,bits)                                        \
         (value & bits)

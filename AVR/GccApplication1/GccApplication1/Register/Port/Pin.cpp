@@ -9,8 +9,9 @@
 #include "Pin.h"
 
 // default constructor
-Pin::Pin(volatile uint8_t* pinPtr)
+Pin::Pin(vuint8_t* pinPtr)
 {
+    setRegister(pinPtr);
 } //Pin
 
 // default destructor

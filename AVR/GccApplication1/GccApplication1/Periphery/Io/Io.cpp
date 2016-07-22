@@ -9,7 +9,7 @@
 #include "Io.h"
 
 // default constructor
-Io::Io(volatile uint8_t* port) : Port(port) , Ddr(port - DDR_ADR_CNT ), Pin(port - PIN_ADR_CNT)
+Io::Io(PortConfig_t portConfig) : Port(portConfig.port) , Ddr(portConfig.ddr), Pin(portConfig.pin)
 {
     
 } //Io

@@ -31,7 +31,7 @@ protected:
 
 //functions
 public:
-	Pin(volatile uint8_t* pinPtr);
+	Pin(vuint8_t* pinPtr);
 	~Pin();
     BaseTypes::BitStatus_e getPin(Pin::Pin_e pin);
     

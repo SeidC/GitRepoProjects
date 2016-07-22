@@ -9,18 +9,18 @@
 #ifndef AVRCONFIG_H_
 #define AVRCONFIG_H_
 
-#define DDR_ADR_CNT                     1u
-        
-#define PIN_ADR_CNT                     2u
 
-#define UCSRA_ADR_CNT                   1u
+#include <stddef.h>
+#include "BaseTypes.h"
 
-#define UCSRB_ADR_CNT                   2U
 
-#define UBRRL_ADR_CNT                   3u
+extern Timer8Config_t timer0;
+extern Timer8Config_t timer2;
 
-#define UDSRC_ADR_CNT                  14u
 
-#define UBRRH_ADR_CNT                  14u
+extern PortConfig_t portA;
+extern PortConfig_t portB;
+extern PortConfig_t portC;
+extern PortConfig_t portD;
 
 #endif /* AVRCONFIG_H_ */

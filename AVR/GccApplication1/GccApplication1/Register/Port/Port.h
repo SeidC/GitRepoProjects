@@ -42,7 +42,7 @@ protected:
 
 //functions
 public:
-	Port(volatile uint8_t* portPtr);
+	Port(vuint8_t* portPtr);
 	~Port();
     void setPin(Pin_e pin,PinStatus_e status);
     void setPinsHigh(uint8_t pinMask);

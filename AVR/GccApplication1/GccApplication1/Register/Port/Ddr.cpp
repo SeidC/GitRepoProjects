@@ -1,9 +1,10 @@
 
 #include "Ddr.h"
  
- Ddr::Ddr(volatile uint8_t* ddrPtr)
+ Ddr::Ddr(vuint8_t* ddrPtr)
  {
      setRegister(ddrPtr);
+     setBits(0xFF);
      
  }
  

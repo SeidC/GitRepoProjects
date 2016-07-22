@@ -27,7 +27,7 @@ protected:
 
 //functions
 public:
-	Ddr(volatile uint8_t* ddrPtr);
+	Ddr(vuint8_t* ddrPtr);
 	~Ddr();
     void setDirection(BaseTypes::Bits_e bit, Direction_e dirStatus);
 
