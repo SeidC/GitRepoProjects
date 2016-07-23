@@ -56,7 +56,7 @@ private:
 
 //functions
 public:
-	Ucsrc(volatile uint8_t* ucsrcPtr);
+	Ucsrc(vuint8_t* ucsrcPtr);
 	~Ucsrc();
     void setMode();
 protected:

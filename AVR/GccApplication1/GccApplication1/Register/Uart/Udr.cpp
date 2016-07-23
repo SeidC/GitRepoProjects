@@ -9,7 +9,7 @@
 #include "Udr.h"
 
 // default constructor
-Udr::Udr(volatile uint8_t* udrPtr)
+Udr::Udr(vuint8_t* udrPtr)
 {
     setRegister(udrPtr);
 } //Udr

@@ -9,7 +9,7 @@
 #include "Ucsrc.h"
 
 // default constructor
-Ucsrc::Ucsrc(volatile uint8_t* ucsrcPtr)
+Ucsrc::Ucsrc(vuint8_t* ucsrcPtr)
 {
     setRegister(ucsrcPtr);
 } //Ucsrc

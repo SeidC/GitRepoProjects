@@ -10,14 +10,14 @@
 
 
 Timer8Config_t timer0Cfg = 
-    {
-        .tcnt  = &TCNT0,
-        .tccr  = &TCCR0,
-        .ocr   = &OCR0,
-        .tifr  = NULL,
-        .assr  = NULL,
-        .timsk = NULL,
-    };
+{
+    .tcnt  = &TCNT0,
+    .tccr  = &TCCR0,
+    .ocr   = &OCR0,
+    .tifr  = NULL,
+    .assr  = NULL,
+    .timsk = NULL,
+};
     
     
 Timer8Config_t timer2Cfg =

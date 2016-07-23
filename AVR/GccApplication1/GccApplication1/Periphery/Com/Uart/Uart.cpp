@@ -11,11 +11,11 @@
 
 // default constructor
 Uart::Uart(UartConfig_t* uartConfig) : 
-    Udr(uartConfig->udr), 
-    Ucsra(uartConfig->ucsra), 
+    Ubrr(uartConfig->ubrrh,uartConfig->ubrrl),
+    Ucsra(uartConfig->ucsra),
     Ucsrb(uartConfig->ucsrb),
     Ucsrc(uartConfig->ucsrc),
-    Ubrr(uartConfig->ubrrh,uartConfig->ubrrl)
+    Udr(uartConfig->udr)     
 {
     
 } //Uart

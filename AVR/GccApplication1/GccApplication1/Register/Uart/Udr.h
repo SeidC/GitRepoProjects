@@ -20,7 +20,7 @@ private:
 
 //functions
 public:
-	Udr(volatile uint8_t* udrPtr);
+	Udr(vuint8_t* udrPtr);
 	~Udr();
 protected:
 private:

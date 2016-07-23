@@ -9,7 +9,7 @@
 #include "Ubrr.h"
 
 // default constructor
-Ubrr::Ubrr(volatile uint8_t* ubrrHPtr, volatile uint8_t* ubrrLPtr)
+Ubrr::Ubrr(vuint8_t* ubrrHPtr, vuint8_t* ubrrLPtr)
 {
     setRegister(ubrrHPtr,ubrrLPtr);
 

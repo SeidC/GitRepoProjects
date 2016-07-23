@@ -9,7 +9,7 @@
 #include "Ucsrb.h"
 
 // default constructor
-Ucsrb::Ucsrb(volatile uint8_t* ucsrbPtr)
+Ucsrb::Ucsrb(vuint8_t* ucsrbPtr)
 {
     setRegister(ucsrbPtr);
 } //Ucsrb

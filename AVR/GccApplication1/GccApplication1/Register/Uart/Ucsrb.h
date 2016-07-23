@@ -29,7 +29,7 @@ private:
 
 //functions
 public:
-	Ucsrb(volatile uint8_t* ucsrbPtr);
+	Ucsrb(vuint8_t* ucsrbPtr);
 	~Ucsrb();
     void toggleRxInterrupt(Uart_Enable_t status);
     void toggleTxInterrupt(Uart_Enable_t status);

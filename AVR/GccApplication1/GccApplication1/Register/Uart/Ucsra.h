@@ -19,7 +19,7 @@ private:
 
 //functions
 public:
-	Ucsra(volatile uint8_t *ucsraPtr);
+	Ucsra(vuint8_t *ucsraPtr);
 	~Ucsra();
     
     bool isDataAvailable(void);

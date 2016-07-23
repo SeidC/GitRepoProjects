@@ -9,7 +9,7 @@
 #include "Ucsra.h"
 
 // default constructor
-Ucsra::Ucsra(volatile uint8_t *ucsraPtr)
+Ucsra::Ucsra(vuint8_t *ucsraPtr)
 {
     setRegister(ucsraPtr);
 } //Ucsra

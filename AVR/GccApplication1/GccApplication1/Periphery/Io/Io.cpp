@@ -9,7 +9,7 @@
 #include "Io.h"
 
 // default constructor
-Io::Io(PortConfig_t* portConfig) : Port(portConfig->port) , Ddr(portConfig->ddr), Pin(portConfig->pin)
+Io::Io(PortConfig_t* portConfig) : Pin(portConfig->pin), Port(portConfig->port) , Ddr(portConfig->ddr)
 {
     
 } //Io

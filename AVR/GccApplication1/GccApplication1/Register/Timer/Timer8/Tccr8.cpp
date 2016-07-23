@@ -21,8 +21,6 @@ Tccr8::~Tccr8()
 
  void Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
  {
-     
-     uint8_t bits;
      switch(tmode)
      {
          case Tccr8::TIMER_NORMAL:

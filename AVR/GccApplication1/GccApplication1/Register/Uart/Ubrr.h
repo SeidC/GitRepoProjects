@@ -19,7 +19,7 @@ private:
 
 //functions
 public:
-	Ubrr(volatile uint8_t* ubrrHPtr,volatile uint8_t* ubrrLPtr);
+	Ubrr(vuint8_t* ubrrHPtr,vuint8_t* ubrrLPtr);
 	~Ubrr();
 protected:
 private:
