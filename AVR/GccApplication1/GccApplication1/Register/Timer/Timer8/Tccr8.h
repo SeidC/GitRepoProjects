@@ -17,15 +17,18 @@ class Tccr8 : public TccrIf, public RegIf8
 public:
     enum TimerMode_e
     {
-        TIMER_NORMAL,
-        PHASE_CORRECT_PWM,
-        CLEAR_ON_COMPARE,
-        FAST_PWM,        
+        TIMER_NORMAL                   = 0x00,
+        CLEAR_ON_COMPARE               = 0x08,
+        PHASE_CORRECT_PWM              = 0x40,
+        FAST_PWM                       = 0x48,        
     }; 
     
     enum OutputMode_e 
     {
-        
+        OC_PIN_DISCONNECTED             = 0x00,
+        TOGGLE_OC_PIN_ON_COMPARE        = 0x01,
+        CLEAR_OC_PIN_ON_COMPARE         = 0x02,
+        SET_OC_PIN_ON_COMPARE           = 0x03,
     };  
 //variables
 public:

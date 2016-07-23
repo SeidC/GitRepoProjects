@@ -21,30 +21,34 @@ Tccr8::~Tccr8()
 
  void Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
  {
-     switch(tmode)
-     {
-         case Tccr8::TIMER_NORMAL:
-            resetBits(BaseTypes::BIT_3|BaseTypes::BIT_6);
-         break;
-         case Tccr8::PHASE_CORRECT_PWM:
-            setBit(BaseTypes::BIT_6);
-            resetBit(BaseTypes::BIT_3);
-         break;
-         case Tccr8::CLEAR_ON_COMPARE:
-            resetBit(BaseTypes::BIT_6);
-            setBit(BaseTypes::BIT_3);
-         break;
-         case Tccr8::FAST_PWM:
-            setBits(BaseTypes::BIT_6|BaseTypes::BIT_3);
-         break;
-         default:
-             resetBits(BaseTypes::BIT_6|BaseTypes::BIT_3);
-         break;
-     }
+    BaseTypes::Bits_e bits;
+    
+    if(tmode != TIMER_NORMAL)
+    {
+        bits = (BaseTypes::Bits_e)tmode;
+        setBits(bits);
+    }
+    else
+    {   
+        bits = BaseTypes::BIT_3 | BaseTypes::BIT_6;
+        resetBits(bits);
+    }
+    return;
  }
  
  
  void Tccr8::setOutputMode(Tccr8::OutputMode_e omode)
  {
-     
+     BaseTypes::Bits_e bits;
+     if(omode == OC_PIN_DISCONNECTED)
+     {
+         bits = BaseTypes::BIT_4 | BaseTypes::BIT_5;
+         resetBits(bits); 
+     }
+     else
+     {
+         bits = (BaseTypes::Bits_e)(omode << ((uint8_t) BaseTypes::BIT_4));
+         setBits(bits);
+     }
+     return;
  }
