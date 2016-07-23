@@ -14,13 +14,15 @@
 #include "BaseTypes.h"
 
 
-extern Timer8Config_t timer0;
-extern Timer8Config_t timer2;
+extern Timer8Config_t timer0Cfg;
+extern Timer8Config_t timer2Cfg;
 
 
-extern PortConfig_t portA;
-extern PortConfig_t portB;
-extern PortConfig_t portC;
-extern PortConfig_t portD;
+extern PortConfig_t portACfg;
+extern PortConfig_t portBCfg;
+extern PortConfig_t portCCfg;
+extern PortConfig_t portDCfg;
+
+extern UartConfig_t uartCfg;
 
 #endif /* AVRCONFIG_H_ */

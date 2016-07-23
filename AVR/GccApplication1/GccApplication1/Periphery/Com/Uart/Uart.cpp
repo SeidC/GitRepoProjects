@@ -8,13 +8,14 @@
 
 #include "Uart.h"
 
+
 // default constructor
-Uart::Uart(volatile uint8_t* udrPtr) : 
-    Udr(udrPtr), 
-    Ucsra(udrPtr - UCSRA_ADR_CNT), 
-    Ucsrb(udrPtr-UCSRB_ADR_CNT),
-    Ucsrc(udrPtr - UDSRC_ADR_CNT),
-    Ubrr(udrPtr - UBRRH_ADR_CNT,udrPtr - UBRRL_ADR_CNT)
+Uart::Uart(UartConfig_t* uartConfig) : 
+    Udr(uartConfig->udr), 
+    Ucsra(uartConfig->ucsra), 
+    Ucsrb(uartConfig->ucsrb),
+    Ucsrc(uartConfig->ucsrc),
+    Ubrr(uartConfig->ubrrh,uartConfig->ubrrl)
 {
     
 } //Uart

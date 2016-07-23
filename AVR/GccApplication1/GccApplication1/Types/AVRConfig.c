@@ -9,7 +9,7 @@
 
 
 
-Timer8Config_t timer0 = 
+Timer8Config_t timer0Cfg = 
     {
         .tcnt  = &TCNT0,
         .tccr  = &TCCR0,
@@ -20,7 +20,7 @@ Timer8Config_t timer0 =
     };
     
     
-Timer8Config_t timer2 =
+Timer8Config_t timer2Cfg =
 {
     .tcnt  = &TCNT2,
     .tccr  = &TCCR2,
@@ -31,30 +31,41 @@ Timer8Config_t timer2 =
 };
 
 
-PortConfig_t portA = 
+PortConfig_t portACfg = 
 {
     .port = &PORTA,
     .ddr  = &DDRA,
     .pin  = &PINA,  
 };
 
-PortConfig_t portB =
+PortConfig_t portBCfg =
 {
     .port = &PORTB,
     .ddr  = &DDRB, 
     .pin  = &PINB, 
 };
 
-PortConfig_t portC =
+PortConfig_t portCCfg =
 {
     .port = &PORTC,
     .ddr  = &DDRC ,
     .pin  = &PINC ,
 };
 
-PortConfig_t portD =
+PortConfig_t portDCfg =
 {
     .port = &PORTD,
     .ddr  = &DDRD ,
     .pin  = &PIND ,
+};
+
+
+UartConfig_t uartCfg =
+{
+    .udr    = &UDR,
+    .ucsra  = &UCSRA,
+    .ucsrb  = &UCSRB,
+    .ucsrc  = &UCSRC,
+    .ubrrl  = &UBRRL,
+    .ubrrh  = &UBRRH,
 };

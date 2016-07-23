@@ -32,7 +32,7 @@ private:
 
 //functions
 public:
-	Io(volatile uint8_t* port);
+	Io(PortConfig_t* portConfig);
 	~Io();
 protected:
 private:

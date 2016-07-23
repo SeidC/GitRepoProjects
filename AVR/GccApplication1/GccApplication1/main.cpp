@@ -7,13 +7,14 @@
 
 #include <avr/io.h>
 #include "Io.h"
+#include "AVRConfig.h"
 
 
 
 int main(void)
 {
-    Io ioPortB(&PORTB);
-    Io ioPortA(&PORTA);
+    Io ioPortB(&portBCfg);
+    Io ioPortA(&portACfg);
     
     BaseTypes::BitStatus_e stat;
     ioPortB.setDirection(Io::BIT_0,Io::OUTPUT);

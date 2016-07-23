@@ -14,6 +14,7 @@
 
 typedef volatile uint8_t vuint8_t;
 
+typedef volatile uint16_t vuint16_t;
 
 typedef struct
 {
@@ -37,11 +38,20 @@ typedef struct
 }PortConfig_t;
 
 
+typedef struct 
+{
+    vuint8_t*  udr;
+    vuint8_t*  ucsra;
+    vuint8_t*  ucsrb;
+    vuint8_t*  ucsrc;
+    vuint8_t*  ubrrl;
+    vuint8_t*  ubrrh;
+    
+}UartConfig_t;
 
 
 #define SET_BIT(value,bit)                                          \
         (value |= (1 << bit))
-
 
 #define SET_BITS(value,bits)                                        \
         (value |= bits)
@@ -53,7 +63,7 @@ typedef struct
         (value &= ~(bits))
         
 #define GET_BIT(value,bit)                                          \
-        ((value & (bit+1)) >> bit )
+        ((value & (bit+1)) >> bit)
 
 #define GET_BITS(value,bits)                                        \
         (value & bits)
@@ -144,7 +154,6 @@ class BaseTypes
          HIGHER_BYTE,
          LOWER_BYTE
      };
-    typedef uint8_t boolean;
 };
 
 

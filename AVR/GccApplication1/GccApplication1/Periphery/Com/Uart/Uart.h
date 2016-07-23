@@ -25,7 +25,7 @@ private:
 
 //functions
 public:
-	Uart(volatile uint8_t* udrPtr);
+	Uart(UartConfig_t* uartConfig);
 	~Uart();
 protected:
 private:
