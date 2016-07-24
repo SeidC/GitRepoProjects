@@ -9,8 +9,9 @@
 #include "Tcnt8.h"
 
 // default constructor
-Tcnt8::Tcnt8()
+Tcnt8::Tcnt8(vuint8_t* tcntPtr)
 {
+    setRegister(tcntPtr);
 } //Tcnt8
 
 // default destructor

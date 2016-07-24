@@ -16,14 +16,23 @@ typedef volatile uint8_t vuint8_t;
 
 typedef volatile uint16_t vuint16_t;
 
+typedef enum 
+{
+    TIMER0_8BIT         ,
+    TIMER1_16_BIT       ,
+    TIMER2_8_BIT_ASYNC  ,
+    
+}TimerType_t;
+
 typedef struct
 {
-    vuint8_t* tcnt;
-    vuint8_t* tccr;
-    vuint8_t* ocr;
-    vuint8_t* timsk;
-    vuint8_t* tifr;
-    vuint8_t* assr;
+    TimerType_t type;
+    vuint8_t*   tcnt;
+    vuint8_t*   tccr;
+    vuint8_t*   ocr;
+    vuint8_t*   timsk;
+    vuint8_t*   tifr;
+    vuint8_t*   assr;
     
 }Timer8Config_t;
 

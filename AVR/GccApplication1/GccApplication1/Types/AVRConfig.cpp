@@ -11,6 +11,7 @@
 
 Timer8Config_t timer0Cfg = 
 {
+     TIMER0_8BIT,
      &TCNT0,
      &TCCR0,
      &OCR0,
@@ -22,6 +23,7 @@ Timer8Config_t timer0Cfg =
     
 Timer8Config_t timer2Cfg =
 {
+    TIMER2_8_BIT_ASYNC,
     &TCNT2,
     &TCCR2,
     &OCR2,

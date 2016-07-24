@@ -9,8 +9,11 @@
 #include "Timer8.h"
 
 // default constructor
-Timer8::Timer8()
+Timer8::Timer8(Timer8Config_t * timerCfg) : Tcnt8(timerCfg->tcnt) , 
+                                            Tccr8(timerCfg->type,timerCfg->tccr), 
+                                            Ocr8(timerCfg->ocr)
 {
+  
 } //Timer8
 
 // default destructor

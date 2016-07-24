@@ -21,7 +21,7 @@ private:
 
 //functions
 public:
-	Tcnt8();
+	Tcnt8(vuint8_t* tcntPtr);
 	~Tcnt8();
     uint16_t getTime(void);
      

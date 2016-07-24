@@ -9,8 +9,9 @@
 #include "Ocr8.h"
 
 // default constructor
-Ocr8::Ocr8()
+Ocr8::Ocr8(vuint8_t* ocrPtr)
 {
+    setRegister(ocrPtr);
 } //Ocr8
 
 // default destructor

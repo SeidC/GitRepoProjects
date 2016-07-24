@@ -37,7 +37,7 @@ private:
 
 //functions
 public:
-	Tccr8();
+	Tccr8(TimerType_t timerType,vuint8_t* tccrPtr);
 	~Tccr8();
 protected:
 private:
@@ -45,6 +45,8 @@ private:
 	Tccr8& operator=( const Tccr8 &c );
     void setTimerMode(TimerMode_e tmode);
     void setOutputMode(OutputMode_e omode);
+    void setPreScaler(Prescaler_e prescaler);
+    void toggleTimer(Toggle_e status);
 
 }; //Tccr8
 

@@ -16,26 +16,33 @@ class TccrIf : public BaseTypes
 public:
    enum Prescaler_e
    {
-        NO_PRESCALER,
-        PRESCALER_8,
-        PRESCALER_64,
-        PRESCALER_256,
-        PRESCALER_1024,
-        EXTERNAL_SOURCE_FALLING_EDGE, // Only for Timer 0/1
-        EXTERNAL_SOURCE_RISING_EDGE,  // Only for Timer 0/1
-        PRESCALER_32,                 // Only for Timer 2
-   };      
+        NO_PRESCALER                      ,
+        PRESCALER_8                       ,
+        PRESCALER_32                      ,
+        PRESCALER_64                      ,
+        PRESCALER_128                     ,
+        PRESCALER_256                     ,
+        PRESCALER_1024                    ,
+        EXTERNAL_TM01_SOURCE_FALLING_EDGE ,   
+        EXTERNAL_TM01_SOURCE_RISING_EDGE  ,
+    };      
    
    enum TimerMode_e{};
    enum OutputMode_e{};
 //parameter 
 private:
-    Prescaler_e psclBckUp;
+    Prescaler_e psc;
+    TimerType_t type;
+
+protected:
+    virtual void setType(TimerType_t t)               {type = t;};
+    virtual TimerType_t getType(void)                 {return type;};
     
 //functions
 public:
 	virtual ~TccrIf(){}
-	virtual void setPreScaler(Prescaler_e prescaler)  {psclBckUp = prescaler;}
+	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
+    virtual Prescaler_e getPreScaler(void)            {return psc;};
     virtual void toggleTimer(Toggle_e stauts) = 0; 
     virtual void setTimerMode(TimerMode_e tmode)  = 0;
     virtual void outputMode(OutputMode_e omode) = 0;

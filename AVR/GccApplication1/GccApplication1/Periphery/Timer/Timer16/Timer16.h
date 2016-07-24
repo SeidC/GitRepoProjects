@@ -8,12 +8,16 @@
 
 #ifndef __TIMER16_H__
 #define __TIMER16_H__
+#include "Tcnt16.h"
+#include "Tccr16.h"
+#include "Ocr16.h"
+#include "Icr16.h"
 
-
-class Timer16
+class Timer16 : public Tcnt16, public Tccr16, public Ocr16, public Icr16
 {
 //variables
 public:
+   
 protected:
 private:
 
