@@ -13,18 +13,12 @@
 
 int main(void)
 {
-    Io ioPortB(&portBCfg);
-    Io ioPortA(&portACfg);
-    
-    BaseTypes::BitStatus_e stat;
-    ioPortB.setDirection(Io::BIT_0,Io::OUTPUT);
-    ioPortA.setDirection(Io::BIT_0,Io::INPUT);
- 
+   
     /* Replace with your application code */
     while (1) 
     {
-        stat = ioPortA.getPin(Pin::PIN_0);
-        ioPortB.setPin(Port::PIN_0,(Port::PinStatus_e)stat);
+   
+   
     }
 }
 
