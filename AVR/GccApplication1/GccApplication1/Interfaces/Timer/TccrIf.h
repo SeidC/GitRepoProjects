@@ -35,9 +35,8 @@ private:
     TimerType_t type;
 
 protected:
-    virtual void setType(TimerType_t t)               {type = t;};
-    virtual TimerType_t getType(void)                 {return type;};
-    
+    virtual void setType(TimerType_t t)               {type = t;}
+    virtual TimerType_t getType(void)                 {return type;}    
 //functions
 public:
 	virtual ~TccrIf(){}
