@@ -10,10 +10,57 @@
 #define BASETYPES_H_
 
 #include <stdint.h>
+#include <avr/io.h>
+
+typedef volatile uint8_t vuint8_t;
+
+typedef volatile uint16_t vuint16_t;
+
+typedef enum 
+{
+    TIMER0_8BIT         ,
+    TIMER1_16_BIT       ,
+    TIMER2_8_BIT_ASYNC  ,
+    
+}TimerType_t;
+
+typedef struct
+{
+    TimerType_t type;
+    vuint8_t*   tcnt;
+    vuint8_t*   tccr;
+    vuint8_t*   ocr;
+    vuint8_t*   timsk;
+    vuint8_t*   tifr;
+    vuint8_t*   assr;
+    
+}Timer8Config_t;
+
+
+
+typedef struct
+{
+    vuint8_t* port;
+    vuint8_t* pin;
+    vuint8_t* ddr;
+    
+}PortConfig_t;
+
+
+typedef struct 
+{
+    vuint8_t*  udr;
+    vuint8_t*  ucsra;
+    vuint8_t*  ucsrb;
+    vuint8_t*  ucsrc;
+    vuint8_t*  ubrrl;
+    vuint8_t*  ubrrh;
+    
+}UartConfig_t;
+
 
 #define SET_BIT(value,bit)                                          \
         (value |= (1 << bit))
-
 
 #define SET_BITS(value,bits)                                        \
         (value |= bits)
@@ -25,14 +72,15 @@
         (value &= ~(bits))
         
 #define GET_BIT(value,bit)                                          \
-        ((value & bit) >> bit)
+        ((value & (bit+1)) >> bit)
 
 #define GET_BITS(value,bits)                                        \
         (value & bits)
+
 class BaseTypes 
 {
     public:    
-    struct Bits_s
+    struct Bits8_s
     {
         uint8_t bit0             :1;
         uint8_t bit1             :1;
@@ -43,6 +91,33 @@ class BaseTypes
         uint8_t bit6             :1;
         uint8_t bit7             :1;    
     };
+    
+    
+    struct Bits16_s
+    {
+        uint8_t bit0             :1;
+        uint8_t bit1             :1;
+        uint8_t bit2             :1;
+        uint8_t bit3             :1;
+        uint8_t bit4             :1;
+        uint8_t bit5             :1;
+        uint8_t bit6             :1;
+        uint8_t bit7             :1;
+        uint8_t bit8             :1;
+        uint8_t bit9             :1;
+        uint8_t bit10            :1;
+        uint8_t bit11            :1;
+        uint8_t bit12            :1;
+        uint8_t bit13            :1;
+        uint8_t bit14            :1;
+        uint8_t bit15            :1;
+    };
+    
+    enum Toggle_e
+    {
+        ENABLE,
+        DISABLE    
+    };   
     
     enum Bits_e
     {
@@ -61,13 +136,31 @@ class BaseTypes
         BIT_LOW                 = 0,
         BIT_HIGH                = 1,  
     };    
-    union BitRegister_t
+    union Bit8Register_t
     {
-        struct   Bits_s * bits;
+        struct   Bits8_s* bits;
         volatile uint8_t* byte;
     };
     
-    typedef uint8_t boolean;
+    
+     union Bit16Register_t
+     {
+         struct   Bits16_s* bits;
+         volatile uint16_t* byte;
+     };
+     
+     
+    struct UbrrRegister_t
+    {
+        Bit8Register_t UbrrH;
+        Bit8Register_t UbrrL;
+    };
+    
+     enum ByteType_e
+     {
+         HIGHER_BYTE,
+         LOWER_BYTE
+     };
 };
 
 

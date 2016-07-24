@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 #include <stdint.h>
+#include "AVRConfig.h"
 #include "BaseTypes.h"
 #include "Ddr.h"
 #include "Port.h"
@@ -31,7 +32,7 @@ private:
 
 //functions
 public:
-	Io(volatile uint8_t* port);
+	Io(PortConfig_t* portConfig);
 	~Io();
 protected:
 private:

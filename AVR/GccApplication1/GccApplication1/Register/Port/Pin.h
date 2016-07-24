@@ -9,9 +9,9 @@
 #ifndef __PIN_H__
 #define __PIN_H__
 #include "BaseTypes.h"
-#include "RegIf.h"
+#include "RegIf8.h"
 
-class Pin : public RegIf
+class Pin : public RegIf8
 {
 //variables
 public:
@@ -31,12 +31,12 @@ protected:
 
 //functions
 public:
-	Pin();
+	Pin(vuint8_t* pinPtr);
 	~Pin();
     BaseTypes::BitStatus_e getPin(Pin::Pin_e pin);
     
 private:
-	Pin( const Pin &c );
+	//Pin( const Pin &c );
 	Pin& operator=( const Pin &c );
 
 }; //Pin

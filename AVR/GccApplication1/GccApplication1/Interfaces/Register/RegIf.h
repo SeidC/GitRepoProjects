@@ -16,22 +16,25 @@ class RegIf : public BaseTypes
 {
 //parameter
 private:
-    BitRegister_t register;
+  
 
 //functions
 public:
     ~RegIf(){}
 protected:
 //Setter
-	void setRegister(volatile uint8_t *reg)                 {register.byte = reg;}
-	void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*register.byte,bit);}
-	void setBits(uint8_t bits)                              {SET_BITS(*register.byte,bits);}
-	void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*register.byte,bit);}
-    void resetBits(uint8_t bits)                            {RESET_BITS(*register.byte,bits);}
+	virtual void setRegister(volatile uint8_t *reg) {}               
+	virtual void setBit(BaseTypes::Bits_e bit)      {}; 
+    virtual void setValue(uint8_t value)            {};              
+	virtual void setBits(uint8_t bits)              {};               
+	virtual void resetBit(BaseTypes::Bits_e bit)    {};               
+    virtual void resetBits(uint8_t bits)            {};               
 //Getter:    
-    uint8_t getBits(uint8_t bits);                          {return GET_BITS(*register.byte,bits);}
-    BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit);   {return (BaseTypes::BitStatus_e)GET_BIT(*register.byte,bit);}
-    BaseTypes::BitRegister_t* getRegister(void);            {return &register;}
+    virtual uint8_t getBits(uint8_t bits)                           { return 0;};
+    virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    { return BaseTypes::BIT_LOW;};
+    virtual void getRegister( BaseTypes::Bit8Register_t* regPtr)    {};
+    virtual uint16_t getValue(void)                                 {return 0;};
+    
 }; //RegIf
 
 #endif //__REGIF_H__

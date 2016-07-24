@@ -8,9 +8,15 @@
 
 #ifndef __UART_H__
 #define __UART_H__
+#include "AVRConfig.h"
+#include "Ubrr.h"
+#include "Ucsra.h"
+#include "Ucsrb.h"
+#include "Ucsrc.h"
+#include "Udr.h"
 
 
-class Uart
+class Uart : public Ubrr , public Ucsra , public Ucsrb , public Ucsrc , public Udr
 {
 //variables
 public:
@@ -19,7 +25,7 @@ private:
 
 //functions
 public:
-	Uart();
+	Uart(UartConfig_t* uartConfig);
 	~Uart();
 protected:
 private:

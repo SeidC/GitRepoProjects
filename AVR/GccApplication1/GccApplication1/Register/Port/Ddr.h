@@ -8,9 +8,9 @@
 
 #ifndef __DDR_H__
 #define __DDR_H__
-#include "BaseTypes.h"
+#include "RegIf8.h"
 
-class Ddr : public RegIf
+class Ddr : public RegIf8
 {
     
 // Datatypes
@@ -27,9 +27,9 @@ protected:
 
 //functions
 public:
-	Ddr();
+	Ddr(vuint8_t* ddrPtr);
 	~Ddr();
-    void setDirection(BaseTypes::Bits_e, Direction_e dirStatus);
+    void setDirection(BaseTypes::Bits_e bit, Direction_e dirStatus);
 
 private:
 	Ddr( const Ddr &c );

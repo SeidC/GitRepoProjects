@@ -9,13 +9,13 @@
 #include "Io.h"
 
 // default constructor
-Io::Io(volatile uint8_t* port)
+Io::Io(PortConfig_t* portConfig) : Pin(portConfig->pin), Port(portConfig->port) , Ddr(portConfig->ddr)
 {
     
 } //Io
 
 // default destructor
-Io::~Io()
+Io::~Io() 
 {
     
 } //~Io
