@@ -59,15 +59,49 @@ Tccr8::~Tccr8()
   void Tccr8::toggleTimer(Toggle_e status)
   {
       Prescaler_e prescaler;
-      if(status == BaseTypes::ENABLE)
-      {
-            prescaler = getPreScaler();
-            //setBits(prescaler);           
-      }
-      else
-      {
-         //prescaler = getBits();   
-         setPreScaler(prescaler);
-      }
+      uint8_t bits = 0;  
+    if(status == BaseTypes::ENABLE)
+    {
+        prescaler = getPreScaler();
+        RESET_BITS(bits,BIT_0|BIT_1|BIT_2);
+        switch(prescaler)
+        {
+            case TccrIf::NO_PRESCALER                       :
+            SET_BIT(bits,BIT_0);
+            break;
+            case TccrIf::PRESCALER_8                        :
+            SET_BIT(bits,BIT_1);
+            break;
+            case TccrIf::PRESCALER_32                       :
+            
+            break;
+            case TccrIf::PRESCALER_64                       :
+            SET_BITS(bits,BIT_0|BIT_1);
+            break;
+            case TccrIf::PRESCALER_128                      :
+            
+            break;
+            case TccrIf::PRESCALER_256                      :
+            SET_BITS(bits,BIT_2);
+            break;
+            case TccrIf::PRESCALER_1024                     :
+            SET_BITS(bits,BIT_0|BIT_2);
+            break;
+            case TccrIf::EXTERNAL_TM01_SOURCE_FALLING_EDGE  :
+            SET_BITS(bits,BIT_0|BIT_1);
+            break;
+            case TccrIf::EXTERNAL_TM01_SOURCE_RISING_EDGE   :
+            SET_BITS(bits,BIT_0|BIT_1|BIT_2);
+            break;
+            default:
+            SET_BIT(bits,BIT_0);
+        }
+        setBits(bits);    
+    }
+    else
+    {
+        SET_BITS(bits,BIT_0|BIT_1|BIT_2);
+        resetBits(bits);
+    }
       return;
   }

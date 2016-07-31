@@ -12,7 +12,8 @@
 #include "TccrB.h"
 #include "TccrIf.h"
 
-class Tccr16 : public TccrIf
+
+class Tccr16 : public TccrIf 
 {
 
 //types    
