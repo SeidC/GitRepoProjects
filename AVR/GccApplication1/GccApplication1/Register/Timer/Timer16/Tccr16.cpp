@@ -20,7 +20,7 @@ Tccr16::~Tccr16()
 
 
 void Tccr16::toggleTimer(Toggle_e status)
-    {
+{
     Prescaler_e prescaler;
     uint8_t bits;
     if(status == BaseTypes::ENABLE)
@@ -67,7 +67,7 @@ void Tccr16::toggleTimer(Toggle_e status)
         tccrb.resetBits(bits);
     }
     return;
-  }
+}
 
 
 void Tccr16::setMode(Tccr16::Mode_e mode)

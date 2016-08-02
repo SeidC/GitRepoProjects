@@ -18,3 +18,56 @@ Timer16::Timer16()
 Timer16::~Timer16()
 {
 } //~Timer16
+
+void Timer16::setOutputCompare(Ocr16::OutputCompareRegister_e ocr, uint8_t rawValue)
+{
+    if(ocr == Ocr16::OCR_A)
+    {
+       ocrA.setOutputCompare(rawValue);
+    }
+    else
+    {
+       ocrB.setOutputCompare(rawValue);
+    }
+}
+
+uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
+{
+   if(ocr == Ocr16::OCR_A)
+   {
+      return ocrA.getOutputCompare();
+   }
+   else
+   {
+      return ocrB.getOutputCompare();
+   }
+}
+
+void Timer16::setTimerMode(Tccr8::TimerMode_e tmode)
+{
+
+}
+void Timer16::setOutputMode(Tccr8::OutputMode_e omode)
+{
+
+}
+
+void Timer16::setPreScaler(Tccr8::Prescaler_e prescaler)
+{
+
+}
+
+Tccr8::Prescaler_e Timer16::getPrescaler(void)
+{
+
+}
+
+void Timer16::toggleTimer(Toggle_e status)
+{
+
+}
+
+uint16_t Timer16::getTime(void)
+{
+
+}

@@ -15,7 +15,7 @@ class TcntIf : public BaseTypes
 //functions
 public:
 	virtual ~TcntIf(){}
-    virtual uint16_t getTime(void) { return 0;}
+   virtual uint16_t getTime(void) { return 0;}
 
 }; //TcntIf
 

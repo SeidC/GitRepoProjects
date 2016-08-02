@@ -161,6 +161,13 @@ class BaseTypes
          HIGHER_BYTE,
          LOWER_BYTE
      };
+
+     enum StdReturn_e
+     {
+         STD_NOK              = 0x00,
+         STD_NOT_SUPPORTED,
+         STD_OK,
+     };
 };
 
 

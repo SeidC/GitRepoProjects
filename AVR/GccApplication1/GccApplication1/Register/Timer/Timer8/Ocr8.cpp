@@ -19,7 +19,7 @@ Ocr8::~Ocr8()
 {
 } //~Ocr8
 
-void Ocr8::setOutputCompare(uint8_t value)
+void Ocr8::setOutputCompare(uint8_t rawValue)
 {
     setValue(value);
 }

@@ -35,8 +35,7 @@ public:
             CLEAR_ON_COMPARE_2,
             RESERVED,
             FAST_PWM_EX_1,
-            FAST_PWM_EX_2
-            
+            FAST_PWM_EX_2 
         };        
 //variables
 public:

@@ -8,33 +8,28 @@
 
 #ifndef __OCR16_H__
 #define __OCR16_H__
-#include "OcrA.h"
-#include "OcrB.h"
 #include "OcrIf.h"
 
 class Ocr16 : public OcrIf
 {
 //types 
 public: 
-    enum OutputCompareRegister_e
-    {
-        OCR_A,
-        OCR_B  
-    };     
+  
     
 //variables
 public:
 protected:
 private:
-    OcrB ocrb;
-    OcrA ocra;
+   
 //functions
 public:
 	Ocr16();
 	~Ocr16();
     
-    void     setOutputCompare(OutputCompareRegister_e ocr, uint16_t value);
-    uint16_t getOutputCompare(OutputCompareRegister_e ocr);
+    void setOutputCompare(uint16_t rawValue);
+    uint16_t getOutputCompare(void);
+   void setOutputCompareTime(uint8_t msTime);
+   uint16_t getOutputCompareTime(void);
 protected: 
 private:
 	Ocr16( const Ocr16 &c );

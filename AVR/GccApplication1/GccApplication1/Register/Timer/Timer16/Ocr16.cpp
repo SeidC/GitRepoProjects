@@ -1,4 +1,4 @@
-/* 
+y/* 
 * Ocr16.cpp
 *
 * Created: 17.07.2016 13:14:18
@@ -19,27 +19,25 @@ Ocr16::~Ocr16()
 } //~Ocr16
 
 
- void Ocr16::setOutputCompare(OutputCompareRegister_e ocr, uint16_t value)
+ void Ocr16::setOutputCompare(uint16_t rawValue)
  {
-     if(ocr == OCR_A) 
-     {
-         ocra.setValue(value);
-     }
-     else
-     {
-        ocrb.setValue(value);        
-     }
+   setValue(rawValue);
  }
  
- uint16_t Ocr16::getOutputCompare(OutputCompareRegister_e ocr)
+ uint16_t Ocr16::getOutputCompare(void)
  {  
-     
-     if(ocr == OCR_A)
-     {
-         return ocra.getValue();
-     }
-     else
-     {
-         return ocrb.getValue();
-     }
+   return getValue();
  }
+
+
+
+void Ocr16::setOutputCompareTime(uint8_t msTime)
+{
+
+}
+ 
+uint16_t Ocr16::getOutputCompareTime(void)
+{
+
+
+}
