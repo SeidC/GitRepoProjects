@@ -56,9 +56,9 @@ public:
 	virtual ~TccrIf(){}
 	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
     virtual Prescaler_e getPreScaler(void)            {return psc;};
-    virtual void toggleTimer(Toggle_e stauts) = 0; 
-    virtual void setTimerMode(TimerMode_e tmode)  = 0;
-    virtual void outputMode(OutputMode_e omode) = 0;
+    virtual void toggleTimer(Toggle_e stauts) {}; 
+    virtual void setTimerMode(TimerMode_e tmode) {};
+    virtual void outputMode(OutputMode_e omode) {};
 
 }; //TccrIf
 

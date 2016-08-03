@@ -23,10 +23,10 @@ public:
 //functions
 public:
 	virtual ~OcrIf(){}
-	virtual void setOutputCompare(uint8_t value) = 0;            	
-   virtual uint16_t getOutputCompare(void) = 0;
-   virtual void setOutputCompareTime(uint8_t msTime) = 0;
-   virtual uint16_t getOutputCompareTime(void) = 0;
+	virtual void setOutputCompare(uint8_t value) {};            	
+   virtual uint16_t getOutputCompare(void)  {};
+   virtual void setOutputCompareTime(uint8_t msTime) {};
+   virtual uint16_t getOutputCompareTime(void) {};
     
 }; //OcrIf
 

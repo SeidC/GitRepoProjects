@@ -62,7 +62,7 @@ Tccr16::Prescaler_e Timer16::getPrescaler(void)
 
 }
 
-void Timer16::toggleTimer(Toggle_e status)
+void Timer16::toggleTimer(BaseTypes::Toggle_e status)
 {
 
 }

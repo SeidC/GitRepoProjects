@@ -9,9 +9,7 @@
 #include "Timer8.h"
 
 // default constructor
-Timer8::Timer8(Timer8Config_t * timerCfg) : Tcnt8(timerCfg->tcnt) , 
-                                            Tccr8(timerCfg->type,timerCfg->tccr), 
-                                            Ocr8(timerCfg->ocr)
+Timer8::Timer8(Timer8Config_t * timerCfg)
 {
   
 } //Timer8
@@ -31,7 +29,7 @@ void Timer8::setOutputCompare(uint8_t rawValue)
 
 uint16_t Timer8::getOutputCompare(void)
 {
-   return ocr.getOutputCompare(
+   return ocr.getOutputCompare();
 
 }
 
@@ -50,7 +48,7 @@ void Timer8::setPreScaler(Tccr8::Prescaler_e prescaler)
 
 }
 
-void Timer8::toggleTimer(Timer8::Toggle_e status)
+void Timer8::toggleTimer(BaseTypes::Toggle_e status)
 {
    tccr.toggleTimer(status);
 }

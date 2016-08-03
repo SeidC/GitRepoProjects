@@ -35,7 +35,7 @@ public:
     void setOutputMode(Tccr8::OutputMode_e omode);
     void setPreScaler(Tccr8::Prescaler_e prescaler);
     Tccr8::Prescaler_e getPrescaler(void);
-    void toggleTimer(Toggle_e status);
+    void toggleTimer(BaseTypes::Toggle_e status);
     uint16_t getTime(void);
 
 

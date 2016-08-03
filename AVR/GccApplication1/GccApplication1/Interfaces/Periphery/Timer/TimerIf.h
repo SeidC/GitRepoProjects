@@ -12,7 +12,7 @@
 #include "TccrIf.h"
 
 
-class TimerIf : BaseTypes
+class TimerIf : public BaseTypes
 {
 //functions
 public:
@@ -23,7 +23,7 @@ public:
 	virtual void setOutputMode(TccrIf::OutputMode_e omode) = 0;
 	virtual void setPreScaler(TccrIf::Prescaler_e prescaler) = 0;
 	virtual TccrIf::Prescaler_e getPrescaler(void) = 0;
-	virtual void toggleTimer(Toggle_e status) = 0;
+	virtual void toggleTimer(TimerIf::Toggle_e status) = 0;
 	virtual uint16_t getTime(void) = 0;
 
 

@@ -162,12 +162,12 @@ class BaseTypes
          LOWER_BYTE
      };
 
-     enum StdReturn_e
+    /* enum StdReturn_e
      {
          STD_NOK              = 0x00,
          STD_NOT_SUPPORTED,
          STD_OK,
-     };
+     };   */
 };
 
 
