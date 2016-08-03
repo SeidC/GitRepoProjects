@@ -33,10 +33,10 @@ public:
 	~Timer16();
    void setOutputCompare(Ocr16::OutputCompareRegister_e ocr, uint8_t value);
    uint16_t getOutputCompare(Ocr16::OutputCompareRegister_e ocr);
-   void setTimerMode(Tccr8::TimerMode_e tmode);
-   void setOutputMode(Tccr8::OutputMode_e omode);
-   void setPreScaler(Tccr8::Prescaler_e prescaler);
-   Tccr8::Prescaler_e getPrescaler(void);
+   void setTimerMode(Tccr16::TimerMode_e tmode);
+   void setOutputMode(Tccr16::OutputMode_e omode);
+   void setPreScaler(Tccr16::Prescaler_e prescaler);
+   Tccr16::Prescaler_e getPrescaler(void);
    void toggleTimer(Toggle_e status);
    uint16_t getTime(void);
 

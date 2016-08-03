@@ -8,7 +8,7 @@
 
 #ifndef __TIMER8_H__
 #define __TIMER8_H__
-#include "TimerIf"
+#include "TimerIf.h"
 #include "Tcnt8.h"
 #include "Tccr8.h"
 #include "Ocr8.h"

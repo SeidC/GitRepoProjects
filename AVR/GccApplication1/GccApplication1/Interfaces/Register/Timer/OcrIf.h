@@ -13,7 +13,7 @@
 class OcrIf : public RegIf16 
 {
 //types
-protected::
+public:
    enum OutputCompareRegister_e
    {
       OCR_A,

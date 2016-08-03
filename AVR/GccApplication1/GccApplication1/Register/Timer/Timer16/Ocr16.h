@@ -26,8 +26,8 @@ public:
 	Ocr16();
 	~Ocr16();
     
-    void setOutputCompare(uint16_t rawValue);
-    uint16_t getOutputCompare(void);
+   void setOutputCompare(uint16_t rawValue);
+   uint16_t getOutputCompare(void);
    void setOutputCompareTime(uint8_t msTime);
    uint16_t getOutputCompareTime(void);
 protected: 

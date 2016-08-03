@@ -43,21 +43,21 @@ uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
    }
 }
 
-void Timer16::setTimerMode(Tccr8::TimerMode_e tmode)
+void Timer16::setTimerMode(Tccr16::TimerMode_e tmode)
 {
 
 }
-void Timer16::setOutputMode(Tccr8::OutputMode_e omode)
-{
-
-}
-
-void Timer16::setPreScaler(Tccr8::Prescaler_e prescaler)
+void Timer16::setOutputMode(Tccr16::OutputMode_e omode)
 {
 
 }
 
-Tccr8::Prescaler_e Timer16::getPrescaler(void)
+void Timer16::setPreScaler(Tccr16::Prescaler_e prescaler)
+{
+
+}
+
+Tccr16::Prescaler_e Timer16::getPrescaler(void)
 {
 
 }
