@@ -8,6 +8,12 @@
 
 #include "Tccr8.h"
 
+Tccr8::Tccr8()
+{
+    
+} //Tccr8
+
+
 // default constructor
 Tccr8::Tccr8(TimerType_t timerType,vuint8_t* tccrPtr)
 {

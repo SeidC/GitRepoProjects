@@ -1,4 +1,4 @@
-*/* 
+/* 
 * Timer8.cpp
 *
 * Created: 17.07.2016 13:42:23
@@ -11,6 +11,7 @@
 // default constructor
 Timer8::Timer8(Timer8Config_t * timerCfg)
 {
+   
   
 } //Timer8
 

@@ -20,6 +20,7 @@ private:
 
 //functions
 public:
+    Ocr8();
 	Ocr8(vuint8_t* ocrPtr);
 	~Ocr8();
    void setOutputCompare(uint8_t rawValue);

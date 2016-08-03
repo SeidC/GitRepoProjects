@@ -9,7 +9,7 @@
 #ifndef BASETYPES_H_
 #define BASETYPES_H_
 
-#include <stdint.h>
+
 #include <avr/io.h>
 
 typedef volatile uint8_t vuint8_t;
@@ -162,12 +162,12 @@ class BaseTypes
          LOWER_BYTE
      };
 
-    /* enum StdReturn_e
+     enum StdReturn_e
      {
          STD_NOK              = 0x00,
          STD_NOT_SUPPORTED,
          STD_OK,
-     };   */
+     };   
 };
 
 

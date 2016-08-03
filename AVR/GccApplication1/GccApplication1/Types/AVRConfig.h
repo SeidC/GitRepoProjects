@@ -9,8 +9,6 @@
 #ifndef AVRCONFIG_H_
 #define AVRCONFIG_H_
 
-
-#include <stddef.h>
 #include "BaseTypes.h"
 
 

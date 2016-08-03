@@ -8,6 +8,12 @@
 
 #include "Tcnt8.h"
 
+Tcnt8::Tcnt8()
+{
+
+} //Tcnt8
+
+
 // default constructor
 Tcnt8::Tcnt8(vuint8_t* tcntPtr)
 {
