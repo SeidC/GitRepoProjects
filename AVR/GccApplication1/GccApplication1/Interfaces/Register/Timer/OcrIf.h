@@ -8,9 +8,9 @@
 
 #ifndef __OCRIF_H__
 #define __OCRIF_H__
-#include "RegIf16.h"
+#include "BaseTypes.h"
 
-class OcrIf : public RegIf16 
+class OcrIf : public BaseTypes
 {
 //types
 public:

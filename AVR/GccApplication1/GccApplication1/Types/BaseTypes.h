@@ -9,7 +9,8 @@
 #ifndef BASETYPES_H_
 #define BASETYPES_H_
 
-
+#include <stdint.h>
+#include <stddef.h>
 #include <avr/io.h>
 
 typedef volatile uint8_t vuint8_t;

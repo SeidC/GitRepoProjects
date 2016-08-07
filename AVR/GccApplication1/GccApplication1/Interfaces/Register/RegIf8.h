@@ -16,13 +16,15 @@ class RegIf8 : public RegIf
     //parameter
     private:
     Bit8Register_t avrRegister;
+     
 
     //functions
     public:
     ~RegIf8(){}
+    void setRegister(volatile uint8_t *reg)                 {avrRegister.byte = reg;}
+    void getRegister( BaseTypes::Bit8Register_t* regPtr)    {regPtr =  &avrRegister;}       
     protected:
     //Setter
-    void setRegister(volatile uint8_t *reg)                 {avrRegister.byte = reg;}
     void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
     void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}
     void setValue(uint8_t value)                            {*avrRegister.byte = value;}
@@ -31,7 +33,6 @@ class RegIf8 : public RegIf
     //Getter:
     uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
     BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
-    void getRegister( BaseTypes::Bit8Register_t* regPtr)    {regPtr =  &avrRegister;}
     uint16_t getValue(void)                                 {return (uint16_t)*avrRegister.byte;};
 
 };

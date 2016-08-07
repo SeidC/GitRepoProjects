@@ -9,8 +9,9 @@
 #ifndef __OCR16_H__
 #define __OCR16_H__
 #include "OcrIf.h"
+#include "RegIf16.h"
 
-class Ocr16 : public OcrIf
+class Ocr16 : public OcrIf , public RegIf16
 {
 //types 
 public: 

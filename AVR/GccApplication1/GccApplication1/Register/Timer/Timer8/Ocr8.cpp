@@ -16,7 +16,7 @@ Ocr8::Ocr8()
 // default constructor
 Ocr8::Ocr8(vuint8_t* ocrPtr)
 {
-   // setRegister(ocrPtr);
+   setRegister(ocrPtr);
 } //Ocr8
 
 // default destructor
