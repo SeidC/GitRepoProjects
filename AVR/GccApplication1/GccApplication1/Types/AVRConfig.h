@@ -23,4 +23,8 @@ extern PortConfig_t portDCfg;
 
 extern UartConfig_t uartCfg;
 
+
+void * operator new(size_t n);
+void operator delete(void * p);
+
 #endif /* AVRCONFIG_H_ */

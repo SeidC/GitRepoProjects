@@ -27,11 +27,11 @@ Tccr8::~Tccr8()
 } //~Tccr8
 
 
- void Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
+ Tccr8::StdReturn_e Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
  {
     uint8_t bits;
     
-    if(tmode != TIMER_NORMAL)
+    if(tmode != NORMAL_TIMER_MODE)
     {
         bits = (BaseTypes::Bits_e)tmode;
         setBits(bits);
@@ -41,7 +41,7 @@ Tccr8::~Tccr8()
         bits = (uint8_t)(BaseTypes::BIT_3 | BaseTypes::BIT_6);
         resetBits((BaseTypes::Bits_e)bits);
     }
-    return;
+    return  Tccr8::STD_OK;
  }
  
  

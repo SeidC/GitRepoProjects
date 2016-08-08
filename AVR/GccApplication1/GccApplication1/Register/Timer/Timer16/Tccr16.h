@@ -13,29 +13,33 @@
 #include "TccrIf.h"
 
 
+#define TIMER_OPTIONAL_MODE_MAIN_MASK                0xF0
+
+#define TIMER_OPTIONAL_MODE_SUB_MASK                 0x0F
+
+
 class Tccr16 : public TccrIf 
 {
 
 //types    
 public:  
-        enum Mode_e 
+        enum TimerOptionalMode_e 
         {
-            TIMER_NORMAL,
-            PHASE_CORRECT_PWM_8BIT,
-            PHASE_CORRECT_PWM_9BIT,
-            PHASE_CORRECT_PWM_10BIT,
-            CLEAR_ON_COMPARE_1,
-            FAST_PWM_8BIT,
-            FAST_PWM_9BIT,
-            FAST_PWM_10BIT,
-            PHASE_FREQUENC_CORRECT_PWM_1,
-            PHASE_FREQUENC_CORRECT_PWM_2,
-            PHASE_CORRECT_PWM_EX_1,
-            PHASE_CORRECT_PWM_EX_2,
-            CLEAR_ON_COMPARE_2,
-            RESERVED,
-            FAST_PWM_EX_1,
-            FAST_PWM_EX_2 
+            NO_SPECIAL_MODE                                  = 0x00,                                
+            /*PWM - Special Modes*/
+            PWM_8BIT_TOP_ICR1_UPDATE_TOP                     = 0x10,
+            PWM_8BIT_TOP_OCR1A_UPDATE_TOP                    = 0x11,
+            PWM_9BIT_TOP_0x01FF_UPDATE_TOP                   = 0x12,
+            PWM_10BIT_TOP_0x03FF_UPDATE_TOP                  = 0x13,
+            PWM_FREQUENCY_CORRECT_TOP_ICR1_UPDATE_BOTTOM     = 0x14,
+            PWM_FREQUNCY_CORRECT_TOP_OCR1A_UPDATE_BOTTOM     = 0x15,
+            /*CTC - Special Modes*/
+            CLEAR_TIMER_ON_COMPARE_TOP_ICR1_UPDATE_IMMEDIATE = 0x20,
+            /*Fast PWM - Special Modes*/
+            FAST_PWM_9BIT_TOP_0x01FF_UPDATE_BOTTOM           = 0x30,
+            FAST_PWM_10BIT_TOP_0x03FF_UPDATE_BOTTOM          = 0x31,
+            FAST_PWM_TOP_ICR1_UPDATE_BOTTOM                  = 0x32,
+            FAST_PWM_TOP_OCR1A_UPDATE_BUTTON                 = 0x33,           
         };        
 //variables
 public:
@@ -49,7 +53,7 @@ public:
 	Tccr16();
 	~Tccr16();
     void toggleTimer(Toggle_e stauts);
-    void setMode(Mode_e mode);
+    StdReturn_e setTimerMode(TimerMode_e mode, TimerOptionalMode_e spMode = NO_SPECIAL_MODE);
 protected:
 private:
 	Tccr16( const Tccr16 &c );

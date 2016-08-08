@@ -43,7 +43,7 @@ uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
    }
 }
 
-void Timer16::setTimerMode(Tccr16::TimerMode_e tmode)
+Timer16::StdReturn_e Timer16::setTimerMode(Tccr16::TimerMode_e tmode)
 {
 
 }

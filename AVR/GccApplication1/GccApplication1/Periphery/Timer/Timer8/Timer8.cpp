@@ -34,9 +34,9 @@ uint16_t Timer8::getOutputCompare(void)
 
 }
 
-void Timer8::setTimerMode(Tccr8::TimerMode_e tmode)
+Timer8::StdReturn_e Timer8::setTimerMode(Tccr8::TimerMode_e tmode)
 {
-   tccr.setTimerMode(tmode);
+    
 }
 
 void Timer8::setOutputMode(Tccr8::OutputMode_e omode)

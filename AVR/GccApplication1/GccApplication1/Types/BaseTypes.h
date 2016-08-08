@@ -78,6 +78,10 @@ typedef struct
 #define GET_BITS(value,bits)                                        \
         (value & bits)
 
+
+
+
+
 class BaseTypes 
 {
     public:    
@@ -169,6 +173,8 @@ class BaseTypes
          STD_NOT_SUPPORTED,
          STD_OK,
      };   
+     
+
 };
 
 

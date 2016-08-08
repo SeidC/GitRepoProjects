@@ -31,7 +31,7 @@ public:
 	~Timer8();
     void setOutputCompare(uint8_t value);
     uint16_t getOutputCompare(void);
-    void setTimerMode(Tccr8::TimerMode_e tmode);
+    StdReturn_e setTimerMode(Tccr8::TimerMode_e tmode);
     void setOutputMode(Tccr8::OutputMode_e omode);
     void setPreScaler(Tccr8::Prescaler_e prescaler);
     Tccr8::Prescaler_e getPrescaler(void);

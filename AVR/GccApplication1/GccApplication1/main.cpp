@@ -8,12 +8,16 @@
 #include <avr/io.h>
 #include "Io.h"
 #include "AVRConfig.h"
+#include "Os.h"
+#include "Timer16.h"
 
 
 
 int main(void)
 {
-   
+    Os os;
+    Timer16 timer;
+    os.setOsTimer(&timer);
     /* Replace with your application code */
     while (1) 
     {

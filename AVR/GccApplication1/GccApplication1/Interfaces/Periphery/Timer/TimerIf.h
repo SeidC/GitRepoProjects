@@ -17,14 +17,14 @@ class TimerIf : public BaseTypes
 //functions
 public:
 	virtual ~TimerIf(){}
-	virtual void setOutputCompare(uint8_t value) = 0;
-	virtual uint16_t getOutputCompare(void) = 0;
-	virtual void setTimerMode(TccrIf::TimerMode_e tmode) = 0;
-	virtual void setOutputMode(TccrIf::OutputMode_e omode) = 0;
-	virtual void setPreScaler(TccrIf::Prescaler_e prescaler) = 0;
-	virtual TccrIf::Prescaler_e getPrescaler(void) = 0;
-	virtual void toggleTimer(TimerIf::Toggle_e status) = 0;
-	virtual uint16_t getTime(void) = 0;
+	virtual void setOutputCompare(uint8_t value)  {};
+	virtual uint16_t getOutputCompare(void) {};
+	virtual StdReturn_e setTimerMode(TccrIf::TimerMode_e tmode) {};
+	virtual void setOutputMode(TccrIf::OutputMode_e omode) {};
+	virtual void setPreScaler(TccrIf::Prescaler_e prescaler) {};
+	virtual TccrIf::Prescaler_e getPrescaler(void) {};
+	virtual void toggleTimer(TimerIf::Toggle_e status) {};
+	virtual uint16_t getTime(void) {};
 
 
 }; //TimerIf

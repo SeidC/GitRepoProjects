@@ -19,7 +19,7 @@ Tccr16::~Tccr16()
 } //~Tccr16
 
 
-void Tccr16::toggleTimer(Toggle_e status)
+void Tccr16::toggleTimer(Tccr16::Toggle_e status)
 {
     Prescaler_e prescaler;
     uint8_t bits;
@@ -29,31 +29,31 @@ void Tccr16::toggleTimer(Toggle_e status)
         RESET_BITS(bits,BIT_0|BIT_1|BIT_2);
         switch(prescaler)
         {
-            case TccrIf::NO_PRESCALER                       :
+            case Tccr16::NO_PRESCALER                       :
             SET_BIT(bits,BIT_0);
             break;
-            case TccrIf::PRESCALER_8                        :
+            case Tccr16::PRESCALER_8                        :
             SET_BIT(bits,BIT_1);
             break;
-            case TccrIf::PRESCALER_32                       :
+            case Tccr16::PRESCALER_32                       :
             
             break;
-            case TccrIf::PRESCALER_64                       :
+            case Tccr16::PRESCALER_64                       :
             SET_BITS(bits,BIT_0|BIT_1);
             break;
-            case TccrIf::PRESCALER_128                      :
+            case Tccr16::PRESCALER_128                      :
             
             break;
-            case TccrIf::PRESCALER_256                      :
+            case Tccr16::PRESCALER_256                      :
             SET_BITS(bits,BIT_2);
             break;
-            case TccrIf::PRESCALER_1024                     :
+            case Tccr16::PRESCALER_1024                     :
             SET_BITS(bits,BIT_0|BIT_2);
             break;
-            case TccrIf::EXTERNAL_TM01_SOURCE_FALLING_EDGE  :
+            case Tccr16::EXTERNAL_TM01_SOURCE_FALLING_EDGE  :
             SET_BITS(bits,BIT_0|BIT_1);
             break;
-            case TccrIf::EXTERNAL_TM01_SOURCE_RISING_EDGE   :
+            case Tccr16::EXTERNAL_TM01_SOURCE_RISING_EDGE   :
             SET_BITS(bits,BIT_0|BIT_1|BIT_2);
             break;
             default:
@@ -70,69 +70,148 @@ void Tccr16::toggleTimer(Toggle_e status)
 }
 
 
-void Tccr16::setMode(Tccr16::Mode_e mode)
+Tccr16::StdReturn_e setTimerMode(Tccr16::TimerMode_e mode, Tccr16::TimerOptionalMode_e spMode)
 {
-    switch(mode)
-    {
-        case Tccr16::TIMER_NORMAL:
-            tccra.resetBits(WGM11|WGM10);
-            tccrb.resetBits(WGM12|WGM13);
-        break;
-        case Tccr16::PHASE_CORRECT_PWM_8BIT:
-            tccra.setBit((BaseTypes::Bits_e)   WGM10);
-            tccra.resetBit((BaseTypes::Bits_e) WGM11);
-            tccrb.resetBit((BaseTypes::Bits_e) WGM12);
-            tccrb.resetBit((BaseTypes::Bits_e) WGM13);
-        break;
-        case Tccr16::PHASE_CORRECT_PWM_9BIT:
-        
-        break;
-        case Tccr16::PHASE_CORRECT_PWM_10BIT:
-        
-        break;
-        case Tccr16::CLEAR_ON_COMPARE_1:
-            tccra.resetBit((BaseTypes::Bits_e) WGM10);
-            tccra.resetBit((BaseTypes::Bits_e) WGM11);
-            tccrb.setBit((BaseTypes::Bits_e)   WGM12);
-            tccrb.resetBit((BaseTypes::Bits_e) WGM13);
-        break;
-        case Tccr16::FAST_PWM_8BIT:
-        
-        break;
-        case Tccr16::FAST_PWM_9BIT:
-        
-        break;
-        case Tccr16::FAST_PWM_10BIT:
-        
-        break;
-        case Tccr16::PHASE_FREQUENC_CORRECT_PWM_1:
-        
-        break;
-        case Tccr16::PHASE_FREQUENC_CORRECT_PWM_2:
-        
-        break;
-        case Tccr16::PHASE_CORRECT_PWM_EX_1:
-        
-        break;
-        case Tccr16::PHASE_CORRECT_PWM_EX_2:
-        
-        break;
-        case Tccr16::CLEAR_ON_COMPARE_2:
-        
-        break;
-        case Tccr16::RESERVED:
-        
-        break;
-        case Tccr16::FAST_PWM_EX_1:
-        
-        break;
-        case Tccr16::FAST_PWM_EX_2:
-        
-        break;
-        default:
-            tccra.resetBits(WGM11|WGM10);
-            tccrb.resetBits(WGM12|WGM13);
-        break;
-    }
+   Tccr16::StdReturn_e ret = Tccr16::STD_NOT_SUPPORTED;
+   uint8_t regA = 0 ,regB = 0;
+
+   switch(mode)
+   {
+      case Tccr16::NORMAL_TIMER_MODE:
+      {
+         if(spMode == Tccr16::NO_SPECIAL_MODE)
+         {
+             RESET_BIT(regA,WGM10);
+             RESET_BIT(regA,WGM11);
+             RESET_BIT(regB,WGM12);
+             RESET_BIT(regB,WGM13);
+             ret = Tccr16::STD_OK;
+         }
+         break;
+      }
+      case Tccr16::CLEAR_TIMER_ON_COMPARE_MODE:
+      {
+         if(spMode == Tccr16::NO_SPECIAL_MODE)
+         {
+            RESET_BIT(regA,WGM10);
+            RESET_BIT(regA,WGM11);
+            SET_BIT(regB,WGM12);
+            RESET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if(spMode == Tccr16::CLEAR_TIMER_ON_COMPARE_TOP_ICR1_UPDATE_IMMEDIATE)
+         {
+            RESET_BIT(regA,WGM10);
+            RESET_BIT(regA,WGM11);
+            SET_BIT(regB,WGM12);
+            SET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else
+         {
+            /*--- Do Nothing ---*/
+         }
+         break;
+      }
+      case Tccr16::PHASE_CORRECT_PWM_MODE:
+      {
+         if(spMode == Tccr16::NO_SPECIAL_MODE)
+         {
+            SET_BIT(regA,WGM10);
+            RESET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            RESET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }  
+         else if (spMode == Tccr16::PWM_8BIT_TOP_ICR1_UPDATE_TOP)
+         {
+            RESET_BIT(regA,WGM10);
+            SET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            SET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if (spMode == Tccr16::PWM_8BIT_TOP_OCR1A_UPDATE_TOP)
+         {
+            SET_BIT(regA,WGM10);
+            SET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            SET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if (spMode == Tccr16::PWM_9BIT_TOP_0x01FF_UPDATE_TOP)
+         {
+            RESET_BIT(regA,WGM10);
+            SET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            RESET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if (spMode == Tccr16::PWM_10BIT_TOP_0x03FF_UPDATE_TOP)
+         {
+            SET_BIT(regA,WGM10);
+            SET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            RESET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if (spMode == Tccr16::PWM_FREQUENCY_CORRECT_TOP_ICR1_UPDATE_BOTTOM)
+         {
+            RESET_BIT(regA,WGM10);
+            RESET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            SET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;
+         }
+         else if (spMode == Tccr16::PWM_FREQUNCY_CORRECT_TOP_OCR1A_UPDATE_BOTTOM)
+         {
+            SET_BIT(regA,WGM10);
+            RESET_BIT(regA,WGM11);
+            RESET_BIT(regB,WGM12);
+            SET_BIT(regB,WGM13);
+            ret = Tccr16::STD_OK;  
+         }
+         else
+         {
+            /*--- Do Nothing ---*/
+         }            
+         break;
+      }        
+      case Tccr16::FAST_PWM_MODE:
+      {
+      
+         break;   
+      }
+      default:
+      {
+       
+         break;  
+      }            
+
+   return ret;      
+}   
     
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 }

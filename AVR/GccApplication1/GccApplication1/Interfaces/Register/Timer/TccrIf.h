@@ -29,10 +29,10 @@ public:
    
    enum TimerMode_e
    {
-      TIMER_NORMAL                   = 0x00,
-      CLEAR_ON_COMPARE               = 0x08,
-      PHASE_CORRECT_PWM              = 0x40,
-      FAST_PWM                       = 0x48,
+      NORMAL_TIMER_MODE                   = 0x00,
+      CLEAR_TIMER_ON_COMPARE_MODE         = 0x01,
+      PHASE_CORRECT_PWM_MODE              = 0x02,
+      FAST_PWM_MODE                       = 0x03,
    };
 
    enum OutputMode_e
@@ -57,7 +57,7 @@ public:
 	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
     virtual Prescaler_e getPreScaler(void)            {return psc;};
     virtual void toggleTimer(Toggle_e stauts) {}; 
-    virtual void setTimerMode(TimerMode_e tmode) {};
+    virtual StdReturn_e setTimerMode(TimerMode_e tmode) {};
     virtual void outputMode(OutputMode_e omode) {};
 
 }; //TccrIf
