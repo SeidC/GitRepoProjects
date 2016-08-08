@@ -20,7 +20,7 @@ private:
   
    struct Task_s
    {
-      void (*fnc)(void);
+      FunctionPtr_f callback;
       uint16_t execTime;
    };
    

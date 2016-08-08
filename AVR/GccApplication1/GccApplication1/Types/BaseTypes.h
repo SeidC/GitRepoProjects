@@ -78,8 +78,7 @@ typedef struct
 #define GET_BITS(value,bits)                                        \
         (value & bits)
 
-
-
+typedef void (*FunctionPtr_f)(void);
 
 
 class BaseTypes 

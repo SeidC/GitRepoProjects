@@ -38,7 +38,7 @@ Os::StdReturn_e Os::addNewTask(uint8_t* fncPtr,  uint16_t msTime)
    StdReturn_e ret = STD_NOK;
    if(fncPtr != NULL && cNumberOfTasks < OS_NUMBER_OF_TASKS)
    {
-      tasks[cNumberOfTasks].fnc = fncPtr;
+      tasks[cNumberOfTasks].callback = (FunctionPtr_f)fncPtr;
       tasks[cNumberOfTasks].execTime = msTime;
       cNumberOfTasks ++;
       ret = STD_OK;
@@ -53,9 +53,9 @@ Os::StdReturn_e Os::deleteTask(uint8_t taskIndex)
    StdReturn_e ret = STD_NOK;
    if(taskIndex < OS_NUMBER_OF_TASKS)
    {
-      if(tasks[taskIndex].fnc != NULL)
+      if(tasks[taskIndex].callback != NULL)
       {
-         tasks[taskIndex].fnc = NULL;
+         tasks[taskIndex].callback = NULL;
          tasks[taskIndex].execTime = 0;
          ret = STD_OK;
       }
@@ -69,9 +69,9 @@ Os::StdReturn_e Os::addNewTask(uint8_t index,uint8_t* fncPtr,  uint16_t msTime)
    StdReturn_e ret = STD_NOK;
    if(index < OS_NUMBER_OF_TASKS && fncPtr != NULL)
    {
-      if(tasks[index].fnc == NULL)
+      if(tasks[index].callback == NULL)
       {
-         tasks[index].fnc = fncPtr;
+         tasks[index].callback = (FunctionPtr_f)fncPtr;
          tasks[index].execTime = msTime;
          ret = STD_OK;
       }
