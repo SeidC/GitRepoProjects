@@ -9,9 +9,12 @@
 
 
 
-Timer8Config_t timer0Cfg = 
+const Timer8Config_t timer0Cfg = 
 {
-     TIMER0_8BIT,
+     {
+         TIMER0_8BIT,
+         0xff, 
+     },
      &TCNT0,
      &TCCR0,
      &OCR0,
@@ -21,9 +24,12 @@ Timer8Config_t timer0Cfg =
 };
     
     
-Timer8Config_t timer2Cfg =
+const Timer8Config_t timer2Cfg =
 {
-    TIMER2_8_BIT_ASYNC,
+    {
+      TIMER2_8_BIT_ASYNC,
+      0xff,
+    },    
     &TCNT2,
     &TCCR2,
     &OCR2,
@@ -33,7 +39,7 @@ Timer8Config_t timer2Cfg =
 };
 
 
-PortConfig_t portACfg = 
+const PortConfig_t portACfg = 
 {
    &PORTA,
    &PINA,
@@ -41,7 +47,7 @@ PortConfig_t portACfg =
      
 };
 
-PortConfig_t portBCfg =
+const PortConfig_t portBCfg =
 {
     &PORTB,
     &PINB, 
@@ -49,14 +55,14 @@ PortConfig_t portBCfg =
     
 };
 
-PortConfig_t portCCfg =
+const PortConfig_t portCCfg =
 {
     &PORTC,
     &PINC ,
     &DDRC ,
 };
 
-PortConfig_t portDCfg =
+const PortConfig_t portDCfg =
 {
     &PORTD,
     &PIND ,

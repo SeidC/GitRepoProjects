@@ -12,14 +12,18 @@
 #include "BaseTypes.h"
 
 
-extern Timer8Config_t timer0Cfg;
-extern Timer8Config_t timer2Cfg;
+#define OS_NUMBER_OF_TASKS          2u
 
 
-extern PortConfig_t portACfg;
-extern PortConfig_t portBCfg;
-extern PortConfig_t portCCfg;
-extern PortConfig_t portDCfg;
+
+extern const Timer8Config_t timer0Cfg;
+extern const Timer8Config_t timer2Cfg;
+
+
+extern const PortConfig_t portACfg;
+extern const PortConfig_t portBCfg;
+extern const PortConfig_t portCCfg;
+extern const PortConfig_t portDCfg;
 
 extern UartConfig_t uartCfg;
 

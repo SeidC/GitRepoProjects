@@ -25,9 +25,17 @@ typedef enum
     
 }TimerType_t;
 
+
+typedef struct 
+{
+   TimerType_t type;
+   uint8_t timerMax;
+   
+}TimerInfo_t;
+
 typedef struct
 {
-    TimerType_t type;
+    TimerInfo_t info;
     vuint8_t*   tcnt;
     vuint8_t*   tccr;
     vuint8_t*   ocr;

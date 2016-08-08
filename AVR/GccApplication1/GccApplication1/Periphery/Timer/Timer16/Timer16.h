@@ -39,6 +39,7 @@ public:
    Tccr16::Prescaler_e getPrescaler(void);
    void toggleTimer(BaseTypes::Toggle_e status);
    uint16_t getTime(void);
+   bool hasTimerOverflow(void);
 
 protected:
 private:

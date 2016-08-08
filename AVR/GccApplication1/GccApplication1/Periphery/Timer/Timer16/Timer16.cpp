@@ -71,3 +71,8 @@ uint16_t Timer16::getTime(void)
 {
 
 }
+
+bool Timer16::hasTimerOverflow(void)
+{
+   
+}

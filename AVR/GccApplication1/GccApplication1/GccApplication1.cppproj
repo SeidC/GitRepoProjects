@@ -190,9 +190,6 @@
     <Compile Include="Application\Os\Os.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Application\Os\Os_Cfg.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Interfaces\Periphery\Timer\TimerIf.h">
       <SubType>compile</SubType>
     </Compile>

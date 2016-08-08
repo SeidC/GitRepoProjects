@@ -8,8 +8,7 @@
 
 #ifndef __OS_H__
 #define __OS_H__
-#include "BaseTypes.h"
-#include "Os_Cfg.h"
+#include "AVRConfig.h"
 #include "Timer8.h"
 #include "Timer16.h"
 
@@ -17,11 +16,13 @@
 class Os : public BaseTypes
 {
 private:
-  
+   
    struct Task_s
    {
       FunctionPtr_f callback;
+      uint16_t startTime;
       uint16_t execTime;
+      bool pause;
    };
    
 //variables
@@ -33,6 +34,7 @@ private:
    TimerIf *timer;
    Task_s tasks[OS_NUMBER_OF_TASKS];
    uint8_t cNumberOfTasks;
+    
 //functions
 public:
 	Os();
@@ -41,6 +43,11 @@ public:
    StdReturn_e addNewTask(uint8_t* fncPtr, uint16_t msTime = 0);
    StdReturn_e addNewTask(uint8_t index,uint8_t* fncPtr,  uint16_t msTime);
    StdReturn_e deleteTask(uint8_t taskIndex);
+   void startOs (void);
+   void run(void);
+   StdReturn_e pauseTask(uint8_t taskIndex);
+   StdReturn_e continueTask(uint8_t taskIndex);
+   
 protected:
 private:
 	Os( const Os &c );

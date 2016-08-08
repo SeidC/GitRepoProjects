@@ -12,6 +12,8 @@
 #include "Tcnt8.h"
 #include "Tccr8.h"
 #include "Ocr8.h"
+#include "Timsk.h"
+#include "Tifr.h"
 
 
 class Timer8 : public TimerIf
@@ -23,6 +25,9 @@ private:
    Tcnt8 tcnt;
    Tccr8 tccr;
    Ocr8  ocr;
+   Timsk timsk;
+   Tifr  tifr;
+   
     
 
 //functions
