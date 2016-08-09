@@ -16,6 +16,7 @@ class TimerIf : public BaseTypes
 { 
 public:
 	virtual ~TimerIf(){}
+   virtual void setConfig(Timer8Config_t *config) {};
 	virtual void setOutputCompare(uint8_t value)  {};
 	virtual uint16_t getOutputCompare(void) { return 0;};
 	virtual StdReturn_e setTimerMode(TccrIf::TimerMode_e tmode) {return BaseTypes::STD_NOT_SUPPORTED;};

@@ -187,31 +187,23 @@ Tccr16::StdReturn_e setTimerMode(Tccr16::TimerMode_e mode, Tccr16::TimerOptional
        
          break;  
       }            
-
+   }
    return ret;      
 }   
     
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-}
+void Tccr16::setTccrRegister(Tccr16::TccrType_e registerType, vuint8_t* reg)
+{
+   if(registerType == Tccr16::TCCR_A)
+   {
+      tccra.setRegister(reg);
+   }
+   else if (registerType == Tccr16::TCCR_B)
+   {
+      tccrb.setRegister(reg);
+   }
+   else
+   {
+      
+   }
+   return; 
+}   

@@ -23,3 +23,4 @@ uint16_t Tcnt16::getTime(void)
 {   
     return getValue();
 }
+

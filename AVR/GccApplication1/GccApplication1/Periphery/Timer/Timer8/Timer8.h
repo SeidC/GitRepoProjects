@@ -34,6 +34,7 @@ private:
 public:
 	Timer8(Timer8Config_t * timerCfg);
 	~Timer8();
+    void setConfig(Timer8Config_t *config);
     void setOutputCompare(uint8_t value);
     uint16_t getOutputCompare(void);
     StdReturn_e setTimerMode(Tccr8::TimerMode_e tmode);

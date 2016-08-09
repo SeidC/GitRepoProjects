@@ -18,8 +18,8 @@ const Timer8Config_t timer0Cfg =
      &TCNT0,
      &TCCR0,
      &OCR0,
-     NULL,
-     NULL,
+     &TIMSK,
+     &TIFR,
      NULL,
 };
     
@@ -33,9 +33,26 @@ const Timer8Config_t timer2Cfg =
     &TCNT2,
     &TCCR2,
     &OCR2,
-    NULL,
-    NULL,
+    &TIMSK,
+    &TIFR,
     &ASSR,
+};
+
+const Timer16Config_t timer1Cfg = 
+{
+   {
+      TIMER1_16_BIT,
+      0xffff,
+   },
+   &TCNT1,
+   &TCCR1A,
+   &TCCR1B,
+   &OCR1A,
+   &OCR1B,
+   &ICR1,
+   &TIMSK,
+   &TIFR,
+   NULL,
 };
 
 
@@ -84,7 +101,7 @@ UartConfig_t uartCfg =
 
 void * operator new(size_t n)
 {
-
+   return NULL;
 }
 
 void operator delete(void * p) // or delete(void *, std::size_t)

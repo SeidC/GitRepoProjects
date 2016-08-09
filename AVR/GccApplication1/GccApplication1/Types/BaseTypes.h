@@ -29,7 +29,7 @@ typedef enum
 typedef struct 
 {
    TimerType_t type;
-   uint8_t timerMax;
+   uint16_t timerMax;
    
 }TimerInfo_t;
 
@@ -44,6 +44,21 @@ typedef struct
     vuint8_t*   assr;
     
 }Timer8Config_t;
+
+typedef struct
+{
+   TimerInfo_t info;
+   vuint16_t*  tcnt;
+   vuint8_t*   tccrA;
+   vuint8_t*   tccrB;
+   vuint16_t*  ocrA;
+   vuint16_t*  ocrB;
+   vuint16_t*  icr;
+   vuint8_t*   timsk;
+   vuint8_t*   tifr;
+   vuint8_t*   assr;
+   
+}Timer16Config_t;
 
 
 
@@ -147,18 +162,19 @@ class BaseTypes
     {
         BIT_LOW                 = 0,
         BIT_HIGH                = 1,  
-    };    
+    };   
+     
     union Bit8Register_t
     {
         struct   Bits8_s* bits;
-        volatile uint8_t* byte;
+        vuint8_t* byte;
     };
     
     
      union Bit16Register_t
      {
          struct   Bits16_s* bits;
-         volatile uint16_t* byte;
+         vuint16_t* byte;
      };
      
      

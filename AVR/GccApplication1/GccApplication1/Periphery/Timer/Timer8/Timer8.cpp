@@ -11,8 +11,7 @@
 // default constructor
 Timer8::Timer8(Timer8Config_t * timerCfg)
 {
-   
-  
+   setConfig(timerCfg);  
 } //Timer8
 
 // default destructor
@@ -21,7 +20,15 @@ Timer8::~Timer8()
 } //~Timer8
 
 
-
+void Timer8::setConfig(Timer8Config_t *config)
+{
+   tcnt.setRegister(config->tcnt);
+   tccr.setRegister(config->tccr);
+   ocr.setRegister(config->ocr);
+   timsk.setRegister(config->timsk);
+   tifr.setRegister(config->tifr);
+   return;
+}
 
 void Timer8::setOutputCompare(uint8_t rawValue)
 {

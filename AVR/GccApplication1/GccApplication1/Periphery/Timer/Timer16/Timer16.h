@@ -13,6 +13,8 @@
 #include "Tccr16.h"
 #include "Ocr16.h"
 #include "Icr16.h"
+#include "Timsk.h"
+#include "Tifr.h"
 
 class Timer16 : public TimerIf
 {
@@ -23,14 +25,18 @@ protected:
 private:
    Tcnt16 tcnt;
    Tccr16 tccr;
-   Ocr16 ocrA;
-   Ocr16 ocrB;
-   Icr16 icr;
+   Ocr16  ocrA;
+   Ocr16  ocrB;
+   Icr16  icr;
+   Timsk  timsk;
+   Tifr   tifr;
 
 //functions
 public:
-	Timer16();
+   Timer16();
+	Timer16(Timer16Config_t *config);
 	~Timer16();
+   void setConfig(Timer16Config_t *config);
    void setOutputCompare(Ocr16::OutputCompareRegister_e ocr, uint8_t value);
    uint16_t getOutputCompare(Ocr16::OutputCompareRegister_e ocr);
    StdReturn_e setTimerMode(Tccr16::TimerMode_e tmode);

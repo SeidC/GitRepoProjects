@@ -40,7 +40,13 @@ public:
             FAST_PWM_10BIT_TOP_0x03FF_UPDATE_BOTTOM          = 0x31,
             FAST_PWM_TOP_ICR1_UPDATE_BOTTOM                  = 0x32,
             FAST_PWM_TOP_OCR1A_UPDATE_BUTTON                 = 0x33,           
-        };        
+        };   
+        
+        enum TccrType_e
+        {
+            TCCR_A,
+            TCCR_B,   
+        };     
 //variables
 public:
 protected:
@@ -54,6 +60,7 @@ public:
 	~Tccr16();
     void toggleTimer(Toggle_e stauts);
     StdReturn_e setTimerMode(TimerMode_e mode, TimerOptionalMode_e spMode = NO_SPECIAL_MODE);
+    void setTccrRegister(TccrType_e registerType, vuint8_t* reg);
 protected:
 private:
 	Tccr16( const Tccr16 &c );

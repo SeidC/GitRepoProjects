@@ -88,11 +88,13 @@ void Os::startOs(void)
 void Os::run(void)
 {
    uint8_t i;
+   uint16_t time;
    while(1)
    {
       for(i = 0; i < cNumberOfTasks; i++)
       {
-         
+         time = timer->getTime();
+            
       }
    }
 }

@@ -22,8 +22,8 @@ class RegIf16 : public RegIf
     ~RegIf16(){}
      uint16_t getValue(void)                                {return *avrRegister.byte;}
      void setValue(uint16_t value)                          {*avrRegister.byte = value;}
-     void setRegister(volatile uint16_t *reg)                {avrRegister.byte = reg;}
-     void getRegister(BaseTypes::Bit16Register_t* regPtr)    {regPtr =  &avrRegister;}
+     void setRegister(vuint16_t *reg)                       {avrRegister.byte = reg;}
+     void getRegister(BaseTypes::Bit16Register_t* regPtr)   {regPtr =  &avrRegister;}
         
     //Setter
   

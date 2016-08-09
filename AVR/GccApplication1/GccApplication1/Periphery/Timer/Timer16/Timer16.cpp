@@ -7,10 +7,15 @@
 
 
 #include "Timer16.h"
-
-// default constructor
 Timer16::Timer16()
 {
+   
+}
+
+// default constructor
+Timer16::Timer16(Timer16Config_t *config)
+{
+   setConfig(config);
     
 } //Timer16
 
@@ -18,6 +23,20 @@ Timer16::Timer16()
 Timer16::~Timer16()
 {
 } //~Timer16
+
+
+void Timer16::setConfig(Timer16Config_t *config)
+{
+   tcnt.setRegister(config->tcnt);
+   tccr.setTccrRegister(Tccr16::TCCR_A,config->tccrA);
+   tccr.setTccrRegister(Tccr16::TCCR_B,config->tccrB);
+   ocrA.setRegister(config->ocrA);
+   ocrB.setRegister(config->ocrB);
+   icr.setRegister(config->icr);
+   timsk.setRegister(config->timsk);
+   tifr.setRegister(config->tifr);   
+   return;
+}
 
 void Timer16::setOutputCompare(Ocr16::OutputCompareRegister_e ocr, uint8_t rawValue)
 {

@@ -55,10 +55,10 @@ protected:
 public:
 	virtual ~TccrIf(){}
 	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
-    virtual Prescaler_e getPreScaler(void)            {return psc;};
-    virtual void toggleTimer(Toggle_e stauts) {}; 
-    virtual StdReturn_e setTimerMode(TimerMode_e tmode) {};
-    virtual void outputMode(OutputMode_e omode) {};
+   virtual Prescaler_e getPreScaler(void)            {return psc;};
+   virtual void toggleTimer(Toggle_e stauts) {}; 
+   virtual StdReturn_e setTimerMode(TimerMode_e tmode) {};
+   virtual void outputMode(OutputMode_e omode) {};
 
 }; //TccrIf
 
