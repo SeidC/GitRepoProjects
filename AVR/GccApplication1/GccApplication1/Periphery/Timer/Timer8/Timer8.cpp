@@ -66,3 +66,21 @@ uint16_t Timer8::getTime(void)
 {
    return tcnt.getTime();
 }
+
+bool Timer8::hasOverflow(void)
+{
+   bool ret = false;
+   if(this->getTimerType() == TIMER0_8BIT)
+   {
+      ret = tifr.hasOverflow(Tifr::TIMER_OVERFLOW_0);   
+   }
+   else if (this->getTimerType() == TIMER2_8_BIT_ASYNC)
+   {
+      ret = tifr.hasOverflow(Tifr::TIMER_OVERFLOW_2);   
+   }
+   else
+   {
+       
+   }
+   return ret; 
+}

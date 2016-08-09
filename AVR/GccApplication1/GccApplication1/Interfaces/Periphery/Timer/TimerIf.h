@@ -28,7 +28,7 @@ public:  // Virtual Methods
 	virtual TccrIf::Prescaler_e getPrescaler(void) { return TccrIf::NO_PRESCALER;};
 	virtual void toggleTimer(TimerIf::Toggle_e status) {};
 	virtual uint16_t getTime(void) {};
-   virtual bool hasTimerOverflow(void) { return false;}
+   virtual bool hasOverflow(void) { return false;}
 
 public:  //Methods
     uint16_t getMaxTimerValue(void) {return tInfo->timerMax;}

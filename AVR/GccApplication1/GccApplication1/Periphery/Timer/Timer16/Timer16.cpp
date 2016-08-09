@@ -57,7 +57,7 @@ uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
    {
       return ocrA.getOutputCompare();
    }
-   else
+   else if(ocr == Ocr16::OCR_B)
    {
       return ocrB.getOutputCompare();
    }
@@ -89,10 +89,10 @@ void Timer16::toggleTimer(BaseTypes::Toggle_e status)
 
 uint16_t Timer16::getTime(void)
 {
-
+   return tcnt.getTime();
 }
 
 bool Timer16::hasTimerOverflow(void)
 {
-   
+   return (bool)tifr.hasOverflow(Tifr::TIMER_OVERFLOW_1);
 }

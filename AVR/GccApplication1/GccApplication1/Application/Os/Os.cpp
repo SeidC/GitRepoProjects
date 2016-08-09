@@ -94,7 +94,10 @@ void Os::run(void)
       for(i = 0; i < cNumberOfTasks; i++)
       {
          time = timer->getTime();
+         if(timer->hasOverflow())
+         {
             
+         }
       }
    }
 }

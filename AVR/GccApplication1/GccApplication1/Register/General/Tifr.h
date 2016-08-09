@@ -14,6 +14,12 @@ class Tifr : public RegIf8
 {
 //variables
 public:
+   enum Overflow_e
+   {
+       TIMER_OVERFLOW_0,  
+       TIMER_OVERFLOW_1,
+       TIMER_OVERFLOW_2
+   };
 protected:
 private:
 
@@ -21,10 +27,12 @@ private:
 public:
 	Tifr();
 	~Tifr();
+   bool hasOverflow(Overflow_e timer);
 protected:
 private:
 	Tifr( const Tifr &c );
 	Tifr& operator=( const Tifr &c );
+   
 
 }; //Tifr
 
