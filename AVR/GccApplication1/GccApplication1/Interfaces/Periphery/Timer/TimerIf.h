@@ -14,9 +14,12 @@
 
 class TimerIf : public BaseTypes
 { 
-public:
+private: 
+   TimerInfo_t *tInfo;
+   
+public:  // Virtual Methods
 	virtual ~TimerIf(){}
-   virtual void setConfig(Timer8Config_t *config) {};
+   virtual void setConfig(Timer8Config_t *config) {setInfo(&config->info);};
 	virtual void setOutputCompare(uint8_t value)  {};
 	virtual uint16_t getOutputCompare(void) { return 0;};
 	virtual StdReturn_e setTimerMode(TccrIf::TimerMode_e tmode) {return BaseTypes::STD_NOT_SUPPORTED;};
@@ -27,6 +30,11 @@ public:
 	virtual uint16_t getTime(void) {};
    virtual bool hasTimerOverflow(void) { return false;}
 
+public:  //Methods
+    uint16_t getMaxTimerValue(void) {return tInfo->timerMax;}
+    TimerType_t getTimerType(void) {return tInfo->type;}
+protected: //Methods
+   void setInfo(TimerInfo_t* info) {tInfo = info;}
 
 }; //TimerIf
 

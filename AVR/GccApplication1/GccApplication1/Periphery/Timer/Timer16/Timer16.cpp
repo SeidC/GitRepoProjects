@@ -34,7 +34,8 @@ void Timer16::setConfig(Timer16Config_t *config)
    ocrB.setRegister(config->ocrB);
    icr.setRegister(config->icr);
    timsk.setRegister(config->timsk);
-   tifr.setRegister(config->tifr);   
+   tifr.setRegister(config->tifr);    
+   setInfo(&config->info);
    return;
 }
 

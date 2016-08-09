@@ -27,6 +27,7 @@ void Timer8::setConfig(Timer8Config_t *config)
    ocr.setRegister(config->ocr);
    timsk.setRegister(config->timsk);
    tifr.setRegister(config->tifr);
+   setInfo(&config->info);
    return;
 }
 
