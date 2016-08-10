@@ -60,6 +60,7 @@ public:
 	~Tccr16();
     void toggleTimer(Toggle_e stauts);
     StdReturn_e setTimerMode(TimerMode_e mode, TimerOptionalMode_e spMode = NO_SPECIAL_MODE);
+    void setOutputMode(TccrIf::OutputMode_e omode);
     void setTccrRegister(TccrType_e registerType, vuint8_t* reg);
 protected:
 private:

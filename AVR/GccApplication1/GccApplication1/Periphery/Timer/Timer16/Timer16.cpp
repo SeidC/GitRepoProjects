@@ -65,26 +65,26 @@ uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
 
 Timer16::StdReturn_e Timer16::setTimerMode(Tccr16::TimerMode_e tmode)
 {
-
+   return setTimerMode(tmode);
 }
 void Timer16::setOutputMode(Tccr16::OutputMode_e omode)
 {
-
+   tccr.setOutputMode(omode);
 }
 
 void Timer16::setPreScaler(Tccr16::Prescaler_e prescaler)
 {
-
+   tccr.setPreScaler(prescaler);
 }
 
 Tccr16::Prescaler_e Timer16::getPrescaler(void)
 {
-
+   return tccr.getPreScaler();
 }
 
 void Timer16::toggleTimer(BaseTypes::Toggle_e status)
 {
-
+   tccr.toggleTimer(status);
 }
 
 uint16_t Timer16::getTime(void)

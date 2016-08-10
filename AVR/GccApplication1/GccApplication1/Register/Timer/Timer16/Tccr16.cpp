@@ -207,3 +207,9 @@ void Tccr16::setTccrRegister(Tccr16::TccrType_e registerType, vuint8_t* reg)
    }
    return; 
 }   
+
+
+void Tccr16::setOutputMode(Tccr16::OutputMode_e omode)
+{
+   
+}
