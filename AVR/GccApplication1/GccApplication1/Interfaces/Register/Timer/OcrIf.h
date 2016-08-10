@@ -24,9 +24,9 @@ public:
 public:
 	virtual ~OcrIf(){}
 	virtual void setOutputCompare(uint8_t value) {};            	
-   virtual uint16_t getOutputCompare(void)  {};
+   virtual uint16_t getOutputCompare(void)  {return 0;};
    virtual void setOutputCompareTime(uint8_t msTime) {};
-   virtual uint16_t getOutputCompareTime(void) {};
+   virtual uint16_t getOutputCompareTime(void) {return 0;};
     
 }; //OcrIf
 

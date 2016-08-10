@@ -13,6 +13,30 @@
 #include <stddef.h>
 #include <avr/io.h>
 
+
+#define ON  1u
+#define OFF 0u
+
+#define SET_BIT(value,bit)                                          \
+(value |= (1 << bit))
+
+#define SET_BITS(value,bits)                                        \
+(value |= bits)
+
+#define RESET_BIT(value,bit)                                        \
+(value &= ~(1 << bit))
+
+#define RESET_BITS(value,bits)                                      \
+(value &= ~(bits))
+
+#define GET_BIT(value,bit)                                          \
+((value & (bit+1)) >> bit)
+
+#define GET_BITS(value,bits)                                        \
+(value & bits)
+
+
+
 typedef volatile uint8_t vuint8_t;
 
 typedef volatile uint16_t vuint16_t;
@@ -81,25 +105,6 @@ typedef struct
     vuint8_t*  ubrrh;
     
 }UartConfig_t;
-
-
-#define SET_BIT(value,bit)                                          \
-        (value |= (1 << bit))
-
-#define SET_BITS(value,bits)                                        \
-        (value |= bits)
-
-#define RESET_BIT(value,bit)                                        \
-        (value &= ~(1 << bit))
-        
-#define RESET_BITS(value,bits)                                      \
-        (value &= ~(bits))
-        
-#define GET_BIT(value,bit)                                          \
-        ((value & (bit+1)) >> bit)
-
-#define GET_BITS(value,bits)                                        \
-        (value & bits)
 
 typedef void (*FunctionPtr_f)(void);
 

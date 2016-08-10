@@ -30,8 +30,10 @@ class RegIf8 : public RegIf
     protected:
     //Setter
     void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
+    void setBit(uint16_t bit)                                {SET_BIT(*avrRegister.byte,bit);}
     void setValue(uint8_t value)                            {*avrRegister.byte = value;}
     void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
+    void resetBit(uint16_t bit)                             {RESET_BIT(*avrRegister.byte,bit);}
     //Getter:
     uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
     uint16_t getValue(void)                                 {return (uint16_t)*avrRegister.byte;};

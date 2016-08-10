@@ -7,7 +7,11 @@
 
 #include "AVRConfig.h"
 
+#if (INFO_DISPLAY == ON)
 
+
+
+#endif
 
 const Timer8Config_t timer0Cfg = 
 {

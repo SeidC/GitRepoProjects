@@ -27,21 +27,37 @@ Tccr8::~Tccr8()
 } //~Tccr8
 
 
- Tccr8::StdReturn_e Tccr8::setTimerMode(Tccr8::TimerMode_e tmode)
+ Tccr8::StdReturn_e Tccr8::setTimerMode(Tccr8::TimerMode_e mode)
  {
     uint8_t bits;
+    Tccr8::StdReturn_e ret = STD_NOK;
     
-    if(tmode != NORMAL_TIMER_MODE)
+    switch(mode)
     {
-        bits = (BaseTypes::Bits_e)tmode;
-        setBits(bits);
+       case Tccr8::NORMAL_TIMER_MODE:
+         resetBit(WGM00);
+         resetBit(WGM01);
+         ret = STD_OK;
+       break;
+       case Tccr8::PHASE_CORRECT_PWM_MODE:
+         setBit(WGM00);
+         resetBit(WGM01);
+         ret = STD_OK;
+       break;
+       case Tccr8::CLEAR_TIMER_ON_COMPARE_MODE:
+         resetBit(WGM00);
+         setBit(WGM01);
+         ret = STD_OK;
+       break;
+       case Tccr8::FAST_PWM_MODE:
+         setBit(WGM00);
+         setBit(WGM01);
+         ret = STD_OK;
+       break;
+       default:
+       break;
     }
-    else
-    {   
-        bits = (uint8_t)(BaseTypes::BIT_3 | BaseTypes::BIT_6);
-        resetBits((BaseTypes::Bits_e)bits);
-    }
-    return  Tccr8::STD_OK;
+    return ret;
  }
  
  
@@ -55,6 +71,9 @@ Tccr8::~Tccr8()
      }
      else
      {
+         bits = (uint8_t)(BaseTypes::BIT_4 | BaseTypes::BIT_5);
+         resetBits(bits);
+         
          bits = (BaseTypes::Bits_e)(omode << ((uint8_t) BaseTypes::BIT_4));
          setBits((BaseTypes::Bits_e)bits);
      }

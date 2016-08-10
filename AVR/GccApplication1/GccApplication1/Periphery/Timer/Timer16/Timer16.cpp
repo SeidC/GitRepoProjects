@@ -53,14 +53,16 @@ void Timer16::setOutputCompare(Ocr16::OutputCompareRegister_e ocr, uint8_t rawVa
 
 uint16_t Timer16::getOutputCompare(Ocr16::OutputCompareRegister_e ocr)
 {
+   uint16_t ret = 0;
    if(ocr == Ocr16::OCR_A)
    {
-      return ocrA.getOutputCompare();
+      ret = ocrA.getOutputCompare();
    }
    else if(ocr == Ocr16::OCR_B)
    {
-      return ocrB.getOutputCompare();
+      ret =  ocrB.getOutputCompare();
    }
+   return ret;
 }
 
 Timer16::StdReturn_e Timer16::setTimerMode(Tccr16::TimerMode_e tmode)

@@ -12,6 +12,11 @@
 #include "BaseTypes.h"
 
 
+
+
+#define INFO_DISPLAY                OFFs
+
+
 #define OS_NUMBER_OF_TASKS          2u
 
 

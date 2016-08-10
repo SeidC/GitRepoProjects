@@ -27,7 +27,7 @@ public:  // Virtual Methods
 	virtual void setPreScaler(TccrIf::Prescaler_e prescaler) {};
 	virtual TccrIf::Prescaler_e getPrescaler(void) { return TccrIf::NO_PRESCALER;};
 	virtual void toggleTimer(TimerIf::Toggle_e status) {};
-	virtual uint16_t getTime(void) {};
+	virtual uint16_t getTime(void) {return 0;};
    virtual bool hasOverflow(void) { return false;}
 
 public:  //Methods
