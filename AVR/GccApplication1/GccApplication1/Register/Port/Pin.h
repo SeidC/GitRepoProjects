@@ -28,6 +28,12 @@ public:
         PIN_7           = 0x07,
     };
     
+     enum PinStatus_e
+     {
+        PIN_LOW,
+        PIN_HIGH,
+     };
+    
 protected:
 
 //functions
