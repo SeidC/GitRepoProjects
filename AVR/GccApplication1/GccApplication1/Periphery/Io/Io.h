@@ -28,7 +28,9 @@ public:
 protected:
 
 private:
-     
+    Pin pin;
+    Port port;
+    Ddr ddr; 
 
 //functions
 public:

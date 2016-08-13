@@ -38,8 +38,7 @@ void Timer8::setOutputCompare(uint8_t rawValue)
 
 uint16_t Timer8::getOutputCompare(void)
 {
-   return ocr.getOutputCompare();
-
+   return ocr.getOutputCompare();            
 }
 
 Timer8::StdReturn_e Timer8::setTimerMode(Tccr8::TimerMode_e tmode)

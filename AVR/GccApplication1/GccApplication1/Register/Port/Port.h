@@ -15,22 +15,22 @@ class Port : public RegIf8
 //variables
 public:
 
-    enum Pin_e
+    enum Port_e
     {
-        PIN_0           = 0x00,
-        PIN_1           = 0x01,
-        PIN_2           = 0x02,
-        PIN_3           = 0x03,
-        PIN_4           = 0x04,
-        PIN_5           = 0x05,
-        PIN_6           = 0x06,
-        PIN_7           = 0x07,
+        PORT_0           = 0x00,
+        PORT_1           = 0x01,
+        PORT_2           = 0x02,
+        PORT_3           = 0x03,
+        PORT_4           = 0x04,
+        PORT_5           = 0x05,
+        PORT_6           = 0x06,
+        PORT_7           = 0x07,
     };
     
-    enum PinStatus_e
+    enum PortStatus_e
     {
-        PIN_LOW,    
-        PIN_HIGH,        
+        PORT_LOW,    
+        PORT_HIGH,        
     };
     
     enum PullUpStatus_e
@@ -44,7 +44,7 @@ protected:
 public:
 	Port(vuint8_t* portPtr);
 	~Port();
-    void setPin(Pin_e pin,PinStatus_e status);
+    void setPin(Port_e pin,PortStatus_e status);
     void setPinsHigh(uint8_t pinMask);
     void setPinsLow(uint8_t pinMask);
     void setPullUp(Pin_e pin,PullUpStatus_e status);
