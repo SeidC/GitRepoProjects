@@ -22,7 +22,31 @@ class Io : public BaseTypes
 {
 //types    
 public: 
+   enum IoDirection_e
+   {
+      IO_INPUT,
+      IO_OUTPUT,   
+   };
+   
+   enum IoPin_e
+   {
+      IO_PIN_0 = 0x00,
+      IO_PIN_1 = 0x01,
+      IO_PIN_2 = 0x02,
+      IO_PIN_3 = 0x03,
+      IO_PIN_4 = 0x04,
+      IO_PIN_5 = 0x05,
+      IO_PIN_6 = 0x06,
+      IO_PIN_7 = 0x07,   
+   };
+   
+   enum IoStatus_e
+   {
+      IO_LOW            = 0x00,
+      IO_HIGH   
+   };
 
+  
 //variables
 public:
 protected:
@@ -36,12 +60,11 @@ private:
 public:
 	Io(PortConfig_t* portConfig);
 	~Io();
-   void setDirection(Port::Port_e port, Ddr::Direction_e dirStatus);
-   Pin::PinStatus_e getPin(Pin::Pin_e pin);
-   void setPin(Pin_e pin,Pin_e status);
-   void setPinsHigh(uint8_t pinMask);
-   void setPinsLow(uint8_t pinMask);
-   void setPullUp(Pin_e pin,PullUpStatus_e status);
+   void setDirection(IoPin_e io, IoDirection_e ioStatus);
+   IoDirection_e getDirection(IoPin_e io);
+   IoStatus_e getIo(IoPin_e io);
+   void setIo(IoPin_e,IoStatus_e ioStatus);
+   void setPullUp(IoPin_e io,IoStatus_e ioPullup);
 protected:
 private:
 	Io( const Io &c );

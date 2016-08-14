@@ -33,22 +33,18 @@ public:
         PORT_HIGH,        
     };
     
-    enum PullUpStatus_e
-    {
-        PULL_UP_DISABLE,
-        PULL_UP_ENABLE    
-    };
 protected:
 
 //functions
 public:
+   Port();
 	Port(vuint8_t* portPtr);
 	~Port();
-    void setPin(Port_e pin,PortStatus_e status);
-    void setPinsHigh(uint8_t pinMask);
-    void setPinsLow(uint8_t pinMask);
-    void setPullUp(Pin_e pin,PullUpStatus_e status);
-    
+    void setPort(Port_e pin,PortStatus_e status);
+    void setPortsHigh(uint8_t pinMask);
+    void setPortsLow(uint8_t pinMask);
+    PortStatus_e getPort(Port::Port_e port);
+      
 private:
 	Port( const Port &c );
 	Port& operator=( const Port &c );

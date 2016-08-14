@@ -8,6 +8,11 @@
 
 #include "Pin.h"
 
+Pin::Pin()
+{
+   
+} //Pin
+
 // default constructor
 Pin::Pin(vuint8_t* pinPtr)
 {
@@ -20,7 +25,7 @@ Pin::~Pin()
 } //~Pin
 
 
-BaseTypes::BitStatus_e Pin::getPin(Pin::Pin_e pin)
+Pin::PinStatus_e Pin::getPin(Pin::Pin_e pin)
 {
-    return (BaseTypes::BitStatus_e)getBit((BaseTypes::Bits_e)pin);
+    return (Pin::PinStatus_e)this->getBit((BaseTypes::Bits_e)pin);
 }

@@ -15,11 +15,23 @@ class Ddr : public RegIf8
     
 // Datatypes
 public:
-    enum Direction_e
-    {
-        OUTPUT          = 0x00,
-        INPUT           = 0x01,    
-    };
+   enum DdrPin_e
+   {
+      DDR_0           = 0x00,
+      DDR_1           = 0x01,
+      DDR_2           = 0x02,
+      DDR_3           = 0x03,
+      DDR_4           = 0x04,
+      DDR_5           = 0x05,
+      DDR_6           = 0x06,
+      DDR_7           = 0x07,
+   };
+   
+   enum DdrDirection_e
+   {
+      DDR_INPUT           = 0x00,
+      DDR_OUTPUT          = 0x01,    
+   };
     
 //variables
 public:
@@ -27,9 +39,11 @@ protected:
 
 //functions
 public:
+   Ddr();
 	Ddr(vuint8_t* ddrPtr);
 	~Ddr();
-    void setDirection(BaseTypes::Bits_e bit, Direction_e dirStatus);
+    void setDirection(DdrPin_e pin, DdrDirection_e dirStatus);
+    DdrDirection_e getDirection(DdrPin_e pin);
 
 private:
 	Ddr( const Ddr &c );

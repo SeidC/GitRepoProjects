@@ -1,23 +1,26 @@
 
 #include "Ddr.h"
  
+ Ddr::Ddr()
+ {
+   
+ }
+ 
  Ddr::Ddr(vuint8_t* ddrPtr)
  {
-     setRegister(ddrPtr);
-     setBits(0xFF);
-     
+     this->setRegister(ddrPtr);
+     this->setBits(0xFF);     
  }
  
  
- void Ddr::setDirection(BaseTypes::Bits_e bit, Ddr::Direction_e dirStatus)
+ void Ddr::setDirection(Ddr::DdrPin_e pin,Ddr::DdrDirection_e dirStatus)
  {
-     if(dirStatus == INPUT) 
+     if(dirStatus == Ddr::DDR_INPUT) 
      {
-        resetBit(bit);
+        this->resetBit((BaseTypes::Bits_e)pin);
      }     
      else
      {
-        setBit(bit);
-         
+        this->setBit((BaseTypes::Bits_e)pin);             
      }     
  }

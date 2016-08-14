@@ -9,10 +9,15 @@
 #include "Port.h"
 
 // default constructor
+ Port::Port()
+ {
+    
+ }
+
 Port::Port(vuint8_t* portPtr)
 {
-    setRegister(portPtr);
-    setBits(0x00);
+    this->setRegister(portPtr);
+    this->setBits(0x00);
 } //Port
 
 // default destructor
@@ -20,37 +25,30 @@ Port::~Port()
 {
 } //~Port
 
- void Port::setPin(Port::Pin_e pin,Port::PinStatus_e status)
+ void Port::setPort(Port::Port_e pin,Port::PortStatus_e status)
  {
-    if(status == Port::PIN_HIGH)
+    if(status == Port::PORT_HIGH)
     {
-        setBit((BaseTypes::Bits_e)pin);
+        this->setBit((BaseTypes::Bits_e)pin);
     }
     else
     {
-        resetBit((BaseTypes::Bits_e)pin);
+        this->resetBit((BaseTypes::Bits_e)pin);
     }
  }
+  
  
- void Port::setPullUp(Pin_e pin,PullUpStatus_e status)
- {
-     if(status == Port::PULL_UP_ENABLE)
-     {
-         setBit((BaseTypes::Bits_e)pin);
-     }
-     else
-     {
-         resetBit((BaseTypes::Bits_e)pin);
-     }
- }
+void Port::setPortsHigh(uint8_t pinMask)
+{
+   this->setBits(pinMask);
+}
  
+void Port::setPortsLow(uint8_t pinMask)
+{
+   this->resetBits(pinMask);
+}
  
- void Port::setPinsHigh(uint8_t pinMask)
- {
-     setBits(pinMask);
- }
- 
- void Port::setPinsLow(uint8_t pinMask)
- {
-     resetBits(pinMask);
- }
+Port::PortStatus_e Port::getPort(Port::Port_e port)
+{
+   return (Port::PortStatus_e) this->getBit((BaseTypes::Bits_e)port);
+}

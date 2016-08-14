@@ -29,7 +29,6 @@ Tccr8::~Tccr8()
 
  Tccr8::StdReturn_e Tccr8::setTimerMode(Tccr8::TimerMode_e mode)
  {
-    uint8_t bits;
     Tccr8::StdReturn_e ret = STD_NOK;
     
     switch(mode)

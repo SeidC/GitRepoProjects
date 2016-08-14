@@ -38,9 +38,10 @@ protected:
 
 //functions
 public:
+   Pin();
 	Pin(vuint8_t* pinPtr);
 	~Pin();
-    BaseTypes::BitStatus_e getPin(Pin::Pin_e pin);
+    PinStatus_e getPin(Pin::Pin_e pin);
     
 private:
 	//Pin( const Pin &c );

@@ -11,17 +11,10 @@
 #include "Os.h"
 #include "Timer16.h"
 
-#define MSG_1 "YOUR TASK TIME IS"
-#define X " 4 "
-#define MSG_2 "ms"
-
-#define MSG        MSG_1     \
-                  X        \
-                  MSG_2
                   
-#message (MSG)
+//#pragma message (MSG)
 
-#warning "info"
+//#warning "info"
 
 int main(void)
 {
