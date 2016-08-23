@@ -4,6 +4,39 @@
 #include "Globals.au3"
 
 
+Func GetAllFromFile($path,$retType)
+	Local $ret
+	If $retType = $RETURN_AS_ARRAY Then
+		$ret = GetAllFromFileToArray($path)
+		SetError(@error)
+	ElseIf $retType = $RETURN_AS_STRING Then
+		$ret = GetAllFromFileToString($path)
+		SetError(@error)
+	Else
+		SetError(-1)
+		$ret = -1
+	EndIf
+	Return $ret
+EndFunc
+
+Func GetAllFromFileToString($path)
+	Local $data, $hndl, $error
+
+	$hndl = FileOpen($path,$FO_READ)
+	$error = @error
+
+	If Not $error Then
+		$data = FileRead($hndl)
+		SetError(@error,@extended)
+		FileClose($hndl)
+	Else
+		SetError($error)
+	EndIf
+
+	Return $data
+EndFunc
+
+
 Func GetAllFromFileToArray($path)
 	Local $dataAv, $hndl, $error
 
@@ -27,8 +60,8 @@ Func CommentFiles(ByRef $files)
 	Local $dataAv, $path
 	For $i = 1 To UBound($files) - 1
 		$path   = $files[$i]
-		$dataAv = GetAllFromFileToArray($path)
-		CheckCodeData($dataAv)
+		$dataAv = GetAllFromFile($path,$RETURN_AS_STRING)
+
 	Next
 EndFunc
 
@@ -45,18 +78,6 @@ Func VerifyCodeLines($lineTxt,$type)
 
 	EndSwitch
 
-EndFunc
-
-
-Func CheckCodeData(ByRef $dAv)
-	If IsArray($dAv) Then
-		For $i = 0 To UBound($dAv) - 1
-
-
-		Next
-	Else
-
-	EndIf
 EndFunc
 
 Func VerifyHeader($lineTxt)
@@ -89,8 +110,13 @@ EndFunc
 
 Func GetRegExp($type)
 	Local $ret = -1
+	Local $pType = GetProjectType()
 	If $type < $NUMBER_OF_REG_EXP Then
-		$ret = $regExp[$type]
+		$ret = $regExp[$pType][$type]
 	EndIf
 	Return $ret
+EndFunc
+
+Func GetProjectType()
+	Return $projectType
 EndFunc
