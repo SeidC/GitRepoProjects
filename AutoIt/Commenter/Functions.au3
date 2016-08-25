@@ -56,67 +56,73 @@ EndFunc
 
 
 
-Func CommentFiles(ByRef $files)
-	Local $dataAv, $path
-	For $i = 1 To UBound($files) - 1
-		$path   = $files[$i]
-		$dataAv = GetAllFromFile($path,$RETURN_AS_STRING)
+
+;~ Func LineRegExp($txt,$regExp)
+;~ 	Local $av, $error
+;~ 	$regExp = GetRegExp($regExp)
+;~ 	$av = StringRegExp($txt,$regExp,3)
+;~ 	$error = @error
+
+;~ 	If $error <> 0 Then
+;~ 		$av = -1
+;~ 	EndIf
+
+;~ 	SetError($error)
+;~ 	return $av
+;~ EndFunc
+
+Func GetRegExp($projectType,$regExpType)
+	Local $ret = -1
+	If $regExpType < $NUMBER_OF_REG_EXP Then
+		$ret = $regExp[$projectType][$regExpType]
+	EndIf
+	Return $ret
+EndFunc
+
+
+Func GetProjectType()
+	Return $projectType
+EndFunc
+
+Func GetFileReturnType()
+	Return $fileReturnType
+EndFunc
+
+
+Func GetAllFileToAv($filePath, $filterMask)
+	return _FileListToArrayRec($filePath,$filterMask,$FLTAR_FILES,$FLTAR_RECUR,$FLTAR_SORT,$FLTAR_FULLPATH )
+EndFunc
+
+Func MainTask()
+	Local $av, $mask
+	Local $path, $filePath
+	Local $fileContent,$contentReturn
+	Local $project,$regExp
+
+	$path = GetPath()
+	$mask = GetFilterMask
+	$av = GetAllFileToAv($path,$mask)
+	$cReturn = GetFileReturnType()
+	$project = GetProjectType()
+
+	for $i = 0 To UBound($av) - 1
+		$filePath = $av[$i]
+		$fileContent = GetAllFromFile($filePath,$cReturn)
+
+		$regExp =
+		GetRegExp()
+
 
 	Next
 EndFunc
 
 
-Func VerifyCodeLines($lineTxt,$type)
-	Local $av, $res
 
-	Switch($type)
-		Case $HEADER_FUNCTIONS
-			$av = VerifyHeader($lineTxt)
-			_ArrayAdd($res,$av)
-			;--- Add Verification for Parameter ---
-		Case Else
-
-	EndSwitch
-
+Func GetPath()
+	return $filePath
 EndFunc
 
-Func VerifyHeader($lineTxt)
-	Local $av
-	$av = LineRegExp($lineTxt,$HEADER_FUNCTIONS)
-	SetError(@error)
-	return $av
-EndFunc
 
-Func VerifyCodeParameter($paramLst)
-	Local $av
-	$av = LineRegExp($paramLst,$HEADER_PARAMETER)
-	SetError(@error)
-	return $av
-EndFunc
-
-Func LineRegExp($txt,$regExp)
-	Local $av, $error
-	$regExp = GetRegExp($regExp)
-	$av = StringRegExp($txt,$regExp,3)
-	$error = @error
-
-	If $error <> 0 Then
-		$av = -1
-	EndIf
-
-	SetError($error)
-	return $av
-EndFunc
-
-Func GetRegExp($type)
-	Local $ret = -1
-	Local $pType = GetProjectType()
-	If $type < $NUMBER_OF_REG_EXP Then
-		$ret = $regExp[$pType][$type]
-	EndIf
-	Return $ret
-EndFunc
-
-Func GetProjectType()
-	Return $projectType
+Func GetFilterMask()
+	return $filterMask
 EndFunc

@@ -1,12 +1,16 @@
 #include <FileConstants.au3>
 
 
+
+Global Const $NUMBER_OF_REG_EXP     	 = 2
+Global Const $NUMBER_OF_PROJECT_TYPES	 = 2
+
+
 ;------------------------------------------------------
 ;	Type to define which regular expressions are available
 ;------------------------------------------------------
-Global Enum $HEADER_FUNCTIONS      = 0 , _
-			$HEADER_PARAMETER      = 1 , _
-			$NUMBER_OF_REG_EXP     = 2
+Global Enum $C_HEADER_FUNCTIONS      = 10 , _
+			$C_HEADER_PARAMETER      = 11
 
 
 ;------------------------------------------------------
@@ -19,9 +23,9 @@ Global Enum $RETURN_AS_ARRAY	   = 0 , _
 ;------------------------------------------------------
 ;	Type to define which Files can be commented
 ;------------------------------------------------------
-Global Enum $C_PROJECT		   			= 0 , _			; Config Parameter for C - Projects
-			$CPP_PROJECT			    = 1 , _			; Config Parameter for C - Projects
-			$NUMBER_OF_PROJECT_TYPES	= 2
+Global Enum $C_PROJECT		   			= 1 , _			; Config Parameter for C - Projects
+			$CPP_PROJECT			    = 2 			; Config Parameter for CPP - Projects
+
 
 Global $regExp[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_REG_EXP] =	_
 		[  													 _
@@ -37,12 +41,8 @@ Global $regExp[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_REG_EXP] =	_
 			]												 _
 		]
 
-
-
-
-
-Global $path = @ScriptDir & "\TestFile"
-Global $recurSearch = $FLTAR_RECUR
-Global $retPath = $FLTAR_FULLPATH
-Global $filter = "*.h"
+;=== CONFIGURATION PARAMETER ================================================================
+Global $filterMask = "*.h"
+Global $fileReturnType = $RETURN_AS_ARRAY
 Global $projectType = $C_PROJECT
+Global $filePath = @ScriptDir & "\TestFile"
