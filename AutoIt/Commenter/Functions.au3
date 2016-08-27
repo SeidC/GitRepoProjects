@@ -55,22 +55,6 @@ Func GetAllFromFileToArray($path)
 EndFunc
 
 
-
-
-;~ Func LineRegExp($txt,$regExp)
-;~ 	Local $av, $error
-;~ 	$regExp = GetRegExp($regExp)
-;~ 	$av = StringRegExp($txt,$regExp,3)
-;~ 	$error = @error
-
-;~ 	If $error <> 0 Then
-;~ 		$av = -1
-;~ 	EndIf
-
-;~ 	SetError($error)
-;~ 	return $av
-;~ EndFunc
-
 Func GetRegExp($projectType,$regExpType)
 	Local $ret = -1
 	If $regExpType < $NUMBER_OF_REG_EXP Then
@@ -97,22 +81,17 @@ Func MainTask()
 	Local $av, $mask
 	Local $path, $filePath
 	Local $fileContent,$contentReturn
-	Local $project,$regExp
+
 
 	$path = GetPath()
-	$mask = GetFilterMask
+	$mask = GetFilterMask()
 	$av = GetAllFileToAv($path,$mask)
 	$cReturn = GetFileReturnType()
-	$project = GetProjectType()
 
 	for $i = 0 To UBound($av) - 1
 		$filePath = $av[$i]
 		$fileContent = GetAllFromFile($filePath,$cReturn)
-
-		$regExp =
-		GetRegExp()
-
-
+		CommentHeader($fileContent)
 	Next
 EndFunc
 
@@ -125,4 +104,55 @@ EndFunc
 
 Func GetFilterMask()
 	return $filterMask
+EndFunc
+
+
+Func CommentHeader($headerTxt)
+	Local $header,$params, $projType, $av, $temp
+	If $headerTxt <> "" Then
+
+		$projType = GetProjectType()
+		$header   = GetRegExp($projType,$HEADER_FUNCTIONS)
+		$params   = GetRegExp($projType,$HEADER_PARAMETER)
+		$temp 	  = GetTemplate($projType,$HEADER_TEMPLATE)
+
+		$av = StringRegExp($headerTxt,$header,3)
+		If @error = 0 Then
+			For $i = 0 To UBound($av) -1
+
+
+			Next
+		EndIf
+	Else
+
+	EndIf
+EndFunc
+
+
+Func GetTemplate($projectType,$template)
+	Local $tempPath,$templateData, $hndl, $ret, $error
+
+	If $projectType < $NUMBER_OF_PROJECT_TYPES And _
+	   $template < $NUMBER_OF_TEMPLATES        Then
+
+			$tempPath = GetTemplatePath() & "\" & $templates[$projectType][$template]
+			$hndl = FileOpen($tempPath,$FO_READ)
+			$ret = FileRead($hndl)
+			$error = @error
+			FileClose($hndl)
+	Else
+		$ret = -1
+	EndIf
+	SetError($error)
+	Return $ret
+EndFunc
+
+Func ReplaceTag($temp,$tag,$txtToReplace)
+
+
+EndFunc
+
+
+Func GetTemplatePath()
+	Return $templatePath
 EndFunc
