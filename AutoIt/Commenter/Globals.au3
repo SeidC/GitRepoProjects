@@ -5,6 +5,7 @@
 Global Const $NUMBER_OF_REG_EXP     	 = 2
 Global Const $NUMBER_OF_PROJECT_TYPES	 = 2
 Global Const $NUMBER_OF_TEMPLATES		 = 2
+Global Const $NUMBER_OF_HEADER_TAGS	 	 = 4
 
 
 ;------------------------------------------------------
@@ -32,6 +33,11 @@ Global Enum $HEADER_TEMPLATE			= 0 , _
 			$SOURCE_TEMPLATE			= 1
 
 
+Global Enum $FUNCTION_TAG				= 0, _
+			$PARAMETER_TAG				= 1, _
+			$RETURN_TAG					= 2, _
+			$DETAILED_TAG				= 3
+
 ;-------------------------------------------------------
 ;	Av with all available regular expression
 ;-------------------------------------------------------
@@ -58,6 +64,15 @@ Global $templates[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_TEMPLATES] =    _
 				""                                                     _
 			]														   _
 		]
+
+Global $headerTags[$NUMBER_OF_HEADER_TAGS] = _
+	[										 _
+		"<!@brief@!>",						 _
+		"<!@param@!>",						 _
+		"<!@return@!>",						 _
+		"<!@detail@!>"						 _
+	]
+
 
 ;=== CONFIGURATION PARAMETER ================================================================
 Global $filterMask = "*.h"

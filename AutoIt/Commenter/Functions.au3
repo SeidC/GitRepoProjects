@@ -108,19 +108,18 @@ EndFunc
 
 
 Func CommentHeader($headerTxt)
-	Local $header,$params, $projType, $av, $temp
+	Local $header,$params, $projType, $av, $temp,
+	Local $tag, $paramAv
 	If $headerTxt <> "" Then
 
 		$projType = GetProjectType()
 		$header   = GetRegExp($projType,$HEADER_FUNCTIONS)
-		$params   = GetRegExp($projType,$HEADER_PARAMETER)
 		$temp 	  = GetTemplate($projType,$HEADER_TEMPLATE)
 
 		$av = StringRegExp($headerTxt,$header,3)
 		If @error = 0 Then
 			For $i = 0 To UBound($av) -1
-
-
+				ReplaceTags($av[$i],$HEADER_TEMPLATE)
 			Next
 		EndIf
 	Else
@@ -147,12 +146,29 @@ Func GetTemplate($projectType,$template)
 	Return $ret
 EndFunc
 
-Func ReplaceTag($temp,$tag,$txtToReplace)
+Func ReplaceTags($txtToReplace,$templateType)
+	Local $paramAv, $tags
 
+	$tags = GetTags($templateType)
+	For $i = 0 To $NUMBER_OF_HEADER_TAGS -1
 
+	Next
 EndFunc
 
 
 Func GetTemplatePath()
 	Return $templatePath
+EndFunc
+
+Func GetTags($templateType)
+	Local $ret
+	Switch $templateType
+		Case $HEADER_TEMPLATE
+			$ret = $headerTags
+		Case $SOURCE_TEMPLATE
+
+		Case Else
+
+	EndSwitch
+	Return $ret
 EndFunc
