@@ -88,7 +88,7 @@ Func MainTask()
 	$av = GetAllFileToAv($path,$mask)
 	$cReturn = GetFileReturnType()
 
-	for $i = 0 To UBound($av) - 1
+	for $i = 1 To UBound($av) - 1
 		$filePath = $av[$i]
 		$fileContent = GetAllFromFile($filePath,$cReturn)
 		CommentHeader($fileContent)
@@ -108,18 +108,32 @@ EndFunc
 
 
 Func CommentHeader($headerTxt)
-	Local $headerRegExp,$params, $projType, $av, $temp
+	Local $headerRegExp,$params, $projType, $av, $temp,$paramTemp
 	Local $tag, $paramAv
+	Local $returnValue,$functionName,$parameterTemp
 	If $headerTxt <> "" Then
 
 		$projType       = GetProjectType()
 		$headerRegExp   = GetRegExp($projType,$HEADER_FUNCTIONS)
-		$temp 	        = GetTemplate($projType,$HEADER_TEMPLATE)
+		$paramRegExp    = GetRegExp($projectType,$HEADER_PARAMETER)
 
-		$av = StringRegExp($headerTxt,$header,3)
+		$av = StringRegExp($headerTxt,$headerRegExp,3)
 		If @error = 0 Then
-			For $i = 0 To UBound($av) -1
+			For $i = 0 To UBound($av) -1 Step $NUMBER_OF_REG_EXP_HEADER_VALUES
 
+				$temp 	        = GetTemplate($projType,$HEADER_TEMPLATE)
+				$params = StringRegExp($av[$i + $PARAMETER_LIST], $paramRegExp,3)
+
+				For $j = 1 To UBound($params) - 1
+					$paramTemp = $params[$PARAMETER_VALUE] & ": " & $params[$PARAMETER_TYPE] & @CRLF
+				Next
+				$returnValue   = $av[$i + $RETURN_VALUE]
+				$functionName  =  $av[$i + $FUNCTION_NAME]
+				$parameterTemp =  $paramTemp
+				
+				$temp = StringReplace($temp,$headerTags[$RETURN_TAG],   $returnValue)
+				$temp = StringReplace($temp,$headerTags[$FUNCTION_TAG] ,$functionName)
+				$temp = StringReplace($temp,$headerTags[$PARAMETER_TAG],$parameterTemp)
 
 			Next
 		EndIf

@@ -2,18 +2,20 @@
 
 
 
-Global Const $NUMBER_OF_REG_EXP     	 = 2
-Global Const $NUMBER_OF_PROJECT_TYPES	 = 2
-Global Const $NUMBER_OF_TEMPLATES		 = 2
-Global Const $NUMBER_OF_HEADER_TAGS	 	 = 4
-
+Global Const $NUMBER_OF_REG_EXP     			= 2
+Global Const $NUMBER_OF_PROJECT_TYPES			= 2
+Global Const $NUMBER_OF_TEMPLATES				= 2
+Global Const $NUMBER_OF_HEADER_TAGS	 			= 4
+Global Const $NUMBER_OF_REG_EXP_HEADER_VALUES   = 3
 
 ;------------------------------------------------------
 ;
 ;------------------------------------------------------
 Global Enum $RETURN_VALUE				= 0, _
 			$FUNCTION_NAME				= 1, _
-			$PARAMETER_LIST				= 2
+			$PARAMETER_LIST				= 2, _
+			$PARAMETER_TYPE				= 0, _
+			$PARAMETER_VALUE			= 1
 
 
 ;------------------------------------------------------
