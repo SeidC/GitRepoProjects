@@ -1,7 +1,6 @@
-#include-once
 #include <File.au3>
 #include <Array.au3>
-#include "Globals.au3"
+#include "DoxyGen.au3"
 
 
 Func GetAllFromFile($path,$retType)
@@ -122,15 +121,11 @@ Func CommentHeader($headerTxt)
 			For $i = 0 To UBound($av) -1 Step $NUMBER_OF_REG_EXP_HEADER_VALUES
 
 				$temp 	        = GetTemplate($projType,$HEADER_TEMPLATE)
-				$params = StringRegExp($av[$i + $PARAMETER_LIST], $paramRegExp,3)
 
-				For $j = 1 To UBound($params) - 1
-					$paramTemp = $params[$PARAMETER_VALUE] & ": " & $params[$PARAMETER_TYPE] & @CRLF
-				Next
-				$returnValue   = $av[$i + $RETURN_VALUE]
+				$returnValue   =  $av[$i + $RETURN_VALUE]
 				$functionName  =  $av[$i + $FUNCTION_NAME]
 				$parameterTemp =  $paramTemp
-				
+
 				$temp = StringReplace($temp,$headerTags[$RETURN_TAG],   $returnValue)
 				$temp = StringReplace($temp,$headerTags[$FUNCTION_TAG] ,$functionName)
 				$temp = StringReplace($temp,$headerTags[$PARAMETER_TAG],$parameterTemp)
@@ -143,23 +138,7 @@ Func CommentHeader($headerTxt)
 EndFunc
 
 
-Func GetTemplate($projectType,$template)
-	Local $tempPath,$templateData, $hndl, $ret, $error
 
-	If $projectType < $NUMBER_OF_PROJECT_TYPES And _
-	   $template < $NUMBER_OF_TEMPLATES        Then
-
-			$tempPath = GetTemplatePath() & "\" & $templates[$projectType][$template]
-			$hndl = FileOpen($tempPath,$FO_READ)
-			$ret = FileRead($hndl)
-			$error = @error
-			FileClose($hndl)
-	Else
-		$ret = -1
-	EndIf
-	SetError($error)
-	Return $ret
-EndFunc
 
 
 Func GetTemplatePath()

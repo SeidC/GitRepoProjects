@@ -92,4 +92,5 @@ Global $fileReturnType = $RETURN_AS_STRING
 Global $projectType = $C_PROJECT
 Global $filePath = @ScriptDir & "\TestFile"
 Global $templatePath = @ScriptDir & "\Template"
-global $headerTags = $headerTagsAv
+Global $headerTags = $headerTagsAv
+
