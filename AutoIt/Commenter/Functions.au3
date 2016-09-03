@@ -107,9 +107,9 @@ EndFunc
 
 
 Func CommentHeader($headerTxt)
-	Local $headerRegExp,$params, $projType, $av, $temp,$paramTemp
-	Local $tag, $paramAv
-	Local $returnValue,$functionName,$parameterTemp
+	Local $headerRegExp,$params, $projType, $av, $temp
+	Local $tag
+	Local $returnValue,$functionName
 	If $headerTxt <> "" Then
 
 		$projType       = GetProjectType()
@@ -122,13 +122,9 @@ Func CommentHeader($headerTxt)
 
 				$temp 	        = GetTemplate($projType,$HEADER_TEMPLATE)
 
-				$returnValue   =  $av[$i + $RETURN_VALUE]
-				$functionName  =  $av[$i + $FUNCTION_NAME]
-				$parameterTemp =  $paramTemp
-
-				$temp = StringReplace($temp,$headerTags[$RETURN_TAG],   $returnValue)
-				$temp = StringReplace($temp,$headerTags[$FUNCTION_TAG] ,$functionName)
-				$temp = StringReplace($temp,$headerTags[$PARAMETER_TAG],$parameterTemp)
+				$returnValue   =  GenReturn($av[$i + $RETURN_VALUE])
+				$functionName  =  GenBrief($av[$i + $FUNCTION_NAME])
+				$params		   =  GenParam($av[$i + $PARAMETER_LIST],$paramRegExp)
 
 			Next
 		EndIf
@@ -138,12 +134,6 @@ Func CommentHeader($headerTxt)
 EndFunc
 
 
-
-
-
-Func GetTemplatePath()
-	Return $templatePath
-EndFunc
 
 Func GetTags($templateType)
 	Local $ret

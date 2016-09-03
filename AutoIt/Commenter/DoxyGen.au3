@@ -18,19 +18,19 @@ EndFunc
 
 Func GenParam(ByRef $paramTxt, $paramRegExp = "")
 
-	Local $params,$$paramTemp
+	Local $params,$paramTemp
 
 	If $paramRegExp <> "" Then
 		$params = StringRegExp($paramTxt, $paramRegExp,3)
-	Else If IsArray($paramTxt)
+	ElseIf IsArray($paramTxt) Then
 		$params = $paramTxt
 	Else
-		ReDim $param[1]
-		$param[0] = ""
-	EndFunc
+		ReDim $params[1]
+		$params[0] = ""
+	EndIf
 
 	For $j = 1 To UBound($params) - 1
-		$paramTemp = $paramTag & " " & $params " " & " Parameter Description"  & @CRLF
+		$paramTemp = $paramTag & " " & $params & " " & " Parameter Description"  & @CRLF
 	Next
 	Return $paramTemp
 EndFunc
@@ -42,7 +42,7 @@ EndFunc
 
 
 Func GenDetails($detailTxt = "")
-	$detailsTag & " " & $detailTxt
+	Return $detailsTag & " " & $detailTxt
 EndFunc
 
 
@@ -63,4 +63,9 @@ Func GetTemplate($projectType,$template)
 	EndIf
 	SetError($error)
 	Return $ret
+EndFunc
+
+
+Func GetTemplatePath()
+	Return $templatePath
 EndFunc
