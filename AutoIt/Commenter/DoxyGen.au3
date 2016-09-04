@@ -30,10 +30,16 @@ Func GenParam($paramTxt, $paramRegExp = "")
 	EndIf
 
 	For $j = 1 To UBound($params) - 1 Step 2
-		If $j > 1 Then 
-			$commentSign = " * "
+		If $j <= 1 Then
+			$paramTemp = $paramTag & " " & $params[$j] & " " & " Parameter Description"  & @CRLF
+		ElseIf $j > 1 And $j < UBound($params) - 1 Then
+			$paramTemp &= " *  " & $paramTag & " " & $params[$j] & " " & " Parameter Description"  & @CRLF
+		ElseIf $j = UBound($params) - 1 Then
+			$paramTemp &= " *  " & $paramTag & " " & $params[$j] & " " & " Parameter Description" & @CRLF
+			$paramTemp &= " *  "
+		Else
+			; --- Do Nothing ---
 		EndIf
-		$paramTemp &= $commentSign & $paramTag & " " & $params[$j] & " " & " Parameter Description"  & @CRLF
 	Next
 	Return $paramTemp
 EndFunc
@@ -75,7 +81,7 @@ EndFunc
 
 
 Func ReplaceTags($template, $briefTxt, $paramTxt, $returnTxt, $detailsTxt)
-	
+
 	$template =  StringReplace($template,$headerTagsAv[$FUNCTION_TAG],$briefTxt)
 	$template = StringReplace($template,$headerTagsAv[$PARAMETER_TAG],$paramTxt)
 	$template = StringReplace($template,$headerTagsAv[$RETURN_TAG],$returnTxt)
@@ -84,5 +90,5 @@ Func ReplaceTags($template, $briefTxt, $paramTxt, $returnTxt, $detailsTxt)
 EndFunc
 
 Func GenFunctionWithComment($functionComment,$returnValus, $functionName, $parameterList)
-	Return $functionComment & @CRLF & $returnValus & " " & $functionName &  $parameterList & ";" & @CRLF 
+	Return $functionComment & $returnValus & " " & $functionName &  $parameterList & ";" & @CRLF & @CRLF
 EndFunc

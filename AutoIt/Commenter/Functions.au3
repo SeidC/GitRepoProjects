@@ -108,8 +108,7 @@ EndFunc
 
 Func CommentHeader($headerTxt)
 	Local $headerRegExp,$paramTxt, $projType, $detailsTxt, $av, $temp
-	Local $tag
-	Local $returnValue,$functionName,$comment,$result
+	Local $returnValue,$functionName,$comment,$result,$outputTxt
 	If $headerTxt <> "" Then
 
 		$projType       = GetProjectType()
@@ -125,14 +124,17 @@ Func CommentHeader($headerTxt)
 				$returnValue   =  GenReturn($av[$i + $RETURN_VALUE])
 				$functionName  =  GenBrief($av[$i + $FUNCTION_NAME])
 				$paramTxt	   =  GenParam($av[$i + $PARAMETER_LIST],$paramRegExp)
-				$detailsTxt	   =  GenDetails()			   
+				$detailsTxt	   =  GenDetails()
 				$comment	   =  ReplaceTags($temp,$functionName,$paramTxt,$returnValue,$detailsTxt)
-				$result		  &=  GenFunctionWithComment($comment,$av[$i + $RETURN_VALUE],$av[$i + $FUNCTION_NAME],$av[$i + $PARAMETER_LIST],$paramRegExp)
+				$result		   =  GenFunctionWithComment($comment,$av[$i + $RETURN_VALUE],$av[$i + $FUNCTION_NAME],$av[$i + $PARAMETER_LIST])
+				$outputTxt    &= $result
+
 			Next
 		EndIf
 	Else
 
 	EndIf
+
 EndFunc
 
 
