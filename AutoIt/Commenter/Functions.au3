@@ -107,9 +107,9 @@ EndFunc
 
 
 Func CommentHeader($headerTxt)
-	Local $headerRegExp,$params, $projType, $av, $temp
+	Local $headerRegExp,$paramTxt, $projType, $detailsTxt, $av, $temp
 	Local $tag
-	Local $returnValue,$functionName
+	Local $returnValue,$functionName,$comment,$result
 	If $headerTxt <> "" Then
 
 		$projType       = GetProjectType()
@@ -120,12 +120,14 @@ Func CommentHeader($headerTxt)
 		If @error = 0 Then
 			For $i = 0 To UBound($av) -1 Step $NUMBER_OF_REG_EXP_HEADER_VALUES
 
-				$temp 	        = GetTemplate($projType,$HEADER_TEMPLATE)
+				$temp 	       = GetTemplate($projType,$HEADER_TEMPLATE)
 
 				$returnValue   =  GenReturn($av[$i + $RETURN_VALUE])
 				$functionName  =  GenBrief($av[$i + $FUNCTION_NAME])
-				$params		   =  GenParam($av[$i + $PARAMETER_LIST],$paramRegExp)
-
+				$paramTxt	   =  GenParam($av[$i + $PARAMETER_LIST],$paramRegExp)
+				$detailsTxt	   =  GenDetails()			   
+				$comment	   =  ReplaceTags($temp,$functionName,$paramTxt,$returnValue,$detailsTxt)
+				$result		  &=  GenFunctionWithComment($comment,$av[$i + $RETURN_VALUE],$av[$i + $FUNCTION_NAME],$av[$i + $PARAMETER_LIST],$paramRegExp)
 			Next
 		EndIf
 	Else

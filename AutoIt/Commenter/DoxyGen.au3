@@ -16,9 +16,9 @@ Func GenBrief($briefTxt= "")
 	Return $briefTag & " " & $briefTxt
 EndFunc
 
-Func GenParam(ByRef $paramTxt, $paramRegExp = "")
+Func GenParam($paramTxt, $paramRegExp = "")
 
-	Local $params,$paramTemp
+	Local $params,$paramTemp = "",$commentSign = ""
 
 	If $paramRegExp <> "" Then
 		$params = StringRegExp($paramTxt, $paramRegExp,3)
@@ -29,8 +29,11 @@ Func GenParam(ByRef $paramTxt, $paramRegExp = "")
 		$params[0] = ""
 	EndIf
 
-	For $j = 1 To UBound($params) - 1
-		$paramTemp = $paramTag & " " & $params & " " & " Parameter Description"  & @CRLF
+	For $j = 1 To UBound($params) - 1 Step 2
+		If $j > 1 Then 
+			$commentSign = " * "
+		EndIf
+		$paramTemp &= $commentSign & $paramTag & " " & $params[$j] & " " & " Parameter Description"  & @CRLF
 	Next
 	Return $paramTemp
 EndFunc
@@ -68,4 +71,18 @@ EndFunc
 
 Func GetTemplatePath()
 	Return $templatePath
+EndFunc
+
+
+Func ReplaceTags($template, $briefTxt, $paramTxt, $returnTxt, $detailsTxt)
+	
+	$template =  StringReplace($template,$headerTagsAv[$FUNCTION_TAG],$briefTxt)
+	$template = StringReplace($template,$headerTagsAv[$PARAMETER_TAG],$paramTxt)
+	$template = StringReplace($template,$headerTagsAv[$RETURN_TAG],$returnTxt)
+	$template = StringReplace($template,$headerTagsAv[$DETAILED_TAG],$detailsTxt)
+	return $template
+EndFunc
+
+Func GenFunctionWithComment($functionComment,$returnValus, $functionName, $parameterList)
+	Return $functionComment & @CRLF & $returnValus & " " & $functionName &  $parameterList & ";" & @CRLF 
 EndFunc
