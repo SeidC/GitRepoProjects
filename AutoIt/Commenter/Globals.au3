@@ -1,9 +1,9 @@
 #include <FileConstants.au3>
+#include "RegExpGlobals.au3"
 
 
 
-Global Const $NUMBER_OF_REG_EXP     			= 4
-Global Const $NUMBER_OF_PROJECT_TYPES			= 2
+
 Global Const $NUMBER_OF_TEMPLATES				= 2
 Global Const $NUMBER_OF_HEADER_TAGS	 			= 4
 Global Const $NUMBER_OF_REG_EXP_HEADER_VALUES   = 3
@@ -16,15 +16,6 @@ Global Enum $RETURN_VALUE				= 0, _
 			$PARAMETER_LIST				= 2, _
 			$PARAMETER_TYPE				= 0, _
 			$PARAMETER_VALUE			= 1
-
-
-;------------------------------------------------------
-;	Type to define which regular expressions are available
-;------------------------------------------------------
-Global Enum $HEADER_FUNCTIONS      = 0 , _
-			$HEADER_PARAMETER      = 1 , _
-			$ENUM_TYPES			   = 2 , _
-			$ENUMS				   = 3
 
 ;------------------------------------------------------
 ;	Type to define who a file will be returned
@@ -51,22 +42,6 @@ Global Enum $FUNCTION_TAG				= 0, _
 			$PARAMETER_TAG				= 1, _
 			$RETURN_TAG					= 2, _
 			$DETAILED_TAG				= 3
-
-;-------------------------------------------------------
-;	Av with all available regular expression
-;-------------------------------------------------------
-Global $regExp[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_REG_EXP] =					_
-		[  													    				_
-			[												    				_
-				'(\w+\s*\**)\s+(\w+)\(([\w+|\,|\s+]+)\)\;' ,    				_
-				'(\w+\s*\**)\s+(\w+)'				 		    				_
-				'typedef*\s+enum\s+\{+(?:\w|\s|\=|\,|\*|\;|\/|\-|\>)*\}\w*\;', 	_
-			],  'enum\s+(\w+)\s*\{+(?:\w|\s|\=|\,|\*|\;|\/|\-|\>)*\}\;',		    _                     						    _
-			[												    _
-				'Test',										    _
-				'Test'											_
-			]												    _
-		]
 
 Global $templates[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_TEMPLATES] =    _
 		[															   _
