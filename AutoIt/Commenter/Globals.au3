@@ -24,17 +24,6 @@ Global Enum $RETURN_VALUE				= 0, _
 Global Enum $RETURN_AS_ARRAY	   = 0 , _				; Enum for Parameter $retType
 			$RETURN_AS_STRING	   = 1					; Enum for Parameter $retType
 
-;------------------------------------------------------
-;	Type to define which Files can be commented
-;------------------------------------------------------
-Global Enum $C_PROJECT		   			= 0 , _			; Config Parameter for C - Projects for Parameter $projectType
-			$CPP_PROJECT			    = 1 			; Config Parameter for CPP - Projects for Parameter $projectType
-
-;------------------------------------------------------
-;
-;------------------------------------------------------
-Global Enum $HEADER_TEMPLATE			= 0 , _			; Enum HEADER_TEMPLATE Value for Parameter $templateType
-			$SOURCE_TEMPLATE			= 1				; Enum SOURCE_TEMPLATE Value for Parameter $templateType
 
 ;------------------------------------------------------
 ;
