@@ -1,10 +1,11 @@
 #include <FileConstants.au3>
 #include "RegExpGlobals.au3"
+#include "TemplateGlobals.au3"
 
 
 
 
-Global Const $NUMBER_OF_TEMPLATES				= 2
+
 Global Const $NUMBER_OF_HEADER_TAGS	 			= 4
 Global Const $NUMBER_OF_REG_EXP_HEADER_VALUES   = 3
 
@@ -42,18 +43,6 @@ Global Enum $FUNCTION_TAG				= 0, _
 			$PARAMETER_TAG				= 1, _
 			$RETURN_TAG					= 2, _
 			$DETAILED_TAG				= 3
-
-Global $templates[$NUMBER_OF_PROJECT_TYPES][$NUMBER_OF_TEMPLATES] =    _
-		[															   _
-			[                                                          _
-				"HeaderComment.temp",                                  _
-				"SourceComment.temp"                                   _
-			],									                       _
-			[                                                          _
-				"",                                                    _
-				""                                                     _
-			]														   _
-		]
 
 Global $headerTagsAv[$NUMBER_OF_HEADER_TAGS] = _
 	[										 _
