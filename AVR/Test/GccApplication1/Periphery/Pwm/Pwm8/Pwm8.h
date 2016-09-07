@@ -8,24 +8,14 @@
 
 #ifndef __PWM8_H__
 #define __PWM8_H__
-#include "PwmIf"
-#include "Tcnt8.h"
-#include "Tccr8.h"
-#include "Ocr8.h"
-#include "Timsk.h"
-#include "Tifr.h"
 
-class Pwm8 : public PwmIf
+
+class Pwm8
 {
 //variables
 public:
 protected:
 private:
-      Tcnt8 tcnt;
-      Tccr8 tccr;
-      Ocr8  ocr;
-      Timsk timsk;
-      Tifr  tifr;
 
 //functions
 public:

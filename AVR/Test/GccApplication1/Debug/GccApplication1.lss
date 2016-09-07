@@ -1,0 +1,1304 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000602  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000124  00800060  00000602  00000676  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000079a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000007cc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000a30  00000000  00000000  00000808  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000da9b  00000000  00000000  00001238  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00002b09  00000000  00000000  0000ecd3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00002242  00000000  00000000  000117dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000013dc  00000000  00000000  00013a20  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00002180  00000000  00000000  00014dfc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00002983  00000000  00000000  00016f7c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000960  00000000  00000000  000198ff  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 33 00 	jmp	0x66	; 0x66 <__ctors_end>
+   4:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   8:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  10:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  14:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  18:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  1c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  20:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  24:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  28:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  2c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  30:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  34:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  38:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  3c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  40:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  44:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  48:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  4c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  50:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  54:	7b 02       	muls	r23, r27
+  56:	7d 02       	muls	r23, r29
+  58:	8a 02       	muls	r24, r26
+  5a:	7f 02       	muls	r23, r31
+  5c:	8a 02       	muls	r24, r26
+  5e:	81 02       	muls	r24, r17
+  60:	83 02       	muls	r24, r19
+  62:	85 02       	muls	r24, r21
+  64:	87 02       	muls	r24, r23
+
+00000066 <__ctors_end>:
+  66:	11 24       	eor	r1, r1
+  68:	1f be       	out	0x3f, r1	; 63
+  6a:	cf e5       	ldi	r28, 0x5F	; 95
+  6c:	d8 e0       	ldi	r29, 0x08	; 8
+  6e:	de bf       	out	0x3e, r29	; 62
+  70:	cd bf       	out	0x3d, r28	; 61
+
+00000072 <__do_copy_data>:
+  72:	11 e0       	ldi	r17, 0x01	; 1
+  74:	a0 e6       	ldi	r26, 0x60	; 96
+  76:	b0 e0       	ldi	r27, 0x00	; 0
+  78:	e2 e0       	ldi	r30, 0x02	; 2
+  7a:	f6 e0       	ldi	r31, 0x06	; 6
+  7c:	02 c0       	rjmp	.+4      	; 0x82 <__do_copy_data+0x10>
+  7e:	05 90       	lpm	r0, Z+
+  80:	0d 92       	st	X+, r0
+  82:	a4 38       	cpi	r26, 0x84	; 132
+  84:	b1 07       	cpc	r27, r17
+  86:	d9 f7       	brne	.-10     	; 0x7e <__do_copy_data+0xc>
+  88:	0e 94 5a 00 	call	0xb4	; 0xb4 <main>
+  8c:	0c 94 ff 02 	jmp	0x5fe	; 0x5fe <_exit>
+
+00000090 <__bad_interrupt>:
+  90:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000094 <_ZN2OsC1Ev>:
+#include "Os.h"
+
+// default constructor
+Os::Os()
+{
+   timer = NULL;
+  94:	fc 01       	movw	r30, r24
+  96:	11 82       	std	Z+1, r1	; 0x01
+  98:	10 82       	st	Z, r1
+   cNumberOfTasks = 0;
+  9a:	10 8a       	std	Z+16, r1	; 0x10
+  9c:	08 95       	ret
+
+0000009e <_ZN2Os10setOsTimerEP7TimerIf>:
+} //~Os
+
+
+void Os::setOsTimer(TimerIf *ptr)
+{
+   if (ptr != NULL && timer != NULL)
+  9e:	61 15       	cp	r22, r1
+  a0:	71 05       	cpc	r23, r1
+  a2:	39 f0       	breq	.+14     	; 0xb2 <_ZN2Os10setOsTimerEP7TimerIf+0x14>
+  a4:	fc 01       	movw	r30, r24
+  a6:	20 81       	ld	r18, Z
+  a8:	31 81       	ldd	r19, Z+1	; 0x01
+  aa:	23 2b       	or	r18, r19
+  ac:	11 f0       	breq	.+4      	; 0xb2 <_ZN2Os10setOsTimerEP7TimerIf+0x14>
+   {
+      timer = ptr;   
+  ae:	71 83       	std	Z+1, r23	; 0x01
+  b0:	60 83       	st	Z, r22
+  b2:	08 95       	ret
+
+000000b4 <main>:
+#pragma message (MSG)
+
+#warning "info"
+
+int main(void)
+{
+  b4:	cf 93       	push	r28
+  b6:	df 93       	push	r29
+  b8:	cd b7       	in	r28, 0x3d	; 61
+  ba:	de b7       	in	r29, 0x3e	; 62
+  bc:	ef 97       	sbiw	r28, 0x3f	; 63
+  be:	0f b6       	in	r0, 0x3f	; 63
+  c0:	f8 94       	cli
+  c2:	de bf       	out	0x3e, r29	; 62
+  c4:	0f be       	out	0x3f, r0	; 63
+  c6:	cd bf       	out	0x3d, r28	; 61
+    Os os;
+  c8:	ce 01       	movw	r24, r28
+  ca:	8f 96       	adiw	r24, 0x2f	; 47
+  cc:	0e 94 4a 00 	call	0x94	; 0x94 <_ZN2OsC1Ev>
+    Timer16 timer;
+  d0:	ce 01       	movw	r24, r28
+  d2:	01 96       	adiw	r24, 0x01	; 1
+  d4:	0e 94 28 01 	call	0x250	; 0x250 <_ZN7Timer16C1Ev>
+    os.setOsTimer(&timer);
+  d8:	be 01       	movw	r22, r28
+  da:	6f 5f       	subi	r22, 0xFF	; 255
+  dc:	7f 4f       	sbci	r23, 0xFF	; 255
+  de:	ce 01       	movw	r24, r28
+  e0:	8f 96       	adiw	r24, 0x2f	; 47
+  e2:	0e 94 4f 00 	call	0x9e	; 0x9e <_ZN2Os10setOsTimerEP7TimerIf>
+  e6:	ff cf       	rjmp	.-2      	; 0xe6 <main+0x32>
+
+000000e8 <_ZN5RegIf11setRegisterEPVh>:
+//functions
+public:
+    ~RegIf(){}
+protected:
+//Setter
+	virtual void setRegister(volatile uint8_t *reg) {}               
+  e8:	08 95       	ret
+
+000000ea <_ZN5RegIf8setValueEh>:
+	virtual void setBit(BaseTypes::Bits_e bit)      {} 
+   virtual void setBit(uint16_t bit)               {}              
+   virtual void setValue(uint8_t value)            {}              
+  ea:	08 95       	ret
+
+000000ec <_ZN5RegIf11getRegisterEPN9BaseTypes14Bit8Register_tE>:
+   virtual void resetBits(uint8_t bits)            {}               
+//Getter:    
+   virtual uint8_t getBits(uint8_t bits)                           {return 0;}
+   virtual BaseTypes::BitStatus_e getBit(uint8_t bit)              {return BaseTypes::BIT_LOW;}
+   virtual BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return BaseTypes::BIT_LOW;}
+   virtual void getRegister( BaseTypes::Bit8Register_t* regPtr)    {}
+  ec:	08 95       	ret
+
+000000ee <_ZN6RegIf811setRegisterEPVh>:
+     
+
+    //functions
+    public:
+    ~RegIf8(){}
+    void setRegister(vuint8_t *reg)                 {avrRegister.byte = reg;}
+  ee:	fc 01       	movw	r30, r24
+  f0:	73 83       	std	Z+3, r23	; 0x03
+  f2:	62 83       	std	Z+2, r22	; 0x02
+  f4:	08 95       	ret
+
+000000f6 <_ZN6RegIf811getRegisterEPN9BaseTypes14Bit8Register_tE>:
+    void getRegister( BaseTypes::Bit8Register_t* regPtr)    {regPtr =  &avrRegister;}    
+  f6:	08 95       	ret
+
+000000f8 <_ZN6RegIf87setBitsEh>:
+    void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}   
+  f8:	dc 01       	movw	r26, r24
+  fa:	12 96       	adiw	r26, 0x02	; 2
+  fc:	ed 91       	ld	r30, X+
+  fe:	fc 91       	ld	r31, X
+ 100:	13 97       	sbiw	r26, 0x03	; 3
+ 102:	80 81       	ld	r24, Z
+ 104:	68 2b       	or	r22, r24
+ 106:	60 83       	st	Z, r22
+ 108:	08 95       	ret
+
+0000010a <_ZN6RegIf89resetBitsEh>:
+    void resetBits(uint8_t bits)                            {RESET_BITS(*avrRegister.byte,bits);}
+ 10a:	dc 01       	movw	r26, r24
+ 10c:	12 96       	adiw	r26, 0x02	; 2
+ 10e:	ed 91       	ld	r30, X+
+ 110:	fc 91       	ld	r31, X
+ 112:	13 97       	sbiw	r26, 0x03	; 3
+ 114:	80 81       	ld	r24, Z
+ 116:	60 95       	com	r22
+ 118:	68 23       	and	r22, r24
+ 11a:	60 83       	st	Z, r22
+ 11c:	08 95       	ret
+
+0000011e <_ZN6RegIf86getBitEN9BaseTypes6Bits_eE>:
+    BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
+ 11e:	dc 01       	movw	r26, r24
+ 120:	12 96       	adiw	r26, 0x02	; 2
+ 122:	ed 91       	ld	r30, X+
+ 124:	fc 91       	ld	r31, X
+ 126:	13 97       	sbiw	r26, 0x03	; 3
+ 128:	20 81       	ld	r18, Z
+ 12a:	86 2f       	mov	r24, r22
+ 12c:	90 e0       	ldi	r25, 0x00	; 0
+ 12e:	01 96       	adiw	r24, 0x01	; 1
+ 130:	30 e0       	ldi	r19, 0x00	; 0
+ 132:	82 23       	and	r24, r18
+ 134:	93 23       	and	r25, r19
+ 136:	02 c0       	rjmp	.+4      	; 0x13c <_ZN6RegIf86getBitEN9BaseTypes6Bits_eE+0x1e>
+ 138:	95 95       	asr	r25
+ 13a:	87 95       	ror	r24
+ 13c:	6a 95       	dec	r22
+ 13e:	e2 f7       	brpl	.-8      	; 0x138 <_ZN6RegIf86getBitEN9BaseTypes6Bits_eE+0x1a>
+ 140:	08 95       	ret
+
+00000142 <_ZN6RegIf86getBitEh>:
+    BaseTypes::BitStatus_e getBit(uint8_t bit)              {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
+ 142:	dc 01       	movw	r26, r24
+ 144:	12 96       	adiw	r26, 0x02	; 2
+ 146:	ed 91       	ld	r30, X+
+ 148:	fc 91       	ld	r31, X
+ 14a:	13 97       	sbiw	r26, 0x03	; 3
+ 14c:	20 81       	ld	r18, Z
+ 14e:	86 2f       	mov	r24, r22
+ 150:	90 e0       	ldi	r25, 0x00	; 0
+ 152:	01 96       	adiw	r24, 0x01	; 1
+ 154:	30 e0       	ldi	r19, 0x00	; 0
+ 156:	82 23       	and	r24, r18
+ 158:	93 23       	and	r25, r19
+ 15a:	02 c0       	rjmp	.+4      	; 0x160 <_ZN6RegIf86getBitEh+0x1e>
+ 15c:	95 95       	asr	r25
+ 15e:	87 95       	ror	r24
+ 160:	6a 95       	dec	r22
+ 162:	e2 f7       	brpl	.-8      	; 0x15c <_ZN6RegIf86getBitEh+0x1a>
+ 164:	08 95       	ret
+
+00000166 <_ZN6RegIf86setBitEN9BaseTypes6Bits_eE>:
+    protected:
+    //Setter
+    void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
+ 166:	dc 01       	movw	r26, r24
+ 168:	12 96       	adiw	r26, 0x02	; 2
+ 16a:	ed 91       	ld	r30, X+
+ 16c:	fc 91       	ld	r31, X
+ 16e:	13 97       	sbiw	r26, 0x03	; 3
+ 170:	20 81       	ld	r18, Z
+ 172:	81 e0       	ldi	r24, 0x01	; 1
+ 174:	90 e0       	ldi	r25, 0x00	; 0
+ 176:	02 c0       	rjmp	.+4      	; 0x17c <_ZN6RegIf86setBitEN9BaseTypes6Bits_eE+0x16>
+ 178:	88 0f       	add	r24, r24
+ 17a:	99 1f       	adc	r25, r25
+ 17c:	6a 95       	dec	r22
+ 17e:	e2 f7       	brpl	.-8      	; 0x178 <_ZN6RegIf86setBitEN9BaseTypes6Bits_eE+0x12>
+ 180:	82 2b       	or	r24, r18
+ 182:	80 83       	st	Z, r24
+ 184:	08 95       	ret
+
+00000186 <_ZN6RegIf86setBitEj>:
+    void setBit(uint16_t bit)                                {SET_BIT(*avrRegister.byte,bit);}
+ 186:	dc 01       	movw	r26, r24
+ 188:	12 96       	adiw	r26, 0x02	; 2
+ 18a:	ed 91       	ld	r30, X+
+ 18c:	fc 91       	ld	r31, X
+ 18e:	13 97       	sbiw	r26, 0x03	; 3
+ 190:	20 81       	ld	r18, Z
+ 192:	81 e0       	ldi	r24, 0x01	; 1
+ 194:	90 e0       	ldi	r25, 0x00	; 0
+ 196:	02 c0       	rjmp	.+4      	; 0x19c <_ZN6RegIf86setBitEj+0x16>
+ 198:	88 0f       	add	r24, r24
+ 19a:	99 1f       	adc	r25, r25
+ 19c:	6a 95       	dec	r22
+ 19e:	e2 f7       	brpl	.-8      	; 0x198 <_ZN6RegIf86setBitEj+0x12>
+ 1a0:	82 2b       	or	r24, r18
+ 1a2:	80 83       	st	Z, r24
+ 1a4:	08 95       	ret
+
+000001a6 <_ZN6RegIf88setValueEh>:
+    void setValue(uint8_t value)                            {*avrRegister.byte = value;}
+ 1a6:	dc 01       	movw	r26, r24
+ 1a8:	12 96       	adiw	r26, 0x02	; 2
+ 1aa:	ed 91       	ld	r30, X+
+ 1ac:	fc 91       	ld	r31, X
+ 1ae:	13 97       	sbiw	r26, 0x03	; 3
+ 1b0:	60 83       	st	Z, r22
+ 1b2:	08 95       	ret
+
+000001b4 <_ZN6RegIf88resetBitEN9BaseTypes6Bits_eE>:
+    void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
+ 1b4:	dc 01       	movw	r26, r24
+ 1b6:	12 96       	adiw	r26, 0x02	; 2
+ 1b8:	ed 91       	ld	r30, X+
+ 1ba:	fc 91       	ld	r31, X
+ 1bc:	13 97       	sbiw	r26, 0x03	; 3
+ 1be:	20 81       	ld	r18, Z
+ 1c0:	81 e0       	ldi	r24, 0x01	; 1
+ 1c2:	90 e0       	ldi	r25, 0x00	; 0
+ 1c4:	02 c0       	rjmp	.+4      	; 0x1ca <_ZN6RegIf88resetBitEN9BaseTypes6Bits_eE+0x16>
+ 1c6:	88 0f       	add	r24, r24
+ 1c8:	99 1f       	adc	r25, r25
+ 1ca:	6a 95       	dec	r22
+ 1cc:	e2 f7       	brpl	.-8      	; 0x1c6 <_ZN6RegIf88resetBitEN9BaseTypes6Bits_eE+0x12>
+ 1ce:	80 95       	com	r24
+ 1d0:	82 23       	and	r24, r18
+ 1d2:	80 83       	st	Z, r24
+ 1d4:	08 95       	ret
+
+000001d6 <_ZN6RegIf88resetBitEj>:
+    void resetBit(uint16_t bit)                             {RESET_BIT(*avrRegister.byte,bit);}
+ 1d6:	dc 01       	movw	r26, r24
+ 1d8:	12 96       	adiw	r26, 0x02	; 2
+ 1da:	ed 91       	ld	r30, X+
+ 1dc:	fc 91       	ld	r31, X
+ 1de:	13 97       	sbiw	r26, 0x03	; 3
+ 1e0:	20 81       	ld	r18, Z
+ 1e2:	81 e0       	ldi	r24, 0x01	; 1
+ 1e4:	90 e0       	ldi	r25, 0x00	; 0
+ 1e6:	02 c0       	rjmp	.+4      	; 0x1ec <_ZN6RegIf88resetBitEj+0x16>
+ 1e8:	88 0f       	add	r24, r24
+ 1ea:	99 1f       	adc	r25, r25
+ 1ec:	6a 95       	dec	r22
+ 1ee:	e2 f7       	brpl	.-8      	; 0x1e8 <_ZN6RegIf88resetBitEj+0x12>
+ 1f0:	80 95       	com	r24
+ 1f2:	82 23       	and	r24, r18
+ 1f4:	80 83       	st	Z, r24
+ 1f6:	08 95       	ret
+
+000001f8 <_ZN6RegIf87getBitsEh>:
+    //Getter:
+    uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
+ 1f8:	dc 01       	movw	r26, r24
+ 1fa:	12 96       	adiw	r26, 0x02	; 2
+ 1fc:	ed 91       	ld	r30, X+
+ 1fe:	fc 91       	ld	r31, X
+ 200:	13 97       	sbiw	r26, 0x03	; 3
+ 202:	80 81       	ld	r24, Z
+ 204:	86 23       	and	r24, r22
+ 206:	08 95       	ret
+
+00000208 <_ZN6RegIf88getValueEv>:
+    uint16_t getValue(void)                                 {return (uint16_t)*avrRegister.byte;};
+ 208:	dc 01       	movw	r26, r24
+ 20a:	12 96       	adiw	r26, 0x02	; 2
+ 20c:	ed 91       	ld	r30, X+
+ 20e:	fc 91       	ld	r31, X
+ 210:	13 97       	sbiw	r26, 0x03	; 3
+ 212:	80 81       	ld	r24, Z
+ 214:	90 e0       	ldi	r25, 0x00	; 0
+ 216:	08 95       	ret
+
+00000218 <_ZN7TimerIf9setConfigEP14Timer8Config_t>:
+
+public:  //Methods
+    uint16_t getMaxTimerValue(void) {return tInfo->timerMax;}
+    TimerType_t getTimerType(void) {return tInfo->type;}
+protected: //Methods
+   void setInfo(TimerInfo_t* info) {tInfo = info;}
+ 218:	fc 01       	movw	r30, r24
+ 21a:	73 83       	std	Z+3, r23	; 0x03
+ 21c:	62 83       	std	Z+2, r22	; 0x02
+ 21e:	08 95       	ret
+
+00000220 <_ZN7TimerIf16setOutputCompareEh>:
+   TimerInfo_t *tInfo;
+   
+public:  // Virtual Methods
+	virtual ~TimerIf(){}
+   virtual void setConfig(Timer8Config_t *config) {setInfo(&config->info);};
+	virtual void setOutputCompare(uint8_t value)  {};
+ 220:	08 95       	ret
+
+00000222 <_ZN7TimerIf16getOutputCompareEv>:
+	virtual uint16_t getOutputCompare(void) { return 0;};
+ 222:	80 e0       	ldi	r24, 0x00	; 0
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	08 95       	ret
+
+00000228 <_ZN7TimerIf11hasOverflowEv>:
+	virtual void setOutputMode(TccrIf::OutputMode_e omode) {};
+	virtual void setPreScaler(TccrIf::Prescaler_e prescaler) {};
+	virtual TccrIf::Prescaler_e getPrescaler(void) { return TccrIf::NO_PRESCALER;};
+	virtual void toggleTimer(TimerIf::Toggle_e status) {};
+	virtual uint16_t getTime(void) {return 0;};
+   virtual bool hasOverflow(void) { return false;}
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	08 95       	ret
+
+0000022c <_ZN7Timer1612setTimerModeEN6TccrIf11TimerMode_eE>:
+   return ret;
+}
+
+Timer16::StdReturn_e Timer16::setTimerMode(Tccr16::TimerMode_e tmode)
+{
+   return setTimerMode(tmode);
+ 22c:	dc 01       	movw	r26, r24
+ 22e:	ed 91       	ld	r30, X+
+ 230:	fc 91       	ld	r31, X
+ 232:	02 84       	ldd	r0, Z+10	; 0x0a
+ 234:	f3 85       	ldd	r31, Z+11	; 0x0b
+ 236:	e0 2d       	mov	r30, r0
+ 238:	09 95       	icall
+}
+ 23a:	08 95       	ret
+
+0000023c <_ZN7Timer1612setPreScalerEN6TccrIf11Prescaler_eE>:
+    virtual TimerType_t getType(void)                 {return type;}    
+
+//functions
+public:
+	virtual ~TccrIf(){}
+	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
+ 23c:	fc 01       	movw	r30, r24
+ 23e:	64 87       	std	Z+12, r22	; 0x0c
+ 240:	08 95       	ret
+
+00000242 <_ZN7Timer1612getPrescalerEv>:
+}
+
+Tccr16::Prescaler_e Timer16::getPrescaler(void)
+{
+   return tccr.getPreScaler();
+}
+ 242:	fc 01       	movw	r30, r24
+ 244:	84 85       	ldd	r24, Z+12	; 0x0c
+ 246:	08 95       	ret
+
+00000248 <_ZN7Timer1613setOutputModeEN6TccrIf12OutputMode_eE>:
+{
+   return setTimerMode(tmode);
+}
+void Timer16::setOutputMode(Tccr16::OutputMode_e omode)
+{
+   tccr.setOutputMode(omode);
+ 248:	0a 96       	adiw	r24, 0x0a	; 10
+ 24a:	0e 94 ca 02 	call	0x594	; 0x594 <_ZN6Tccr1613setOutputModeEN6TccrIf12OutputMode_eE>
+ 24e:	08 95       	ret
+
+00000250 <_ZN7Timer16C1Ev>:
+* Author: AP02
+*/
+
+
+#include "Timer16.h"
+Timer16::Timer16()
+ 250:	cf 93       	push	r28
+ 252:	df 93       	push	r29
+ 254:	ec 01       	movw	r28, r24
+ 256:	84 e6       	ldi	r24, 0x64	; 100
+ 258:	90 e0       	ldi	r25, 0x00	; 0
+ 25a:	99 83       	std	Y+1, r25	; 0x01
+ 25c:	88 83       	st	Y, r24
+ 25e:	ce 01       	movw	r24, r28
+ 260:	04 96       	adiw	r24, 0x04	; 4
+ 262:	0e 94 ee 02 	call	0x5dc	; 0x5dc <_ZN6Tcnt16C1Ev>
+ 266:	ce 01       	movw	r24, r28
+ 268:	0a 96       	adiw	r24, 0x0a	; 10
+ 26a:	0e 94 b8 02 	call	0x570	; 0x570 <_ZN6Tccr16C1Ev>
+ 26e:	ce 01       	movw	r24, r28
+ 270:	46 96       	adiw	r24, 0x16	; 22
+ 272:	0e 94 4d 02 	call	0x49a	; 0x49a <_ZN5Ocr16C1Ev>
+ 276:	ce 01       	movw	r24, r28
+ 278:	4c 96       	adiw	r24, 0x1c	; 28
+ 27a:	0e 94 4d 02 	call	0x49a	; 0x49a <_ZN5Ocr16C1Ev>
+ 27e:	ce 01       	movw	r24, r28
+ 280:	82 96       	adiw	r24, 0x22	; 34
+ 282:	0e 94 34 02 	call	0x468	; 0x468 <_ZN5Icr16C1Ev>
+ 286:	ce 01       	movw	r24, r28
+ 288:	86 96       	adiw	r24, 0x26	; 38
+ 28a:	0e 94 8e 01 	call	0x31c	; 0x31c <_ZN5TimskC1Ev>
+ 28e:	ce 01       	movw	r24, r28
+ 290:	8a 96       	adiw	r24, 0x2a	; 42
+ 292:	0e 94 87 01 	call	0x30e	; 0x30e <_ZN4TifrC1Ev>
+{
+   
+}
+ 296:	df 91       	pop	r29
+ 298:	cf 91       	pop	r28
+ 29a:	08 95       	ret
+
+0000029c <_ZN7Timer16D1Ev>:
+   setConfig(config);
+    
+} //Timer16
+
+// default destructor
+Timer16::~Timer16()
+ 29c:	cf 93       	push	r28
+ 29e:	df 93       	push	r29
+ 2a0:	ec 01       	movw	r28, r24
+ 2a2:	84 e6       	ldi	r24, 0x64	; 100
+ 2a4:	90 e0       	ldi	r25, 0x00	; 0
+ 2a6:	99 83       	std	Y+1, r25	; 0x01
+ 2a8:	88 83       	st	Y, r24
+ 2aa:	ce 01       	movw	r24, r28
+ 2ac:	8a 96       	adiw	r24, 0x2a	; 42
+ 2ae:	0e 94 8d 01 	call	0x31a	; 0x31a <_ZN4TifrD1Ev>
+ 2b2:	ce 01       	movw	r24, r28
+ 2b4:	86 96       	adiw	r24, 0x26	; 38
+ 2b6:	0e 94 94 01 	call	0x328	; 0x328 <_ZN5TimskD1Ev>
+ 2ba:	ce 01       	movw	r24, r28
+ 2bc:	82 96       	adiw	r24, 0x22	; 34
+ 2be:	0e 94 3a 02 	call	0x474	; 0x474 <_ZN5Icr16D1Ev>
+ 2c2:	ce 01       	movw	r24, r28
+ 2c4:	4c 96       	adiw	r24, 0x1c	; 28
+ 2c6:	0e 94 3c 02 	call	0x478	; 0x478 <_ZN5Ocr16D1Ev>
+ 2ca:	ce 01       	movw	r24, r28
+ 2cc:	46 96       	adiw	r24, 0x16	; 22
+ 2ce:	0e 94 3c 02 	call	0x478	; 0x478 <_ZN5Ocr16D1Ev>
+ 2d2:	ce 01       	movw	r24, r28
+ 2d4:	0a 96       	adiw	r24, 0x0a	; 10
+ 2d6:	0e 94 9b 02 	call	0x536	; 0x536 <_ZN6Tccr16D1Ev>
+ 2da:	ce 01       	movw	r24, r28
+ 2dc:	04 96       	adiw	r24, 0x04	; 4
+ 2de:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <_ZN6Tcnt16D1Ev>
+{
+} //~Timer16
+ 2e2:	df 91       	pop	r29
+ 2e4:	cf 91       	pop	r28
+ 2e6:	08 95       	ret
+
+000002e8 <_ZN7Timer16D0Ev>:
+   setConfig(config);
+    
+} //Timer16
+
+// default destructor
+Timer16::~Timer16()
+ 2e8:	cf 93       	push	r28
+ 2ea:	df 93       	push	r29
+ 2ec:	ec 01       	movw	r28, r24
+{
+} //~Timer16
+ 2ee:	0e 94 4e 01 	call	0x29c	; 0x29c <_ZN7Timer16D1Ev>
+ 2f2:	ce 01       	movw	r24, r28
+ 2f4:	0e 94 f8 02 	call	0x5f0	; 0x5f0 <_ZdlPv>
+ 2f8:	df 91       	pop	r29
+ 2fa:	cf 91       	pop	r28
+ 2fc:	08 95       	ret
+
+000002fe <_ZN7Timer1611toggleTimerEN9BaseTypes8Toggle_eE>:
+   return tccr.getPreScaler();
+}
+
+void Timer16::toggleTimer(BaseTypes::Toggle_e status)
+{
+   tccr.toggleTimer(status);
+ 2fe:	0a 96       	adiw	r24, 0x0a	; 10
+ 300:	0e 94 66 02 	call	0x4cc	; 0x4cc <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE>
+ 304:	08 95       	ret
+
+00000306 <_ZN7Timer167getTimeEv>:
+}
+
+uint16_t Timer16::getTime(void)
+{
+   return tcnt.getTime();
+ 306:	04 96       	adiw	r24, 0x04	; 4
+ 308:	0e 94 db 02 	call	0x5b6	; 0x5b6 <_ZN6Tcnt167getTimeEv>
+}
+ 30c:	08 95       	ret
+
+0000030e <_ZN4TifrC1Ev>:
+
+
+#include "Tifr.h"
+
+// default constructor
+Tifr::Tifr()
+ 30e:	20 e8       	ldi	r18, 0x80	; 128
+ 310:	30 e0       	ldi	r19, 0x00	; 0
+ 312:	fc 01       	movw	r30, r24
+ 314:	31 83       	std	Z+1, r19	; 0x01
+ 316:	20 83       	st	Z, r18
+ 318:	08 95       	ret
+
+0000031a <_ZN4TifrD1Ev>:
+{
+} //Tifr
+
+// default destructor
+Tifr::~Tifr()
+ 31a:	08 95       	ret
+
+0000031c <_ZN5TimskC1Ev>:
+
+
+#include "Timsk.h"
+
+// default constructor
+Timsk::Timsk()
+ 31c:	2e e9       	ldi	r18, 0x9E	; 158
+ 31e:	30 e0       	ldi	r19, 0x00	; 0
+ 320:	fc 01       	movw	r30, r24
+ 322:	31 83       	std	Z+1, r19	; 0x01
+ 324:	20 83       	st	Z, r18
+ 326:	08 95       	ret
+
+00000328 <_ZN5TimskD1Ev>:
+{
+} //Timsk
+
+// default destructor
+Timsk::~Timsk()
+ 328:	08 95       	ret
+
+0000032a <_ZN7RegIf168getValueEv>:
+    Bit16Register_t avrRegister;
+
+    //functions
+    public:
+    ~RegIf16(){}
+     uint16_t getValue(void)                                {return *avrRegister.byte;}
+ 32a:	dc 01       	movw	r26, r24
+ 32c:	12 96       	adiw	r26, 0x02	; 2
+ 32e:	ed 91       	ld	r30, X+
+ 330:	fc 91       	ld	r31, X
+ 332:	13 97       	sbiw	r26, 0x03	; 3
+ 334:	80 81       	ld	r24, Z
+ 336:	91 81       	ldd	r25, Z+1	; 0x01
+ 338:	08 95       	ret
+
+0000033a <_ZN7RegIf166setBitEN9BaseTypes6Bits_eE>:
+     void setRegister(vuint16_t *reg)                       {avrRegister.byte = reg;}
+     void getRegister(BaseTypes::Bit16Register_t* regPtr)   {regPtr =  &avrRegister;}
+        
+    //Setter
+  
+    void setBit(BaseTypes::Bits_e bit)                      {SET_BIT(*avrRegister.byte,bit);}
+ 33a:	dc 01       	movw	r26, r24
+ 33c:	12 96       	adiw	r26, 0x02	; 2
+ 33e:	ed 91       	ld	r30, X+
+ 340:	fc 91       	ld	r31, X
+ 342:	13 97       	sbiw	r26, 0x03	; 3
+ 344:	20 81       	ld	r18, Z
+ 346:	31 81       	ldd	r19, Z+1	; 0x01
+ 348:	81 e0       	ldi	r24, 0x01	; 1
+ 34a:	90 e0       	ldi	r25, 0x00	; 0
+ 34c:	02 c0       	rjmp	.+4      	; 0x352 <_ZN7RegIf166setBitEN9BaseTypes6Bits_eE+0x18>
+ 34e:	88 0f       	add	r24, r24
+ 350:	99 1f       	adc	r25, r25
+ 352:	6a 95       	dec	r22
+ 354:	e2 f7       	brpl	.-8      	; 0x34e <_ZN7RegIf166setBitEN9BaseTypes6Bits_eE+0x14>
+ 356:	82 2b       	or	r24, r18
+ 358:	93 2b       	or	r25, r19
+ 35a:	91 83       	std	Z+1, r25	; 0x01
+ 35c:	80 83       	st	Z, r24
+ 35e:	08 95       	ret
+
+00000360 <_ZN7RegIf166setBitEj>:
+    void setBit(uint16_t bit)                               {SET_BIT(*avrRegister.byte,bit);}
+ 360:	dc 01       	movw	r26, r24
+ 362:	12 96       	adiw	r26, 0x02	; 2
+ 364:	ed 91       	ld	r30, X+
+ 366:	fc 91       	ld	r31, X
+ 368:	13 97       	sbiw	r26, 0x03	; 3
+ 36a:	20 81       	ld	r18, Z
+ 36c:	31 81       	ldd	r19, Z+1	; 0x01
+ 36e:	81 e0       	ldi	r24, 0x01	; 1
+ 370:	90 e0       	ldi	r25, 0x00	; 0
+ 372:	02 c0       	rjmp	.+4      	; 0x378 <_ZN7RegIf166setBitEj+0x18>
+ 374:	88 0f       	add	r24, r24
+ 376:	99 1f       	adc	r25, r25
+ 378:	6a 95       	dec	r22
+ 37a:	e2 f7       	brpl	.-8      	; 0x374 <_ZN7RegIf166setBitEj+0x14>
+ 37c:	82 2b       	or	r24, r18
+ 37e:	93 2b       	or	r25, r19
+ 380:	91 83       	std	Z+1, r25	; 0x01
+ 382:	80 83       	st	Z, r24
+ 384:	08 95       	ret
+
+00000386 <_ZN7RegIf167setBitsEh>:
+    void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}
+ 386:	dc 01       	movw	r26, r24
+ 388:	12 96       	adiw	r26, 0x02	; 2
+ 38a:	ed 91       	ld	r30, X+
+ 38c:	fc 91       	ld	r31, X
+ 38e:	13 97       	sbiw	r26, 0x03	; 3
+ 390:	80 81       	ld	r24, Z
+ 392:	91 81       	ldd	r25, Z+1	; 0x01
+ 394:	86 2b       	or	r24, r22
+ 396:	91 83       	std	Z+1, r25	; 0x01
+ 398:	80 83       	st	Z, r24
+ 39a:	08 95       	ret
+
+0000039c <_ZN7RegIf168resetBitEN9BaseTypes6Bits_eE>:
+    void resetBit(BaseTypes::Bits_e bit)                    {RESET_BIT(*avrRegister.byte,bit);}
+ 39c:	dc 01       	movw	r26, r24
+ 39e:	12 96       	adiw	r26, 0x02	; 2
+ 3a0:	ed 91       	ld	r30, X+
+ 3a2:	fc 91       	ld	r31, X
+ 3a4:	13 97       	sbiw	r26, 0x03	; 3
+ 3a6:	20 81       	ld	r18, Z
+ 3a8:	31 81       	ldd	r19, Z+1	; 0x01
+ 3aa:	81 e0       	ldi	r24, 0x01	; 1
+ 3ac:	90 e0       	ldi	r25, 0x00	; 0
+ 3ae:	02 c0       	rjmp	.+4      	; 0x3b4 <_ZN7RegIf168resetBitEN9BaseTypes6Bits_eE+0x18>
+ 3b0:	88 0f       	add	r24, r24
+ 3b2:	99 1f       	adc	r25, r25
+ 3b4:	6a 95       	dec	r22
+ 3b6:	e2 f7       	brpl	.-8      	; 0x3b0 <_ZN7RegIf168resetBitEN9BaseTypes6Bits_eE+0x14>
+ 3b8:	80 95       	com	r24
+ 3ba:	90 95       	com	r25
+ 3bc:	82 23       	and	r24, r18
+ 3be:	93 23       	and	r25, r19
+ 3c0:	91 83       	std	Z+1, r25	; 0x01
+ 3c2:	80 83       	st	Z, r24
+ 3c4:	08 95       	ret
+
+000003c6 <_ZN7RegIf168resetBitEj>:
+    void resetBit(uint16_t bit)                             {RESET_BIT(*avrRegister.byte,bit);}
+ 3c6:	dc 01       	movw	r26, r24
+ 3c8:	12 96       	adiw	r26, 0x02	; 2
+ 3ca:	ed 91       	ld	r30, X+
+ 3cc:	fc 91       	ld	r31, X
+ 3ce:	13 97       	sbiw	r26, 0x03	; 3
+ 3d0:	20 81       	ld	r18, Z
+ 3d2:	31 81       	ldd	r19, Z+1	; 0x01
+ 3d4:	81 e0       	ldi	r24, 0x01	; 1
+ 3d6:	90 e0       	ldi	r25, 0x00	; 0
+ 3d8:	02 c0       	rjmp	.+4      	; 0x3de <_ZN7RegIf168resetBitEj+0x18>
+ 3da:	88 0f       	add	r24, r24
+ 3dc:	99 1f       	adc	r25, r25
+ 3de:	6a 95       	dec	r22
+ 3e0:	e2 f7       	brpl	.-8      	; 0x3da <_ZN7RegIf168resetBitEj+0x14>
+ 3e2:	80 95       	com	r24
+ 3e4:	90 95       	com	r25
+ 3e6:	82 23       	and	r24, r18
+ 3e8:	93 23       	and	r25, r19
+ 3ea:	91 83       	std	Z+1, r25	; 0x01
+ 3ec:	80 83       	st	Z, r24
+ 3ee:	08 95       	ret
+
+000003f0 <_ZN7RegIf169resetBitsEh>:
+    void resetBits(uint8_t bits)                            {RESET_BITS(*avrRegister.byte,bits);}
+ 3f0:	dc 01       	movw	r26, r24
+ 3f2:	12 96       	adiw	r26, 0x02	; 2
+ 3f4:	ed 91       	ld	r30, X+
+ 3f6:	fc 91       	ld	r31, X
+ 3f8:	13 97       	sbiw	r26, 0x03	; 3
+ 3fa:	80 81       	ld	r24, Z
+ 3fc:	91 81       	ldd	r25, Z+1	; 0x01
+ 3fe:	70 e0       	ldi	r23, 0x00	; 0
+ 400:	60 95       	com	r22
+ 402:	70 95       	com	r23
+ 404:	68 23       	and	r22, r24
+ 406:	79 23       	and	r23, r25
+ 408:	71 83       	std	Z+1, r23	; 0x01
+ 40a:	60 83       	st	Z, r22
+ 40c:	08 95       	ret
+
+0000040e <_ZN7RegIf167getBitsEh>:
+    //Getter:
+    uint8_t getBits(uint8_t bits)                           {return GET_BITS(*avrRegister.byte,bits);}
+ 40e:	dc 01       	movw	r26, r24
+ 410:	12 96       	adiw	r26, 0x02	; 2
+ 412:	ed 91       	ld	r30, X+
+ 414:	fc 91       	ld	r31, X
+ 416:	13 97       	sbiw	r26, 0x03	; 3
+ 418:	80 81       	ld	r24, Z
+ 41a:	91 81       	ldd	r25, Z+1	; 0x01
+ 41c:	86 23       	and	r24, r22
+ 41e:	08 95       	ret
+
+00000420 <_ZN7RegIf166getBitEN9BaseTypes6Bits_eE>:
+    BaseTypes::BitStatus_e getBit(BaseTypes::Bits_e bit)    {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
+ 420:	dc 01       	movw	r26, r24
+ 422:	12 96       	adiw	r26, 0x02	; 2
+ 424:	ed 91       	ld	r30, X+
+ 426:	fc 91       	ld	r31, X
+ 428:	13 97       	sbiw	r26, 0x03	; 3
+ 42a:	20 81       	ld	r18, Z
+ 42c:	31 81       	ldd	r19, Z+1	; 0x01
+ 42e:	86 2f       	mov	r24, r22
+ 430:	90 e0       	ldi	r25, 0x00	; 0
+ 432:	01 96       	adiw	r24, 0x01	; 1
+ 434:	82 23       	and	r24, r18
+ 436:	93 23       	and	r25, r19
+ 438:	02 c0       	rjmp	.+4      	; 0x43e <_ZN7RegIf166getBitEN9BaseTypes6Bits_eE+0x1e>
+ 43a:	96 95       	lsr	r25
+ 43c:	87 95       	ror	r24
+ 43e:	6a 95       	dec	r22
+ 440:	e2 f7       	brpl	.-8      	; 0x43a <_ZN7RegIf166getBitEN9BaseTypes6Bits_eE+0x1a>
+ 442:	08 95       	ret
+
+00000444 <_ZN7RegIf166getBitEh>:
+    BaseTypes::BitStatus_e getBit(uint8_t bit)              {return (BaseTypes::BitStatus_e)GET_BIT(*avrRegister.byte,bit);}
+ 444:	dc 01       	movw	r26, r24
+ 446:	12 96       	adiw	r26, 0x02	; 2
+ 448:	ed 91       	ld	r30, X+
+ 44a:	fc 91       	ld	r31, X
+ 44c:	13 97       	sbiw	r26, 0x03	; 3
+ 44e:	20 81       	ld	r18, Z
+ 450:	31 81       	ldd	r19, Z+1	; 0x01
+ 452:	86 2f       	mov	r24, r22
+ 454:	90 e0       	ldi	r25, 0x00	; 0
+ 456:	01 96       	adiw	r24, 0x01	; 1
+ 458:	82 23       	and	r24, r18
+ 45a:	93 23       	and	r25, r19
+ 45c:	02 c0       	rjmp	.+4      	; 0x462 <_ZN7RegIf166getBitEh+0x1e>
+ 45e:	96 95       	lsr	r25
+ 460:	87 95       	ror	r24
+ 462:	6a 95       	dec	r22
+ 464:	e2 f7       	brpl	.-8      	; 0x45e <_ZN7RegIf166getBitEh+0x1a>
+ 466:	08 95       	ret
+
+00000468 <_ZN5Icr16C1Ev>:
+
+
+#include "Icr16.h"
+
+// default constructor
+Icr16::Icr16()
+ 468:	2c eb       	ldi	r18, 0xBC	; 188
+ 46a:	30 e0       	ldi	r19, 0x00	; 0
+ 46c:	fc 01       	movw	r30, r24
+ 46e:	31 83       	std	Z+1, r19	; 0x01
+ 470:	20 83       	st	Z, r18
+ 472:	08 95       	ret
+
+00000474 <_ZN5Icr16D1Ev>:
+{
+} //Icr16
+
+// default destructor
+Icr16::~Icr16()
+ 474:	08 95       	ret
+
+00000476 <_ZN5OcrIf16setOutputCompareEh>:
+   };
+
+//functions
+public:
+	virtual ~OcrIf(){}
+	virtual void setOutputCompare(uint8_t value) {};            	
+ 476:	08 95       	ret
+
+00000478 <_ZN5Ocr16D1Ev>:
+Ocr16::Ocr16()
+{
+} //Ocr16
+
+// default destructor
+Ocr16::~Ocr16()
+ 478:	08 95       	ret
+
+0000047a <_ZN5Ocr1616getOutputCompareEv>:
+   setValue(rawValue);
+ }
+ 
+ uint16_t Ocr16::getOutputCompare(void)
+ {  
+   return getValue();
+ 47a:	dc 01       	movw	r26, r24
+ 47c:	12 96       	adiw	r26, 0x02	; 2
+ 47e:	ed 91       	ld	r30, X+
+ 480:	fc 91       	ld	r31, X
+ 482:	13 97       	sbiw	r26, 0x03	; 3
+ 484:	00 8c       	ldd	r0, Z+24	; 0x18
+ 486:	f1 8d       	ldd	r31, Z+25	; 0x19
+ 488:	e0 2d       	mov	r30, r0
+ 48a:	02 96       	adiw	r24, 0x02	; 2
+ 48c:	09 95       	icall
+ }
+ 48e:	08 95       	ret
+
+00000490 <_ZN5Ocr1620setOutputCompareTimeEh>:
+
+
+
+void Ocr16::setOutputCompareTime(uint8_t msTime)
+{
+ 490:	08 95       	ret
+
+00000492 <_ZN5Ocr1620getOutputCompareTimeEv>:
+ 
+uint16_t Ocr16::getOutputCompareTime(void)
+{
+
+
+ 492:	08 95       	ret
+
+00000494 <_ZN5Ocr16D0Ev>:
+} //Ocr16
+
+// default destructor
+Ocr16::~Ocr16()
+{
+} //~Ocr16
+ 494:	0e 94 f8 02 	call	0x5f0	; 0x5f0 <_ZdlPv>
+ 498:	08 95       	ret
+
+0000049a <_ZN5Ocr16C1Ev>:
+
+
+#include "Ocr16.h"
+
+// default constructor
+Ocr16::Ocr16()
+ 49a:	2a ed       	ldi	r18, 0xDA	; 218
+ 49c:	30 e0       	ldi	r19, 0x00	; 0
+ 49e:	fc 01       	movw	r30, r24
+ 4a0:	31 83       	std	Z+1, r19	; 0x01
+ 4a2:	20 83       	st	Z, r18
+ 4a4:	2a ee       	ldi	r18, 0xEA	; 234
+ 4a6:	30 e0       	ldi	r19, 0x00	; 0
+ 4a8:	33 83       	std	Z+3, r19	; 0x03
+ 4aa:	22 83       	std	Z+2, r18	; 0x02
+ 4ac:	08 95       	ret
+
+000004ae <_ZN6TccrIf7setTypeE11TimerType_t>:
+private:
+    Prescaler_e psc;
+    TimerType_t type;
+
+protected:
+    virtual void setType(TimerType_t t)               {type = t;}
+ 4ae:	fc 01       	movw	r30, r24
+ 4b0:	63 83       	std	Z+3, r22	; 0x03
+ 4b2:	08 95       	ret
+
+000004b4 <_ZN6TccrIf7getTypeEv>:
+    virtual TimerType_t getType(void)                 {return type;}    
+ 4b4:	fc 01       	movw	r30, r24
+ 4b6:	83 81       	ldd	r24, Z+3	; 0x03
+ 4b8:	08 95       	ret
+
+000004ba <_ZN6TccrIf12setPreScalerENS_11Prescaler_eE>:
+
+//functions
+public:
+	virtual ~TccrIf(){}
+	virtual void setPreScaler(Prescaler_e prescaler)  {psc = prescaler;}
+ 4ba:	fc 01       	movw	r30, r24
+ 4bc:	62 83       	std	Z+2, r22	; 0x02
+ 4be:	08 95       	ret
+
+000004c0 <_ZN6TccrIf12getPreScalerEv>:
+   virtual Prescaler_e getPreScaler(void)            {return psc;};
+ 4c0:	fc 01       	movw	r30, r24
+ 4c2:	82 81       	ldd	r24, Z+2	; 0x02
+ 4c4:	08 95       	ret
+
+000004c6 <_ZN6TccrIf12setTimerModeENS_11TimerMode_eE>:
+   virtual void toggleTimer(Toggle_e stauts) {}; 
+   virtual StdReturn_e setTimerMode(TimerMode_e tmode) {return BaseTypes::STD_NOT_SUPPORTED;};
+ 4c6:	81 e0       	ldi	r24, 0x01	; 1
+ 4c8:	08 95       	ret
+
+000004ca <_ZN6TccrIf10outputModeENS_12OutputMode_eE>:
+   virtual void outputMode(OutputMode_e omode) {};
+ 4ca:	08 95       	ret
+
+000004cc <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE>:
+{
+} //~Tccr16
+
+
+void Tccr16::toggleTimer(Tccr16::Toggle_e status)
+{
+ 4cc:	cf 93       	push	r28
+ 4ce:	df 93       	push	r29
+    Prescaler_e prescaler;
+    uint8_t bits;
+    if(status == BaseTypes::ENABLE)
+ 4d0:	61 11       	cpse	r22, r1
+ 4d2:	26 c0       	rjmp	.+76     	; 0x520 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x54>
+ 4d4:	ec 01       	movw	r28, r24
+    {
+        prescaler = getPreScaler();
+ 4d6:	e8 81       	ld	r30, Y
+ 4d8:	f9 81       	ldd	r31, Y+1	; 0x01
+ 4da:	02 84       	ldd	r0, Z+10	; 0x0a
+ 4dc:	f3 85       	ldd	r31, Z+11	; 0x0b
+ 4de:	e0 2d       	mov	r30, r0
+ 4e0:	09 95       	icall
+        RESET_BITS(bits,BIT_0|BIT_1|BIT_2);
+ 4e2:	20 e0       	ldi	r18, 0x00	; 0
+        switch(prescaler)
+ 4e4:	90 e0       	ldi	r25, 0x00	; 0
+ 4e6:	89 30       	cpi	r24, 0x09	; 9
+ 4e8:	91 05       	cpc	r25, r1
+ 4ea:	98 f4       	brcc	.+38     	; 0x512 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x46>
+ 4ec:	fc 01       	movw	r30, r24
+ 4ee:	e6 5d       	subi	r30, 0xD6	; 214
+ 4f0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4f2:	0c 94 f9 02 	jmp	0x5f2	; 0x5f2 <__tablejump2__>
+        {
+            case Tccr16::NO_PRESCALER                       :
+            SET_BIT(bits,BIT_0);
+ 4f6:	21 60       	ori	r18, 0x01	; 1
+            break;
+ 4f8:	0d c0       	rjmp	.+26     	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::PRESCALER_8                        :
+            SET_BIT(bits,BIT_1);
+ 4fa:	22 60       	ori	r18, 0x02	; 2
+            break;
+ 4fc:	0b c0       	rjmp	.+22     	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::PRESCALER_32                       :
+            
+            break;
+            case Tccr16::PRESCALER_64                       :
+            SET_BITS(bits,BIT_0|BIT_1);
+ 4fe:	21 60       	ori	r18, 0x01	; 1
+            break;
+ 500:	09 c0       	rjmp	.+18     	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::PRESCALER_128                      :
+            
+            break;
+            case Tccr16::PRESCALER_256                      :
+            SET_BITS(bits,BIT_2);
+ 502:	22 60       	ori	r18, 0x02	; 2
+            break;
+ 504:	07 c0       	rjmp	.+14     	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::PRESCALER_1024                     :
+            SET_BITS(bits,BIT_0|BIT_2);
+ 506:	22 60       	ori	r18, 0x02	; 2
+            break;
+ 508:	05 c0       	rjmp	.+10     	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::EXTERNAL_TM01_SOURCE_FALLING_EDGE  :
+            SET_BITS(bits,BIT_0|BIT_1);
+ 50a:	21 60       	ori	r18, 0x01	; 1
+            break;
+ 50c:	03 c0       	rjmp	.+6      	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            case Tccr16::EXTERNAL_TM01_SOURCE_RISING_EDGE   :
+            SET_BITS(bits,BIT_0|BIT_1|BIT_2);
+ 50e:	23 60       	ori	r18, 0x03	; 3
+            break;
+ 510:	01 c0       	rjmp	.+2      	; 0x514 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x48>
+            default:
+            SET_BIT(bits,BIT_0);
+ 512:	21 60       	ori	r18, 0x01	; 1
+    //functions
+    public:
+    ~RegIf8(){}
+    void setRegister(vuint8_t *reg)                 {avrRegister.byte = reg;}
+    void getRegister( BaseTypes::Bit8Register_t* regPtr)    {regPtr =  &avrRegister;}    
+    void setBits(uint8_t bits)                              {SET_BITS(*avrRegister.byte,bits);}   
+ 514:	ea 85       	ldd	r30, Y+10	; 0x0a
+ 516:	fb 85       	ldd	r31, Y+11	; 0x0b
+ 518:	80 81       	ld	r24, Z
+ 51a:	82 2b       	or	r24, r18
+ 51c:	80 83       	st	Z, r24
+ 51e:	08 c0       	rjmp	.+16     	; 0x530 <_ZN6Tccr1611toggleTimerEN9BaseTypes8Toggle_eE+0x64>
+    void resetBits(uint8_t bits)                            {RESET_BITS(*avrRegister.byte,bits);}
+ 520:	dc 01       	movw	r26, r24
+ 522:	1a 96       	adiw	r26, 0x0a	; 10
+ 524:	ed 91       	ld	r30, X+
+ 526:	fc 91       	ld	r31, X
+ 528:	1b 97       	sbiw	r26, 0x0b	; 11
+ 52a:	80 81       	ld	r24, Z
+ 52c:	8c 7f       	andi	r24, 0xFC	; 252
+ 52e:	80 83       	st	Z, r24
+    {
+        SET_BITS(bits,BIT_0|BIT_1|BIT_2);
+        tccrb.resetBits(bits);
+    }
+    return;
+}
+ 530:	df 91       	pop	r29
+ 532:	cf 91       	pop	r28
+ 534:	08 95       	ret
+
+00000536 <_ZN6Tccr16D1Ev>:
+Tccr16::Tccr16()
+{
+} //Tccr16
+
+// default destructor
+Tccr16::~Tccr16()
+ 536:	cf 93       	push	r28
+ 538:	df 93       	push	r29
+ 53a:	ec 01       	movw	r28, r24
+ 53c:	88 e0       	ldi	r24, 0x08	; 8
+ 53e:	91 e0       	ldi	r25, 0x01	; 1
+ 540:	99 83       	std	Y+1, r25	; 0x01
+ 542:	88 83       	st	Y, r24
+ 544:	ce 01       	movw	r24, r28
+ 546:	08 96       	adiw	r24, 0x08	; 8
+ 548:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <_ZN5TccrBD1Ev>
+ 54c:	ce 01       	movw	r24, r28
+ 54e:	04 96       	adiw	r24, 0x04	; 4
+ 550:	0e 94 d1 02 	call	0x5a2	; 0x5a2 <_ZN5TccrAD1Ev>
+{
+} //~Tccr16
+ 554:	df 91       	pop	r29
+ 556:	cf 91       	pop	r28
+ 558:	08 95       	ret
+
+0000055a <_ZN6Tccr16D0Ev>:
+Tccr16::Tccr16()
+{
+} //Tccr16
+
+// default destructor
+Tccr16::~Tccr16()
+ 55a:	cf 93       	push	r28
+ 55c:	df 93       	push	r29
+ 55e:	ec 01       	movw	r28, r24
+{
+} //~Tccr16
+ 560:	0e 94 9b 02 	call	0x536	; 0x536 <_ZN6Tccr16D1Ev>
+ 564:	ce 01       	movw	r24, r28
+ 566:	0e 94 f8 02 	call	0x5f0	; 0x5f0 <_ZdlPv>
+ 56a:	df 91       	pop	r29
+ 56c:	cf 91       	pop	r28
+ 56e:	08 95       	ret
+
+00000570 <_ZN6Tccr16C1Ev>:
+
+
+#include "Tccr16.h"
+
+// default constructor
+Tccr16::Tccr16()
+ 570:	cf 93       	push	r28
+ 572:	df 93       	push	r29
+ 574:	ec 01       	movw	r28, r24
+ 576:	88 e0       	ldi	r24, 0x08	; 8
+ 578:	91 e0       	ldi	r25, 0x01	; 1
+ 57a:	99 83       	std	Y+1, r25	; 0x01
+ 57c:	88 83       	st	Y, r24
+ 57e:	ce 01       	movw	r24, r28
+ 580:	04 96       	adiw	r24, 0x04	; 4
+ 582:	0e 94 cb 02 	call	0x596	; 0x596 <_ZN5TccrAC1Ev>
+ 586:	ce 01       	movw	r24, r28
+ 588:	08 96       	adiw	r24, 0x08	; 8
+ 58a:	0e 94 d2 02 	call	0x5a4	; 0x5a4 <_ZN5TccrBC1Ev>
+{
+} //Tccr16
+ 58e:	df 91       	pop	r29
+ 590:	cf 91       	pop	r28
+ 592:	08 95       	ret
+
+00000594 <_ZN6Tccr1613setOutputModeEN6TccrIf12OutputMode_eE>:
+   return; 
+}   
+
+
+void Tccr16::setOutputMode(Tccr16::OutputMode_e omode)
+{
+ 594:	08 95       	ret
+
+00000596 <_ZN5TccrAC1Ev>:
+
+
+#include "TccrA.h"
+
+// default constructor
+TccrA::TccrA()
+ 596:	2e e1       	ldi	r18, 0x1E	; 30
+ 598:	31 e0       	ldi	r19, 0x01	; 1
+ 59a:	fc 01       	movw	r30, r24
+ 59c:	31 83       	std	Z+1, r19	; 0x01
+ 59e:	20 83       	st	Z, r18
+ 5a0:	08 95       	ret
+
+000005a2 <_ZN5TccrAD1Ev>:
+{
+} //TccrA
+
+// default destructor
+TccrA::~TccrA()
+ 5a2:	08 95       	ret
+
+000005a4 <_ZN5TccrBC1Ev>:
+
+
+#include "TccrB.h"
+
+// default constructor
+TccrB::TccrB()
+ 5a4:	2c e3       	ldi	r18, 0x3C	; 60
+ 5a6:	31 e0       	ldi	r19, 0x01	; 1
+ 5a8:	fc 01       	movw	r30, r24
+ 5aa:	31 83       	std	Z+1, r19	; 0x01
+ 5ac:	20 83       	st	Z, r18
+ 5ae:	08 95       	ret
+
+000005b0 <_ZN5TccrBD1Ev>:
+{
+} //TccrB
+
+// default destructor
+TccrB::~TccrB()
+ 5b0:	08 95       	ret
+
+000005b2 <_ZN6Tcnt16D1Ev>:
+Tcnt16::Tcnt16()
+{
+} //Tcnt16
+
+// default destructor
+Tcnt16::~Tcnt16()
+ 5b2:	08 95       	ret
+
+000005b4 <_ZThn4_N6Tcnt16D1Ev>:
+ 5b4:	08 95       	ret
+
+000005b6 <_ZN6Tcnt167getTimeEv>:
+} //~Tcnt16
+
+
+uint16_t Tcnt16::getTime(void)
+{   
+    return getValue();
+ 5b6:	dc 01       	movw	r26, r24
+ 5b8:	ed 91       	ld	r30, X+
+ 5ba:	fc 91       	ld	r31, X
+ 5bc:	00 8c       	ldd	r0, Z+24	; 0x18
+ 5be:	f1 8d       	ldd	r31, Z+25	; 0x19
+ 5c0:	e0 2d       	mov	r30, r0
+ 5c2:	09 95       	icall
+}
+ 5c4:	08 95       	ret
+
+000005c6 <_ZThn4_N6Tcnt167getTimeEv>:
+ 5c6:	04 97       	sbiw	r24, 0x04	; 4
+ 5c8:	0e 94 db 02 	call	0x5b6	; 0x5b6 <_ZN6Tcnt167getTimeEv>
+ 5cc:	08 95       	ret
+
+000005ce <_ZN6Tcnt16D0Ev>:
+} //Tcnt16
+
+// default destructor
+Tcnt16::~Tcnt16()
+{
+} //~Tcnt16
+ 5ce:	0e 94 f8 02 	call	0x5f0	; 0x5f0 <_ZdlPv>
+ 5d2:	08 95       	ret
+
+000005d4 <_ZThn4_N6Tcnt16D0Ev>:
+ 5d4:	04 97       	sbiw	r24, 0x04	; 4
+ 5d6:	0e 94 e7 02 	call	0x5ce	; 0x5ce <_ZN6Tcnt16D0Ev>
+ 5da:	08 95       	ret
+
+000005dc <_ZN6Tcnt16C1Ev>:
+
+
+#include "Tcnt16.h"
+
+// default constructor
+Tcnt16::Tcnt16()
+ 5dc:	2a e5       	ldi	r18, 0x5A	; 90
+ 5de:	31 e0       	ldi	r19, 0x01	; 1
+ 5e0:	fc 01       	movw	r30, r24
+ 5e2:	31 83       	std	Z+1, r19	; 0x01
+ 5e4:	20 83       	st	Z, r18
+ 5e6:	2e e7       	ldi	r18, 0x7E	; 126
+ 5e8:	31 e0       	ldi	r19, 0x01	; 1
+ 5ea:	35 83       	std	Z+5, r19	; 0x05
+ 5ec:	24 83       	std	Z+4, r18	; 0x04
+ 5ee:	08 95       	ret
+
+000005f0 <_ZdlPv>:
+{
+   return NULL;
+}
+
+void operator delete(void * p) // or delete(void *, std::size_t)
+{
+ 5f0:	08 95       	ret
+
+000005f2 <__tablejump2__>:
+ 5f2:	ee 0f       	add	r30, r30
+ 5f4:	ff 1f       	adc	r31, r31
+ 5f6:	05 90       	lpm	r0, Z+
+ 5f8:	f4 91       	lpm	r31, Z
+ 5fa:	e0 2d       	mov	r30, r0
+ 5fc:	09 94       	ijmp
+
+000005fe <_exit>:
+ 5fe:	f8 94       	cli
+
+00000600 <__stop_program>:
+ 600:	ff cf       	rjmp	.-2      	; 0x600 <__stop_program>
