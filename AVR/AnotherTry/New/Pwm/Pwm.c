@@ -122,13 +122,22 @@ void Pwm_Stop(void)
 
 void Pwm_TogglePwm(Pwm_Status_t status)
 {
-    if(status == PWM_START)
-    {
-       Pwm_Start();
-    }
-    else
-    {
-       Pwm_Stop();
-    }
+   if(status == PWM_START)
+   {
+      Pwm_Start();
+   }
+   else
+   {
+      Pwm_Stop();
+   }
    
+}
+
+void Pwm_SetDutyCycle(uint8_t dutyCycle)
+{
+   if (dutyCycle >= 0 && dutyCycle <= 100)
+   {
+      
+   }
+   return;
 }
