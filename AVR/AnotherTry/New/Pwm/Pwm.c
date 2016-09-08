@@ -14,7 +14,7 @@
 
 
 static const uint16_t Pwm_PrescalerFactorTable[PWM_NUMBER_OF_PRESCALER] = 
-                       [1,8,64,256,1024];
+                       { 1 , 8 , 64 , 256 , 1024 };
 
 static Pwm_Prescaler_t Pwm_prescaler;
 
@@ -29,13 +29,13 @@ void Pwm_SetPwmMode(Pwm_Mode_t mode)
    else if (mode == PWM_PHASE_CORRECT)
    {
       TCCR0 |= (1 << WGM00);
-      TCCR0 &= ~(1 << WGM01)
+      TCCR0 &= ~(1 << WGM01);
    }
    else
    {
          
    }
-   return
+   return;
 }
 
 
@@ -105,12 +105,12 @@ void Pwm_Start(void)
    {
       
    }
-   return
+   return;
 }
 
 void Pwm_Stop(void)
 {
-   uint8_t pwmValue;
+   uint8_t pwmValue = 0;
    pwmValue |= ((TCCR0 & CS00) | (TCCR0 & CS01) |(TCCR0 & CS02)) - 1;
    Pwm_prescaler = (Pwm_Prescaler_t)pwmValue;
    TCCR0 &= ~(1 << CS00);
@@ -130,7 +130,7 @@ void Pwm_TogglePwm(Pwm_Status_t status)
    {
       Pwm_Stop();
    }
-   
+   return;
 }
 
 void Pwm_SetDutyCycle(uint8_t dutyCycle)

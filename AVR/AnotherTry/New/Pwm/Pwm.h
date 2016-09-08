@@ -14,11 +14,11 @@
 
 typedef enum 
 {
-   PWM_PRESCALER_0            = 0;
-   PWM_PRESCALER_8            = 1;
-   PWM_PRESCALER_64           = 2;
-   PWM_PRESCALER_256          = 3;
-   PWM_PRESCALER_1024         = 4;  
+   PWM_PRESCALER_0            = 0,
+   PWM_PRESCALER_8            = 1,
+   PWM_PRESCALER_64           = 2,
+   PWM_PRESCALER_256          = 3,
+   PWM_PRESCALER_1024         = 4,  
    
 }Pwm_Prescaler_t;
 
