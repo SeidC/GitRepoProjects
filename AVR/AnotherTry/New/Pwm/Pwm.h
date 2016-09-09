@@ -60,4 +60,6 @@ void Pwm_ConfigureOutputPin(Pwm_OutputPin_t pinCfg);
 
 void Pwm_SetPwmMode(Pwm_Mode_t mode);
 
+void Pwm_SetDutyCycle(uint8_t dutyCycle);
+
 #endif /* PWM_H_ */

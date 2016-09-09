@@ -6,15 +6,9 @@
    */ 
    #include "Pwm.h"
 
-#define PWM_FAST_PWM_SCALER          256u
 
-#define PWM_PHASE_CORRECT_SCALER    510u
+#define PWM_DUTY_CYCLE_100						255u
 
-#define PWM_NUMBER_OF_PRESCALER        5u
-
-
-static const uint16_t Pwm_PrescalerFactorTable[PWM_NUMBER_OF_PRESCALER] = 
-                       { 1 , 8 , 64 , 256 , 1024 };
 
 static Pwm_Prescaler_t Pwm_prescaler;
 
@@ -71,6 +65,7 @@ void Pwm_SetPwmFrequenze(Pwm_Prescaler_t prescaler)
 
 void Pwm_Start(void)
 {
+   DDRB |= (1 << PB3);
    if(Pwm_prescaler == PWM_PRESCALER_0   )
    {
       TCCR0 |=  (1 << CS00);
@@ -135,9 +130,11 @@ void Pwm_TogglePwm(Pwm_Status_t status)
 
 void Pwm_SetDutyCycle(uint8_t dutyCycle)
 {
+	uint8_t newDutyCycle;
    if (dutyCycle >= 0 && dutyCycle <= 100)
-   {
-      
+   {	
+	   newDutyCycle = PWM_DUTY_CYCLE_100 * dutyCycle / 100;
+	   OCR0 = newDutyCycle;
    }
    return;
 }

@@ -11,6 +11,14 @@
 
 int main(void)
 {
+   
+   Pwm_SetPwmMode(PWM_PHASE_CORRECT);
+   Pwm_ConfigureOutputPin(PWM_INVERTED);
+   Pwm_SetPwmFrequenze(PWM_PRESCALER_0);
+   
+   Pwm_TogglePwm(PWM_START);
+   
+   Pwm_SetDutyCycle(75);
     /* Replace with your application code */
     while (1) 
     {

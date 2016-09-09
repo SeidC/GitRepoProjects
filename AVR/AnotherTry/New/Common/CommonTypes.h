@@ -15,4 +15,13 @@
 #endif
 
 
+typedef volatile uint8_t vuint8_t;
+
+
+
+#define HIGH				1u
+
+#define LOW					0u
+typedef uint8_t Status_t;
+
 #endif /* COMMONTYPES_H_ */
