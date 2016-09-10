@@ -20,11 +20,15 @@ bool Adc_interruptSingelConvers;
 ISR(ADC_vect)
 {
    Adc_Channel_t currChannel;
+   
+   currChannel = Adc_GetCurrentChannel(); 
+   Adc_adcValues[currChannel] =  (ADCH << 8);
+   Adc_adcValues[currChannel] += (ADCL);
+ 
    if((ADCSRA & (1 << ADATE)) != 0)
    {
       if(Adc_interruptSingelConvers == FALSE)
       {
-         currChannel = Adc_GetCurrentChannel();
          if(currChannel < ADC_NUMBER_OF_CHANNELS)
          {
             Adc_SetChannel(currChannel + 1);
@@ -32,7 +36,7 @@ ISR(ADC_vect)
          else
          {
             Adc_SetChannel(ADC_CHANNEL_0);
-         }         
+         }        
       }  
    }   
    Adc_interruptFinished = TRUE;   
