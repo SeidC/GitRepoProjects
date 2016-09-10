@@ -17,11 +17,19 @@
 
 typedef volatile uint8_t vuint8_t;
 
+typedef volatile uint16_t vuin16_t;
 
-
-#define HIGH				1u
-
-#define LOW					0u
+/*--- Type definiton of Datatype Status_t ---------------------------------------------*/
 typedef uint8_t Status_t;
+/*--- Possible Parameter of Status_t --------------------------------------------------*/
+#define HIGH				((Status_t)1u)
+#define LOW					((Status_t)0u)
+
+
+typedef uint8_t bool;
+
+#define TRUE  1u
+#define FALSE 0u
+
 
 #endif /* COMMONTYPES_H_ */
