@@ -12,13 +12,29 @@
 
 
 vuin16_t Adc_adcValues[ADC_NUMBER_OF_CHANNELS];
+
 bool Adc_interruptFinished;
+
+bool Adc_interruptSingelConvers;
 
 ISR(ADC_vect)
 {
-   
-   
-   
+   Adc_Channel_t currChannel;
+   if((ADCSRA & (1 << ADATE)) != 0)
+   {
+      if(Adc_interruptSingelConvers == FALSE)
+      {
+         currChannel = Adc_GetCurrentChannel();
+         if(currChannel < ADC_NUMBER_OF_CHANNELS)
+         {
+            Adc_SetChannel(currChannel + 1);
+         }
+         else
+         {
+            Adc_SetChannel(ADC_CHANNEL_0);
+         }         
+      }  
+   }   
    Adc_interruptFinished = TRUE;   
 }
 
@@ -37,26 +53,35 @@ void Adc_Init(void)
      ADCSRA = ADC_ADCSRA_REGISTER_CONFIG; 
 }
 
+void Adc_SetChannel(Adc_Channel_t channel)
+{
+   uint8_t reg;
+   if(channel != ADC_ALL_CHANNELS)
+   {
+      reg = (ADCSRA & ~(ADC_CHANNEL_BITS));
+      reg |= (uint8_t)channel;
+      ADCSRA = reg;
+   }   
+}
 
 void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished)
 {
-   uint8_t reg;
-   
-   reg = (ADCSRA & ~(ADC_CHANNEL_BITS));
-   reg |= (uint8_t)channel;
-   ADCSRA = reg;
-   /*Check if ADC is Enabled. If it isn't enabled do nothing*/
-   if((ADCSRA & (1 << ADEN)) != 0)
+   if(channel != ADC_ALL_CHANNELS)
    {
-      /*Start Conversion...*/
-      ADCSRA |= (1 << ADSC);
-      /*If it should be waited until finished enter If clause*/
-      if(waitUntilFinished == TRUE)
+      Adc_SetChannel(channel);
+      /*Check if ADC is Enabled. If it isn't enabled do nothing*/
+      if((ADCSRA & (1 << ADEN)) != 0)
       {
-         /*Wait until finished*/
-         while((ADCSRA & (1 << ADIF)) == 0 );     
+         /*Start Conversion...*/
+         ADCSRA |= (1 << ADSC);
+         /*If it should be waited until finished enter If clause*/
+         if(waitUntilFinished == TRUE)
+         {
+            /*Wait until finished*/
+            while((ADCSRA & (1 << ADIF)) == 0 );     
+         }
       }
-   }   
+   }      
    return;   
 }
 
@@ -64,7 +89,8 @@ void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished)
 uint16_t Adc_Read(Adc_Channel_t channel)
 {
    uint16_t ret = 0;
-   if(channel < ADC_NUMBER_OF_CHANNELS)
+   if((channel < ADC_NUMBER_OF_CHANNELS) && 
+      (channel != ADC_ALL_CHANNELS))
    {
       ret = Adc_adcValues[(uint8_t)channel];
    }
@@ -90,15 +116,27 @@ void Adc_ToggleAdc(Adc_Status_t status)
    return;
 }
 
-void Adc_ToggleContinouseConversion(Adc_Status_t status)
+void Adc_ToggleContinouseConversion(Adc_Channel_t channel, Adc_Status_t status)
 {
+   Adc_Channel_t ch;
    if(status == ADC_ENABLE)
    {
+      if(channel == ADC_ALL_CHANNELS)
+      {
+         Adc_interruptSingelConvers = FALSE;
+         ch = ADC_CHANNEL_0;
+      }
+      else
+      {
+         ch = channel;
+      }
+      Adc_SetChannel(ch);
       ADCSRA |= (1 << ADATE);
    }
    else
    {
-      ADCSRA &= ~(1 << ADATE);   
+      ADCSRA &= ~(1 << ADATE); 
+      Adc_interruptSingelConvers = TRUE; 
    }
    return;
 }
@@ -106,7 +144,7 @@ void Adc_ToggleContinouseConversion(Adc_Status_t status)
 bool Adc_IsConverstionFinished(void)
 {
    bool ret = FALSE;
-   if((ADCSRA & (1 << ADIE) == 0))
+   if((ADCSRA & (1 << ADIE)) == 0)
    {
        ret = Adc_interruptFinished;
        Adc_interruptFinished = FALSE;
@@ -114,7 +152,7 @@ bool Adc_IsConverstionFinished(void)
    else 
    {
       ret = (bool)(ADCSRA & (1 << ADIF) >> ADIF);
-      ADCSRA |= (1 << ADIF),
+      ADCSRA |= (1 << ADIF);
    }
    return ret;
 }

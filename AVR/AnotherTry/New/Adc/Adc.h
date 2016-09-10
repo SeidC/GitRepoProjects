@@ -53,6 +53,7 @@ typedef enum
    ADC_CHANNEL_5     = 0x05,
    ADC_CHANNEL_6     = 0x06,
    ADC_CHANNEL_7     = 0x07,
+   ADC_ALL_CHANNELS  = 0xFF,
    
 }Adc_Channel_t;
 
@@ -67,19 +68,19 @@ void Adc_Init(void);
 
 uint16_t Adc_Read(Adc_Channel_t channel);
 
-void Adc_ToggleContinouseConversion(Adc_Status_t status);
-
 void Adc_ToggleAdc(Adc_Status_t status);
 
 Adc_Channel_t Adc_GetCurrentChannel(void);
 
 bool Adc_IsConverstionFinished(void);
 
-void Adc_ToggleContinouseConversion(Adc_Status_t status);
+void Adc_ToggleContinouseConversion(Adc_Channel_t channel, Adc_Status_t status);
 
 void Adc_ToggleAdc(Adc_Status_t status);
 
 void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished);
+
+void Adc_SetChannel(Adc_Channel_t channel);
 
 #if (ADC_ENABLE_INTERRUPT == FALSE)
       #error "Interrupt has to be enabled. Manual ADC coversation is not supported"
