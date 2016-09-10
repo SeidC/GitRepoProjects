@@ -10,31 +10,37 @@
 #define ADC_H_
 #include "CommonTypes.h"
 
-#define ADC_NUMBER_OF_CHANNELS				0x07
+#define ADC_NUMBER_OF_CHANNELS				0x07u
 #define ADC_ENABLE_INTERRUPT              TRUE
 
 /*--- Configuration Flags for the ADC MUX Register ------------------------------------------------------*/
-#define ADC_MUX_REF_AREF				      0x00
-#define ADC_MUX_REF_INTERNAL_AVCC		   0x40
-#define ADC_MUX_REF_INTERNAL_256V		   0xC0
-#define ADC_MUX_LEFT_ADJUST					0x20
-#define ADC_MUX_RIGHT_ADJUT					0x00
+#define ADC_MUX_REF_AREF				      0x00u
+#define ADC_MUX_REF_INTERNAL_AVCC		   0x40u
+#define ADC_MUX_REF_INTERNAL_256V		   0xC0u
+#define ADC_MUX_LEFT_ADJUST					0x20u
+#define ADC_MUX_RIGHT_ADJUT					0x00u
 
 /*--- Configuration Value which will be use to initialize the ADC Mux Register---------------------------*/
 #define ADC_MUX_REGISTER_CONFIG				ADC_MUX_REF_AREF     |  \
 											         ADC_MUX_RIGHT_ADJUT
 
 
-#define ADC_ADCSRA_PRESCALER_2				0x01
-#define ADC_ADCSRA_PRESCALER_4				0x02
-#define ADC_ADCSRA_PRESCALER_8				0x03
-#define ADC_ADCSRA_PRESCALER_16				0x04
-#define ADC_ADCSRA_PRESCALER_32				0x05
-#define ADC_ADCSRA_PRESCALER_64				0x06
-#define ADC_ADCSRA_PRESCALER_128			   0x07
+#define ADC_ADCSRA_PRESCALER_2				0x01u
+#define ADC_ADCSRA_PRESCALER_4				0x02u
+#define ADC_ADCSRA_PRESCALER_8				0x03u
+#define ADC_ADCSRA_PRESCALER_16				0x04u
+#define ADC_ADCSRA_PRESCALER_32				0x05u
+#define ADC_ADCSRA_PRESCALER_64				0x06u
+#define ADC_ADCSRA_PRESCALER_128			   0x07u
 
-#define ADC_ADCSRA_REGISTER_CONFIG			ADC_ADCSRA_PRESCALER_2
+#if ADC_ENABLE_INTERRUPT == TRUE 
+   #define ADC_ADCSRA_INTERRUPT_ENABLE       (1 << ADIE)
+#else 
+   #define ADC_ADCSRA_INTERRUPT_ENABLE        0x00
+#endif
 
+#define ADC_ADCSRA_REGISTER_CONFIG			ADC_ADCSRA_PRESCALER_2        |   \
+                                          ADC_ADCSRA_INTERRUPT_ENABLE
 
 
 typedef enum 
@@ -50,9 +56,30 @@ typedef enum
    
 }Adc_Channel_t;
 
+typedef enum 
+{
+   ADC_DISABLE       = 0x00u,
+   ADC_ENABLE        = 0x01u
+}Adc_Status_t;
 
 void Adc_Init(void);
 
+
+uint16_t Adc_Read(Adc_Channel_t channel);
+
+void Adc_ToggleContinouseConversion(Adc_Status_t status);
+
+void Adc_ToggleAdc(Adc_Status_t status);
+
+Adc_Channel_t Adc_GetCurrentChannel(void);
+
+bool Adc_IsConverstionFinished(void);
+
+void Adc_ToggleContinouseConversion(Adc_Status_t status);
+
+void Adc_ToggleAdc(Adc_Status_t status);
+
+void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished);
 
 #if (ADC_ENABLE_INTERRUPT == FALSE)
       #error "Interrupt has to be enabled. Manual ADC coversation is not supported"
