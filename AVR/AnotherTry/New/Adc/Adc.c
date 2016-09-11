@@ -62,9 +62,9 @@ void Adc_SetChannel(Adc_Channel_t channel)
    uint8_t reg;
    if(channel != ADC_ALL_CHANNELS)
    {
-      reg = (ADCSRA & ~(ADC_CHANNEL_BITS));
+      reg = (ADMUX & ~(ADC_CHANNEL_BITS));
       reg |= (uint8_t)channel;
-      ADCSRA = reg;
+      ADMUX = reg;
    }   
 }
 
@@ -82,7 +82,9 @@ void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished)
          if(waitUntilFinished == TRUE)
          {
             /*Wait until finished*/
-            while((ADCSRA & (1 << ADIF)) == 0 );     
+            while((ADCSRA & (1 << ADIF)) == 0 );
+			Adc_adcValues[channel] |=  (ADCH << 8) | (ADCL);			
+			ADCSRA |= (1 << ADIF);
          }
       }
    }      
@@ -101,9 +103,10 @@ uint16_t Adc_Read(Adc_Channel_t channel)
    return ret;
 }
 
+
 Adc_Channel_t Adc_GetCurrentChannel(void)
 {
-   return (ADCSRA & ADC_CHANNEL_BITS);
+   return (ADMUX & ADC_CHANNEL_BITS);
 }
 
 
