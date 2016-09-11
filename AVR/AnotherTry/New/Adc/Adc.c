@@ -8,10 +8,10 @@
 #include <avr/interrupt.h>
 
 
-#define ADC_CHANNEL_BITS            0x07
+#define ADC_CHANNEL_BITS            0x1F
 
 
-vuin16_t Adc_adcValues[ADC_NUMBER_OF_CHANNELS];
+volatile uint16_t Adc_adcValues[ADC_NUMBER_OF_CHANNELS];
 
 bool Adc_interruptFinished;
 
@@ -22,9 +22,7 @@ ISR(ADC_vect)
    Adc_Channel_t currChannel;
    
    currChannel = Adc_GetCurrentChannel(); 
-   Adc_adcValues[currChannel] =  (ADCH << 8);
-   Adc_adcValues[currChannel] += (ADCL);
- 
+   Adc_adcValues[currChannel] =  ADCW; 
    if((ADCSRA & (1 << ADATE)) != 0)
    {
       if(Adc_interruptSingelConvers == FALSE)
@@ -47,14 +45,27 @@ void Adc_Init(void)
 {
      uint8_t i;
      
-     for(i = 0; i < ADC_NUMBER_OF_CHANNELS; i++)
-     {
-        Adc_adcValues[i] = 0u;
-     }
      Adc_interruptFinished = FALSE;
    
      ADMUX  = ADC_MUX_REGISTER_CONFIG;
      ADCSRA = ADC_ADCSRA_REGISTER_CONFIG; 
+     
+     Adc_ToggleAdc(ADC_ENABLE);
+     Adc_StartSingleConversion(ADC_CHANNEL_0,FALSE);    
+     (void)ADCW; 
+     
+     for(i = 0; i < ADC_NUMBER_OF_CHANNELS; i++)
+     {
+        Adc_adcValues[i] = 0u;
+     }
+     Adc_ToggleAdc(ADC_DISABLE);
+     
+     if (ADC_ENABLE_INTERRUPT == TRUE)
+     {
+        sei();
+     }
+     
+     return;
 }
 
 void Adc_SetChannel(Adc_Channel_t channel)
@@ -81,10 +92,11 @@ void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished)
          /*If it should be waited until finished enter If clause*/
          if(waitUntilFinished == TRUE)
          {
+            Adc_DisableAdcInterrupt();
             /*Wait until finished*/
-            while((ADCSRA & (1 << ADIF)) == 0 );
-			Adc_adcValues[channel] |=  (ADCH << 8) | (ADCL);			
-			ADCSRA |= (1 << ADIF);
+            while((ADCSRA & (1 << ADSC))) {}
+			   Adc_adcValues[channel] =  ADCW;
+            Adc_EnableAdcInterrupt();		
          }
       }
    }      
@@ -162,4 +174,16 @@ bool Adc_IsConverstionFinished(void)
       ADCSRA |= (1 << ADIF);
    }
    return ret;
+}
+
+inline void Adc_EnableAdcInterrupt(void)
+{
+   ADCSRA |= (1 << ADIE);
+   return;
+}
+
+inline void Adc_DisableAdcInterrupt(void)
+{
+   ADCSRA &= ~(1 << ADIE);
+   return;
 }

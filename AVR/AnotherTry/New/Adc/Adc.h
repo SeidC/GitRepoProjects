@@ -82,6 +82,10 @@ void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished);
 
 void Adc_SetChannel(Adc_Channel_t channel);
 
+inline void Adc_EnableAdcInterrupt(void);
+
+inline void Adc_DisableAdcInterrupt(void);
+
 #if (ADC_ENABLE_INTERRUPT == FALSE)
       #error "Interrupt has to be enabled. Manual ADC coversation is not supported"
 #endif
