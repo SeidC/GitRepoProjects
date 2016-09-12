@@ -11,7 +11,16 @@
 #include "CommonTypes.h"
 #include "Io.h"
 
-#defines HBDRV_NUMBER_OF_BRIDGES			2
+
+
+typedef enum
+{
+	HBDRV_MOTOR_BRIDGE_1 = 0x00,
+	HBDRV_MOTOR_BRIDGE_2	   ,
+	HBDRV_NUMBER_OF_BRIDGES
+
+}HBDrv_Bridge_t;
+
 
 typedef struct 
 {
