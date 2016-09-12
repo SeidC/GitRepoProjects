@@ -9,6 +9,7 @@
 #ifndef COMMONTYPES_H_
 #define COMMONTYPES_H_
 #include "avr/io.h"
+#include "avr/interrupt.h"
 
 #ifndef F_CPU
    #warning F_CPU not defined
@@ -31,5 +32,8 @@ typedef uint8_t bool;
 #define TRUE  1u
 #define FALSE 0u
 
+
+
+#define DEBUG TRUE
 
 #endif /* COMMONTYPES_H_ */

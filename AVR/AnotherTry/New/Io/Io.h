@@ -22,6 +22,19 @@ typedef enum
 
 typedef enum 
 {
+	IO_PIN_0		= 0x00,
+	IO_PIN_1		      ,
+	IO_PIN_2		      ,
+	IO_PIN_3		      ,
+	IO_PIN_4		      ,
+	IO_PIN_5		      ,
+	IO_PIN_6		      ,
+	IO_PIN_7 	          ,
+	
+}Io_Pin_t;
+
+typedef enum 
+{
 	IO_DISABLE		= 0x00,
 	IO_ENABLE		= 0x01,
 		
@@ -37,11 +50,11 @@ typedef enum
 
 
 
-void Io_Configure(Io_Port_t port, uint8_t pin,Io_Direction_t dir);
+void Io_Configure(Io_Port_t port, Io_Pin_t pin,Io_Direction_t dir);
 
-void Io_SetPinStatus(Io_Port_t port, uint8_t pin, Status_t status);
+void Io_SetPinStatus(Io_Port_t port, Io_Pin_t pin, Status_t status);
 
-Status_t Io_GetPinStatus(Io_Port_t port, uint8_t pin);
+Status_t Io_GetPinStatus(Io_Port_t port, Io_Pin_t pin);
 
 
 #endif /* IO_H_ */

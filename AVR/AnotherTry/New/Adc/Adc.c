@@ -8,14 +8,24 @@
 #include <avr/interrupt.h>
 
 
+typedef enum 
+{
+	ADC_INTERRUPT_FINISHED			= 0x00,
+	ADC_INTERRUPT_SINGEL_CHANNEL		  ,
+	ADC_NUMBER_OF_INTERRUPT_FLAGS		
+	
+}Adc_InterruptFlags_t;
+
 #define ADC_CHANNEL_BITS            0x1F
+
+
 
 
 volatile uint16_t Adc_adcValues[ADC_NUMBER_OF_CHANNELS];
 
-bool Adc_interruptFinished;
+volatile bool Adc_interruptFlags[ADC_NUMBER_OF_INTERRUPT_FLAGS];
 
-bool Adc_interruptSingelConvers;
+
 
 ISR(ADC_vect)
 {
@@ -25,7 +35,7 @@ ISR(ADC_vect)
    Adc_adcValues[currChannel] =  ADCW; 
    if((ADCSRA & (1 << ADATE)) != 0)
    {
-      if(Adc_interruptSingelConvers == FALSE)
+      if(Adc_interruptFlags[ADC_INTERRUPT_SINGEL_CHANNEL] == FALSE)
       {
          if(currChannel < ADC_NUMBER_OF_CHANNELS)
          {
@@ -37,7 +47,7 @@ ISR(ADC_vect)
          }        
       }  
    }   
-   Adc_interruptFinished = TRUE;   
+   Adc_interruptFlags[ADC_INTERRUPT_FINISHED] = TRUE;   
 }
 
 
@@ -45,7 +55,7 @@ void Adc_Init(void)
 {
      uint8_t i;
      
-     Adc_interruptFinished = FALSE;
+     Adc_interruptFlags[ADC_INTERRUPT_FINISHED] = FALSE;
    
      ADMUX  = ADC_MUX_REGISTER_CONFIG;
      ADCSRA = ADC_ADCSRA_REGISTER_CONFIG; 
@@ -142,20 +152,23 @@ void Adc_ToggleContinouseConversion(Adc_Channel_t channel, Adc_Status_t status)
    {
       if(channel == ADC_ALL_CHANNELS)
       {
-         Adc_interruptSingelConvers = FALSE;
+         Adc_interruptFlags[ADC_INTERRUPT_SINGEL_CHANNEL] = FALSE;
          ch = ADC_CHANNEL_0;
       }
       else
       {
          ch = channel;
+		 Adc_interruptFlags[ADC_INTERRUPT_SINGEL_CHANNEL] = TRUE;
       }
       Adc_SetChannel(ch);
-      ADCSRA |= (1 << ADATE);
+      ADCSRA |= (1 << ADATE) | (1 << ADSC);
+	  Adc_ToggleAdc(ADC_ENABLE);
    }
    else
    {
-      ADCSRA &= ~(1 << ADATE); 
-      Adc_interruptSingelConvers = TRUE; 
+      ADCSRA &= ~(1 << ADATE) & ~(1 << ADSC); 
+	  Adc_ToggleAdc(ADC_DISABLE);
+      Adc_interruptFlags[ADC_INTERRUPT_SINGEL_CHANNEL] = FALSE;
    }
    return;
 }
@@ -165,8 +178,8 @@ bool Adc_IsConverstionFinished(void)
    bool ret = FALSE;
    if((ADCSRA & (1 << ADIE)) == 0)
    {
-       ret = Adc_interruptFinished;
-       Adc_interruptFinished = FALSE;
+       ret = Adc_interruptFlags[ADC_INTERRUPT_FINISHED];
+       Adc_interruptFlags[ADC_INTERRUPT_FINISHED] = FALSE;
    }
    else 
    {
@@ -176,13 +189,13 @@ bool Adc_IsConverstionFinished(void)
    return ret;
 }
 
-inline void Adc_EnableAdcInterrupt(void)
+ADC_INLINE void Adc_EnableAdcInterrupt(void)
 {
    ADCSRA |= (1 << ADIE);
    return;
 }
 
-inline void Adc_DisableAdcInterrupt(void)
+ADC_INLINE void Adc_DisableAdcInterrupt(void)
 {
    ADCSRA &= ~(1 << ADIE);
    return;

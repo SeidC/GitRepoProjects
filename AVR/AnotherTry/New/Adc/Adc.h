@@ -1,4 +1,4 @@
-/*
+/*	
  * Adc.h
  *
  * Created: 10.09.2016 00:56:12
@@ -9,6 +9,13 @@
 #ifndef ADC_H_
 #define ADC_H_
 #include "CommonTypes.h"
+
+#if DEBUG == TRUE
+	#define ADC_INLINE
+#else
+	#define ADC_INLINE inline
+
+
 
 #define ADC_NUMBER_OF_CHANNELS				0x07u
 #define ADC_ENABLE_INTERRUPT                TRUE
@@ -21,7 +28,7 @@
 #define ADC_MUX_RIGHT_ADJUT					0x00u
 
 /*--- Configuration Value which will be use to initialize the ADC Mux Register---------------------------*/
-#define ADC_MUX_REGISTER_CONFIG				ADC_MUX_REF_INTERNAL_AVCC     |  \
+#define ADC_MUX_REGISTER_CONFIG				ADC_MUX_REF_EXTERNAL_AREF     |  \
 											ADC_MUX_RIGHT_ADJUT
 
 
@@ -41,7 +48,6 @@
 
 #define ADC_ADCSRA_REGISTER_CONFIG			ADC_ADCSRA_PRESCALER_2        |   \
                                             ADC_ADCSRA_INTERRUPT_ENABLE
-
 
 typedef enum 
 {
@@ -82,9 +88,9 @@ void Adc_StartSingleConversion(Adc_Channel_t channel, bool waitUntilFinished);
 
 void Adc_SetChannel(Adc_Channel_t channel);
 
-inline void Adc_EnableAdcInterrupt(void);
+ADC_INLINE void Adc_EnableAdcInterrupt(void);
 
-inline void Adc_DisableAdcInterrupt(void);
+ADC_INLINE void Adc_DisableAdcInterrupt(void);
 
 #if (ADC_ENABLE_INTERRUPT == FALSE)
       #error "Interrupt has to be enabled. Manual ADC coversation is not supported"
