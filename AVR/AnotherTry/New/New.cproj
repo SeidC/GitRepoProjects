@@ -125,11 +125,12 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value>../Pwm</Value>
-      <Value>../Common</Value>
-      <Value>../Io</Value>
-      <Value>../Adc</Value>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>../LLD/Adc</Value>
+      <Value>../LLD/Io</Value>
+      <Value>../LLD/Pwm0</Value>
+      <Value>../LLD/Pwm2</Value>
+      <Value>../Common</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -152,13 +153,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\CommonTypes.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LLD\Adc\Adc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LLD\Adc\Adc.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LLD\Common\CommonTypes.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LLD\Io\Io.c">
@@ -182,21 +183,29 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TLE5205\TLE5202.h">
+    <Compile Include="System\Pwm\Pwm.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TLE5205\TLE5205.c">
+    <Compile Include="System\Pwm\Pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="System\TLE5205\TLE5202.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="System\TLE5205\TLE5205.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\" />
     <Folder Include="LLD" />
     <Folder Include="LLD\Adc\" />
-    <Folder Include="LLD\Common\" />
     <Folder Include="LLD\Io\" />
     <Folder Include="LLD\Pwm2" />
     <Folder Include="LLD\Pwm0" />
-    <Folder Include="TLE5205" />
+    <Folder Include="System" />
+    <Folder Include="System\Pwm" />
+    <Folder Include="System\TLE5205\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

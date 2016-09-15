@@ -13,7 +13,7 @@
 static Pwm2_Prescaler_t Pwm2_prescaler;
 
 
-void Pwm2_SetPwm2Mode(Pwm2_Mode_t mode)
+void Pwm2_SetPwmMode(Pwm2_Mode_t mode)
 {
    if(mode == PWM2_FAST_PWM2)
    {
@@ -57,7 +57,7 @@ void Pwm2_ConfigureOutputPin(Pwm2_OutputPin_t pinCfg)
    return;
 }
 
-void Pwm2_SetPwm2Frequenze(Pwm2_Prescaler_t prescaler)
+void Pwm2_SetPwmFrequenze(Pwm2_Prescaler_t prescaler)
 {
    Pwm2_prescaler = prescaler;
    return;
@@ -115,7 +115,7 @@ void Pwm2_Stop(void)
 }
 
 
-void Pwm2_TogglePwm2(Pwm2_Status_t status)
+void Pwm2_TogglePwm(Pwm2_Status_t status)
 {
    if(status == PWM2_START)
    {

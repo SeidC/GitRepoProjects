@@ -48,7 +48,11 @@ typedef enum
 	
 }Io_Direction_t;
 
-
+typedef struct  
+{
+   Io_Port_t port;
+   Io_Pin_t  pin;
+}Io_Config_t;
 
 void Io_Configure(Io_Port_t port, Io_Pin_t pin,Io_Direction_t dir);
 

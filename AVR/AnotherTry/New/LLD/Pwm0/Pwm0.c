@@ -13,7 +13,7 @@
 static Pwm0_Prescaler_t Pwm0_prescaler;
 
 
-void Pwm0_SetPwm0Mode(Pwm0_Mode_t mode)
+void Pwm0_SetPwmMode(Pwm0_Mode_t mode)
 {
    if(mode == PWM0_FAST_PWM0)
    {
@@ -57,7 +57,7 @@ void Pwm0_ConfigureOutputPin(Pwm0_OutputPin_t pinCfg)
    return;
 }
 
-void Pwm0_SetPwm0Frequenze(Pwm0_Prescaler_t prescaler)
+void Pwm0_SetPwmFrequenze(Pwm0_Prescaler_t prescaler)
 {
    Pwm0_prescaler = prescaler;
    return;
@@ -115,7 +115,7 @@ void Pwm0_Stop(void)
 }
 
 
-void Pwm0_TogglePwm0(Pwm0_Status_t status)
+void Pwm0_TogglePwm(Pwm0_Status_t status)
 {
    if(status == PWM0_START)
    {
