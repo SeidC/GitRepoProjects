@@ -1,26 +1,26 @@
    /*
-   * Pwm.c
+   * Pwm0.c
    *
    * Created: 08.09.2016 19:52:41
    *  Author: AP
    */ 
-   #include "Pwm.h"
+   #include "Pwm0.h"
 
 
-#define PWM_DUTY_CYCLE_100						255u
+#define PWM0_DUTY_CYCLE_100						255u
 
 
-static Pwm_Prescaler_t Pwm_prescaler;
+static Pwm0_Prescaler_t Pwm0_prescaler;
 
 
-void Pwm_SetPwmMode(Pwm_Mode_t mode)
+void Pwm0_SetPwm0Mode(Pwm0_Mode_t mode)
 {
-   if(mode == PWM_FAST_PWM)
+   if(mode == PWM0_FAST_PWM0)
    {
       TCCR0 |= (1 << WGM00);
       TCCR0 |= (1 << WGM01);
    }
-   else if (mode == PWM_PHASE_CORRECT)
+   else if (mode == PWM0_PHASE_CORRECT)
    {
       TCCR0 |= (1 << WGM00);
       TCCR0 &= ~(1 << WGM01);
@@ -33,19 +33,19 @@ void Pwm_SetPwmMode(Pwm_Mode_t mode)
 }
 
 
-void Pwm_ConfigureOutputPin(Pwm_OutputPin_t pinCfg)
+void Pwm0_ConfigureOutputPin(Pwm0_OutputPin_t pinCfg)
 {
-   if (pinCfg == PWM_PIN_NOT_USED  )
+   if (pinCfg == PWM0_PIN_NOT_USED  )
    {
       TCCR0 &= ~(1 << COM00);
       TCCR0 &= ~(1 << COM01);
    }
-   else if (pinCfg == PWM_NON_INVERTED)
+   else if (pinCfg == PWM0_NON_INVERTED)
    {
       TCCR0 &= ~(1 << COM00);
       TCCR0 |=  (1 << COM01);
    }
-   else if (pinCfg == PWM_INVERTED)
+   else if (pinCfg == PWM0_INVERTED)
    { 
       TCCR0 |=  (1 << COM00);
       TCCR0 |=  (1 << COM01); 
@@ -57,40 +57,40 @@ void Pwm_ConfigureOutputPin(Pwm_OutputPin_t pinCfg)
    return;
 }
 
-void Pwm_SetPwmFrequenze(Pwm_Prescaler_t prescaler)
+void Pwm0_SetPwm0Frequenze(Pwm0_Prescaler_t prescaler)
 {
-   Pwm_prescaler = prescaler;
+   Pwm0_prescaler = prescaler;
    return;
 }
 
-void Pwm_Start(void)
+void Pwm0_Start(void)
 {
    DDRB |= (1 << PB3);
-   if(Pwm_prescaler == PWM_PRESCALER_0   )
+   if(Pwm0_prescaler == PWM0_PRESCALER_0   )
    {
       TCCR0 |=  (1 << CS00);
       TCCR0 &= ~(1 << CS01);
       TCCR0 &= ~(1 << CS02);
    }
-   else if(Pwm_prescaler == PWM_PRESCALER_8   )
+   else if(Pwm0_prescaler == PWM0_PRESCALER_8   )
    {
       TCCR0 &= ~(1 << CS00);
       TCCR0 |=  (1 << CS01);
       TCCR0 &= ~(1 << CS02);
    }
-   else if(Pwm_prescaler == PWM_PRESCALER_64  )
+   else if(Pwm0_prescaler == PWM0_PRESCALER_64  )
    {
       TCCR0 |=  (1 << CS00);
       TCCR0 |=  (1 << CS01);
       TCCR0 &= ~(1 << CS02);
    }
-   else if(Pwm_prescaler == PWM_PRESCALER_256 )
+   else if(Pwm0_prescaler == PWM0_PRESCALER_256 )
    {
       TCCR0 &= ~(1 << CS00);
       TCCR0 &= ~(1 << CS01);
       TCCR0 |=  (1 << CS02);
    }
-   else if(Pwm_prescaler == PWM_PRESCALER_1024)
+   else if(Pwm0_prescaler == PWM0_PRESCALER_1024)
    {
       TCCR0 |=  (1 << CS00);
       TCCR0 &= ~(1 << CS01);
@@ -103,11 +103,11 @@ void Pwm_Start(void)
    return;
 }
 
-void Pwm_Stop(void)
+void Pwm0_Stop(void)
 {
    uint8_t pwmValue = 0;
    pwmValue |= ((TCCR0 & CS00) | (TCCR0 & CS01) |(TCCR0 & CS02)) - 1;
-   Pwm_prescaler = (Pwm_Prescaler_t)pwmValue;
+   Pwm0_prescaler = (Pwm0_Prescaler_t)pwmValue;
    TCCR0 &= ~(1 << CS00);
    TCCR0 &= ~(1 << CS01);
    TCCR0 &= ~(1 << CS02);
@@ -115,25 +115,25 @@ void Pwm_Stop(void)
 }
 
 
-void Pwm_TogglePwm(Pwm_Status_t status)
+void Pwm0_TogglePwm0(Pwm0_Status_t status)
 {
-   if(status == PWM_START)
+   if(status == PWM0_START)
    {
-      Pwm_Start();
+      Pwm0_Start();
    }
    else
    {
-      Pwm_Stop();
+      Pwm0_Stop();
    }
    return;
 }
 
-void Pwm_SetDutyCycle(uint8_t dutyCycle)
+void Pwm0_SetDutyCycle(uint8_t dutyCycle)
 {
 	uint8_t newDutyCycle;
    if (dutyCycle >= 0 && dutyCycle <= 100)
    {	
-	   newDutyCycle = PWM_DUTY_CYCLE_100 * dutyCycle / 100;
+	   newDutyCycle = PWM0_DUTY_CYCLE_100 * dutyCycle / 100;
 	   OCR0 = newDutyCycle;
    }
    return;
