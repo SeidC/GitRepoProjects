@@ -131,6 +131,8 @@
       <Value>../LLD/Pwm0</Value>
       <Value>../LLD/Pwm2</Value>
       <Value>../Common</Value>
+      <Value>../System/Pwm</Value>
+      <Value>../System/TLE5205</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>

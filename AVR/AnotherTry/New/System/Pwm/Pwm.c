@@ -112,10 +112,10 @@ void Pwm_SetDutyCycle(Pwm_Channel_t channel, uint8_t dutyCycle)
 	switch (channel)
 	{
    	case PWM_CHANNEL_0:
-         Pwm0_SetDutyCycle(uint8_t dutyCycle);
+         Pwm0_SetDutyCycle(dutyCycle);
    	break;
    	case PWM_CHANNEL_2:
-   	   Pwm2_SetDutyCycle(uint8_t dutyCycle);
+   	   Pwm2_SetDutyCycle(dutyCycle);
    	break;
    	default:
    	break;

@@ -14,6 +14,7 @@
 	#define ADC_INLINE
 #else
 	#define ADC_INLINE inline
+#endif
 
 
 
