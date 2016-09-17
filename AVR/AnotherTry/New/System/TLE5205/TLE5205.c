@@ -8,6 +8,8 @@
 #include "TLE5202.h"
 
 
+#define TLE5202_NUMBER_OF_IOS_PER_DEVICE                   2u
+
 TLE5202_IoConfig_t TLE5202_config[TLE5205_NUMBER_OF_DEVICES] = 
             {
                {
@@ -24,3 +26,20 @@ TLE5202_IoConfig_t TLE5202_config[TLE5205_NUMBER_OF_DEVICES] =
                   .channel   = PWM_CHANNEL_2
                },               
             };            
+            
+            
+            
+void TLE5202_Init(void)
+{
+   uint8_t i, lenght, index, io;
+   Io_Config_t *ptr;
+   index  = 0;
+   lenght = TLE5205_NUMBER_OF_DEVICES * TLE5202_NUMBER_OF_IOS_PER_DEVICE;
+   
+   for (i = 0; i < lenght; i++)
+   {
+      io = i%TLE5202_NUMBER_OF_IOS_PER_DEVICE;
+      
+   }     
+   return;
+}

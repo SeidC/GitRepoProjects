@@ -31,6 +31,6 @@ typedef struct
 }TLE5202_IoConfig_t; 
 
 
-
+void TLE5202_Init(void);
 
 #endif /* TLE5202_H_ */
