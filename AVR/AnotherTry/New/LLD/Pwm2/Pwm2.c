@@ -138,3 +138,12 @@ void Pwm2_SetDutyCycle(uint8_t dutyCycle)
    }
    return;
 }
+
+
+void Pwm2_Init(Pwm2_Config_t config)
+{
+	Pwm2_SetPwmMode(config.mode);
+	Pwm2_SetPwmFrequenze(config.prescaler);
+	Pwm2_ConfigureOutputPin(config.outputPin);
+	return
+}

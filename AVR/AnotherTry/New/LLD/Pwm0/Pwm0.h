@@ -47,6 +47,16 @@ typedef enum
 }Pwm0_OutputPin_t;
 
 
+typedef struct  
+{
+	Pwm0_Mode_t mode;	
+	Pwm0_OutputPin_t outputPin;
+	Pwm0_Prescaler_t prescaler;
+	
+}Pwm0_Config_t;
+
+
+void Pwm0_Init(Pwm0_Config_t config);
 
 void Pwm0_TogglePwm(Pwm0_Status_t status);
 

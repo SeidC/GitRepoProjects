@@ -46,7 +46,13 @@ typedef enum
    
 }Pwm2_OutputPin_t;
 
-
+typedef struct
+{
+	Pwm2_Mode_t mode;
+	Pwm2_OutputPin_t outputPin;
+	Pwm2_Prescaler_t prescaler;
+	
+}Pwm2_Config_t;
 
 void Pwm2_TogglePwm(Pwm2_Status_t status);
 
@@ -61,5 +67,7 @@ void Pwm2_ConfigureOutputPin(Pwm2_OutputPin_t pinCfg);
 void Pwm2_SetPwmMode(Pwm2_Mode_t mode);
 
 void Pwm2_SetDutyCycle(uint8_t dutyCycle);
+
+void Pwm2_Init(Pwm2_Config_t config);
 
 #endif /* PWM2_H_ */

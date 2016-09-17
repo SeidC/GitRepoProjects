@@ -8,22 +8,25 @@
 #include "TLE5202.h"
 
 
-#define TLE5202_NUMBER_OF_IOS_PER_DEVICE                   2u
 
 TLE5202_IoConfig_t TLE5202_config[TLE5205_NUMBER_OF_DEVICES] = 
             {
                {
-                  .input1    = {IO_PORT_C,IO_PIN_0},
-                  .input2    = {IO_PORT_C,IO_PIN_1},
-                  .errorFlag = {IO_PORT_D,IO_PIN_2},
-                  .channel   = PWM_CHANNEL_0
+                  .input1			= {IO_PORT_C,IO_PIN_0},
+                  .input2			= {IO_PORT_C,IO_PIN_1},
+				  .enable			= {IO_PORT_C,IO_PIN_2},
+                  .errorFlag		= {IO_PORT_D,IO_PIN_2},
+                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_0},
+				  .channel			= PWM_CHANNEL_0,				  
                },
                
                {
-                  .input1    = {IO_PORT_C,IO_PIN_6},
-                  .input2    = {IO_PORT_C,IO_PIN_7},
-                  .errorFlag = {IO_PORT_D,IO_PIN_3},
-                  .channel   = PWM_CHANNEL_2
+                  .input1			= {IO_PORT_C,IO_PIN_6},
+                  .input2			= {IO_PORT_C,IO_PIN_7},
+				  .enable			= {IO_PORT_C,IO_PIN_5},
+                  .errorFlag		= {IO_PORT_D,IO_PIN_3},
+                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_0},
+				  .channel			= PWM_CHANNEL_2
                },               
             };            
             
@@ -31,15 +34,66 @@ TLE5202_IoConfig_t TLE5202_config[TLE5205_NUMBER_OF_DEVICES] =
             
 void TLE5202_Init(void)
 {
-   uint8_t i, lenght, index, io;
-   Io_Config_t *ptr;
-   index  = 0;
-   lenght = TLE5205_NUMBER_OF_DEVICES * TLE5202_NUMBER_OF_IOS_PER_DEVICE;
+   uint8_t i = 0;
+   Io_Port_t port1,port2,port3,port4;
+   Io_Pin_t  pin1,pin2,pin3,pin4;
+   Pwm_Channel_t channel;
    
-   for (i = 0; i < lenght; i++)
+   for(i = 0; i < TLE5205_NUMBER_OF_DEVICES; i++)
    {
-      io = i%TLE5202_NUMBER_OF_IOS_PER_DEVICE;
-      
-   }     
+		port1 = TLE5202_config[i].input1.port;
+		pin1  = TLE5202_config[i].input1.pin;
+		
+		port2 = TLE5202_config[i].input2.port;
+		pin2  = TLE5202_config[i].input2.pin;
+		
+		port3 = TLE5202_config[i].errorFlag.port;
+		pin3  = TLE5202_config[i].errorFlag.pin;
+		
+		port4 = TLE5202_config[i].enable.port;
+		pin4  = TLE5202_config[i].enable.pin;
+		
+		channel = TLE5202_config[i].channel;
+		
+		Io_Configure(port1,pin1,IO_INPUT);
+		Io_Configure(port2,pin2,IO_INPUT);
+		Io_Configure(port3,pin3,IO_INPUT);
+		Io_Configure(port4,pin4,IO_OUTPUT);
+		
+		Io_SetPinStatus(port1,pin1,HIGH);
+		Io_SetPinStatus(port2,pin2,HIGH);
+		Io_SetPinStatus(port3,pin3,HIGH);
+		
+		Pwm_Init(channel,TLE5202_config[i].channelConfig);		
+		Pwm_SetDutyCycle(channel,0);
+   }
+     
    return;
+}
+
+void TLE5205_Enable(TLE5202_Device_t device)
+{
+	Io_Port_t port;
+	Io_Pin_t pin;
+	port = TLE5202_config[device].enable.port;
+	pin  = TLE5202_config[device].enable.pin;
+	
+	Io_SetPinStatus(port,pin,HIGH);
+	
+}
+
+void TLE5205_Disable(TLE5202_Device_t device)
+{
+	Io_Port_t port;
+	Io_Pin_t pin;
+	port = TLE5202_config[device].enable.port;
+	pin  = TLE5202_config[device].enable.pin;
+	
+	Io_SetPinStatus(port,pin,LOW);
+}
+
+
+void TLE5205_SetDirection(TLE5202_Device_t device, TLE5202_Direction_t direction)
+{
+	
 }

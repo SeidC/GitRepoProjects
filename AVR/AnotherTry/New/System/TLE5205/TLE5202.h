@@ -26,9 +26,18 @@ typedef struct
    Io_Config_t   input1;
    Io_Config_t   input2;
    Io_Config_t   errorFlag;
+   Io_Config_t	 enable;
    Pwm_Channel_t channel;
-   
+   Pwm2_Config_t channelConfig;
 }TLE5202_IoConfig_t; 
+
+
+typedef enum 
+{
+	TLE5205_LEFT_DIRECTION		= 0x00,
+	TLE5205_RIGTH_DIRECTION		= 0x00,
+	
+}TLE5202_Direction_t;
 
 
 void TLE5202_Init(void);

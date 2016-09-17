@@ -122,3 +122,20 @@ void Pwm_SetDutyCycle(Pwm_Channel_t channel, uint8_t dutyCycle)
 	}
    return;
 }
+
+void Pwm_Init(Pwm_Channel_t channel,Pwm_Config_t config)
+{
+	
+	switch (channel)
+	{
+		case PWM_CHANNEL_0:
+		Pwm0_Init((Pwm0_Config_t)config);
+		break;
+		case PWM_CHANNEL_2:
+		Pwm2_Init((Pwm2_Config_t)config);
+		break;
+		default:
+		break;
+	}
+	return;
+}
