@@ -10,7 +10,7 @@
 #define ADC_H_
 #include "CommonTypes.h"
 
-#if DEBUG == TRUE
+#ifdef DEBUG
 	#define ADC_INLINE
 #else
 	#define ADC_INLINE inline

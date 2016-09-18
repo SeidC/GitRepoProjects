@@ -32,8 +32,4 @@ typedef uint8_t bool;
 #define TRUE  1u
 #define FALSE 0u
 
-
-
-#define DEBUG TRUE
-
 #endif /* COMMONTYPES_H_ */

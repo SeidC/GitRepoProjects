@@ -6,12 +6,12 @@
  */ 
 
 #include <avr/io.h>
-#include "TLE5202.h"
+#include "TLE5206.h"
 
 int main(void)
 {
    
-    TLE5202_Init();
+    TLE5206_Init();
     /* Replace with your application code */
     while (1) 
     {
