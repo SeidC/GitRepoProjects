@@ -56,7 +56,7 @@ typedef struct
 }Pwm0_Config_t;
 
 
-void Pwm0_Init(Pwm0_Config_t config);
+void Pwm0_Init(Pwm0_Config_t* config);
 
 void Pwm0_TogglePwm(Pwm0_Status_t status);
 

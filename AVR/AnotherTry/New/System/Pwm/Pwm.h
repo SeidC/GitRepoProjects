@@ -1,4 +1,4 @@
-/*
+*/*
  * Pwm.h
  *
  * Created: 08.09.2016 19:52:56
@@ -76,6 +76,6 @@ void Pwm_SetPwmMode(Pwm_Channel_t channel, Pwm_Mode_t mode);
 
 void Pwm_SetDutyCycle(Pwm_Channel_t channel, uint8_t dutyCycle);
 
-void Pwm_Init(Pwm_Channel_t channel, Pwm_Config_t config);
+void Pwm_Init(Pwm_Channel_t channel, Pwm_Config_t* config);
 
 #endif /* PWM_H_ */

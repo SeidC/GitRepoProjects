@@ -68,6 +68,6 @@ void Pwm2_SetPwmMode(Pwm2_Mode_t mode);
 
 void Pwm2_SetDutyCycle(uint8_t dutyCycle);
 
-void Pwm2_Init(Pwm2_Config_t config);
+void Pwm2_Init(Pwm2_Config_t* config);
 
 #endif /* PWM2_H_ */
