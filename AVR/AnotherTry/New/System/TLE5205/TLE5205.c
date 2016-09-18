@@ -136,22 +136,22 @@ Io_Config_t* TLE5205_GetIoByDirection(TLE5202_Device_t device, TLE5202_Direction
    {
       if(direction == TLE5205_LEFT_DIRECTION)
       {
-         cfg = &(TLE5205_GetDevice(device).input1);
+         cfg = &(TLE5205_GetDevice(device)->input1);
       }  
       else
       {
-         cfg = &(TLE5205_GetDevice(device).input2);
+         cfg = &(TLE5205_GetDevice(device)->input2);
       } 
    }
    else if(TLE5202_DEFAULT_LEFT_DIRECTION == TLE5205_IO_INPUT_2)
    {
      if(direction == TLE5205_LEFT_DIRECTION)
      {
-        cfg = &(TLE5205_GetDevice(device).input2);
+        cfg = &(TLE5205_GetDevice(device)->input2);
      }
      else
      {
-        cfg = &(TLE5205_GetDevice(device).input1);
+        cfg = &(TLE5205_GetDevice(device)->input1);
      } 
    }
    return cfg;
