@@ -7,19 +7,7 @@
 #include "Motor.h"
 
 
-Motor_Config_t Motor_config[MOTOR_NUMBER_OF_MOTOR] =
-      {
-         {
-            .motorAdcChannel = ADC_CHANNEL_0,
-            .motorBridge     = TLE5206_BRIDGE_00,
-            
-         },
-         {
-            .motorAdcChannel = ADC_CHANNEL_1,
-            .motorBridge     = TLE5206_BRIDGE_01,
-         },
-      };
-      
+     
       
 void Motor_Enable(Motor_Names_t motor)
 {

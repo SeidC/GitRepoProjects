@@ -39,20 +39,19 @@ typedef struct
 
 typedef enum 
 {
-	TLE5206_LEFT_DIRECTION		= 0x00,
-	TLE5206_RIGTH_DIRECTION		= 0x01,
-   TLE5206_EMERGENCY_STOP     = 0x02,
-   TLE5206_STOP               = 0x03,
+	TLE5206_INPUT_01			= 0x00,
+	TLE5206_INPUT_02			= 0x01,
+	TLE5206_EMERGENCY_STOP		= 0x02,
+	TLE5206_NORMAL_STOP			= 0x03,	
 	
-}TLE5206_Direction_t;
+}TLE5206_Input_t;
 
 
 void TLE5206_Init(void);
-Io_Config_t* TLE5206_GetIoByDirection(TLE5206_Device_t device, TLE5206_Direction_t direction);
-void TLE5206_SetDirection(TLE5206_Device_t device, TLE5206_Direction_t direction);
+void TLE5206_SetInput(TLE5206_Device_t device, TLE5206_Input_t input);
 void TLE5206_Disable(TLE5206_Device_t device);
 void TLE5206_Enable(TLE5206_Device_t device);
 void TLE5206_SetDutyCycle(TLE5206_Device_t device, uint8_t dutyCycle);
-void TLE5206_EmergencyStop(TLE5206_Device_t device);
+
 
 #endif /* TLE5206_H_ */

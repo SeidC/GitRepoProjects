@@ -94,67 +94,30 @@ void TLE5206_Disable(TLE5206_Device_t device)
 }
 
 
-void TLE5206_SetDirection(TLE5206_Device_t device, TLE5206_Direction_t direction)
+void TLE5206_SetInput(TLE5206_Device_t device, TLE5206_Input_t input)
 {
-   Io_Config_t *left, *right;
-   
-   left  = TLE5206_GetIoByDirection(device,TLE5206_LEFT_DIRECTION);
-   right = TLE5206_GetIoByDirection(device,TLE5206_RIGTH_DIRECTION);
-   
-   if(direction == TLE5206_LEFT_DIRECTION)
-   {
-      Io_SetPinStatus(left->port,left->pin,HIGH);
-      Io_SetPinStatus(right->port,right->pin,LOW);
-   }
-   else if(direction == TLE5206_RIGTH_DIRECTION)
-   {
-      Io_SetPinStatus(left->port,left->pin,LOW);
-      Io_SetPinStatus(right->port,right->pin,HIGH);
-   }
-   else if(direction == TLE5206_EMERGENCY_STOP)
-   {
-      Io_SetPinStatus(left->port,left->pin,HIGH);
-      Io_SetPinStatus(right->port,right->pin,HIGH);   
-   }
-   else if(direction == TLE5206_STOP)
-   {
-      Io_SetPinStatus(left->port,left->pin,LOW);
-      Io_SetPinStatus(right->port,right->pin,LOW);
-   }
-   else
-   {
-      /*--- Do Nothing ---*/
-   }
+	TLE5206_IoConfig_t *config =  TLE5206_GetDevice(device);
+	if (input == TLE5206_INPUT_01)
+	{
+		Io_SetPinStatus(config->input1.port,config->input1.pin,HIGH);
+		Io_SetPinStatus(config->input2.port,config->input2.pin,LOW);
+	}
+	else if (input == TLE5206_INPUT_02)
+	{
+		Io_SetPinStatus(config->input1.port,config->input1.pin,LOW);
+		Io_SetPinStatus(config->input2.port,config->input2.pin,HIGH);
+	}
+	else if (input == TLE5206_EMERGENCY_STOP)
+	{
+		Io_SetPinStatus(config->input1.port,config->input1.pin,HIGH);
+		Io_SetPinStatus(config->input2.port,config->input2.pin,HIGH);
+	}
+	else 
+	{
+		Io_SetPinStatus(config->input1.port,config->input1.pin,LOW);
+		Io_SetPinStatus(config->input2.port,config->input2.pin,LOW);
+	}
    return;
-}
-
-
-Io_Config_t* TLE5206_GetIoByDirection(TLE5206_Device_t device, TLE5206_Direction_t direction)
-{
-   Io_Config_t *cfg; 
-   if(TLE5206_DEFAULT_LEFT_DIRECTION == TLE5206_IO_INPUT_1)
-   {
-      if(direction == TLE5206_LEFT_DIRECTION)
-      {
-         cfg = &(TLE5206_GetDevice(device)->input1);
-      }  
-      else
-      {
-         cfg = &(TLE5206_GetDevice(device)->input2);
-      } 
-   }
-   else if(TLE5206_DEFAULT_LEFT_DIRECTION == TLE5206_IO_INPUT_2)
-   {
-     if(direction == TLE5206_LEFT_DIRECTION)
-     {
-        cfg = &(TLE5206_GetDevice(device)->input2);
-     }
-     else
-     {
-        cfg = &(TLE5206_GetDevice(device)->input1);
-     } 
-   }
-   return cfg;
 }
 
 
@@ -165,8 +128,3 @@ void TLE5206_SetDutyCycle(TLE5206_Device_t device, uint8_t dutyCycle)
    Pwm_SetDutyCycle(cfg->channel,dutyCycle);
 }
 
-
-void TLE5206_EmergencyStop(TLE5206_Device_t device)
-{
-   TLE5206_SetDutyCycle(device,TLE5206_EMERGENCY_STOP);
-}
