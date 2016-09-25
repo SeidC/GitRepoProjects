@@ -8,24 +8,9 @@
 
 #ifndef MOTOR_H_
 #define MOTOR_H_
-#include "TLE5206.h"
-#include "Adc.h"
+#include "MotorControl.h"
+#include "MotorMeasurment.h"
 
-#define MOTOR_NUMBER_OF_MOTOR                ((uint8_t)MOTOR_MOTOR_QUANTITY)
-
-typedef enum 
-{
-   MOTOR_MOTOR_01       = 0x00,
-   MOTOR_MOTOR_02             ,
-   MOTOR_MOTOR_QUANTITY       ,                   
-   
-}Motor_Names_t;
-
-typedef struct 
-{
-   Adc_Channel_t     motorAdcChannel;
-   TLE5206_Device_t  motorBridge;
-}Motor_Config_t;
 
 
 
