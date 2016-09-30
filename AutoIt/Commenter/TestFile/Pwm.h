@@ -96,7 +96,17 @@ typedef struct
                            
 }Pwm_Config_t; 
 
-
+/**
+ *  @brief Brief
+ *  
+ *  @param [in] Pwm_channel   Parameter_Description
+ *  @param [in] Pwm_mode      Parameter_Description
+ *  @param [in] Pwm_preScaler Parameter_Description
+ *  @param [in] Pwm_output    Parameter_Description
+ *  @return Return_Description
+ *  
+ *  @details Details
+ */
 void Pwm_Init(Pwm_Channel_t Pwm_channel, Pwm_Mode_t Pwm_mode, Pwm_PreScaler_t Pwm_preScaler, Pwm_OutputMode_t Pwm_output);
 
 
@@ -111,7 +121,7 @@ void Pwm_SetPwmMode(Pwm_Channel_t Pwm_channel, Pwm_Mode_t Pwm_mode);
 
 Pwm_Config_t* Pwm_GetChannelConfig(Pwm_Channel_t Pwm_channel);
 
-void Pwm_SetActivationStatus(Pwm_Channel_t Pwm_channel, Pwm_Activation_t status);
+void Pwm_SetActivationStatus(Pwm_Channel_t* Pwm_channel, Pwm_Activation_t status);
 
 void Pwm_SetPwmPrescaler(Pwm_Channel_t Pwm_channel, Pwm_PreScaler_t Pwm_preScaler);
 

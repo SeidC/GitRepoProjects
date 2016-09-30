@@ -1,7 +1,6 @@
-#include-once
 #include <File.au3>
 #include <Array.au3>
-#include "Globals.au3"
+#include "DoxyGen.au3"
 
 
 Func GetAllFromFile($path,$retType)
@@ -55,68 +54,105 @@ Func GetAllFromFileToArray($path)
 EndFunc
 
 
-
-Func CommentFiles(ByRef $files)
-	Local $dataAv, $path
-	For $i = 1 To UBound($files) - 1
-		$path   = $files[$i]
-		$dataAv = GetAllFromFile($path,$RETURN_AS_STRING)
-
-	Next
-EndFunc
-
-
-Func VerifyCodeLines($lineTxt,$type)
-	Local $av, $res
-
-	Switch($type)
-		Case $HEADER_FUNCTIONS
-			$av = VerifyHeader($lineTxt)
-			_ArrayAdd($res,$av)
-			;--- Add Verification for Parameter ---
-		Case Else
-
-	EndSwitch
-
-EndFunc
-
-Func VerifyHeader($lineTxt)
-	Local $av
-	$av = LineRegExp($lineTxt,$HEADER_FUNCTIONS)
-	SetError(@error)
-	return $av
-EndFunc
-
-Func VerifyCodeParameter($paramLst)
-	Local $av
-	$av = LineRegExp($paramLst,$HEADER_PARAMETER)
-	SetError(@error)
-	return $av
-EndFunc
-
-Func LineRegExp($txt,$regExp)
-	Local $av, $error
-	$regExp = GetRegExp($regExp)
-	$av = StringRegExp($txt,$regExp,3)
-	$error = @error
-
-	If $error <> 0 Then
-		$av = -1
-	EndIf
-
-	SetError($error)
-	return $av
-EndFunc
-
-Func GetRegExp($type)
+Func GetRegExp($projectType,$regExpType)
 	Local $ret = -1
-	Local $pType = GetProjectType()
-	If $type < $NUMBER_OF_REG_EXP Then
-		$ret = $regExp[$pType][$type]
+	If $regExpType < $NUMBER_OF_REG_EXP Then
+		$ret = $regExp[$projectType][$regExpType]
 	EndIf
 	Return $ret
 EndFunc
 
+
 Func GetProjectType()
 	Return $projectType
+EndFunc
+
+Func GetFileReturnType()
+	Return $fileReturnType
+EndFunc
+
+
+Func GetAllFileToAv($filePath, $filterMask)
+	return _FileListToArrayRec($filePath,$filterMask,$FLTAR_FILES,$FLTAR_RECUR,$FLTAR_SORT,$FLTAR_FULLPATH )
+EndFunc
+
+Func MainTask()
+	Local $av, $mask
+	Local $path, $filePath
+	Local $fileContent,$contentReturn
+
+
+	$path = GetPath()
+	$mask = GetFilterMask()
+	$av = GetAllFileToAv($path,$mask)
+	$cReturn = GetFileReturnType()
+
+	for $i = 1 To UBound($av) - 1
+		$filePath = $av[$i]
+		$fileContent = GetAllFromFile($filePath,$cReturn)
+		CommentHeader($fileContent)
+	Next
+EndFunc
+
+
+
+Func GetPath()
+	return $filePath
+EndFunc
+
+
+Func GetFilterMask()
+	return $filterMask
+EndFunc
+
+
+Func CommentHeader($headerTxt)
+	Local $headerRegExp,$paramTxt, $projType, $detailsTxt, $av, $temp
+	Local $returnValue,$functionName,$comment,$result,$outputTxt
+	If $headerTxt <> "" Then
+
+		$projType       = GetProjectType()
+		$headerRegExp   = GetRegExp($projType,$HEADER_FUNCTIONS)
+		$paramRegExp    = GetRegExp($projectType,$HEADER_PARAMETER)
+
+		$av = StringRegExp($headerTxt,$headerRegExp,3)
+		If @error = 0 Then
+			For $i = 0 To UBound($av) -1 Step $NUMBER_OF_REG_EXP_HEADER_VALUES
+
+				$temp 	       = GetTemplate($projType,$HEADER_TEMPLATE)
+
+				$returnValue   =  GenReturn($av[$i + $RETURN_VALUE])
+				$functionName  =  GenBrief($av[$i + $FUNCTION_NAME])
+				$paramTxt	   =  GenParam($av[$i + $PARAMETER_LIST],$paramRegExp)
+				$detailsTxt	   =  GenDetails()
+				$comment	   =  ReplaceTags($temp,$functionName,$paramTxt,$returnValue,$detailsTxt)
+				$result		   =  GenFunctionWithComment($comment,$av[$i + $RETURN_VALUE],$av[$i + $FUNCTION_NAME],$av[$i + $PARAMETER_LIST])
+				$outputTxt    &= $result
+
+			Next
+		EndIf
+	Else
+
+	EndIf
+
+EndFunc
+
+
+
+Func GetTags($templateType)
+	Local $ret
+	Switch $templateType
+		Case $HEADER_TEMPLATE
+			$ret = $headerTags
+		Case $SOURCE_TEMPLATE
+
+		Case Else
+
+	EndSwitch
+	Return $ret
+EndFunc
+
+
+Func GetRegExpParameter($regExpAv, $parameterType)
+	Return $regExpAv[$parameterType]
 EndFunc
