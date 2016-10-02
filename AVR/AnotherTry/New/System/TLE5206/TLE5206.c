@@ -15,19 +15,19 @@ TLE5206_IoConfig_t TLE5206_config[TLE5206_NUMBER_OF_DEVICES] =
                {
                   .input1			= {IO_PORT_C,IO_PIN_0},
                   .input2			= {IO_PORT_C,IO_PIN_1},
-				      .enable			= {IO_PORT_C,IO_PIN_2},
+				  .enable			= {IO_PORT_C,IO_PIN_2},
                   .errorFlag		= {IO_PORT_D,IO_PIN_2},
-                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_0},
-				      .channel			= PWM_CHANNEL_0,				  
+                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_8},
+				  .channel			= PWM_CHANNEL_0,				  
                },
                
                {
                   .input1			= {IO_PORT_C,IO_PIN_6},
                   .input2			= {IO_PORT_C,IO_PIN_7},
-				      .enable			= {IO_PORT_C,IO_PIN_5},
+				  .enable			= {IO_PORT_C,IO_PIN_5},
                   .errorFlag		= {IO_PORT_D,IO_PIN_3},
-                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_0},
-				      .channel			= PWM_CHANNEL_2
+                  .channelConfig	= {PWM_PHASE_CORRECT,PWM_NON_INVERTED,PWM_PRESCALER_8},
+				  .channel			= PWM_CHANNEL_2
                },               
             };            
             
@@ -128,3 +128,18 @@ void TLE5206_SetDutyCycle(TLE5206_Device_t device, uint8_t dutyCycle)
    Pwm_SetDutyCycle(cfg->channel,dutyCycle);
 }
 
+
+
+void TLE5206_ActivatePwm(TLE5206_Device_t device)
+{
+	 TLE5206_IoConfig_t *cfg;
+	 cfg = TLE5206_GetDevice(device);
+	Pwm_Start(cfg->channel);
+}
+
+void TLE5206_DeactivatePwm(TLE5206_Device_t device)
+{
+	TLE5206_IoConfig_t *cfg;
+	cfg = TLE5206_GetDevice(device);
+	Pwm_Stop(cfg->channel);
+}

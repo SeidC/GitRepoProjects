@@ -11,7 +11,7 @@ void Io_Configure(Io_Port_t port, Io_Pin_t pin, Io_Direction_t dir)
 {
 	vuint8_t *ddr;
 	
-	ddr  = (&DDRD + (uint8_t)port);
+	ddr  = (&DDRD + IO_DDX_OFFSET * (uint8_t)port);
 
 	if(dir == IO_INPUT)
 	{
@@ -29,7 +29,7 @@ void Io_Configure(Io_Port_t port, Io_Pin_t pin, Io_Direction_t dir)
 Status_t Io_GetPinStatus(Io_Port_t port, Io_Pin_t pin)
 {
 	vuint8_t *pinReg;
-	pinReg = (&PIND + (uint8_t)port);
+	pinReg = (&PIND + IO_PIN_OFFSET * (uint8_t)port);
 	return (*pinReg & (1 << (uint8_t)pin));
 }
 
@@ -38,7 +38,7 @@ Status_t Io_GetPinStatus(Io_Port_t port, Io_Pin_t pin)
 void Io_SetPinStatus(Io_Port_t port, Io_Pin_t pin, Status_t status)
 {
 	vuint8_t *portReg;
-	portReg = (&PORTD + (uint8_t)port);
+	portReg = (&PORTD + IO_PORT_OFFSET * (uint8_t)port);
 	if(status == HIGH)
 	{
 		*portReg |= (1 << (uint8_t)pin);

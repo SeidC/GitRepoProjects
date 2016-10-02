@@ -52,6 +52,7 @@ void TLE5206_SetInput(TLE5206_Device_t device, TLE5206_Input_t input);
 void TLE5206_Disable(TLE5206_Device_t device);
 void TLE5206_Enable(TLE5206_Device_t device);
 void TLE5206_SetDutyCycle(TLE5206_Device_t device, uint8_t dutyCycle);
-
+void TLE5206_ActivatePwm(TLE5206_Device_t device);
+void TLE5206_DeactivatePwm(TLE5206_Device_t device);
 
 #endif /* TLE5206_H_ */

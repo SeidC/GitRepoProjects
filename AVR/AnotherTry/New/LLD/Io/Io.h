@@ -10,13 +10,17 @@
 #define IO_H_
 #include "CommonTypes.h"
 
+#define IO_DDX_OFFSET			0x03u
+#define IO_PIN_OFFSET			0x03u
+#define IO_PORT_OFFSET			0x03u
+
 
 typedef enum 
 {
-	IO_PORT_A		= 0x00,
-	IO_PORT_B		= 0x01,
-	IO_PORT_C		= 0x02,
-	IO_PORT_D		= 0x03,
+	IO_PORT_D		= 0x00,
+	IO_PORT_C		= 0x01,
+	IO_PORT_B		= 0x02,
+	IO_PORT_A		= 0x03,
 }Io_Port_t;
 
 
