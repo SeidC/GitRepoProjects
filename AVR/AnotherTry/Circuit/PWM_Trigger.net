@@ -1,0 +1,19 @@
+* D:\Projekte\Projects\AVR\AnotherTry\Circuit\PWM_Trigger.asc
+V1 N001 0 5
+V2 N002 0 5
+V3 N004 0 PULSE(0 5 0 0.01 0.01 0.5 1 20)
+R1 IN1 N001 2k
+R2 IN2 N002 2k
+R3 N005 N004 4k
+R4 0 N005 1k
+Q1 N003 N005 0 0 BC547B
+D1 IN1 N003 1N914
+D2 IN2 N003 1N914
+.model D D
+.lib C:\Users\AP02\Documents\LTspiceXVII\lib\cmp\standard.dio
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\AP02\Documents\LTspiceXVII\lib\cmp\standard.bjt
+.tran 10
+.backanno
+.end
