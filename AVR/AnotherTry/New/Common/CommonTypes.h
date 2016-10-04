@@ -26,6 +26,9 @@ typedef uint8_t Status_t;
 #define HIGH				((Status_t)1u)
 #define LOW					((Status_t)0u)
 
+#define ON					((Status_t)1u)
+#define OFF					((Status_t)0u)
+
 
 typedef uint8_t bool;
 
