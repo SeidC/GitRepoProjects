@@ -29,7 +29,7 @@
 		(EASY_TRANSMIT_TIME_US / 8)	
 		
 #define EASY_GET_TRASMIT_PORT()					\
-		(volatile uint8_t* (EASY_TX_PORT))
+		((volatile uint8_t*) (EASY_TX_PORT))
 
 #define EASY_GET_TRANSMIT_PIN()					\
 		(EASY_TX_PIN)
@@ -46,7 +46,6 @@ void Easy_Init(void)
 	
 	return;
 }
-
 
 
 void Easy_TransmitChar(char p)
