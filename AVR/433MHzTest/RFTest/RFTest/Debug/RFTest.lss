@@ -1,0 +1,367 @@
+
+RFTest.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000020e  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000e  00800060  0000020e  000002a2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000064  0080006e  0080006e  000002b0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000002b0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002e0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000108  00000000  00000000  0000031c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000da9  00000000  00000000  00000424  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000004ab  00000000  00000000  000011cd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000661  00000000  00000000  00001678  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000002a4  00000000  00000000  00001cdc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000006ad  00000000  00000000  00001f80  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000a3a  00000000  00000000  0000262d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000d8  00000000  00000000  00003067  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 bd 00 	jmp	0x17a	; 0x17a <__vector_11>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 e1 00 	jmp	0x1c2	; 0x1c2 <__vector_13>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ee e0       	ldi	r30, 0x0E	; 14
+  68:	f2 e0       	ldi	r31, 0x02	; 2
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	ae 36       	cpi	r26, 0x6E	; 110
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	ae e6       	ldi	r26, 0x6E	; 110
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a2 3d       	cpi	r26, 0xD2	; 210
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 a8 00 	call	0x150	; 0x150 <main>
+  8a:	0c 94 05 01 	jmp	0x20a	; 0x20a <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <FIFO_UpdateBufferStatus>:
+        }        
+		FIFO_Write(ptr,*str);
+        str++;
+	}
+	return ret;
+}
+  92:	fc 01       	movw	r30, r24
+  94:	95 81       	ldd	r25, Z+5	; 0x05
+  96:	84 81       	ldd	r24, Z+4	; 0x04
+  98:	26 81       	ldd	r18, Z+6	; 0x06
+  9a:	21 11       	cpse	r18, r1
+  9c:	0c c0       	rjmp	.+24     	; 0xb6 <FIFO_UpdateBufferStatus+0x24>
+  9e:	89 17       	cp	r24, r25
+  a0:	18 f4       	brcc	.+6      	; 0xa8 <FIFO_UpdateBufferStatus+0x16>
+  a2:	81 e0       	ldi	r24, 0x01	; 1
+  a4:	83 83       	std	Z+3, r24	; 0x03
+  a6:	08 95       	ret
+  a8:	98 13       	cpse	r25, r24
+  aa:	02 c0       	rjmp	.+4      	; 0xb0 <FIFO_UpdateBufferStatus+0x1e>
+  ac:	13 82       	std	Z+3, r1	; 0x03
+  ae:	08 95       	ret
+  b0:	84 e0       	ldi	r24, 0x04	; 4
+  b2:	83 83       	std	Z+3, r24	; 0x03
+  b4:	08 95       	ret
+  b6:	89 17       	cp	r24, r25
+  b8:	18 f4       	brcc	.+6      	; 0xc0 <FIFO_UpdateBufferStatus+0x2e>
+  ba:	83 e0       	ldi	r24, 0x03	; 3
+  bc:	83 83       	std	Z+3, r24	; 0x03
+  be:	08 95       	ret
+  c0:	98 13       	cpse	r25, r24
+  c2:	03 c0       	rjmp	.+6      	; 0xca <FIFO_UpdateBufferStatus+0x38>
+  c4:	82 e0       	ldi	r24, 0x02	; 2
+  c6:	83 83       	std	Z+3, r24	; 0x03
+  c8:	08 95       	ret
+  ca:	81 e0       	ldi	r24, 0x01	; 1
+  cc:	83 83       	std	Z+3, r24	; 0x03
+  ce:	08 95       	ret
+
+000000d0 <FIFO_Write>:
+  d0:	dc 01       	movw	r26, r24
+  d2:	13 96       	adiw	r26, 0x03	; 3
+  d4:	2c 91       	ld	r18, X
+  d6:	13 97       	sbiw	r26, 0x03	; 3
+  d8:	22 30       	cpi	r18, 0x02	; 2
+  da:	00 f5       	brcc	.+64     	; 0x11c <FIFO_Write+0x4c>
+  dc:	15 96       	adiw	r26, 0x05	; 5
+  de:	2c 91       	ld	r18, X
+  e0:	15 97       	sbiw	r26, 0x05	; 5
+  e2:	ed 91       	ld	r30, X+
+  e4:	fc 91       	ld	r31, X
+  e6:	11 97       	sbiw	r26, 0x01	; 1
+  e8:	e2 0f       	add	r30, r18
+  ea:	f1 1d       	adc	r31, r1
+  ec:	60 83       	st	Z, r22
+  ee:	15 96       	adiw	r26, 0x05	; 5
+  f0:	2c 91       	ld	r18, X
+  f2:	15 97       	sbiw	r26, 0x05	; 5
+  f4:	12 96       	adiw	r26, 0x02	; 2
+  f6:	3c 91       	ld	r19, X
+  f8:	12 97       	sbiw	r26, 0x02	; 2
+  fa:	23 17       	cp	r18, r19
+  fc:	28 f4       	brcc	.+10     	; 0x108 <FIFO_Write+0x38>
+  fe:	2f 5f       	subi	r18, 0xFF	; 255
+ 100:	15 96       	adiw	r26, 0x05	; 5
+ 102:	2c 93       	st	X, r18
+ 104:	15 97       	sbiw	r26, 0x05	; 5
+ 106:	07 c0       	rjmp	.+14     	; 0x116 <FIFO_Write+0x46>
+ 108:	15 96       	adiw	r26, 0x05	; 5
+ 10a:	1c 92       	st	X, r1
+ 10c:	15 97       	sbiw	r26, 0x05	; 5
+ 10e:	21 e0       	ldi	r18, 0x01	; 1
+ 110:	16 96       	adiw	r26, 0x06	; 6
+ 112:	2c 93       	st	X, r18
+ 114:	16 97       	sbiw	r26, 0x06	; 6
+ 116:	cd 01       	movw	r24, r26
+ 118:	0e 94 49 00 	call	0x92	; 0x92 <FIFO_UpdateBufferStatus>
+ 11c:	08 95       	ret
+
+0000011e <FIFO_Read>:
+
+/******************************************************************************
+ * FUNCTION: char FIFO_Read(...)
+ *****************************************************************************/
+char FIFO_Read(FIFO_Buffer_t* ptr)
+{
+ 11e:	cf 93       	push	r28
+ 120:	fc 01       	movw	r30, r24
+	char p;
+	uint8_t i;
+	if(FIFO_IS_BUFFER_READY(ptr) == TRUE)
+ 122:	93 81       	ldd	r25, Z+3	; 0x03
+ 124:	92 30       	cpi	r25, 0x02	; 2
+ 126:	88 f4       	brcc	.+34     	; 0x14a <FIFO_Read+0x2c>
+    {
+	    i = FIFO_GET_READ_COUNT(ptr);
+ 128:	84 81       	ldd	r24, Z+4	; 0x04
+	    p = FIFO_GET_BUFFER_CHAR(ptr,i);
+ 12a:	a0 81       	ld	r26, Z
+ 12c:	b1 81       	ldd	r27, Z+1	; 0x01
+ 12e:	a8 0f       	add	r26, r24
+ 130:	b1 1d       	adc	r27, r1
+ 132:	cc 91       	ld	r28, X
+ * FUNCTION: void FIFO_IncrementReadCounter(...)
+ *****************************************************************************/
+static void FIFO_IncrementReadCounter(FIFO_Buffer_t* ptr)
+{
+	uint8_t size;
+	if(FIFO_GET_READ_COUNT(ptr) < FIFO_GET_BUFFER_SIZE(ptr))
+ 134:	92 81       	ldd	r25, Z+2	; 0x02
+ 136:	89 17       	cp	r24, r25
+ 138:	18 f4       	brcc	.+6      	; 0x140 <FIFO_Read+0x22>
+	{
+		size = FIFO_GET_READ_COUNT(ptr);
+        FIFO_SET_READ_BUFFER(ptr,++size);
+ 13a:	8f 5f       	subi	r24, 0xFF	; 255
+ 13c:	84 83       	std	Z+4, r24	; 0x04
+ 13e:	02 c0       	rjmp	.+4      	; 0x144 <FIFO_Read+0x26>
+	}
+	else
+	{
+		FIFO_SET_READ_BUFFER(ptr,0);
+ 140:	14 82       	std	Z+4, r1	; 0x04
+        FIFO_SET_OVERFLOW_STATUS(ptr,FALSE);
+ 142:	16 82       	std	Z+6, r1	; 0x06
+ 144:	cf 01       	movw	r24, r30
+	if(FIFO_IS_BUFFER_READY(ptr) == TRUE)
+    {
+	    i = FIFO_GET_READ_COUNT(ptr);
+	    p = FIFO_GET_BUFFER_CHAR(ptr,i);
+        FIFO_IncrementReadCounter(ptr);
+        FIFO_UpdateBufferStatus(ptr);
+ 146:	0e 94 49 00 	call	0x92	; 0x92 <FIFO_UpdateBufferStatus>
+    }         
+	return p;
+}
+ 14a:	8c 2f       	mov	r24, r28
+ 14c:	cf 91       	pop	r28
+ 14e:	08 95       	ret
+
+00000150 <main>:
+
+    /* Replace with your application code */
+    while (1) 
+    {
+		
+    }
+ 150:	ff cf       	rjmp	.-2      	; 0x150 <main>
+
+00000152 <USART_TxCallback>:
+/************************************************************************/
+/* void USARt_ReceiveString                                             */
+/************************************************************************/
+void USARt_ReceiveString(char *str, int size)
+{
+    FIFO_ReadString(&USART_rxBuffer,str,size);
+ 152:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <USART_txBuffer+0x3>
+ 156:	88 23       	and	r24, r24
+ 158:	29 f0       	breq	.+10     	; 0x164 <USART_TxCallback+0x12>
+ 15a:	80 e6       	ldi	r24, 0x60	; 96
+ 15c:	90 e0       	ldi	r25, 0x00	; 0
+ 15e:	0e 94 8f 00 	call	0x11e	; 0x11e <FIFO_Read>
+ 162:	8c b9       	out	0x0c, r24	; 12
+ 164:	08 95       	ret
+
+00000166 <USART_RxCallback>:
+ 166:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <USART_rxBuffer+0x3>
+ 16a:	82 30       	cpi	r24, 0x02	; 2
+ 16c:	29 f0       	breq	.+10     	; 0x178 <USART_RxCallback+0x12>
+ 16e:	6c b1       	in	r22, 0x0c	; 12
+ 170:	87 e6       	ldi	r24, 0x67	; 103
+ 172:	90 e0       	ldi	r25, 0x00	; 0
+ 174:	0e 94 68 00 	call	0xd0	; 0xd0 <FIFO_Write>
+ 178:	08 95       	ret
+
+0000017a <__vector_11>:
+  * This routine calls the Rx Callback only. In this callback the 
+  * other interrupt code can be added.
+  *
+  */
+ ISR(USART_RXC_vect)
+ {
+ 17a:	1f 92       	push	r1
+ 17c:	0f 92       	push	r0
+ 17e:	0f b6       	in	r0, 0x3f	; 63
+ 180:	0f 92       	push	r0
+ 182:	11 24       	eor	r1, r1
+ 184:	2f 93       	push	r18
+ 186:	3f 93       	push	r19
+ 188:	4f 93       	push	r20
+ 18a:	5f 93       	push	r21
+ 18c:	6f 93       	push	r22
+ 18e:	7f 93       	push	r23
+ 190:	8f 93       	push	r24
+ 192:	9f 93       	push	r25
+ 194:	af 93       	push	r26
+ 196:	bf 93       	push	r27
+ 198:	ef 93       	push	r30
+ 19a:	ff 93       	push	r31
+     USART_RxCallback();
+ 19c:	0e 94 b3 00 	call	0x166	; 0x166 <USART_RxCallback>
+ }
+ 1a0:	ff 91       	pop	r31
+ 1a2:	ef 91       	pop	r30
+ 1a4:	bf 91       	pop	r27
+ 1a6:	af 91       	pop	r26
+ 1a8:	9f 91       	pop	r25
+ 1aa:	8f 91       	pop	r24
+ 1ac:	7f 91       	pop	r23
+ 1ae:	6f 91       	pop	r22
+ 1b0:	5f 91       	pop	r21
+ 1b2:	4f 91       	pop	r20
+ 1b4:	3f 91       	pop	r19
+ 1b6:	2f 91       	pop	r18
+ 1b8:	0f 90       	pop	r0
+ 1ba:	0f be       	out	0x3f, r0	; 63
+ 1bc:	0f 90       	pop	r0
+ 1be:	1f 90       	pop	r1
+ 1c0:	18 95       	reti
+
+000001c2 <__vector_13>:
+  * called
+  * This routine calls the Tx Callback only. In this callback the
+  * other interrupt code can be added
+  */
+ ISR(USART_TXC_vect)
+ {
+ 1c2:	1f 92       	push	r1
+ 1c4:	0f 92       	push	r0
+ 1c6:	0f b6       	in	r0, 0x3f	; 63
+ 1c8:	0f 92       	push	r0
+ 1ca:	11 24       	eor	r1, r1
+ 1cc:	2f 93       	push	r18
+ 1ce:	3f 93       	push	r19
+ 1d0:	4f 93       	push	r20
+ 1d2:	5f 93       	push	r21
+ 1d4:	6f 93       	push	r22
+ 1d6:	7f 93       	push	r23
+ 1d8:	8f 93       	push	r24
+ 1da:	9f 93       	push	r25
+ 1dc:	af 93       	push	r26
+ 1de:	bf 93       	push	r27
+ 1e0:	ef 93       	push	r30
+ 1e2:	ff 93       	push	r31
+     USART_TxCallback();
+ 1e4:	0e 94 a9 00 	call	0x152	; 0x152 <USART_TxCallback>
+ }
+ 1e8:	ff 91       	pop	r31
+ 1ea:	ef 91       	pop	r30
+ 1ec:	bf 91       	pop	r27
+ 1ee:	af 91       	pop	r26
+ 1f0:	9f 91       	pop	r25
+ 1f2:	8f 91       	pop	r24
+ 1f4:	7f 91       	pop	r23
+ 1f6:	6f 91       	pop	r22
+ 1f8:	5f 91       	pop	r21
+ 1fa:	4f 91       	pop	r20
+ 1fc:	3f 91       	pop	r19
+ 1fe:	2f 91       	pop	r18
+ 200:	0f 90       	pop	r0
+ 202:	0f be       	out	0x3f, r0	; 63
+ 204:	0f 90       	pop	r0
+ 206:	1f 90       	pop	r1
+ 208:	18 95       	reti
+
+0000020a <_exit>:
+ 20a:	f8 94       	cli
+
+0000020c <__stop_program>:
+ 20c:	ff cf       	rjmp	.-2      	; 0x20c <__stop_program>
