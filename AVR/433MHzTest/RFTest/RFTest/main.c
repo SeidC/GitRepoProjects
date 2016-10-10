@@ -28,10 +28,12 @@ USART_Config_t config =
 
 int main(void)
 {
-
+	Easy_Init();
+	
     /* Replace with your application code */
     while (1) 
     {
+		Easy_TransmitChar("a");
 		
     }
 }

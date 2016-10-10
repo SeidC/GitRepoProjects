@@ -13,6 +13,8 @@
 #define INCREMENT_TICKS(data)							\
 		(data->sizeOfTicks += 2)
 
+#define SET_TICK_POSITION(data)							\
+		(data->tickPos = 0)
 
 void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 {
@@ -21,7 +23,7 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 	
 	for(i = 0; i < 8; i++)
 	{
-        current = ((p & (1 << i)) >> i);
+        current = MANCHESTER_GET_BIT(p,i);
 		if (current == 1)
 		{
             MANCHESTER_SET_PARAMETER_FOR_ONE(encodedData);
@@ -32,5 +34,24 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 		}
 		INCREMENT_TICKS(encodedData);
 	} 
+	SET_TICK_POSITION(encodedData);
     return;
+}
+
+
+uint8_t Manchester_GetTick(Manchester_t* encodedData)
+{
+	uint8_t tick = 0;
+	if(tick < encodedData->sizeOfTicks)
+	{
+		tick = MANCHESTER_GET_BIT(*encodedData->ticks,encodedData->tickPos);
+		encodedData->tickPos++;
+	}
+	return tick;
+}
+
+
+void Manchester_SetTickPosToStart(Manchester_t* encodedData)
+{
+	encodedData->tickPos;
 }

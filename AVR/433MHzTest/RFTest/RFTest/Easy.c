@@ -7,6 +7,7 @@
 #include "Easy.h"
 #include "avr/io.h"
 #include "avr/delay.h"
+#include "Manchester.h"
 
 #define DDR_ADDRESS_OFFSET				-1
 
@@ -21,43 +22,44 @@
 		(reg &= ~(1 << bit))
 
 
-#define EASY_TRANSMIT_TIME_US					\
-		(EASY_TRANSMIT_FREQUENCY  * 1000)
-		
-		
-#define EASY_BIT_TRANSMIT_TIME_US				\
-		(EASY_TRANSMIT_TIME_US / 8)	
-		
-#define EASY_GET_TRASMIT_PORT()					\
-		((volatile uint8_t*) (EASY_TX_PORT))
+#define EASY_GET_US_DELAY()						\
+		(1000 / EASY_TRANSMIT_TICKS_PER_MS )
 
-#define EASY_GET_TRANSMIT_PIN()					\
-		(EASY_TX_PIN)
 		
 void Easy_Init(void)
 {
-	volatile uint8_t *ddrPortRx, *ddrPortTx;
-	
-	ddrPortRx = EASY_GET_DDR_REGISTER(EASY_RX_PORT);
-	ddrPortTx =  EASY_GET_DDR_REGISTER(EASY_TX_PORT);
-	
-	EASY_SET_BIT(*ddrPortTx,EASY_TX_PIN);
-	EASY_RESET_BIT(*ddrPortRx,EASY_RX_PIN);
+	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
+	EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
+	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
 	
 	return;
 }
 
 
+
+
 void Easy_TransmitChar(char p)
 {
-	volatile uint8_t *port;
-	uint8_t i = 0, pin = 0;
+	uint8_t i = 0, tick;
+	uint8_t buffer[MANCHESTER_CALCULATE_DATA_SIZE(1)];
 	
-	port = EASY_GET_TRASMIT_PORT();
-	pin  = EASY_GET_TRANSMIT_PIN();
-	for (i = 0; i < 8; i++)
+	Manchester_t tData = {
+		buffer,
+		0,
+	};
+	
+	Manchester_EncodeChar(p,&tData);
+	
+	for (i = 0; i < tData.sizeOfTicks; i++)
 	{
-		(p & (1 << i) < 0) ? EASY_SET_BIT(*port,pin) : EASY_RESET_BIT(*port,pin);
-		_delay_us(EASY_BIT_TRANSMIT_TIME_US);
+		tick = Manchester_GetTick(&tData);
+		if (tick == 1)
+			EASY_TX_PORT |= (1 << EASY_TX_PIN);
+		else
+			EASY_TX_PORT &= ~(1 << EASY_TX_PIN);
+			
+		_delay_us(EASY_GET_US_DELAY());
 	}
+	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
+	return;
 }

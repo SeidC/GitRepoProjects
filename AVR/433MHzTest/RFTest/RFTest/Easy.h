@@ -10,13 +10,16 @@
 #define EASY_H_
 #include <avr/io.h>
 
-#define EASY_RX_PORT			         PORTA
-#define EASY_TX_PORT			         PORTB
+#define EASY_RX_PORT						PORTD
+#define EASY_TX_PORT						PORTD
 
-#define EASY_RX_PIN				      PINA0
-#define EASY_TX_PIN				      PINB0
+#define EASY_RX_DDR							DDRD
+#define EASY_TX_DDR							DDRD
 
-#define EASY_TRANSMIT_FREQUENCY     1000u
+#define EASY_RX_PIN							PIND0
+#define EASY_TX_PIN							PIND1
+
+#define EASY_TRANSMIT_TICKS_PER_MS				1u
 
 void Easy_Init(void);
 

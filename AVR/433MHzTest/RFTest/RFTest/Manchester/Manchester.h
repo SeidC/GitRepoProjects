@@ -47,14 +47,26 @@
     (msgSize * 2)
 
 
+#define MANCHESTER_GET_NUMBER_OF_TICKS(data)					\
+		(*data.sizeOfTicks)
+
+#define MANCHESTER_GET_BIT(val,bit)								\
+		(((val & (1 << bit)) >> bit))
+
 typedef struct  
 {
    uint8_t* ticks;
    uint8_t sizeOfTicks;
+   uint8_t tickPos;
 }Manchester_t;
 
 
 void Manchester_EncodeChar(char p, Manchester_t *encodedData);
+
+
+uint8_t Manchester_GetTick(Manchester_t* encodedData);
+
+void Manchester_SetTickPosToStart(Manchester_t* encodedData);
 
 
 #endif /* MANCHESTER_H_ */
