@@ -4,32 +4,33 @@
  * Created: 09.10.2016 00:57:10
  *  Author: AP02
  */ 
+
 #include "Manchester.h"
 
 #define GET_CURRENT_TICKS(data)							\
 		(data->sizeOfTicks)
 
 #define INCREMENT_TICKS(data)							\
-		(data->sizeOfTicks++)
+		(data->sizeOfTicks += 2)
 
 
 void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 {
-	uint8_t i, ticks = 0;
-	uint8_t last,current ;
+    uint8_t i;
+    uint8_t current ;
 	
 	for(i = 0; i < 8; i++)
 	{
-		ticks = GET_CURRENT_TICKS(encodedData);
-		current = (p & (1 << i) >> i);
-		if (last & current)
+        current = ((p & (1 << i)) >> i);
+		if (current == 1)
 		{
-			
+            MANCHESTER_FALLING_EDGE(encodedData);
 		}
 		else
 		{
-			
+             MANCHESTER_RISING_EDGE(encodedData);
 		}
 		INCREMENT_TICKS(encodedData);
 	} 
+    return;
 }
