@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<object type="TAForm" name="Form1">
+	<properties>
+		<property name="Left" vt="Int16">346</property>
+		<property name="Top" vt="Int16">262</property>
+		<property name="Width" vt="Int16">501</property>
+		<property name="Height" vt="Int16">366</property>
+		<property name="Caption" vt="String">Output...</property>
+		<property name="Color" vt="Ident">clBtnFace</property>
+		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+		<property name="Font.Color" vt="Ident">clWindowText</property>
+		<property name="Font.Height" vt="Int8">-14</property>
+		<property name="Font.Name" vt="String">MS Sans Serif</property>
+		<property name="Font.Style" vt="Set"/>
+		<property name="OldCreateOrder" vt="False">False</property>
+		<property name="Visible" vt="True">True</property>
+		<property name="Style" vt="Int32">-1798701056</property>
+		<property name="ExStyle" vt="Int16">256</property>
+		<property name="Version" vt="String">1.04</property>
+		<property name="Description" vt="String">A Help Dialog with OK and Cancel buttons on the bottom.</property>
+		<property name="FormOptOnEvent" vt="False">False</property>
+		<property name="FormOptExpVars" vt="False">False</property>
+		<property name="FormOptPopulate" vt="False">False</property>
+		<property name="FormOptVarsForSet" vt="False">False</property>
+		<property name="FormOptIndentChar" vt="Int8">0</property>
+		<property name="FormOptIndentCount" vt="Int8">1</property>
+		<property name="FormOptIndentInit" vt="Int8">0</property>
+		<property name="FormOptVarScope" vt="Int8">0</property>
+		<property name="Resizing" vt="Set"/>
+		<property name="PixelsPerInch" vt="Int8">120</property>
+		<property name="TextHeight" vt="Int8">16</property>
+	</properties>
+	<components>
+		<object type="TAGroup" name="GroupBox1">
+			<properties>
+				<property name="Left" vt="Int8">10</property>
+				<property name="Top" vt="Int8">1</property>
+				<property name="Width" vt="Int16">365</property>
+				<property name="Height" vt="Int16">310</property>
+				<property name="CtrlStyle" vt="Int32">1342308359</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Constraints.MaxWidth" vt="Int32">1342308359</property>
+				<property name="TabOrder" vt="Int8">0</property>
+				<property name="Resizing" vt="Set"/>
+			</properties>
+			<components>
+				<object type="TAEdit" name="Output">
+					<properties>
+						<property name="Left" vt="Int8">6</property>
+						<property name="Top" vt="Int8">15</property>
+						<property name="Width" vt="Int16">353</property>
+						<property name="Height" vt="Int16">289</property>
+						<property name="Font.Charset" vt="Ident">ANSI_CHARSET</property>
+						<property name="Font.Color" vt="Ident">clWindowText</property>
+						<property name="Font.Height" vt="Int8">-13</property>
+						<property name="Font.Name" vt="String">Verdana</property>
+						<property name="Font.Style" vt="Set"/>
+						<property name="ParentFont" vt="False">False</property>
+						<property name="TabOrder" vt="Int8">0</property>
+						<property name="CtrlStyle" vt="Int32">1345523908</property>
+						<property name="CtrlExStyle" vt="Int16">512</property>
+						<property name="Resizing" vt="Set"/>
+					</properties>
+					<components/>
+				</object>
+			</components>
+		</object>
+		<object type="TAButton" name="CloseWindowButton">
+			<properties>
+				<property name="Left" vt="Int16">384</property>
+				<property name="Top" vt="Int8">18</property>
+				<property name="Width" vt="Int8">92</property>
+				<property name="Height" vt="Int8">31</property>
+				<property name="Caption" vt="String">&amp;Close</property>
+				<property name="Constraints.MaxWidth" vt="Int32">1342242816</property>
+				<property name="Font.Charset" vt="Ident">ANSI_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWindowText</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Verdana</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">1</property>
+				<property name="Color" vt="Ident">clBtnFace</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="CopyButton">
+			<properties>
+				<property name="Left" vt="Int16">384</property>
+				<property name="Top" vt="Int8">50</property>
+				<property name="Width" vt="Int8">91</property>
+				<property name="Height" vt="Int8">31</property>
+				<property name="Caption" vt="String">&amp;Copy</property>
+				<property name="Font.Charset" vt="Ident">ANSI_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWindowText</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Verdana</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">2</property>
+				<property name="Color" vt="Ident">clBtnFace</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+	</components>
+</object>
