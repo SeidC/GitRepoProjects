@@ -11,21 +11,40 @@
 
 #include "avr/io.h"
 
-#define MANCHESTER_FALLING_EDGE(data)               \
-    {                                               \
-        data->ticks[data->sizeOfTicks]     = 1;     \
-        data->ticks[data->sizeOfTicks + 1] = 0;     \
-    }
+#define MANCHESTER_BIPHASE_L                0x00
+#define MANCHESTER_IEEE_802_3               0x01
 
 
-#define MANCHESTER_RISING_EDGE(data)                \
-    {                                               \
-        data->ticks[data->sizeOfTicks]     = 0;     \
-        data->ticks[data->sizeOfTicks + 1] = 1;     \
-    }
+#define MANCHESTER_CODING_TYPE              MANCHESTER_IEEE_802_3
 
-#define MANCHESTER_CALCULATE_DATA_SIZE(msgSize)     \
-    (msgSize * 8 * 2)
+
+#define MANCHESTER_FALLING_EDGE             0b10
+
+
+#define MANCHESTER_RISING_EDGE              0b01
+
+#if(MANCHESTER_CODING_TYPE == MANCHESTER_IEEE_802_3)
+
+    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data)               \
+        (*data->ticks|= (MANCHESTER_FALLING_EDGE << data->sizeOfTicks))
+
+
+    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data)                \
+        (*data->ticks|= (MANCHESTER_RISING_EDGE << data->sizeOfTicks))
+
+#else
+    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data)               \
+        (*data->ticks|= (MANCHESTER_RISING_EDGE << data->sizeOfTicks))
+
+
+    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data)                \
+        (*data->ticks|= (MANCHESTER_FALLING_EDGE << data->sizeOfTicks))
+#endif
+
+
+
+#define MANCHESTER_CALCULATE_DATA_SIZE(msgSize)                \
+    (msgSize * 2)
 
 
 typedef struct  

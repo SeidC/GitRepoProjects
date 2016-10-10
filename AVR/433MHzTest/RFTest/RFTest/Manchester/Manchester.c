@@ -24,11 +24,11 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
         current = ((p & (1 << i)) >> i);
 		if (current == 1)
 		{
-            MANCHESTER_FALLING_EDGE(encodedData);
+            MANCHESTER_SET_PARAMETER_FOR_ONE(encodedData);
 		}
 		else
 		{
-             MANCHESTER_RISING_EDGE(encodedData);
+            MANCHESTER_SET_PARAMETER_FOR_ZERO(encodedData);
 		}
 		INCREMENT_TICKS(encodedData);
 	} 
