@@ -19,9 +19,8 @@
 
 
 #define MANCHESTER_FALLING_EDGE             0b10
-
-
 #define MANCHESTER_RISING_EDGE              0b01
+
 
 #if(MANCHESTER_CODING_TYPE == MANCHESTER_IEEE_802_3)
 
@@ -48,14 +47,14 @@
 
 
 #define MANCHESTER_GET_NUMBER_OF_TICKS(data)					\
-		(*data.sizeOfTicks)
+    ((data)->sizeOfTicks)
 
 #define MANCHESTER_GET_BIT(val,bit)								\
 		(((val & (1 << bit)) >> bit))
 
 typedef struct  
 {
-   uint8_t* ticks;
+   uint16_t* ticks;
    uint8_t sizeOfTicks;
    uint8_t tickPos;
 }Manchester_t;
