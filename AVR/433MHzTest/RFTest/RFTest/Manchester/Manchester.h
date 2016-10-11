@@ -42,8 +42,8 @@
 
 
 
-#define MANCHESTER_CALCULATE_DATA_SIZE(msgSize)                \
-    (msgSize * 2)
+#define MANCHESTER_CALCULATE_DATA_SIZE(bufferPtr)                \
+    (sizeof(bufferPtr))
 
 
 #define MANCHESTER_GET_NUMBER_OF_TICKS(data)					\
@@ -62,11 +62,11 @@ typedef struct
 
 void Manchester_EncodeChar(char p, Manchester_t *encodedData);
 
-
 uint8_t Manchester_GetTick(Manchester_t* encodedData);
 
 void Manchester_SetTickPosToStart(Manchester_t* encodedData);
 
+char Manchester_DecodeChar(Manchester_t *dataToDecode);
 
 #endif /* MANCHESTER_H_ */
 
