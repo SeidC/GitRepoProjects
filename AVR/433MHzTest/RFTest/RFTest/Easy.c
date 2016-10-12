@@ -35,9 +35,6 @@ void Easy_Init(void)
 	return;
 }
 
-
-
-
 void Easy_TransmitChar(char p)
 {
 	uint8_t i = 0, tick;

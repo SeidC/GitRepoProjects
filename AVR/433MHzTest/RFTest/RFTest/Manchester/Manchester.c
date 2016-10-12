@@ -61,14 +61,29 @@ void Manchester_SetTickPosToStart(Manchester_t* encodedData)
 
 char Manchester_DecodeChar(Manchester_t *dataToDecode)
 {
-    uint8_t i = 0,bit0 = 0, bit1 = 0, edge = 0;
-
+    uint8_t i = 0, edge = 0, bitValue = 0;
+    uint8_t ret = 0;
 
     for(i = 0; i < 16; i += 2)
     {
-        bit0 = MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
-        bit1 = MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
-        edge |= bit0 | bit1;
-
+        edge |= MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
+        edge |= MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
+        bitValue = Manchester_GetValueForEdge(edge);
+        ret |= (bitValue << (i/2));
     }
+    return (char)ret;
+}
+
+uint8_t Manchester_GetValueForEdge(uint8_t edge)
+{
+   uint8_t ret = 0;
+   if (MANCHESTER_CODING_TYPE == MANCHESTER_IEEE_802_3)
+   {
+      (edge == MANCHESTER_FALLING_EDGE) ? ret = 0 : ret = 1;
+   }
+   else
+   {
+     (edge == MANCHESTER_FALLING_EDGE) ? ret = 1 : ret = 0;
+   }
+   return ret;
 }

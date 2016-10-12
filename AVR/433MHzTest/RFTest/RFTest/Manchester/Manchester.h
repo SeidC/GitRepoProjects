@@ -68,6 +68,8 @@ void Manchester_SetTickPosToStart(Manchester_t* encodedData);
 
 char Manchester_DecodeChar(Manchester_t *dataToDecode);
 
+uint8_t Manchester_GetValueForEdge(uint8_t edge);
+
 #endif /* MANCHESTER_H_ */
 
 
