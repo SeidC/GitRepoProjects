@@ -10,5 +10,7 @@ main.c
 
 Manchester\Manchester.c
 
+Timer1\Timer1.c
+
 USART.c
 

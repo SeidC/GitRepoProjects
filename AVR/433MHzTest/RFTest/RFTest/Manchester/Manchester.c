@@ -148,5 +148,5 @@ void Manchester_DecodeString(char* str,uint8_t strLen, Manchester_t* dataToDecod
             edge = 0;
         }
     }
-    return
+    return;
 }

@@ -3,31 +3,31 @@ RFTest.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000020e  00000000  00000000  00000094  2**1
+  0 .text         0000021a  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000e  00800060  0000020e  000002a2  2**0
+  1 .data         0000000e  00800060  0000021a  000002ae  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000064  0080006e  0080006e  000002b0  2**0
+  2 .bss          00000064  0080006e  0080006e  000002bc  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000002b0  2**0
+  3 .comment      00000030  00000000  00000000  000002bc  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002e0  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002ec  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000108  00000000  00000000  0000031c  2**0
+  5 .debug_aranges 00000128  00000000  00000000  00000328  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000da9  00000000  00000000  00000424  2**0
+  6 .debug_info   00000e44  00000000  00000000  00000450  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000004ab  00000000  00000000  000011cd  2**0
+  7 .debug_abbrev 0000051a  00000000  00000000  00001294  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000661  00000000  00000000  00001678  2**0
+  8 .debug_line   0000072b  00000000  00000000  000017ae  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000002a4  00000000  00000000  00001cdc  2**2
+  9 .debug_frame  000002c8  00000000  00000000  00001edc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006ad  00000000  00000000  00001f80  2**0
+ 10 .debug_str    000006cc  00000000  00000000  000021a4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000a3a  00000000  00000000  0000262d  2**0
+ 11 .debug_loc    00000a3a  00000000  00000000  00002870  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000d8  00000000  00000000  00003067  2**0
+ 12 .debug_ranges 000000e8  00000000  00000000  000032aa  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -44,9 +44,9 @@ Disassembly of section .text:
   20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  2c:	0c 94 bd 00 	jmp	0x17a	; 0x17a <__vector_11>
+  2c:	0c 94 c3 00 	jmp	0x186	; 0x186 <__vector_11>
   30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  34:	0c 94 e1 00 	jmp	0x1c2	; 0x1c2 <__vector_13>
+  34:	0c 94 e7 00 	jmp	0x1ce	; 0x1ce <__vector_13>
   38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
@@ -67,7 +67,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ee e0       	ldi	r30, 0x0E	; 14
+  66:	ea e1       	ldi	r30, 0x1A	; 26
   68:	f2 e0       	ldi	r31, 0x02	; 2
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -90,7 +90,7 @@ Disassembly of section .text:
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 a8 00 	call	0x150	; 0x150 <main>
-  8a:	0c 94 05 01 	jmp	0x20a	; 0x20a <_exit>
+  8a:	0c 94 0b 01 	jmp	0x216	; 0x216 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -237,131 +237,151 @@ static void FIFO_IncrementReadCounter(FIFO_Buffer_t* ptr)
 
 00000150 <main>:
 
+
+int main(void)
+{
+	//Easy_Init();
+	Timer1_Init();
+ 150:	0e 94 ab 00 	call	0x156	; 0x156 <Timer1_Init>
     /* Replace with your application code */
     while (1) 
     {
+		//Easy_TransmitChar("a");
 		
     }
- 150:	ff cf       	rjmp	.-2      	; 0x150 <main>
+ 154:	ff cf       	rjmp	.-2      	; 0x154 <main+0x4>
 
-00000152 <USART_TxCallback>:
+00000156 <Timer1_Init>:
+#include "Timer1.h"
+#include "avr/io.h"
+
+void Timer1_Init(void)
+{
+	TCCR1A = TIMER1_CONTROL_A_REGISTER;
+ 156:	1f bc       	out	0x2f, r1	; 47
+	TCCR1B = TIMER1_CONTROL_B_REGISTER;
+ 158:	81 e0       	ldi	r24, 0x01	; 1
+ 15a:	8e bd       	out	0x2e, r24	; 46
+ 15c:	08 95       	ret
+
+0000015e <USART_TxCallback>:
 /************************************************************************/
 /* void USARt_ReceiveString                                             */
 /************************************************************************/
 void USARt_ReceiveString(char *str, int size)
 {
     FIFO_ReadString(&USART_rxBuffer,str,size);
- 152:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <USART_txBuffer+0x3>
- 156:	88 23       	and	r24, r24
- 158:	29 f0       	breq	.+10     	; 0x164 <USART_TxCallback+0x12>
- 15a:	80 e6       	ldi	r24, 0x60	; 96
- 15c:	90 e0       	ldi	r25, 0x00	; 0
- 15e:	0e 94 8f 00 	call	0x11e	; 0x11e <FIFO_Read>
- 162:	8c b9       	out	0x0c, r24	; 12
- 164:	08 95       	ret
+ 15e:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <USART_txBuffer+0x3>
+ 162:	88 23       	and	r24, r24
+ 164:	29 f0       	breq	.+10     	; 0x170 <USART_TxCallback+0x12>
+ 166:	80 e6       	ldi	r24, 0x60	; 96
+ 168:	90 e0       	ldi	r25, 0x00	; 0
+ 16a:	0e 94 8f 00 	call	0x11e	; 0x11e <FIFO_Read>
+ 16e:	8c b9       	out	0x0c, r24	; 12
+ 170:	08 95       	ret
 
-00000166 <USART_RxCallback>:
- 166:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <USART_rxBuffer+0x3>
- 16a:	82 30       	cpi	r24, 0x02	; 2
- 16c:	29 f0       	breq	.+10     	; 0x178 <USART_RxCallback+0x12>
- 16e:	6c b1       	in	r22, 0x0c	; 12
- 170:	87 e6       	ldi	r24, 0x67	; 103
- 172:	90 e0       	ldi	r25, 0x00	; 0
- 174:	0e 94 68 00 	call	0xd0	; 0xd0 <FIFO_Write>
- 178:	08 95       	ret
+00000172 <USART_RxCallback>:
+ 172:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <USART_rxBuffer+0x3>
+ 176:	82 30       	cpi	r24, 0x02	; 2
+ 178:	29 f0       	breq	.+10     	; 0x184 <USART_RxCallback+0x12>
+ 17a:	6c b1       	in	r22, 0x0c	; 12
+ 17c:	87 e6       	ldi	r24, 0x67	; 103
+ 17e:	90 e0       	ldi	r25, 0x00	; 0
+ 180:	0e 94 68 00 	call	0xd0	; 0xd0 <FIFO_Write>
+ 184:	08 95       	ret
 
-0000017a <__vector_11>:
+00000186 <__vector_11>:
   * This routine calls the Rx Callback only. In this callback the 
   * other interrupt code can be added.
   *
   */
  ISR(USART_RXC_vect)
  {
- 17a:	1f 92       	push	r1
- 17c:	0f 92       	push	r0
- 17e:	0f b6       	in	r0, 0x3f	; 63
- 180:	0f 92       	push	r0
- 182:	11 24       	eor	r1, r1
- 184:	2f 93       	push	r18
- 186:	3f 93       	push	r19
- 188:	4f 93       	push	r20
- 18a:	5f 93       	push	r21
- 18c:	6f 93       	push	r22
- 18e:	7f 93       	push	r23
- 190:	8f 93       	push	r24
- 192:	9f 93       	push	r25
- 194:	af 93       	push	r26
- 196:	bf 93       	push	r27
- 198:	ef 93       	push	r30
- 19a:	ff 93       	push	r31
+ 186:	1f 92       	push	r1
+ 188:	0f 92       	push	r0
+ 18a:	0f b6       	in	r0, 0x3f	; 63
+ 18c:	0f 92       	push	r0
+ 18e:	11 24       	eor	r1, r1
+ 190:	2f 93       	push	r18
+ 192:	3f 93       	push	r19
+ 194:	4f 93       	push	r20
+ 196:	5f 93       	push	r21
+ 198:	6f 93       	push	r22
+ 19a:	7f 93       	push	r23
+ 19c:	8f 93       	push	r24
+ 19e:	9f 93       	push	r25
+ 1a0:	af 93       	push	r26
+ 1a2:	bf 93       	push	r27
+ 1a4:	ef 93       	push	r30
+ 1a6:	ff 93       	push	r31
      USART_RxCallback();
- 19c:	0e 94 b3 00 	call	0x166	; 0x166 <USART_RxCallback>
+ 1a8:	0e 94 b9 00 	call	0x172	; 0x172 <USART_RxCallback>
  }
- 1a0:	ff 91       	pop	r31
- 1a2:	ef 91       	pop	r30
- 1a4:	bf 91       	pop	r27
- 1a6:	af 91       	pop	r26
- 1a8:	9f 91       	pop	r25
- 1aa:	8f 91       	pop	r24
- 1ac:	7f 91       	pop	r23
- 1ae:	6f 91       	pop	r22
- 1b0:	5f 91       	pop	r21
- 1b2:	4f 91       	pop	r20
- 1b4:	3f 91       	pop	r19
- 1b6:	2f 91       	pop	r18
- 1b8:	0f 90       	pop	r0
- 1ba:	0f be       	out	0x3f, r0	; 63
- 1bc:	0f 90       	pop	r0
- 1be:	1f 90       	pop	r1
- 1c0:	18 95       	reti
+ 1ac:	ff 91       	pop	r31
+ 1ae:	ef 91       	pop	r30
+ 1b0:	bf 91       	pop	r27
+ 1b2:	af 91       	pop	r26
+ 1b4:	9f 91       	pop	r25
+ 1b6:	8f 91       	pop	r24
+ 1b8:	7f 91       	pop	r23
+ 1ba:	6f 91       	pop	r22
+ 1bc:	5f 91       	pop	r21
+ 1be:	4f 91       	pop	r20
+ 1c0:	3f 91       	pop	r19
+ 1c2:	2f 91       	pop	r18
+ 1c4:	0f 90       	pop	r0
+ 1c6:	0f be       	out	0x3f, r0	; 63
+ 1c8:	0f 90       	pop	r0
+ 1ca:	1f 90       	pop	r1
+ 1cc:	18 95       	reti
 
-000001c2 <__vector_13>:
+000001ce <__vector_13>:
   * called
   * This routine calls the Tx Callback only. In this callback the
   * other interrupt code can be added
   */
  ISR(USART_TXC_vect)
  {
- 1c2:	1f 92       	push	r1
- 1c4:	0f 92       	push	r0
- 1c6:	0f b6       	in	r0, 0x3f	; 63
- 1c8:	0f 92       	push	r0
- 1ca:	11 24       	eor	r1, r1
- 1cc:	2f 93       	push	r18
- 1ce:	3f 93       	push	r19
- 1d0:	4f 93       	push	r20
- 1d2:	5f 93       	push	r21
- 1d4:	6f 93       	push	r22
- 1d6:	7f 93       	push	r23
- 1d8:	8f 93       	push	r24
- 1da:	9f 93       	push	r25
- 1dc:	af 93       	push	r26
- 1de:	bf 93       	push	r27
- 1e0:	ef 93       	push	r30
- 1e2:	ff 93       	push	r31
+ 1ce:	1f 92       	push	r1
+ 1d0:	0f 92       	push	r0
+ 1d2:	0f b6       	in	r0, 0x3f	; 63
+ 1d4:	0f 92       	push	r0
+ 1d6:	11 24       	eor	r1, r1
+ 1d8:	2f 93       	push	r18
+ 1da:	3f 93       	push	r19
+ 1dc:	4f 93       	push	r20
+ 1de:	5f 93       	push	r21
+ 1e0:	6f 93       	push	r22
+ 1e2:	7f 93       	push	r23
+ 1e4:	8f 93       	push	r24
+ 1e6:	9f 93       	push	r25
+ 1e8:	af 93       	push	r26
+ 1ea:	bf 93       	push	r27
+ 1ec:	ef 93       	push	r30
+ 1ee:	ff 93       	push	r31
      USART_TxCallback();
- 1e4:	0e 94 a9 00 	call	0x152	; 0x152 <USART_TxCallback>
+ 1f0:	0e 94 af 00 	call	0x15e	; 0x15e <USART_TxCallback>
  }
- 1e8:	ff 91       	pop	r31
- 1ea:	ef 91       	pop	r30
- 1ec:	bf 91       	pop	r27
- 1ee:	af 91       	pop	r26
- 1f0:	9f 91       	pop	r25
- 1f2:	8f 91       	pop	r24
- 1f4:	7f 91       	pop	r23
- 1f6:	6f 91       	pop	r22
- 1f8:	5f 91       	pop	r21
- 1fa:	4f 91       	pop	r20
- 1fc:	3f 91       	pop	r19
- 1fe:	2f 91       	pop	r18
- 200:	0f 90       	pop	r0
- 202:	0f be       	out	0x3f, r0	; 63
- 204:	0f 90       	pop	r0
- 206:	1f 90       	pop	r1
- 208:	18 95       	reti
+ 1f4:	ff 91       	pop	r31
+ 1f6:	ef 91       	pop	r30
+ 1f8:	bf 91       	pop	r27
+ 1fa:	af 91       	pop	r26
+ 1fc:	9f 91       	pop	r25
+ 1fe:	8f 91       	pop	r24
+ 200:	7f 91       	pop	r23
+ 202:	6f 91       	pop	r22
+ 204:	5f 91       	pop	r21
+ 206:	4f 91       	pop	r20
+ 208:	3f 91       	pop	r19
+ 20a:	2f 91       	pop	r18
+ 20c:	0f 90       	pop	r0
+ 20e:	0f be       	out	0x3f, r0	; 63
+ 210:	0f 90       	pop	r0
+ 212:	1f 90       	pop	r1
+ 214:	18 95       	reti
 
-0000020a <_exit>:
- 20a:	f8 94       	cli
+00000216 <_exit>:
+ 216:	f8 94       	cli
 
-0000020c <__stop_program>:
- 20c:	ff cf       	rjmp	.-2      	; 0x20c <__stop_program>
+00000218 <__stop_program>:
+ 218:	ff cf       	rjmp	.-2      	; 0x218 <__stop_program>

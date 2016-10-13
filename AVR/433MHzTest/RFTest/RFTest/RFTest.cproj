@@ -32,7 +32,7 @@
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <JtagDbgClock>200000</JtagDbgClock>
+          <JtagDbgClock>200001</JtagDbgClock>
         </InterfaceProperties>
         <InterfaceName>JTAG</InterfaceName>
       </ToolOptions>
@@ -41,7 +41,7 @@
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterface>JTAG</avrtoolinterface>
-    <avrtoolinterfaceclock>200000</avrtoolinterfaceclock>
+    <avrtoolinterfaceclock>200001</avrtoolinterfaceclock>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
         <options />
@@ -58,7 +58,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega16 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\gcc\dev\atmega16"</avrgcc.common.Device>
+  <avrgcc.common.Device>-mmcu=atmega16 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\gcc\dev\atmega16"</avrgcc.common.Device>
   <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
   <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
   <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -75,7 +75,7 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../Manchester</Value>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -89,7 +89,7 @@
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.assembler.general.IncludePaths>
     <ListValues>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
 </AvrGcc>
@@ -98,7 +98,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega16 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\gcc\dev\atmega16"</avrgcc.common.Device>
+  <avrgcc.common.Device>-mmcu=atmega16 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\gcc\dev\atmega16"</avrgcc.common.Device>
   <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
   <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
   <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -115,7 +115,8 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../Manchester</Value>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value>
+      <Value>../Timer1</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -130,7 +131,7 @@
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.assembler.general.IncludePaths>
     <ListValues>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
   <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
@@ -162,6 +163,15 @@
     <Compile Include="PR_DEF.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Timer1\Timer1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer1\Timer1.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer1\Timer1_Cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="USART.c">
       <SubType>compile</SubType>
     </Compile>
@@ -171,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Manchester" />
+    <Folder Include="Timer1" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

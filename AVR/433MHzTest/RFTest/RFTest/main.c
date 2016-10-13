@@ -9,6 +9,7 @@
 #include <avr/interrupt.h>
 #include <avr/delay.h>
 #include "USART.h"
+#include "Timer1.h"
 
 
 USART_Config_t config =
@@ -28,12 +29,12 @@ USART_Config_t config =
 
 int main(void)
 {
-	Easy_Init();
-	
+	//Easy_Init();
+	Timer1_Init();
     /* Replace with your application code */
     while (1) 
     {
-		Easy_TransmitChar("a");
+		//Easy_TransmitChar("a");
 		
     }
 }
