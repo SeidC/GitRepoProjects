@@ -24,20 +24,20 @@
 
 #if(MANCHESTER_CODING_TYPE == MANCHESTER_IEEE_802_3)
 
-    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data)               \
-        (*data->ticks|= (MANCHESTER_FALLING_EDGE << data->sizeOfTicks))
+    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data,index)               \
+        (data->ticks[index]|= (MANCHESTER_FALLING_EDGE << data->tickPos))
 
 
-    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data)                \
-        (*data->ticks|= (MANCHESTER_RISING_EDGE << data->sizeOfTicks))
+    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data,index)                \
+        (data->ticks[index]|= (MANCHESTER_RISING_EDGE << data->tickPos))
 
 #else
-    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data)               \
-        (*data->ticks|= (MANCHESTER_RISING_EDGE << data->sizeOfTicks))
+    #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data,index)               \
+        (*data->ticks[index]|= (MANCHESTER_RISING_EDGE << data->tickPos))
 
 
-    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data)                \
-        (*data->ticks|= (MANCHESTER_FALLING_EDGE << data->sizeOfTicks))
+    #define MANCHESTER_SET_PARAMETER_FOR_ONE(data,index)                \
+        (*data->ticks[index]|= (MANCHESTER_FALLING_EDGE << data->tickPos))
 #endif
 
 
@@ -50,7 +50,10 @@
     ((data)->sizeOfTicks)
 
 #define MANCHESTER_GET_BIT(val,bit)								\
-		(((val & (1 << bit)) >> bit))
+        ((val & (1 << (bit))) >> (bit))
+
+#define MANCHESTER_CALCULATE_TICK_INDEX(data)                   \
+        ((data)->sizeOfTicks / 16)
 
 typedef struct  
 {
@@ -69,6 +72,10 @@ void Manchester_SetTickPosToStart(Manchester_t* encodedData);
 char Manchester_DecodeChar(Manchester_t *dataToDecode);
 
 uint8_t Manchester_GetValueForEdge(uint8_t edge);
+
+void Manchester_EncodeString(char* str,uint8_t strLen, Manchester_t* encodedData);
+
+void Manchester_DecodeString(char* str,uint8_t strLen, Manchester_t* dataToDecode);
 
 #endif /* MANCHESTER_H_ */
 
