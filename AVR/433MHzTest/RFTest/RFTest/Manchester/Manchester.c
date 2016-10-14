@@ -100,26 +100,23 @@ uint8_t Manchester_GetValueForEdge(uint8_t edge)
 
 void Manchester_EncodeString(char* str,uint8_t strLen, Manchester_t* encodedData)
 {
-    uint8_t i,j;
-    uint8_t current, index, maxTicks = 0;
-    char p;
+    uint8_t i = 0,j = 0,bit = 0, maxTicks = 0;
+
 
     SET_TICK_POSITION(encodedData,0);
 
     for(j = 0; j < strLen; j++)
     {
-        p = str[j];
-        index = MANCHESTER_CALCULATE_TICK_INDEX(encodedData);
         for(i = 0; i < 8; i++)
         {
-            current = MANCHESTER_GET_BIT(p,i);
-            if (current == 1)
+            bit = MANCHESTER_GET_BIT(str[j],i);
+            if (bit == 1)
             {
-                MANCHESTER_SET_PARAMETER_FOR_ONE(encodedData,index);
+                MANCHESTER_SET_PARAMETER_FOR_ONE(encodedData,j);
             }
             else
             {
-                MANCHESTER_SET_PARAMETER_FOR_ZERO(encodedData,index);
+                MANCHESTER_SET_PARAMETER_FOR_ZERO(encodedData,j);
             }
             INCREMENT_TICK_POS(encodedData);
         }
@@ -134,17 +131,15 @@ void Manchester_EncodeString(char* str,uint8_t strLen, Manchester_t* encodedData
 void Manchester_DecodeString(char* str,uint8_t strLen, Manchester_t* dataToDecode)
 {
     uint8_t i = 0, j = 0, edge = 0, bitValue = 0;
-    uint8_t ret = 0, index;
-
 
     for(j = 0; j < strLen; j++)
     {
         for(i = 0; i < 16; i += 2)
         {
-            edge |= MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
-            edge |=(MANCHESTER_GET_BIT(*dataToDecode->ticks,i+1) << 1);
+            edge |= MANCHESTER_GET_BIT(dataToDecode->ticks[j],i);
+            edge |=(MANCHESTER_GET_BIT(dataToDecode->ticks[j],i+1) << 1);
             bitValue = Manchester_GetValueForEdge(edge);
-            ret |= (bitValue << (i/2));
+            str[j]|= (bitValue << (i/2));
             edge = 0;
         }
     }
