@@ -33,11 +33,11 @@
 
 #else
     #define MANCHESTER_SET_PARAMETER_FOR_ZERO(data,index)               \
-        (*data->ticks[index]|= (MANCHESTER_RISING_EDGE << data->tickPos))
+        (data->ticks[index]|= (MANCHESTER_RISING_EDGE << data->tickPos))
 
 
     #define MANCHESTER_SET_PARAMETER_FOR_ONE(data,index)                \
-        (*data->ticks[index]|= (MANCHESTER_FALLING_EDGE << data->tickPos))
+        (data->ticks[index]|= (MANCHESTER_FALLING_EDGE << data->tickPos))
 #endif
 
 
