@@ -9,17 +9,27 @@
 #ifndef TIMER1_H_
 #define TIMER1_H_
 #include "Timer1_Cfg.h"
+#include "avr/io.h"
 
-#define TIMER1_CONTROL_A_REGISTER                             \
-       ((TIMER1_COMPARE_OUTPUT_MODE_A_CFG << COM1A0)     |    \
-        (TIMER1_COMPARE_OUTPUT_MODE_B_CFG << COM1B0)     |    \
-        ((TIMER1_WAVE_FORM_GENERATION_CFG & 0x03) << WGM10))  
 
-  
-#define TIMER1_CONTROL_B_REGISTER                              \
-        (((TIMER1_WAVE_FORM_GENERATION_CFG & 0x0C) << WGM12) | \ 
-         (TIMER1_PRESCALER_CFG << CS10))
+#define  TIMER1_HAS_TIMER_OVERFLOW()				\
+		 ((TIFR & (1 << TOV1)) >> TOV1)
 
+#define TIMER1_COUNTER_MAX							\
+		(INT16_MAX)
+
+#define TIMER1_GET_ACTUAL_COUNTER_VALUE()			\
+		((uint16_t)TCNT1)
+		
+#define TIMER1_CHECK_TIMER_OVERFLOW(valueToCheck)	\
+		((TCNT1 + (uint32_t)valueToCheck) > TIMER1_COUNTER_MAX)
+		
+#define TIMER1_RESET_OVERFLOW()						\
+		((TIFR &= ~(1 << TOV1)))
+		
+		
 void Timer1_Init(void);
+uint16_t Timer1_CalculateUsTimeValue(uint16_t usTime);
+
 
 #endif /* TIMER1_H_ */

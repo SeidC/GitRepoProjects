@@ -38,25 +38,36 @@ void Easy_Init(void)
 void Easy_TransmitChar(char p)
 {
 	uint8_t i = 0, tick;
-	uint8_t buffer[MANCHESTER_CALCULATE_DATA_SIZE(1)];
-	
-	Manchester_t tData = {
-		buffer,
-		0,
-	};
+	uint16_t buffer[MANCHESTER_CALCULATE_DATA_SIZE(1)];
+	Manchester_t tData = {buffer,0,0};
 	
 	Manchester_EncodeChar(p,&tData);
 	
 	for (i = 0; i < tData.sizeOfTicks; i++)
 	{
 		tick = Manchester_GetTick(&tData);
-		if (tick == 1)
-			EASY_TX_PORT |= (1 << EASY_TX_PIN);
-		else
-			EASY_TX_PORT &= ~(1 << EASY_TX_PIN);
-			
+		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
 		_delay_us(EASY_GET_US_DELAY());
 	}
 	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
 	return;
+}
+
+
+void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
+{
+	uint16_t i;
+	uint8_t tick;
+	Manchester_t data = {buffer,0,0};
+		
+	Manchester_EncodeString(string,stringLength,&data);
+	for (i = 0; i < data.sizeOfTicks; i++)
+	{
+		tick = Manchester_GetTick(&data);
+		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
+		_delay_us(EASY_GET_US_DELAY());
+	}
+	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
+	return;
+	
 }

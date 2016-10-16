@@ -21,6 +21,12 @@
 
 #define EASY_TRANSMIT_TICKS_PER_MS				1u
 
+#define EASY_SET_TX()							 \
+		(EASY_TX_PORT |= (1 << EASY_TX_PIN))
+		
+#define EASY_CLEAR_TX()							\
+		(EASY_TX_PORT &= ~(1 << EASY_TX_PIN))
+		
 void Easy_Init(void);
 
 void Easy_TransmitChar(char p);

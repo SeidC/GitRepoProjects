@@ -53,7 +53,7 @@
         ((val & (1 << (bit))) >> (bit))
 
 #define MANCHESTER_CALCULATE_TICK_INDEX(data)                   \
-        ((data)->sizeOfTicks / 16)
+        ((data)->tickPos / 16)
 
 typedef struct  
 {

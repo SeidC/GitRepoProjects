@@ -51,10 +51,12 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 uint8_t Manchester_GetTick(Manchester_t* encodedData)
 {
 	uint8_t tick = 0;
+	
 	if(tick < encodedData->sizeOfTicks)
 	{
         tick = MANCHESTER_GET_BIT(*encodedData->ticks,encodedData->tickPos);
-        encodedData->tickPos++;
+		encodedData->tickPos++;
+		
 	}
 	return tick;
 }

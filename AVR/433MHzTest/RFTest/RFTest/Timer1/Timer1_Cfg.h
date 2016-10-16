@@ -33,4 +33,16 @@
 /*Config for Prescaler*/
 #define TIMER1_PRESCALER_CFG                    TIMER1_PRESCALER_1 
 
+
+#define TIMER1_CONTROL_A_REGISTER                             \
+		((TIMER1_COMPARE_OUTPUT_MODE_A_CFG << COM1A0)     |    \
+		(TIMER1_COMPARE_OUTPUT_MODE_B_CFG << COM1B0)     |    \
+		((TIMER1_WAVE_FORM_GENERATION_CFG & 0x03) << WGM10))
+
+
+#define TIMER1_CONTROL_B_REGISTER                              \
+		(((TIMER1_WAVE_FORM_GENERATION_CFG & 0x0C) << WGM12) | \
+		(TIMER1_PRESCALER_CFG << CS10))
+
+
 #endif /* TIMER1_CFG_H_ */

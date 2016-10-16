@@ -12,30 +12,17 @@
 #include "Timer1.h"
 
 
-USART_Config_t config =
-{
-	.rxEnableConfig		= USART_ENABLE,
-	.txEnableConfig		= USART_ENABLE,
-	.parityConfig		= USART_EVEN_PARITY,
-	.stopBitConfig		= USART_USE_2_STOP_BIT,
-	.dataSizeConfig		= USART_8_BIT_DATA_SIZE,
-	.transmitionConfig  = USART_USE_ASYNCHRONOUS_MODE,
-	.ubrrValueConfig	= USART_BAUDRATE,
-};
-
-
-
+uint16_t buff[10] = {};
 
 
 int main(void)
 {
-	//Easy_Init();
+	Easy_Init();
 	Timer1_Init();
     /* Replace with your application code */
     while (1) 
     {
-		//Easy_TransmitChar("a");
-		
+		Easy_TransmitString("Hello World",10,buff);		
     }
 }
 
