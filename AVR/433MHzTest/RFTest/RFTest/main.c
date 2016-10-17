@@ -23,6 +23,7 @@ int main(void)
     while (1) 
     {
 		Easy_TransmitString("Hello World",10,buff);		
+		_delay_ms(500);
     }
 }
 

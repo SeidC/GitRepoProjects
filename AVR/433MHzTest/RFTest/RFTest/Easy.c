@@ -11,7 +11,6 @@
 
 #define DDR_ADDRESS_OFFSET				-1
 
-
 #define EASY_GET_DDR_REGISTER(port)				\
 		((volatile uint8_t*)(port + DDR_ADDRESS_OFFSET))
 		
@@ -21,16 +20,18 @@
 #define EASY_RESET_BIT(reg,bit)					\
 		(reg &= ~(1 << bit))
 
-
 #define EASY_GET_US_DELAY()						\
-		(1000 / EASY_TRANSMIT_TICKS_PER_MS )
+		(50)
 
-		
+
 void Easy_Init(void)
 {
 	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
-	EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
 	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
+	
+	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_CFG;	
+	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE;
+	
 	
 	return;
 }
@@ -69,5 +70,12 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	}
 	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
 	return;
+}
+
+
+
+ISR(EASY_RX_INTERRUPT)
+{
+	
 	
 }
