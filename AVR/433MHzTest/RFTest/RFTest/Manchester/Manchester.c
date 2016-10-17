@@ -20,7 +20,7 @@
         (data->sizeOfTicks = value)
 
 #define INCREMENT_TICK_POS(data)                               \
-        (data->tickPos += 2)
+        (data->tickPos += MANCHESTER_BITS_PER_EDGE)
 
 
 void Manchester_EncodeChar(char p, Manchester_t *encodedData)
@@ -30,7 +30,7 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 
     SET_TICK_POSITION(encodedData,0);
 
-	for(i = 0; i < 8; i++)
+    for(i = 0; i < MANCHESTER_UINT8_BITSIZE; i++)
 	{
         current = MANCHESTER_GET_BIT(p,i);
         if (current == 1)
@@ -50,13 +50,14 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 
 uint8_t Manchester_GetTick(Manchester_t* encodedData)
 {
-	uint8_t tick = 0;
+    uint8_t tick = 0,index,bit;
 	
 	if(tick < encodedData->sizeOfTicks)
 	{
-        tick = MANCHESTER_GET_BIT(*encodedData->ticks,encodedData->tickPos);
+        index = MANCHESTER_CALCULATE_TICK_INDEX(encodedData);
+        bit   = MANCHESTER_CALCULATE_TICK_BIT(encodedData);
+        tick = MANCHESTER_GET_BIT(encodedData->ticks[index],bit);
 		encodedData->tickPos++;
-		
 	}
 	return tick;
 }
@@ -74,12 +75,12 @@ char Manchester_DecodeChar(Manchester_t *dataToDecode)
     uint8_t i = 0, edge = 0, bitValue = 0;
     uint8_t ret = 0;
 
-    for(i = 0; i < 16; i += 2)
+    for(i = 0; i < MANCHESTER_UIN16_BITSIZE; i += MANCHESTER_BITS_PER_EDGE)
     {
         edge |= MANCHESTER_GET_BIT(*dataToDecode->ticks,i);
         edge |=(MANCHESTER_GET_BIT(*dataToDecode->ticks,i+1) << 1);
         bitValue = Manchester_GetValueForEdge(edge);
-        ret |= (bitValue << (i/2));
+        ret |= (bitValue << (i/MANCHESTER_BITS_PER_EDGE));
         edge = 0;
     }
     return (char)ret;
@@ -102,14 +103,15 @@ uint8_t Manchester_GetValueForEdge(uint8_t edge)
 
 void Manchester_EncodeString(char* str,uint8_t strLen, Manchester_t* encodedData)
 {
-    uint8_t i = 0,j = 0,bit = 0, maxTicks = 0;
+    uint8_t i = 0,j = 0,bit = 0;
+    uint16_t maxTicks = 0;
 
 
     SET_TICK_POSITION(encodedData,0);
 
     for(j = 0; j < strLen; j++)
     {
-        for(i = 0; i < 8; i++)
+        for(i = 0; i < MANCHESTER_UINT8_BITSIZE; i++)
         {
             bit = MANCHESTER_GET_BIT(str[j],i);
             if (bit == 1)
@@ -122,10 +124,10 @@ void Manchester_EncodeString(char* str,uint8_t strLen, Manchester_t* encodedData
             }
             INCREMENT_TICK_POS(encodedData);
         }
-        maxTicks = GET_CURRENT_TICKS(encodedData) + MANCHESTER_GET_NUMBER_OF_TICKS(encodedData);
-        SET_SIZE_OF_TICKS(encodedData,maxTicks);
+        maxTicks += MANCHESTER_UIN16_BITSIZE;
         SET_TICK_POSITION(encodedData,0);
     }
+    SET_SIZE_OF_TICKS(encodedData,maxTicks);
     return;
 }
 
@@ -136,12 +138,12 @@ void Manchester_DecodeString(char* str,uint8_t strLen, Manchester_t* dataToDecod
 
     for(j = 0; j < strLen; j++)
     {
-        for(i = 0; i < 16; i += 2)
+        for(i = 0; i < MANCHESTER_UIN16_BITSIZE; i += MANCHESTER_BITS_PER_EDGE)
         {
             edge |= MANCHESTER_GET_BIT(dataToDecode->ticks[j],i);
             edge |=(MANCHESTER_GET_BIT(dataToDecode->ticks[j],i+1) << 1);
             bitValue = Manchester_GetValueForEdge(edge);
-            str[j]|= (bitValue << (i/2));
+            str[j]|= (bitValue << (i/MANCHESTER_BITS_PER_EDGE));
             edge = 0;
         }
     }

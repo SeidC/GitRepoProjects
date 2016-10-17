@@ -11,8 +11,12 @@
 
 #include "avr/io.h"
 
-#define MANCHESTER_BIPHASE_L                0x00
-#define MANCHESTER_IEEE_802_3               0x01
+#define MANCHESTER_BITS_PER_EDGE             2u
+#define MANCHESTER_UINT8_BITSIZE             8u
+#define MANCHESTER_UIN16_BITSIZE            16u
+
+#define MANCHESTER_BIPHASE_L                0x00u
+#define MANCHESTER_IEEE_802_3               0x01u
 
 
 #define MANCHESTER_CODING_TYPE              MANCHESTER_IEEE_802_3
@@ -41,10 +45,8 @@
 #endif
 
 
-
 #define MANCHESTER_CALCULATE_DATA_SIZE(bufferPtr)                \
     (sizeof(bufferPtr))
-
 
 #define MANCHESTER_GET_NUMBER_OF_TICKS(data)					\
     ((data)->sizeOfTicks)
@@ -53,13 +55,16 @@
         ((val & (1 << (bit))) >> (bit))
 
 #define MANCHESTER_CALCULATE_TICK_INDEX(data)                   \
-        ((data)->tickPos / 16)
+        ((data)->tickPos / MANCHESTER_UIN16_BITSIZE)
+
+#define MANCHESTER_CALCULATE_TICK_BIT(data)                     \
+        ((data)->tickPos%MANCHESTER_UIN16_BITSIZE)
 
 typedef struct  
 {
    uint16_t* ticks;
-   uint8_t sizeOfTicks;
-   uint8_t tickPos;
+   uint16_t sizeOfTicks;
+   uint16_t tickPos;
 }Manchester_t;
 
 
