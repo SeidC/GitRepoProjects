@@ -50,9 +50,11 @@ void Manchester_EncodeChar(char p, Manchester_t *encodedData)
 
 uint8_t Manchester_GetTick(Manchester_t* encodedData)
 {
-    uint8_t tick = 0,index,bit;
-	
-	if(tick < encodedData->sizeOfTicks)
+    uint8_t tick = 0,index = 0,bit = 0;
+
+    //MANCHESTER_SET_TICK_POS_TO_START(encodedData);
+
+    if(encodedData->tickPos < encodedData->sizeOfTicks)
 	{
         index = MANCHESTER_CALCULATE_TICK_INDEX(encodedData);
         bit   = MANCHESTER_CALCULATE_TICK_BIT(encodedData);
@@ -60,13 +62,6 @@ uint8_t Manchester_GetTick(Manchester_t* encodedData)
 		encodedData->tickPos++;
 	}
 	return tick;
-}
-
-
-void Manchester_SetTickPosToStart(Manchester_t* encodedData)
-{
-    encodedData->tickPos = 0;
-    return;
 }
 
 

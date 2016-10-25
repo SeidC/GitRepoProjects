@@ -60,6 +60,9 @@
 #define MANCHESTER_CALCULATE_TICK_BIT(data)                     \
         ((data)->tickPos%MANCHESTER_UIN16_BITSIZE)
 
+#define MANCHESTER_SET_TICK_POS_TO_START(data)                  \
+        ((data)->tickPos = 0)
+
 typedef struct  
 {
    uint16_t* ticks;
