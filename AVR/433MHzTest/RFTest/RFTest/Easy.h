@@ -18,6 +18,8 @@
 #define EASY_RX_INTERRUPT					INT0_vect
 #define EASY_RX_INTERRUPT_CFG				(1 << ISC00)
 #define EASY_RX_INTERRUPT_ENABLE			(1 << INT0)
+#define EASY_RX_BUFFER_SIZE					20u
+
 
 #define EASY_RX_INTERRUPT_REG_A				MCUCR
 
@@ -31,12 +33,14 @@
 		
 #define EASY_CLEAR_TX()							\
 		(EASY_TX_PORT &= ~(1 << EASY_TX_PIN))
-		
-		
-		
+
+
 void Easy_Init(void);
 
 void Easy_TransmitChar(char p);
 
+void Easy_TransmitSyncField(void);
+
+void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer);
 
 #endif /* EASY_H_ */

@@ -12,17 +12,19 @@
 #include "Timer1.h"
 
 
-uint16_t buff[10] = {};
+uint16_t buff[11] = {};
 
 
 int main(void)
 {
 	Easy_Init();
 	Timer1_Init();
+	char x = 0xAA;
     /* Replace with your application code */
     while (1) 
     {
-		Easy_TransmitString("Hello World",10,buff);		
+		Easy_TransmitSyncField();
+		Easy_TransmitString("Hello World",11,buff);
 		_delay_ms(500);
     }
 }
