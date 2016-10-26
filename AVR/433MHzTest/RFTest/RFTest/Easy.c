@@ -8,53 +8,47 @@
 #include "avr/io.h"
 #include "avr/delay.h"
 #include "Manchester.h"
+#include "avr/interrupt.h"
 
 
 #define EASY_GET_DDR_REGISTER(port)				\
 		((volatile uint8_t*)(port -1))
-		
+
+#define EASY_GET_PIN_REGISTER(port)				\
+	   ((volatile uint8_t*)(port -2))
+
 #define EASY_SET_BIT(reg,bit)					\
 		(reg |= (1<<bit))
 		
 #define EASY_RESET_BIT(reg,bit)					\
 		(reg &= ~(1 << bit))
 
+#define EASY_GET_BIT(reg,bit)					\
+		((reg & (1 << bit)) >> bit)
+
 #define EASY_GET_US_DELAY()						\
 		(250)
 
 #define EASY_SYNC_SIGN							((char)0x55u)
 
-
-
-typedef struct{
-
-	volatile uint16_t *buffer;
-	volatile uint8_t	index;
-			
-}Easy_RxBuffer_t;
-
-
-
-volatile uint16_t Easy_buffer[EASY_RX_BUFFER_SIZE];
-
-
-Easy_RxBuffer_t  Easy_rxbuffer =
-{
-	Easy_buffer,
-	0,
-};
-
-
-
-
+volatile uint8_t Easy_oldEdge;
+volatile uint8_t Easy_currentEdge;
+volatile uint8_t av[30];
+volatile uint8_t index = 0;
 void Easy_Init(void)
 {
 	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
 	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
 	
-	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_CFG;	
-	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE;
+	EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
+	EASY_SET_BIT(EASY_RX_PORT,EASY_RX_PIN);
 	
+	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_EDGE_CONFIG;		
+	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE;
+	if(EASY_RX_INTERRUPT_ENABLE)
+	{
+		sei();
+	}	
 	return;
 }
 
@@ -108,6 +102,8 @@ void Easy_TransmitSyncField(void)
 
 ISR(EASY_RX_INTERRUPT)
 {
+	volatile uint8_t* pinReg = EASY_GET_PIN_REGISTER(&EASY_RX_PORT);
 	
-	
+	av[index] = EASY_GET_BIT(*pinReg,EASY_RX_PIN);
+	index++;
 }

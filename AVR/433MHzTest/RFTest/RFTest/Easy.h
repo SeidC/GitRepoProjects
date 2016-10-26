@@ -10,21 +10,25 @@
 #define EASY_H_
 #include <avr/io.h>
 
+
+/*--- Tx Port Configuration ----------------------------------------------------------------*/
 #define EASY_TX_PORT						PORTD
 #define EASY_TX_DDR							DDRD
 #define EASY_TX_PIN							PIND1
 
+#define EASY_RX_PORT						PORTD
+#define EASY_RX_DDR							DDRD
+#define EASY_RX_PIN							PIND2
+/*--- Interrupt Rx Configuration ----------------------------------------------------------*/
+#define EASY_RX_INTERRUPT_REG_A				MCUCR
+#define EASY_RX_INTERRUPT_REG_B				GICR
 
 #define EASY_RX_INTERRUPT					INT0_vect
-#define EASY_RX_INTERRUPT_CFG				(1 << ISC00)
+#define EASY_RX_INTERRUPT_EDGE_CONFIG		(1 << ISC00)
 #define EASY_RX_INTERRUPT_ENABLE			(1 << INT0)
+
+
 #define EASY_RX_BUFFER_SIZE					20u
-
-
-#define EASY_RX_INTERRUPT_REG_A				MCUCR
-
-#define EASY_RX_INTERRUPT_REG_B				MCUCSR
-
 
 #define EASY_TRANSMIT_TICKS_PER_MS				1u
 

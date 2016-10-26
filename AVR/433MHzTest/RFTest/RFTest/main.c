@@ -19,12 +19,13 @@ int main(void)
 {
 	Easy_Init();
 	Timer1_Init();
-	char x = 0xAA;
+	sei();
     /* Replace with your application code */
+	//Easy_TransmitSyncField();
+	Easy_TransmitChar("A");
     while (1) 
     {
-		Easy_TransmitSyncField();
-		Easy_TransmitString("Hello World",11,buff);
+		
 		_delay_ms(500);
     }
 }
