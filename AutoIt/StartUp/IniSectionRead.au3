@@ -7,9 +7,12 @@ Global $Ini = @ScriptDir & "\" & "StartUp.ini"
 Global Const $numberOfDefaults = 5
 
 Global $default = "ProgSectionName_"
-Global Const $programKeys[3] = ["ProgName","ProgPath","ProgParam"]
 
-Global Enum $PROGRAM_NAME = 0, $PROGRAM_PATH, $PROGRAM_PARAM
+Global Enum $PROGRAM_NAME = 0, $PROGRAM_PATH, $PROGRAM_PARAM,$NUMBER_OF_PARAMS
+
+Global Const $programKeys[$NUMBER_OF_PARAMS] = ["ProgName","ProgPath","ProgParam"]
+
+
 
 Main()
 
