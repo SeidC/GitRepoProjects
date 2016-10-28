@@ -1,101 +1,101 @@
 /*
- * FIFO.c
+ * FIFO8.c
  *
  * Created: 08.03.2016 18:39:39
  *  Author: AP
  */
 
- #include "FIFO.h"
+ #include "FIFO8.h"
 
 /**
  *
  */
-#define FIFO_GET_WRITE_COUNT(bufPtr)     				\
+#define FIFO8_GET_WRITE_COUNT(bufPtr)     				\
 		(bufPtr->counter.write)
 
 /**
  *
  */
-#define FIFO_GET_READ_COUNT(bufPtr)  					\
+#define FIFO8_GET_READ_COUNT(bufPtr)  					\
 		(bufPtr->counter.read)
 
 /**
  *
  */
-#define FIFO_GET_BUFFER_SIZE(bufPtr)					\
+#define FIFO8_GET_BUFFER_SIZE(bufPtr)					\
 		(bufPtr->bufferSize)
 
 /**
  *
  */		
-#define FIFO_SET_WRITE_BUFFER(bufPtr,val)			    \
+#define FIFO8_SET_WRITE_BUFFER(bufPtr,val)			    \
 		(bufPtr->counter.write = val)
 
 /**
  *
  */
-#define FIFO_SET_READ_BUFFER(bufPtr,val)				\
+#define FIFO8_SET_READ_BUFFER(bufPtr,val)				\
 		(bufPtr->counter.read = val)
 
 /**
  *
  */
-#define FIFO_GET_BUFFER_CHAR(bufPtr,index)			    \
+#define FIFO8_GET_BUFFER_CHAR(bufPtr,index)			    \
 		(bufPtr->bufferPtr[index])
 
 /**
  *
  */		
-#define FIFO_SET_BUFFER_CHAR(bufPtr,index,pChar)		\
+#define FIFO8_SET_BUFFER_CHAR(bufPtr,index,pChar)		\
 		(bufPtr->bufferPtr[index] = pChar)
 
 /**
  *
  */
-#define FIFO_GET_OVERFLOW_STATUS(bufPtr)                \
+#define FIFO8_GET_OVERFLOW_STATUS(bufPtr)                \
         (bufPtr->counter.overflow)
 /**
  *
  */
- #define FIFO_SET_OVERFLOW_STATUS(bufPtr, stat)          \
+ #define FIFO8_SET_OVERFLOW_STATUS(bufPtr, stat)          \
         (bufPtr->counter.overflow = stat)
 /**
  *
  */
-#define FIFO_SET_BUFFER_STATUS(bufPtr, stat)            \
+#define FIFO8_SET_BUFFER_STATUS(bufPtr, stat)            \
         (bufPtr->status = stat)
 /**
  *
  */        
-#define FIFO_GET_BUFFER_STATUS(bufPtr)                      \
+#define FIFO8_GET_BUFFER_STATUS(bufPtr)                      \
         (bufPtr->status)
 
 /**
  *
  */
-static void FIFO_IncrementWriteCounter(FIFO_Buffer_t* ptr);
+static void FIFO8_IncrementWriteCounter(FIFO8_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO_IncrementReadCounter(FIFO_Buffer_t* ptr);
+static void FIFO8_IncrementReadCounter(FIFO8_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO_UpdateBufferStatus(FIFO_Buffer_t* ptr);
+static void FIFO8_UpdateBufferStatus(FIFO8_Buffer_t* ptr);
 
 
 /**************************************************************************************************
  * FUNCTION: void FIOF_InitBuffer(...)
  *************************************************************************************************/
-void FIOF_InitBuffer(FIFO_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize)
+void FIFO8_InitBuffer(FIFO8_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize)
 {
     if(ptr != NULL && avBuffer != NULL)
     {
         ptr->bufferPtr         = avBuffer;
         ptr->bufferSize        = avSize;
-        ptr->status            = FIFO_BUFFER_EMPTY;
+        ptr->status            = FIFO8_BUFFER_EMPTY;
         ptr->counter.overflow  = FALSE;
         ptr->counter.read      = 0u;
         ptr->counter.write     = 0u;
@@ -108,124 +108,124 @@ void FIOF_InitBuffer(FIFO_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize)
 }
 
 /**************************************************************************************************
- * FUNCTION: void FIFO_Write(...)
+ * FUNCTION: void FIFO8_Write(...)
  *************************************************************************************************/
-void FIFO_Write(FIFO_Buffer_t* ptr, char p)
+void FIFO8_Write(FIFO8_Buffer_t* ptr, uint8_t p)
 {
 	uint8_t i; 
  	
-    if(FIFO_IS_BUFFER_READY(ptr) == TRUE)
+    if(FIFO8_IS_BUFFER_READY(ptr) == TRUE)
     {
-	    i = FIFO_GET_WRITE_COUNT(ptr);
-	    FIFO_SET_BUFFER_CHAR(ptr,i,p);
-	    FIFO_IncrementWriteCounter(ptr);
-        FIFO_UpdateBufferStatus(ptr);
+	    i = FIFO8_GET_WRITE_COUNT(ptr);
+	    FIFO8_SET_BUFFER_CHAR(ptr,i,p);
+	    FIFO8_IncrementWriteCounter(ptr);
+        FIFO8_UpdateBufferStatus(ptr);
     }    
 	return;
 }
 
 /******************************************************************************
- * FUNCTION: void FIFO_WriteString(...)
+ * FUNCTION: void FIFO8_WriteString(...)
  *****************************************************************************/
-FIFO_Return_t FIFO_WriteString(FIFO_Buffer_t* ptr, char* str)
+FIFO8_Return_t FIFO8_WriteString(FIFO8_Buffer_t* ptr, uint8_t* str)
 {	
-    FIFO_Return_t ret = FIFO_OK;
+    FIFO8_Return_t ret = FIFO8_OK;
 	while(*str)
 	{
-        if((FIFO_HAS_BUFFER_ERRORS(ptr) == TRUE) ||
-           (FIFO_IS_BUFFER_FULL(ptr) == TRUE))
+        if((FIFO8_HAS_BUFFER_ERRORS(ptr) == TRUE) ||
+           (FIFO8_IS_BUFFER_FULL(ptr) == TRUE))
         {
-            ret = FIFO_N_OK;
+            ret = FIFO8_N_OK;
             break;   
         }        
-		FIFO_Write(ptr,*str);
+		FIFO8_Write(ptr,*str);
         str++;
 	}
 	return ret;
 }
 
 /******************************************************************************
- * FUNCTION: char FIFO_Read(...)
+ * FUNCTION: char FIFO8_Read(...)
  *****************************************************************************/
-char FIFO_Read(FIFO_Buffer_t* ptr)
+uint8_t FIFO8_Read(FIFO8_Buffer_t* ptr)
 {
 	char p;
 	uint8_t i;
-	if(FIFO_IS_BUFFER_READY(ptr) == TRUE)
+	if(FIFO8_IS_BUFFER_READY(ptr) == TRUE)
     {
-	    i = FIFO_GET_READ_COUNT(ptr);
-	    p = FIFO_GET_BUFFER_CHAR(ptr,i);
-        FIFO_IncrementReadCounter(ptr);
-        FIFO_UpdateBufferStatus(ptr);
+	    i = FIFO8_GET_READ_COUNT(ptr);
+	    p = FIFO8_GET_BUFFER_CHAR(ptr,i);
+        FIFO8_IncrementReadCounter(ptr);
+        FIFO8_UpdateBufferStatus(ptr);
     }         
 	return p;
 }
 
 
 /******************************************************************************
- * FUNCTION: void FIFO_ReadString(...)
+ * FUNCTION: void FIFO8_ReadString(...)
  *****************************************************************************/
-FIFO_Return_t FIFO_ReadString(FIFO_Buffer_t* ptr,char *str, int size)
+FIFO8_Return_t FIFO8_ReadString(FIFO8_Buffer_t* ptr,uint8_t *str, uint8_t size)
 {
 	uint8_t i;
-    FIFO_Return_t ret = FIFO_OK;
+    FIFO8_Return_t ret = FIFO8_OK;
 	for(i = 0; i < size; i++)
 	{
-         if((FIFO_HAS_BUFFER_ERRORS(ptr) == TRUE) ||
-         (FIFO_IS_BUFFER_FULL(ptr) == TRUE))
+         if((FIFO8_HAS_BUFFER_ERRORS(ptr) == TRUE) ||
+         (FIFO8_IS_BUFFER_FULL(ptr) == TRUE))
          {
-             ret = FIFO_N_OK;
+             ret = FIFO8_N_OK;
              break;
          }
-		str[i] = FIFO_Read(ptr);
+		str[i] = FIFO8_Read(ptr);
 	}
 	return ret;
 }
 
 
 /******************************************************************************
- * FUNCTION: void FIFO_IncrementWriteCounter(...)
+ * FUNCTION: void FIFO8_IncrementWriteCounter(...)
  *****************************************************************************/
-static void FIFO_IncrementWriteCounter(FIFO_Buffer_t* ptr)
+static void FIFO8_IncrementWriteCounter(FIFO8_Buffer_t* ptr)
 {
 	uint8_t size;
-	if(FIFO_GET_WRITE_COUNT(ptr) < FIFO_GET_BUFFER_SIZE(ptr))
+	if(FIFO8_GET_WRITE_COUNT(ptr) < FIFO8_GET_BUFFER_SIZE(ptr))
 	{
-		size = FIFO_GET_WRITE_COUNT(ptr);
-        FIFO_SET_WRITE_BUFFER(ptr,++size);
+		size = FIFO8_GET_WRITE_COUNT(ptr);
+        FIFO8_SET_WRITE_BUFFER(ptr,++size);
 	}
 	else
 	{
-		FIFO_SET_WRITE_BUFFER(ptr,0);
-        FIFO_SET_OVERFLOW_STATUS(ptr,TRUE);
+		FIFO8_SET_WRITE_BUFFER(ptr,0);
+        FIFO8_SET_OVERFLOW_STATUS(ptr,TRUE);
 	}
 	return;
 }
 
 
 /******************************************************************************
- * FUNCTION: void FIFO_IncrementReadCounter(...)
+ * FUNCTION: void FIFO8_IncrementReadCounter(...)
  *****************************************************************************/
-static void FIFO_IncrementReadCounter(FIFO_Buffer_t* ptr)
+static void FIFO8_IncrementReadCounter(FIFO8_Buffer_t* ptr)
 {
 	uint8_t size;
-	if(FIFO_GET_READ_COUNT(ptr) < FIFO_GET_BUFFER_SIZE(ptr))
+	if(FIFO8_GET_READ_COUNT(ptr) < FIFO8_GET_BUFFER_SIZE(ptr))
 	{
-		size = FIFO_GET_READ_COUNT(ptr);
-        FIFO_SET_READ_BUFFER(ptr,++size);
+		size = FIFO8_GET_READ_COUNT(ptr);
+        FIFO8_SET_READ_BUFFER(ptr,++size);
 	}
 	else
 	{
-		FIFO_SET_READ_BUFFER(ptr,0);
-        FIFO_SET_OVERFLOW_STATUS(ptr,FALSE);
+		FIFO8_SET_READ_BUFFER(ptr,0);
+        FIFO8_SET_OVERFLOW_STATUS(ptr,FALSE);
 	}
 	return;
 }
 
 /******************************************************************************
- * FUNCTION: void FIFO_UpdateBufferStatus(...)
+ * FUNCTION: void FIFO8_UpdateBufferStatus(...)
  *****************************************************************************/
-static void FIFO_UpdateBufferStatus(FIFO_Buffer_t* ptr)
+static void FIFO8_UpdateBufferStatus(FIFO8_Buffer_t* ptr)
 {
  /************************************************************************ 
   *
@@ -251,23 +251,23 @@ static void FIFO_UpdateBufferStatus(FIFO_Buffer_t* ptr)
  ************************************************************************/
     
     uint8_t w,r,o;
-    w = FIFO_GET_WRITE_COUNT(ptr);
-    r = FIFO_GET_READ_COUNT(ptr);
-    o = FIFO_GET_OVERFLOW_STATUS(ptr);
+    w = FIFO8_GET_WRITE_COUNT(ptr);
+    r = FIFO8_GET_READ_COUNT(ptr);
+    o = FIFO8_GET_OVERFLOW_STATUS(ptr);
     
     if(o == FALSE)
     {
         if(w > r)
         {
-            FIFO_SET_BUFFER_STATUS(ptr,FIFO_BUFFER_DATA_AVAILABLE);
+            FIFO8_SET_BUFFER_STATUS(ptr,FIFO8_BUFFER_DATA_AVAILABLE);
         }
         else if (w == r)
         {
-            FIFO_SET_BUFFER_STATUS(ptr,FIFO_BUFFER_EMPTY);
+            FIFO8_SET_BUFFER_STATUS(ptr,FIFO8_BUFFER_EMPTY);
         }   
         else 
         {
-            FIFO_SET_BUFFER_STATUS(ptr, FIFO_UNDEF_ERROR);
+            FIFO8_SET_BUFFER_STATUS(ptr, FIFO8_UNDEF_ERROR);
         }     
     }
     else 
@@ -275,25 +275,25 @@ static void FIFO_UpdateBufferStatus(FIFO_Buffer_t* ptr)
         
         if(w > r)
         {
-            FIFO_SET_BUFFER_STATUS(ptr,FIFO_WRITE_OVERFLOW_ERROR);
+            FIFO8_SET_BUFFER_STATUS(ptr,FIFO8_WRITE_OVERFLOW_ERROR);
         }
         else if (w == r)
         {
-            FIFO_SET_BUFFER_STATUS(ptr,FIFO_BUFFER_FULL);
+            FIFO8_SET_BUFFER_STATUS(ptr,FIFO8_BUFFER_FULL);
         }
         else
         {
-            FIFO_SET_BUFFER_STATUS(ptr,FIFO_BUFFER_DATA_AVAILABLE);
+            FIFO8_SET_BUFFER_STATUS(ptr,FIFO8_BUFFER_DATA_AVAILABLE);
         }
     }
     return;
 }
 
 /******************************************************************************
- * FUNCTION: FIFO_BufferStatus_t FIFO_GetBufferStatus(...)
+ * FUNCTION: FIFO8_BufferStatus_t FIFO8_GetBufferStatus(...)
  *****************************************************************************/
-FIFO_BufferStatus_t FIFO_GetBufferStatus(FIFO_Buffer_t *ptr)
+FIFO8_BufferStatus_t FIFO8_GetBufferStatus(FIFO8_Buffer_t *ptr)
 {
-    return FIFO_GET_BUFFER_STATUS(ptr);
+    return FIFO8_GET_BUFFER_STATUS(ptr);
 }
 

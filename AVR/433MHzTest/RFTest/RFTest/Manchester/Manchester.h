@@ -11,9 +11,9 @@
 
 #include "avr/io.h"
 
-#define MANCHESTER_BITS_PER_EDGE             2u
-#define MANCHESTER_UINT8_BITSIZE             8u
-#define MANCHESTER_UIN16_BITSIZE            16u
+#define MANCHESTER_BITS_PER_EDGE             ((uint16_t)2u)
+#define MANCHESTER_UINT8_BITSIZE             ((uint16_t)8u)
+#define MANCHESTER_UIN16_BITSIZE            ((uint16_t)16u)
 
 #define MANCHESTER_BIPHASE_L                0x00u
 #define MANCHESTER_IEEE_802_3               0x01u

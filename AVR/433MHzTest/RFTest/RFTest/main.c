@@ -22,10 +22,11 @@ int main(void)
 	sei();
     /* Replace with your application code */
 	//Easy_TransmitSyncField();
-	Easy_TransmitChar("A");
-    while (1) 
+	
+	
+	while (1) 
     {
-		
+		Easy_TransmitSyncField();
 		_delay_ms(500);
     }
 }

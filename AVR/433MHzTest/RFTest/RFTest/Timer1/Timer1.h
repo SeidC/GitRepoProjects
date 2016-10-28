@@ -26,10 +26,28 @@
 		
 #define TIMER1_RESET_OVERFLOW()						\
 		((TIFR &= ~(1 << TOV1)))
-		
-		
+
+	
 void Timer1_Init(void);
-uint16_t Timer1_CalculateUsTimeValue(uint16_t usTime);
+
+uint16_t Timer1_GetCounterValueUs(void);
+
+
+
+#if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
+#define TIMER1_PRESCALER_CALC_VALUE					1
+#elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_8
+#define TIMER1_PRESCALER_CALC_VALUE					8
+#elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_64  
+#define TIMER1_PRESCALER_CALC_VALUE					64
+#elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_256 
+#define TIMER1_PRESCALER_CALC_VALUE					256
+#elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1024
+#define TIMER1_PRESCALER_CALC_VALUE					1024
+#else
+#error "!!!Prescaler not defined!!!"
+#endif
+
 
 
 #endif /* TIMER1_H_ */
