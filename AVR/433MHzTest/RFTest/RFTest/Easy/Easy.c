@@ -158,7 +158,14 @@ InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
    {
       
    }   
+   else if (EASY_IS_RX_EDGE_IN_TIME(time/2))
+   {
+   
+   }
+   else
+   {
+      
+   }         
 	//FIFO16_Write(&Easy_RxTimeBuffer,EASY_GET_TIME());
    //FIFO8_Write(&Easy_RxEdgeBuffer,EASY_GET_BIT(*pinReg,EASY_RX_PIN));
-
 }
