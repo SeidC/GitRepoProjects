@@ -65,12 +65,8 @@ EASY_VOL_STAT FIFO16_Buffer_t Easy_RxTimeBuffer = {};
 /**
  *                                                                      
  */
-EASY_VOL_STAT Easy_RxIndication_t Easy_rxIndication;
+EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 
-/**
- *                                                                      
- */
-EASY_VOL_STAT Easy_RxEdge_t Easy_rxEdge;
 
 void Easy_Init(void)
 {
@@ -88,7 +84,11 @@ void Easy_Init(void)
 	}
 	FIFO8_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
 	FIFO16_InitBuffer(&Easy_RxTimeBuffer,Easy_timeBuffer,EASY_RX_BUFFER_SIZE);
-	Easy_rxIndication = EASY_NO_INDICATION;
+	
+	Easy_rxStatus.indication = EASY_NO_INDICATION;
+	Easy_rxStatus.oldValue = EASY_LOW;
+	Easy_rxStatus.newValue = EASY_LOW;
+	
 	return;
 }
 
