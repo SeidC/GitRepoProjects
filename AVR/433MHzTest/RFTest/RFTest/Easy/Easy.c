@@ -9,13 +9,7 @@
 #include "FiFo8.h"
 #include "FiFo16.h"
 
-
-#define EASY_GET_DDR_REGISTER(port)				\
-		((volatile uint8_t*)(port -1))
-
-#define EASY_GET_PIN_REGISTER(port)				\
-	   ((volatile uint8_t*)(port -2))
-
+/*--- Local Defines -----------------------------------------------------------*/
 #define EASY_SET_BIT(reg,bit)					\
 		(reg |= (1<<bit))
 		
@@ -46,11 +40,37 @@
 #define EASY_RX_MAX_EDGE_TIME					\		
 		(EASY_RX_EDGE_US_TIME + EASY_RX_POS_US_TIME_OFFSET)		
 
+/*--- Local Parameter ---------------------------------------------------------*/
+
+/**
+ *                                                                      
+ */
 static uint8_t Easy_edgeBuffer[EASY_RX_BUFFER_SIZE] = {};
+
+/**
+ *                                                                      
+ */
 static uint16_t Easy_timeBuffer[EASY_RX_BUFFER_SIZE] = {};
-static const volatile FIFO8_Buffer_t Easy_RxEdgeBuffer = {};
-static const volatile FIFO16_Buffer_t Easy_RxTimeBuffer = {};
-volatile static Easy_RxIndication_t Easy_rxIndication;
+
+/**
+ *                                                                      
+ */
+EASY_VOL_STAT_CONST FIFO8_Buffer_t Easy_RxEdgeBuffer = {};
+
+/**
+ *                                                                      
+ */
+EASY_VOL_STAT_CONST FIFO16_Buffer_t Easy_RxTimeBuffer = {};
+
+/**
+ *                                                                      
+ */
+EASY_VOL_STAT Easy_RxIndication_t Easy_rxIndication;
+
+/**
+ *                                                                      
+ */
+EASY_VOL_STAT Easy_RxEdge_t Easy_rxEdge;
 
 void Easy_Init(void)
 {
@@ -129,11 +149,16 @@ void Easy_RxMainfunction(void)
 	
 }
 
-ISR(EASY_RX_INTERRUPT_VECTOR_CONFIG)
+InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-	volatile uint8_t* pinReg = EASY_GET_PIN_REGISTER(&EASY_RX_PORT);
-	FIFO16_Write(&Easy_RxTimeBuffer,EASY_GET_TIME());
-
-	FIFO8_Write(&Easy_RxEdgeBuffer,EASY_GET_BIT(*pinReg,EASY_RX_PIN));
+	volatile uint8_t* pinReg = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
+   uint16_t time = EASY_GET_TIME();
+   
+   if(EASY_IS_RX_EDGE_IN_TIME(time))
+   {
+      
+   }   
+	//FIFO16_Write(&Easy_RxTimeBuffer,EASY_GET_TIME());
+   //FIFO8_Write(&Easy_RxEdgeBuffer,EASY_GET_BIT(*pinReg,EASY_RX_PIN));
 
 }

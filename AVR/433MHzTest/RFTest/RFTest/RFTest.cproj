@@ -70,7 +70,7 @@
   <Value>F_CPU=16000000UL</Value>
   <Value>NDEBUG</Value>
 </ListValues></avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths><ListValues><Value>../Manchester</Value><Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value><Value>../Timer1</Value><Value>..</Value><Value>../FiFo/FiFo8</Value><Value>../FiFo/FiFo16</Value><Value>../FiFo/FiFoChar</Value></ListValues></avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.directories.IncludePaths><ListValues><Value>../Manchester</Value><Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value><Value>../Timer1</Value><Value>..</Value><Value>../FiFo/FiFo8</Value><Value>../FiFo/FiFo16</Value><Value>../FiFo/FiFoChar</Value><Value>../Easy</Value></ListValues></avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
   <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
@@ -95,7 +95,7 @@
   <Value>F_CPU=16000000UL</Value>
   <Value>DEBUG</Value>
 </ListValues></avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths><ListValues><Value>../Manchester</Value><Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value><Value>../Timer1</Value><Value>..</Value><Value>../FiFo/FiFo8</Value><Value>../FiFo/FiFo16</Value><Value>../FiFo/FiFoChar</Value></ListValues></avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.directories.IncludePaths><ListValues><Value>../Manchester</Value><Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.106\include</Value><Value>../Timer1</Value><Value>..</Value><Value>../FiFo/FiFo8</Value><Value>../FiFo/FiFo16</Value><Value>../FiFo/FiFoChar</Value><Value>../Easy</Value></ListValues></avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
   <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
@@ -107,13 +107,16 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Easy.c">
+    <Compile Include="Easy\Easy.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Easy.h">
+    <Compile Include="Easy\Easy.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Easy_Cfg.h">
+    <Compile Include="Easy\Easy_Cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Easy\Easy_Types.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="FiFo\FiFo16\FiFo16.c">
@@ -162,6 +165,7 @@
     <Folder Include="FiFo\FiFoChar" />
     <Folder Include="Manchester" />
     <Folder Include="FiFo" />
+    <Folder Include="Easy" />
     <Folder Include="Timer1" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

@@ -8,7 +8,8 @@
 
 #ifndef EASY_H_
 #define EASY_H_
-#include <avr/io.h>
+#include "PR_DEF.h"
+#include "Easy_Types.h"
 #include "Easy_Cfg.h"
 
 
@@ -18,12 +19,9 @@
 #define EASY_CLEAR_TX()							\
 		(EASY_TX_PORT &= ~(1 << EASY_TX_PIN))
 
-typedef enum 
-{
-	EASY_NO_INDICATION = 0x00,
-	EASY_EXTERN_RX			 ,
-	EASY_INTERN_RX			 ,
-}Easy_RxIndication_t;
+#define EASY_IS_RX_EDGE_IN_TIME(t)                    \
+        ((t >= EASY_RX_MIN_EDGE_TIME) && (t <= EASY_RX_MAX_EDGE_TIME))
+
 
 void Easy_Init(void);
 

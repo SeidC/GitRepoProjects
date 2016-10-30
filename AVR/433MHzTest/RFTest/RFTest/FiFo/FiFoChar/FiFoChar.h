@@ -60,7 +60,7 @@ typedef struct
 {
 	uint8_t read;
 	uint8_t write;
-    boolean overflow;
+   bool_t overflow;
 }FIFOCHAR_Counter_t;
 
 /**

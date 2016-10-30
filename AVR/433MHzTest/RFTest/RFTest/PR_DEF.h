@@ -19,12 +19,11 @@
  *
  *
  */
-typedef uint8_t boolean;
+typedef uint8_t bool_t;        
 
-
-#define TRUE (1)
-
-#define FALSE (0)
+#define TRUE                     ((1u)) 
+   
+#define FALSE                    ((0u))
 
 /**
  * @brief
@@ -74,4 +73,7 @@ typedef uint8_t boolean;
 #define GET_DDR_REGISTER_BY_PORT(port)           \
         (*(volatile uint8_t*)((&port) - 1))
 
+
+#define InterruptRoutine(isrVector)                \
+        ISR(isrVector)
 #endif /* PR_DEF_H_ */
