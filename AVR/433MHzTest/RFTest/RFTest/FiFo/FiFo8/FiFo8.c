@@ -73,23 +73,23 @@
 /**
  *
  */
-static void FIFO8_IncrementWriteCounter(FIFO8_Buffer_t* ptr);
+static void FIFO8_IncrementWriteCounter(FIFO8_BUFFER_EXT  FIFO8_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO8_IncrementReadCounter(FIFO8_Buffer_t* ptr);
+static void FIFO8_IncrementReadCounter(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO8_UpdateBufferStatus(FIFO8_Buffer_t* ptr);
+static void FIFO8_UpdateBufferStatus(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr);
 
 
 /**************************************************************************************************
  * FUNCTION: void FIOF_InitBuffer(...)
  *************************************************************************************************/
-void FIFO8_InitBuffer(FIFO8_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize)
+void FIFO8_InitBuffer(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr,FIFO8_DATA_TYPE* avBuffer,uint8_t avSize)
 {
     if(ptr != NULL && avBuffer != NULL)
     {
@@ -110,7 +110,7 @@ void FIFO8_InitBuffer(FIFO8_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize)
 /**************************************************************************************************
  * FUNCTION: void FIFO8_Write(...)
  *************************************************************************************************/
-void FIFO8_Write(FIFO8_Buffer_t* ptr, uint8_t p)
+void FIFO8_Write(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr, FIFO8_DATA_TYPE p)
 {
 	uint8_t i; 
  	
@@ -127,7 +127,7 @@ void FIFO8_Write(FIFO8_Buffer_t* ptr, uint8_t p)
 /******************************************************************************
  * FUNCTION: void FIFO8_WriteString(...)
  *****************************************************************************/
-FIFO8_Return_t FIFO8_WriteString(FIFO8_Buffer_t* ptr, uint8_t* str)
+FIFO8_Return_t FIFO8_WriteString(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr, FIFO8_DATA_TYPE* str)
 {	
     FIFO8_Return_t ret = FIFO8_OK;
 	while(*str)
@@ -147,9 +147,9 @@ FIFO8_Return_t FIFO8_WriteString(FIFO8_Buffer_t* ptr, uint8_t* str)
 /******************************************************************************
  * FUNCTION: char FIFO8_Read(...)
  *****************************************************************************/
-uint8_t FIFO8_Read(FIFO8_Buffer_t* ptr)
+FIFO8_DATA_TYPE FIFO8_Read(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr)
 {
-	char p;
+	FIFO8_DATA_TYPE p;
 	uint8_t i;
 	if(FIFO8_IS_BUFFER_READY(ptr) == TRUE)
     {
@@ -165,7 +165,7 @@ uint8_t FIFO8_Read(FIFO8_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO8_ReadString(...)
  *****************************************************************************/
-FIFO8_Return_t FIFO8_ReadString(FIFO8_Buffer_t* ptr,uint8_t *str, uint8_t size)
+FIFO8_Return_t FIFO8_ReadString(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr,FIFO8_DATA_TYPE *str, uint8_t size)
 {
 	uint8_t i;
     FIFO8_Return_t ret = FIFO8_OK;
@@ -186,7 +186,7 @@ FIFO8_Return_t FIFO8_ReadString(FIFO8_Buffer_t* ptr,uint8_t *str, uint8_t size)
 /******************************************************************************
  * FUNCTION: void FIFO8_IncrementWriteCounter(...)
  *****************************************************************************/
-static void FIFO8_IncrementWriteCounter(FIFO8_Buffer_t* ptr)
+static void FIFO8_IncrementWriteCounter(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr)
 {
 	uint8_t size;
 	if(FIFO8_GET_WRITE_COUNT(ptr) < FIFO8_GET_BUFFER_SIZE(ptr))
@@ -206,7 +206,7 @@ static void FIFO8_IncrementWriteCounter(FIFO8_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO8_IncrementReadCounter(...)
  *****************************************************************************/
-static void FIFO8_IncrementReadCounter(FIFO8_Buffer_t* ptr)
+static void FIFO8_IncrementReadCounter(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr)
 {
 	uint8_t size;
 	if(FIFO8_GET_READ_COUNT(ptr) < FIFO8_GET_BUFFER_SIZE(ptr))
@@ -225,7 +225,7 @@ static void FIFO8_IncrementReadCounter(FIFO8_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO8_UpdateBufferStatus(...)
  *****************************************************************************/
-static void FIFO8_UpdateBufferStatus(FIFO8_Buffer_t* ptr)
+static void FIFO8_UpdateBufferStatus(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr)
 {
  /************************************************************************ 
   *
@@ -292,7 +292,7 @@ static void FIFO8_UpdateBufferStatus(FIFO8_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: FIFO8_BufferStatus_t FIFO8_GetBufferStatus(...)
  *****************************************************************************/
-FIFO8_BufferStatus_t FIFO8_GetBufferStatus(FIFO8_Buffer_t *ptr)
+FIFO8_BufferStatus_t FIFO8_GetBufferStatus(FIFO8_BUFFER_EXT FIFO8_Buffer_t *ptr)
 {
     return FIFO8_GET_BUFFER_STATUS(ptr);
 }

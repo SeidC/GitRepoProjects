@@ -13,6 +13,9 @@
 #include "PR_DEF.h"
 
 
+#define FIFO16_BUFFER_EXT            volatile
+#define FIFO16_DATA_TYPE             volatile uint16_t
+
 typedef uint8_t FIFO16_Return_t;
 
 #define FIFO16_N_OK                        0
@@ -68,9 +71,9 @@ typedef struct
  */
 typedef struct 
 {
-	uint16_t *bufferPtr;
+	FIFO16_DATA_TYPE *bufferPtr;
 	uint8_t bufferSize;
-    FIFO16_BufferStatus_t status; 
+   FIFO16_BufferStatus_t status; 
 	FIFO16_Counter_t counter;		
 }FIFO16_Buffer_t;
 
@@ -85,7 +88,7 @@ typedef struct
  *  
  *  @details Details
  */
-void FIFO16_InitBuffer(FIFO16_Buffer_t* ptr,uint16_t* avBuffer,uint8_t avSize);
+void FIFO16_InitBuffer(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr,FIFO16_DATA_TYPE* avBuffer,uint8_t avSize);
 
 /**
  *  @brief Brief
@@ -96,7 +99,7 @@ void FIFO16_InitBuffer(FIFO16_Buffer_t* ptr,uint16_t* avBuffer,uint8_t avSize);
  *  
  *  @details Details
  */
-void FIFO16_Write(FIFO16_Buffer_t* ptr, uint16_t p);
+void FIFO16_Write(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr, FIFO16_DATA_TYPE p);
 
 /**
  *  @brief Brief
@@ -106,7 +109,7 @@ void FIFO16_Write(FIFO16_Buffer_t* ptr, uint16_t p);
  *  
  *  @details Details
  */
-uint16_t FIFO16_Read(FIFO16_Buffer_t* ptr);
+FIFO16_DATA_TYPE FIFO16_Read(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr);
 
 /**
  *  @brief Brief
@@ -118,7 +121,7 @@ uint16_t FIFO16_Read(FIFO16_Buffer_t* ptr);
  *  
  *  @details Details
  */
-FIFO16_Return_t FIFO16_ReadString(FIFO16_Buffer_t* ptr,uint16_t *str, uint8_t size);
+FIFO16_Return_t FIFO16_ReadString(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr,FIFO16_DATA_TYPE *str, uint8_t size);
 
 /**
  *  @brief Brief
@@ -129,7 +132,7 @@ FIFO16_Return_t FIFO16_ReadString(FIFO16_Buffer_t* ptr,uint16_t *str, uint8_t si
  *  
  *  @details Details
  */
-FIFO16_Return_t FIFO16_WriteString(FIFO16_Buffer_t* ptr, uint16_t* str);
+FIFO16_Return_t FIFO16_WriteString(FIFO16_BUFFER_EXT FIFO16_Buffer_t *ptr, FIFO16_DATA_TYPE* str);
 
 /**
  *  @brief Brief
@@ -139,7 +142,7 @@ FIFO16_Return_t FIFO16_WriteString(FIFO16_Buffer_t* ptr, uint16_t* str);
  *  
  *  @details Details
  */
-FIFO16_BufferStatus_t FIFO16_GetBufferStatus(FIFO16_Buffer_t *ptr);
+FIFO16_BufferStatus_t FIFO16_GetBufferStatus(FIFO16_BUFFER_EXT FIFO16_Buffer_t *ptr);
 
 
 

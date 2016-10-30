@@ -10,6 +10,7 @@
 #include <avr/delay.h>
 #include "USART.h"
 #include "Timer1.h"
+#include "Easy.h"
 
 
 uint16_t buff[11] = {};

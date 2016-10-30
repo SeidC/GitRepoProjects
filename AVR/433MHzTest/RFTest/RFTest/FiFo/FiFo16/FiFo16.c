@@ -73,23 +73,23 @@
 /**
  *
  */
-static void FIFO16_IncrementWriteCounter(FIFO16_Buffer_t* ptr);
+static void FIFO16_IncrementWriteCounter(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO16_IncrementReadCounter(FIFO16_Buffer_t* ptr);
+static void FIFO16_IncrementReadCounter(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr);
 
 /**
  *
  */
-static void FIFO16_UpdateBufferStatus(FIFO16_Buffer_t* ptr);
+static void FIFO16_UpdateBufferStatus(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr);
 
 
 /**************************************************************************************************
  * FUNCTION: void FIOF_InitBuffer(...)
  *************************************************************************************************/
-void FIFO16_InitBuffer(FIFO16_Buffer_t* ptr,uint16_t* avBuffer,uint8_t avSize)
+void FIFO16_InitBuffer(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr,FIFO16_DATA_TYPE* avBuffer,uint8_t avSize)
 {
     if(ptr != NULL && avBuffer != NULL)
     {
@@ -110,7 +110,7 @@ void FIFO16_InitBuffer(FIFO16_Buffer_t* ptr,uint16_t* avBuffer,uint8_t avSize)
 /**************************************************************************************************
  * FUNCTION: void FIFO16_Write(...)
  *************************************************************************************************/
-void FIFO16_Write(FIFO16_Buffer_t* ptr, uint16_t p)
+void FIFO16_Write(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr, FIFO16_DATA_TYPE p)
 {
 	uint8_t i; 
  	
@@ -127,7 +127,7 @@ void FIFO16_Write(FIFO16_Buffer_t* ptr, uint16_t p)
 /******************************************************************************
  * FUNCTION: void FIFO16_WriteString(...)
  *****************************************************************************/
-FIFO16_Return_t FIFO16_WriteString(FIFO16_Buffer_t* ptr, uint16_t* str)
+FIFO16_Return_t FIFO16_WriteString(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr, FIFO16_DATA_TYPE* str)
 {	
     FIFO16_Return_t ret = FIFO16_OK;
 	while(*str)
@@ -147,9 +147,9 @@ FIFO16_Return_t FIFO16_WriteString(FIFO16_Buffer_t* ptr, uint16_t* str)
 /******************************************************************************
  * FUNCTION: char FIFO16_Read(...)
  *****************************************************************************/
-uint16_t FIFO16_Read(FIFO16_Buffer_t* ptr)
+FIFO16_DATA_TYPE FIFO16_Read(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr)
 {
-	char p;
+	FIFO16_DATA_TYPE p = 0;
 	uint8_t i;
 	if(FIFO16_IS_BUFFER_READY(ptr) == TRUE)
     {
@@ -165,7 +165,7 @@ uint16_t FIFO16_Read(FIFO16_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO16_ReadString(...)
  *****************************************************************************/
-FIFO16_Return_t FIFO16_ReadString(FIFO16_Buffer_t* ptr,uint16_t *str, uint8_t size)
+FIFO16_Return_t FIFO16_ReadString(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr,FIFO16_DATA_TYPE *str, uint8_t size)
 {
 	uint8_t i;
     FIFO16_Return_t ret = FIFO16_OK;
@@ -186,7 +186,7 @@ FIFO16_Return_t FIFO16_ReadString(FIFO16_Buffer_t* ptr,uint16_t *str, uint8_t si
 /******************************************************************************
  * FUNCTION: void FIFO16_IncrementWriteCounter(...)
  *****************************************************************************/
-static void FIFO16_IncrementWriteCounter(FIFO16_Buffer_t* ptr)
+static void FIFO16_IncrementWriteCounter(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr)
 {
 	uint8_t size;
 	if(FIFO16_GET_WRITE_COUNT(ptr) < FIFO16_GET_BUFFER_SIZE(ptr))
@@ -206,7 +206,7 @@ static void FIFO16_IncrementWriteCounter(FIFO16_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO16_IncrementReadCounter(...)
  *****************************************************************************/
-static void FIFO16_IncrementReadCounter(FIFO16_Buffer_t* ptr)
+static void FIFO16_IncrementReadCounter(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr)
 {
 	uint8_t size;
 	if(FIFO16_GET_READ_COUNT(ptr) < FIFO16_GET_BUFFER_SIZE(ptr))
@@ -225,7 +225,7 @@ static void FIFO16_IncrementReadCounter(FIFO16_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: void FIFO16_UpdateBufferStatus(...)
  *****************************************************************************/
-static void FIFO16_UpdateBufferStatus(FIFO16_Buffer_t* ptr)
+static void FIFO16_UpdateBufferStatus(FIFO16_BUFFER_EXT FIFO16_Buffer_t* ptr)
 {
  /************************************************************************ 
   *
@@ -292,7 +292,7 @@ static void FIFO16_UpdateBufferStatus(FIFO16_Buffer_t* ptr)
 /******************************************************************************
  * FUNCTION: FIFO16_BufferStatus_t FIFO16_GetBufferStatus(...)
  *****************************************************************************/
-FIFO16_BufferStatus_t FIFO16_GetBufferStatus(FIFO16_Buffer_t *ptr)
+FIFO16_BufferStatus_t FIFO16_GetBufferStatus(FIFO16_BUFFER_EXT FIFO16_Buffer_t *ptr)
 {
     return FIFO16_GET_BUFFER_STATUS(ptr);
 }

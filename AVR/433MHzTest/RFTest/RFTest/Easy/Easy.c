@@ -22,11 +22,11 @@
 #define EASY_GET_US_DELAY()						\
 		(EASY_TX_EDGE_US_DELAY)
 		
-#define EASY_SET_RX_EXTERN_INDICATION()			\		
+#define EASY_SET_RX_EXTERN_INDICATION()			\
 		(Easy_rxIndication = EASY_EXTERN_RX)
 		
 #define EASY_SET_RX_INTERN_INDICATION()			\
-		(Easy_rxIndication = EASY_INTERN_RX)
+      (Easy_rxIndication = EASY_INTERN_RX)
 		
 #define EASY_IS_RX_EXTERN_INDICATION()			\
 		(Easy_rxIndication == EASY_EXTERN_RX)
@@ -34,11 +34,11 @@
 #define EASY_IS_RX_INTERN_INDICATION()			\
 		(Easy_rxIndication == EASY_INTERN_RX)
 
-#define EASY_RX_MIN_EDGE_TIME					\		
-		(EASY_RX_EDGE_US_TIME - EASY_RX_NEG_US_TIME_OFFSET)
+#define EASY_RX_MIN_EDGE_TIME					\
+      (EASY_RX_EDGE_US_TIME - EASY_RX_NEG_US_TIME_OFFSET)
 		
-#define EASY_RX_MAX_EDGE_TIME					\		
-		(EASY_RX_EDGE_US_TIME + EASY_RX_POS_US_TIME_OFFSET)		
+#define EASY_RX_MAX_EDGE_TIME					\
+      (EASY_RX_EDGE_US_TIME + EASY_RX_POS_US_TIME_OFFSET)		
 
 /*--- Local Parameter ---------------------------------------------------------*/
 
@@ -55,12 +55,12 @@ static uint16_t Easy_timeBuffer[EASY_RX_BUFFER_SIZE] = {};
 /**
  *                                                                      
  */
-EASY_VOL_STAT_CONST FIFO8_Buffer_t Easy_RxEdgeBuffer = {};
+EASY_VOL_STAT FIFO8_Buffer_t Easy_RxEdgeBuffer = {};
 
 /**
  *                                                                      
  */
-EASY_VOL_STAT_CONST FIFO16_Buffer_t Easy_RxTimeBuffer = {};
+EASY_VOL_STAT FIFO16_Buffer_t Easy_RxTimeBuffer = {};
 
 /**
  *                                                                      

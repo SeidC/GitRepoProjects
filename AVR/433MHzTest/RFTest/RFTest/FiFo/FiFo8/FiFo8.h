@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "PR_DEF.h"
 
+#define FIFO8_BUFFER_EXT      volatile
+#define FIFO8_DATA_TYPE       volatile uint8_t
 
 typedef uint8_t FIFO8_Return_t;
 
@@ -68,9 +70,9 @@ typedef struct
  */
 typedef struct 
 {
-	uint8_t *bufferPtr;
+	FIFO8_DATA_TYPE *bufferPtr;
 	uint8_t bufferSize;
-    FIFO8_BufferStatus_t status; 
+   FIFO8_BufferStatus_t status; 
 	FIFO8_Counter_t counter;		
 }FIFO8_Buffer_t;
 
@@ -85,7 +87,7 @@ typedef struct
  *  
  *  @details Details
  */
-void FIFO8_InitBuffer(FIFO8_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize);
+void FIFO8_InitBuffer(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr,FIFO8_DATA_TYPE* avBuffer,uint8_t avSize);
 
 /**
  *  @brief Brief
@@ -96,7 +98,7 @@ void FIFO8_InitBuffer(FIFO8_Buffer_t* ptr,uint8_t* avBuffer,uint8_t avSize);
  *  
  *  @details Details
  */
-void FIFO8_Write(FIFO8_Buffer_t* ptr, uint8_t p);
+void FIFO8_Write(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr, FIFO8_DATA_TYPE p);
 
 /**
  *  @brief Brief
@@ -106,7 +108,7 @@ void FIFO8_Write(FIFO8_Buffer_t* ptr, uint8_t p);
  *  
  *  @details Details
  */
-uint8_t FIFO8_Read(FIFO8_Buffer_t* ptr);
+FIFO8_DATA_TYPE FIFO8_Read(FIFO8_BUFFER_EXT  FIFO8_Buffer_t* ptr);
 
 /**
  *  @brief Brief
@@ -118,7 +120,7 @@ uint8_t FIFO8_Read(FIFO8_Buffer_t* ptr);
  *  
  *  @details Details
  */
-FIFO8_Return_t FIFO8_ReadString(FIFO8_Buffer_t* ptr,uint8_t *str, uint8_t size);
+FIFO8_Return_t FIFO8_ReadString(FIFO8_BUFFER_EXT FIFO8_Buffer_t* ptr,FIFO8_DATA_TYPE *str, uint8_t size);
 
 /**
  *  @brief Brief
@@ -129,7 +131,7 @@ FIFO8_Return_t FIFO8_ReadString(FIFO8_Buffer_t* ptr,uint8_t *str, uint8_t size);
  *  
  *  @details Details
  */
-FIFO8_Return_t FIFO8_WriteString(FIFO8_Buffer_t* ptr, uint8_t* str);
+FIFO8_Return_t FIFO8_WriteString(FIFO8_BUFFER_EXT  FIFO8_Buffer_t* ptr, FIFO8_DATA_TYPE* str);
 
 /**
  *  @brief Brief
@@ -139,7 +141,7 @@ FIFO8_Return_t FIFO8_WriteString(FIFO8_Buffer_t* ptr, uint8_t* str);
  *  
  *  @details Details
  */
-FIFO8_BufferStatus_t FIFO8_GetBufferStatus(FIFO8_Buffer_t *ptr);
+FIFO8_BufferStatus_t FIFO8_GetBufferStatus(FIFO8_BUFFER_EXT  FIFO8_Buffer_t *ptr);
 
 
 
