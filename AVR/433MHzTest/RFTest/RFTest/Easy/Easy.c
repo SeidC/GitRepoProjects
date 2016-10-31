@@ -33,7 +33,7 @@
 /**
  *                                                                      
  */
-static uint8_t Easy_edgeBuffer[EASY_RX_BUFFER_SIZE] = {};
+static uint16_t Easy_edgeBuffer[EASY_RX_BUFFER_SIZE] = {};
 
 /**
  *                                                                      
@@ -43,7 +43,7 @@ static uint16_t Easy_timeBuffer[EASY_RX_BUFFER_SIZE] = {};
 /**
  *                                                                      
  */
-EASY_VOL_STAT FIFO8_Buffer_t Easy_RxEdgeBuffer = {};
+EASY_VOL_STAT FIFO16_Buffer_t Easy_RxEdgeBuffer = {};
 
 /**
  *                                                                      
@@ -70,7 +70,7 @@ void Easy_Init(void)
 	{
 		sei();
 	}
-	FIFO8_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
+	FIFO16_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
 	FIFO16_InitBuffer(&Easy_RxTimeBuffer,Easy_timeBuffer,EASY_RX_BUFFER_SIZE);
 	
 	Easy_rxStatus.indication = EASY_NO_INDICATION;
@@ -134,63 +134,44 @@ void Easy_TransmitSyncField(void)
 
 void Easy_RxMainfunction(void)
 {
-	if(Easy_rxStatus.indication == EASY_EXTERN_RX_RUN)
-	{
-		if ( (EASY_GET_TIME() - Easy_rxStatus.lastEdgeTime) > EASY_MAX_RX_TIME())
-		{
-			FIFO8_Write(&Easy_RxEdgeBuffer,0xFF);
-			Easy_rxStatus.indication == EASY_NO_INDICATION;
-		}
-	}
+   uint8_t* pin = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
+	Easy_rxStatus.rxStartBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
 }
 
 
 bool_t Easy_GetReceivedData(uint8_t *buffer)
 {
-	uint8_t startSign = 0, i = 0;
-	Manchester_t rData = {}
-	
-	if (FIFO8_GetBufferStatus(&Easy_RxEdgeBuffer) == FIFO8_BUFFER_DATA_AVAILABLE)
-	{
-		startSign = FIFO8_Read(&Easy_RxEdgeBuffer);
-		if(startSign == 0xFF)
-		{
-			for(i = 0; i < 16; i++)
-			{
-				FIFO8_ReadString(&Easy_RxEdgeBuffer,buffer,16);
-			}
-		}
-	}
+
 }
 
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-	volatile uint8_t* pinReg = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
-    uint16_t time = EASY_GET_TIME();
-    uint8_t pinVal = EASY_GET_BIT(*pinReg,EASY_RX_PIN);
-	
-	Easy_rxStatus.lastEdgeTime  = EASY_GET_TIME();
-	
-	if(Easy_rxStatus.indication == EASY_NO_INDICATION)
-	{
-		FIFO8_Write(&Easy_RxEdgeBuffer,0xFF);		
-		Easy_rxStatus.indication = EASY_EXTERN_RX_RUN;	
-	} 
-	
-	if(Easy_rxStatus.oldValue == EASY_LOW && pinVal == EASY_HIGH)
-	{
-		FIFO8_Write(&Easy_RxEdgeBuffer,1);
-		FIFO8_Write(&Easy_RxEdgeBuffer,0);
-	}
-	else if(Easy_rxStatus.oldValue == EASY_HIGH && pinVal == EASY_LOW)
-	{
-		FIFO8_Write(&Easy_RxEdgeBuffer,0);
-		FIFO8_Write(&Easy_RxEdgeBuffer,1);
-	}
-	else
-	{
-		
-	}
-	Easy_rxStatus.oldValue = pinVal;
+   uint8_t* pin = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
+   uint8_t cBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
+   
+   if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
+   {
+      if((Easy_rxStatus.lastBit == 0) && (cBit == 1))
+      {
+         Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
+      }
+      else if((Easy_rxStatus.lastBit == 1) && (cBit == 0))
+      {
+         Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);         
+      }
+      else
+      {
+         
+      }
+      Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
+   }
+   
+   if (Easy_rxStatus.bitCount >= MANCHESTER_GET_MSG_BIT_SIZE())
+   {
+      FIFO16_Write(&Easy_RxEdgeBuffer,Easy_rxStatus.bitBuffer);
+      Easy_rxStatus.bitBuffer = 0;
+      Easy_rxStatus.bitCount = 0;
+   }      
+   Easy_rxStatus.lastBit = cBit;      
 }
