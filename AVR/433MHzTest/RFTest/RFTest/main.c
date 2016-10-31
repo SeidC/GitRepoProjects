@@ -18,6 +18,7 @@ uint16_t buff[11] = {};
 
 int main(void)
 {
+	uint8_t transmit = 0;
 	Easy_Init();
 	Timer1_Init();
 	sei();
@@ -27,8 +28,12 @@ int main(void)
 	
 	while (1) 
     {
-		Easy_TransmitSyncField();
-		_delay_ms(500);
+		if(transmit == 1)
+		{
+			Easy_TransmitSyncField();	
+			transmit = 0;	
+		}
+		Easy_RxMainfunction();	
     }
 }
 

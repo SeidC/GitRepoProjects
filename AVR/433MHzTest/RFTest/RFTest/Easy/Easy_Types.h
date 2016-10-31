@@ -36,8 +36,10 @@ typedef enum
 
 typedef struct 
 {
+   uint8_t startValue;
    uint8_t oldValue;
    uint8_t newValue;
+   uint16_t lastEdgeTime;
    Easy_RxIndication_t indication;
 }Easy_RxStatus_t;
 
