@@ -59,10 +59,10 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 void Easy_Init(void)
 {
 	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
-	EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
+	//EASY_SET_BIT(EASY_TX_PORT,EASY_TX_PIN);
 	
 	EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
-	EASY_SET_BIT(EASY_RX_PORT,EASY_RX_PIN);
+	//EASY_SET_BIT(EASY_RX_PORT,EASY_RX_PIN);
 	
 	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_EDGE_CONFIG;		
 	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE_CONFIG;
@@ -134,7 +134,7 @@ void Easy_TransmitSyncField(void)
 
 void Easy_RxMainfunction(void)
 {
-   uint8_t* pin = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
+   uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
 	Easy_rxStatus.rxStartBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
 }
 
@@ -147,8 +147,9 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-   uint8_t* pin = GET_PIN_REGISTER_BY_PORT(EASY_RX_PORT);
-   uint8_t cBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
+   uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
+   //uint8_t cBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
+   uint8_t cBit =  EASY_GET_BIT(PIND,EASY_RX_PIN);
    
    if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
    {
@@ -162,7 +163,7 @@ InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
       }
       else
       {
-         
+         __asm("NOP");
       }
       Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
    }

@@ -19,6 +19,9 @@ uint16_t buff[11] = {};
 int main(void)
 {
 	uint8_t transmit = 0;
+	PIND = 0x00;
+	PORTD = 0x00;
+	DDRD = 0x00;
 	Easy_Init();
 	Timer1_Init();
 	sei();
@@ -30,7 +33,7 @@ int main(void)
     {
 		if(transmit == 1)
 		{
-			Easy_TransmitSyncField();	
+			Easy_TransmitChar("A");
 			transmit = 0;	
 		}
 		Easy_RxMainfunction();	
