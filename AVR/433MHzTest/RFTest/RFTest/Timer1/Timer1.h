@@ -8,42 +8,46 @@
 
 #ifndef TIMER1_H_
 #define TIMER1_H_
+#include "PR_DEF.h"
 #include "Timer1_Cfg.h"
 #include "avr/io.h"
 
 
-#define  TIMER1_HAS_TIMER_OVERFLOW()				\
-		 ((TIFR & (1 << TOV1)) >> TOV1)
+#define TIMER1_HAS_TIMER_OVERFLOW()				            \
+		  ((TIFR & (1 << TOV1)) >> TOV1)
 
-#define TIMER1_COUNTER_MAX							\
-		(INT16_MAX)
+#define TIMER1_COUNTER_MAX							            \
+		  (INT16_MAX)
 
-#define TIMER1_GET_ACTUAL_COUNTER_VALUE()			\
-		((uint16_t)TCNT1)
+#define TIMER1_GET_ACTUAL_COUNTER_VALUE()			         \
+		  ((uint16_t)TCNT1)
 		
-#define TIMER1_CHECK_TIMER_OVERFLOW(valueToCheck)	\
-		((TCNT1 + (uint32_t)valueToCheck) > TIMER1_COUNTER_MAX)
+#define TIMER1_CHECK_TIMER_OVERFLOW(valueToCheck)	      \
+		  ((TCNT1 + (uint32_t)valueToCheck) > TIMER1_COUNTER_MAX)
 		
-#define TIMER1_RESET_OVERFLOW()						\
-		((TIFR &= ~(1 << TOV1)))
+#define TIMER1_RESET_OVERFLOW()						         \
+        ((TIFR &= ~(1 << TOV1)))
 
-	
+#define TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime)        \
+	     ((uint32_t)((F_CPU * usTime) / (MEGA * TIMER1_PRESCALER_CFG))) 
+        
 void Timer1_Init(void);
+
 
 uint16_t Timer1_GetCounterValueUs(void);
 
 
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
-#define TIMER1_PRESCALER_CALC_VALUE					1
+   #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)
 #elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_8
-#define TIMER1_PRESCALER_CALC_VALUE					8
+   #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)8u)
 #elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_64  
-#define TIMER1_PRESCALER_CALC_VALUE					64
+   #define TIMER1_PRESCALER_CALC_VALUE					  ((uint16_t)64u)
 #elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_256 
-#define TIMER1_PRESCALER_CALC_VALUE					256
+   #define TIMER1_PRESCALER_CALC_VALUE					 ((uint16_t)256u)
 #elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1024
-#define TIMER1_PRESCALER_CALC_VALUE					1024
+   #define TIMER1_PRESCALER_CALC_VALUE					((uint16_t)1024u)
 #else
 #error "!!!Prescaler not defined!!!"
 #endif

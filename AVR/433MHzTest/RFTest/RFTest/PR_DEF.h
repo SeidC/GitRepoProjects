@@ -13,6 +13,8 @@
 #include <stdio.h>
 
 
+#define MEGA                              \
+        ((uint32_t)1.000.000)
 
 /**
  * @brief
