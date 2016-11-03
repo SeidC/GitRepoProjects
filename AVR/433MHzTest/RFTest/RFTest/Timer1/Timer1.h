@@ -28,8 +28,9 @@
 #define TIMER1_RESET_OVERFLOW()						         \
         ((TIFR &= ~(1 << TOV1)))
 
+		
 #define TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime)        \
-	     ((uint32_t)((F_CPU * usTime) / (MEGA * TIMER1_PRESCALER_CFG))) 
+	     ((uint16_t)((F_CPU * (uint64_t)usTime) / (MEGA * (uint32_t)TIMER1_PRESCALER_CFG))) 
         
 void Timer1_Init(void);
 

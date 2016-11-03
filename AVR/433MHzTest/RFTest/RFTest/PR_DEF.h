@@ -14,7 +14,7 @@
 
 
 #define MEGA                              \
-        ((uint32_t)1.000.000)
+        ((uint32_t)1000000)
 
 /**
  * @brief
