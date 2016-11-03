@@ -47,10 +47,12 @@
 
 
 /*--- Other Required Interfaces ------------------------------------------------------------*/
-#define EASY_GET_TIME	TIMER1_GET_ACTUAL_COUNTER_VALUE
+#define EASY_GET_TIME	                              \
+        TIMER1_GET_ACTUAL_COUNTER_VALUE
 
 
-#define EASY_CONVERT_TIME(t)
+#define EASY_CONVERT_TIME                          \
+        TIMER1_CALCULATE_US_TIME_TO_TICKS
 
 
 
