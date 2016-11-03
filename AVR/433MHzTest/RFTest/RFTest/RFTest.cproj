@@ -155,6 +155,9 @@
     <Compile Include="Easy\Easy.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Easy\Easy_Cfg.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Easy\Easy_Cfg.h">
       <SubType>compile</SubType>
     </Compile>

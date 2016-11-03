@@ -28,6 +28,7 @@
 #define EASY_RX_MAX_EDGE_TIME					\
       (EASY_RX_EDGE_US_TIME + EASY_RX_POS_US_TIME_OFFSET)		
 
+
 /*--- Local Parameter ---------------------------------------------------------*/
 
 /**

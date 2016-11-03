@@ -8,6 +8,7 @@
 
 #ifndef EASY_TYPES_H_
 #define EASY_TYPES_H_
+#include "avr/io.h"
 
 #define EASY_VOL_STAT_CONST                           \
         volatile static const
@@ -44,6 +45,18 @@ typedef struct
    uint16_t bitCount;
    Easy_RxIndication_t indication;
 }Easy_RxStatus_t;
+
+
+typedef struct
+{
+	uint16_t rxPosOffset;
+	uint16_t rxEdgeTime;
+	uint16_t rxNegOffset;
+	
+	uint16_t txBaudrate;
+	uint16_t trStTime;
+}Easy_Config_t;
+
 
 
 #endif /* EASY_TYPES_H_ */
