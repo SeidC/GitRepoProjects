@@ -66,6 +66,12 @@
 #define MANCHESTER_GET_MSG_BIT_SIZE()                            \
          MANCHESTER_UIN16_BITSIZE
 
+#define MANCHESTER_IS_RISNG_EDGE(oStat,nStat)                  \
+        ((oStat == 0) && (nStat == 1))
+
+#define MANCHESTER_IS_FALLING_EDGE(oStat,nStat)                  \
+        ((oStat == 1) && (nStat == 0))
+
 typedef struct  
 {
    uint16_t* ticks;

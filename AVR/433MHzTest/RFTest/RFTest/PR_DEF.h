@@ -65,7 +65,7 @@ typedef uint8_t bool_t;
  *
  */
 #define GET_PIN_REG_PTR_BY_PORT(port)          \
-        ( (volatile uint8_t*) (port - 2) )
+        ((volatile uint8_t*) (&port - 2))
 
 /**
  * @brief
@@ -73,7 +73,7 @@ typedef uint8_t bool_t;
  *
  */
 #define GET_DDR_REG_PTR_BY_PORT(port)           \
-        ( (volatile uint8_t*) (port - 1) )
+        ( (volatile uint8_t*) (&port - 1) )
 
 
 #define InterruptRoutine(isrVector)                \

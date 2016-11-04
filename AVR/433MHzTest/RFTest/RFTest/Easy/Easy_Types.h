@@ -15,9 +15,9 @@
 
 #define EASY_VOL_STAT                                 \
         volatile static
-        
-#define EASY_RX_INTERRUPT                             \
-        InterruptRoutine
+
+#define EASY_INLINE  
+      
 
 #define EASY_LOW				(0u)
 
@@ -27,22 +27,20 @@
 typedef enum
 {
    EASY_NO_INDICATION			= 0x00 ,
+   EASY_RX_PRE_START          = 0x01 ,
+   EASY_RX_RECEIVE            = 0x02
    
-   EASY_EXTERN_RX_STA         = 0x10,
-   EASY_EXTERN_RX_FIN			= 0x11,
-   EASY_EXTERN_RX_RUN			= 0x12,
-   
-   EASY_INTERN_RX_STA         = 0x20,
-   EASY_INTERN_RX_FIN			= 0x21,
-   EASY_INTERN_RX_RUN			= 0x22,
 }Easy_RxIndication_t;
+
 
 typedef struct 
 {
-   uint8_t rxStartBit;
+   
    uint8_t lastBit;
    uint16_t bitBuffer;
    uint16_t bitCount;
+   
+   uint16_t startTime;
    Easy_RxIndication_t indication;
 }Easy_RxStatus_t;
 
@@ -53,8 +51,11 @@ typedef struct
 	uint16_t rxEdgeTime;
 	uint16_t rxNegOffset;
 	
-	uint16_t txBaudrate;
-	uint16_t trStTime;
+   uint16_t startMinTimeOffset;
+	uint16_t startTime;
+   uint16_t startMaxTimeOfset;
+   
+   uint16_t txBaudrate;
 }Easy_Config_t;
 
 

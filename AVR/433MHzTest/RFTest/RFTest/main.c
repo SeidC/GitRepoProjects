@@ -21,10 +21,11 @@ int main(void)
 	
 	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(300);
 	uint8_t transmit = 0;
-	PIND = 0x00;
-	PORTD = 0x00;
-	DDRD = 0x00;
-	Easy_Init();
+   
+   volatile uint8_t *port =  ((volatile uint8_t*) (&PORTB - 2));
+
+
+	Easy_Init(&Easy_config);
 	Timer1_Init();
 	sei();
     /* Replace with your application code */
