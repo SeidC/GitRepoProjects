@@ -36,4 +36,16 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer);
 
 EASY_INLINE void Easy_RxInterruptRoutine(void);
 
+EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal);
+
+EASY_INLINE void Easy_RxNoIndication(void);
+
+EASY_INLINE void Easy_RxFinished(void);
+
+EASY_INLINE void Easy_RxPreStart(void);
+
+EASY_INLINE void Easy_RxReceiveError(void);
+
+EASY_INLINE void Easy_RxReceive(void);
+
 #endif /* EASY_H_ */

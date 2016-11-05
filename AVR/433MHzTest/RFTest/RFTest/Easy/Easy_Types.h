@@ -10,6 +10,9 @@
 #define EASY_TYPES_H_
 #include "avr/io.h"
 
+#define EASY_VOL                                      \
+        volatile
+
 #define EASY_VOL_STAT_CONST                           \
         volatile static const
 
@@ -23,7 +26,7 @@
 
 #define EASY_HIGH				(1u)
 
-
+  /*
 typedef enum
 {
    EASY_NO_INDICATION			= 0x00 ,
@@ -32,16 +35,17 @@ typedef enum
    
 }Easy_RxIndication_t;
 
-
+          */
 typedef struct 
 {
    
-   uint8_t lastBit;
+   uint8_t oBit;
+   uint8_t nBit;
    uint16_t bitBuffer;
    uint16_t bitCount;
    
    uint16_t startTime;
-   Easy_RxIndication_t indication;
+  // Easy_RxIndication_t indication;
 }Easy_RxStatus_t;
 
 
@@ -58,6 +62,16 @@ typedef struct
    uint16_t txBaudrate;
 }Easy_Config_t;
 
+
+typedef enum
+{
+	EASY_RX_PRE_START=0U,
+	EASY_RX_FINISHED,
+	EASY_RX_RECEIVE,
+	EASY_RX_NO_INDICATION,
+	EASY_RX_ERROR,
+	EASY_RXFSM_NO_MSG
+} EASY_RXFSM_EVENT_T;
 
 
 #endif /* EASY_TYPES_H_ */

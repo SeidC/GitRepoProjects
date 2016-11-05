@@ -5,6 +5,7 @@
  *  Author: AP
  */ 
 #include "Easy.h"
+#include "Easy_RxFsm.h"
 #include "Manchester.h"
 #include "FiFo8.h"
 #include "FiFo16.h"
@@ -64,8 +65,10 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 EASY_VOL_STAT Easy_Config_t* internalCfg = NULL;
 
 
+EASY_VOL EASY_RXFSM_EVENT_T msg;
 
-
+EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm;
+ 
 void Easy_Init(Easy_Config_t *cftPtr)
 {
    internalCfg = cftPtr;
@@ -82,7 +85,7 @@ void Easy_Init(Easy_Config_t *cftPtr)
 	FIFO16_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
 	FIFO16_InitBuffer(&Easy_RxTimeBuffer,Easy_timeBuffer,EASY_RX_BUFFER_SIZE);
 	
-	Easy_rxStatus.indication = EASY_NO_INDICATION;
+	//Easy_rxStatus.indication = EASY_NO_INDICATION;
 
 	return;
 }
@@ -137,9 +140,12 @@ void Easy_TransmitSyncField(void)
 	return;
 }
 
+
+
 void Easy_RxMainfunction(void)
 {
-  }
+
+}
 
 
 bool_t Easy_GetReceivedData(uint8_t *buffer)
@@ -150,16 +156,20 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-    Easy_RxInterruptRoutine();
+    uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
+    Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);    
+    
+    Easy_RxFsm(&Easy_rxFsm);
+    
+    Easy_rxStatus.oBit = Easy_rxStatus.nBit;
 }
 
 
 void Easy_TransmissionStart(void)
 {
    volatile uint8_t *pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-   if(Easy_rxStatus.indication == EASY_NO_INDICATION)
+   if(Easy_RxFsmIsInEasy_RxNoIndicationState(&Easy_rxFsm))
    {
-      Easy_rxStatus.lastBit = 0;
       EASY_SET_TX();
       _delay_us(200);
    }
@@ -168,14 +178,33 @@ void Easy_TransmissionStart(void)
 
 EASY_INLINE void Easy_RxInterruptRoutine(void)
 {
+   /*
    uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
    uint8_t cBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
-
+   uint8_t oBit = Easy_rxStatus.lastBit;
    
    if(Easy_rxStatus.indication == EASY_NO_INDICATION)
    {
-      Easy_rxStatus.startTime = EASY_GET_TIME();
-      Easy_rxStatus.indication = EASY_RX_PRE_START;
+      if(MANCHESTER_IS_RISNG_EDGE(oBit,cBit) == TRUE)
+      {
+         Easy_rxStatus.startTime = EASY_GET_TIME();
+         Easy_rxStatus.indication = EASY_RX_PRE_START;
+      }
+      else
+      {
+         
+      }      
+   }
+   else if(Easy_rxStatus.indication == EASY_RX_PRE_START)
+   {
+      if(MANCHESTER_IS_FALLING_EDGE(oBit,cBit) == TRUE)
+      {
+         
+      }
+      else
+      {
+         
+      }
    }
    
    if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
@@ -201,5 +230,52 @@ EASY_INLINE void Easy_RxInterruptRoutine(void)
       Easy_rxStatus.bitBuffer = 0;
       Easy_rxStatus.bitCount = 0;
    }      
-   Easy_rxStatus.lastBit = cBit;     
+   Easy_rxStatus.oBit = nBit;   
+   */      
+}
+
+
+EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal)
+{
+   msg = signal;
+   return;
+}
+
+
+EASY_INLINE void Easy_RxNoIndication(void)
+{
+    if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
+    {
+       Easy_rxStatus.startTime = EASY_GET_TIME();
+       Easy_SetFsmSignal(EASY_RX_PRE_START);
+    }
+    else
+    {
+       /*--- Do Nothing ---*/
+    }
+    return;  
+}
+
+EASY_INLINE void Easy_RxFinished(void)
+{
+ 
+}   
+
+EASY_INLINE void Easy_RxPreStart(void)
+{
+   if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
+   {
+      
+   }
+   return;
+}
+
+EASY_INLINE void Easy_RxReceiveError(void)
+{
+   
+}
+
+EASY_INLINE void Easy_RxReceive(void)
+{
+   
 }
