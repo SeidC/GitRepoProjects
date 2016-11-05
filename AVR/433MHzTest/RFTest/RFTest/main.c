@@ -18,8 +18,14 @@ uint16_t buff[11] = {};
 
 int main(void)
 {
+	
+	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(300);
 	uint8_t transmit = 0;
-	Easy_Init();
+   
+   volatile uint8_t *port =  ((volatile uint8_t*) (&PORTB - 2));
+
+
+	Easy_Init(&Easy_config);
 	Timer1_Init();
 	sei();
     /* Replace with your application code */
@@ -30,7 +36,7 @@ int main(void)
     {
 		if(transmit == 1)
 		{
-			Easy_TransmitSyncField();	
+			Easy_TransmitChar("A");
 			transmit = 0;	
 		}
 		Easy_RxMainfunction();	

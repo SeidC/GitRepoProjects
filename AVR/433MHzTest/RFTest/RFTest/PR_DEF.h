@@ -13,6 +13,8 @@
 #include <stdio.h>
 
 
+#define MEGA                              \
+        ((uint32_t)1000000)
 
 /**
  * @brief
@@ -62,16 +64,16 @@ typedef uint8_t bool_t;
  *
  *
  */
-#define GET_PIN_REGISTER_BY_PORT(port)          \
-        (*(volatile uint8_t*)((&port) - 2))
+#define GET_PIN_REG_PTR_BY_PORT(port)          \
+        ((volatile uint8_t*) (&port - 2))
 
 /**
  * @brief
  *
  *
  */
-#define GET_DDR_REGISTER_BY_PORT(port)           \
-        (*(volatile uint8_t*)((&port) - 1))
+#define GET_DDR_REG_PTR_BY_PORT(port)           \
+        ( (volatile uint8_t*) (&port - 1) )
 
 
 #define InterruptRoutine(isrVector)                \

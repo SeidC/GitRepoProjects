@@ -26,28 +26,33 @@
 #define EASY_RX_DDR						DDRD
 #define EASY_RX_PIN						PIND2
 /*--- Interrupt Rx Configuration ----------------------------------------------------------*/
-#define EASY_RX_INTERRUPT_REG_A				MCUCR
-#define EASY_RX_INTERRUPT_REG_B				GICR
+#define EASY_RX_INTERRUPT_REG_A				   MCUCR
+#define EASY_RX_INTERRUPT_REG_B				   GICR
 
 #define EASY_RX_INTERRUPT_VECTOR_CONFIG		INT0_vect
 #define EASY_RX_INTERRUPT_EDGE_CONFIG		   EASY_RX_INTERRUPT_ON_ANY_EDGE
 #define EASY_RX_INTERRUPT_ENABLE_CONFIG		EASY_RX_INTERRUPT_ENABLE
 
-#define EASY_RX_POS_US_TIME_OFFSET			((uint16_t)20u)	
-#define EASY_RX_EDGE_US_TIME				   ((uint16_t)650u)
-#define EASY_RX_NEG_US_TIME_OFFSET			((uint16_t)20u)
 
 
 /*--- Rx/Tx Settings -----------------------------------------------------------------------*/
-#define EASY_SYNC_SIGN							((char)0x55u)
-#define EASY_TX_EDGE_US_DELAY					((uint16_t)250u)
-#define EASY_RX_BUFFER_SIZE						((uint8_t)30u)
+#define EASY_SYNC_SIGN					   ((char)0x55u)
+#define EASY_RX_BUFFER_SIZE            ((uint8_t)30u)
+
+
 
 
 /*--- Other Required Interfaces ------------------------------------------------------------*/
-#define EASY_GET_TIME	TIMER1_GET_ACTUAL_COUNTER_VALUE
+#define EASY_GET_TIME	                              \
+        TIMER1_GET_ACTUAL_COUNTER_VALUE
 
 
+#define EASY_CONVERT_TIME                             \
+        TIMER1_CALCULATE_US_TIME_TO_TICKS
+
+
+
+extern Easy_Config_t Easy_config;
 
 
 #endif /* EASY_CFG_H_ */

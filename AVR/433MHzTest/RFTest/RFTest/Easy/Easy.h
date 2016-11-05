@@ -26,12 +26,14 @@
 		(EASY_RX_MAX_EDGE_TIME * 2)
 		
 		
-void Easy_Init(void);
+void Easy_Init(Easy_Config_t *cftPtr);
 
 void Easy_TransmitChar(char p);
 
 void Easy_TransmitSyncField(void);
 
 void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer);
+
+EASY_INLINE void Easy_RxInterruptRoutine(void);
 
 #endif /* EASY_H_ */
