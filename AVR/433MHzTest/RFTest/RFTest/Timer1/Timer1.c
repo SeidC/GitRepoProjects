@@ -22,3 +22,18 @@ uint16_t Timer1_GetCounterValueUs(void)
 	return ((TCNT1 * 1000000 * TIMER1_PRESCALER_CALC_VALUE)/F_CPU);
 }
 
+
+uint16_t Timer1_CalculateTimeDiff(uint16_t diffTime)
+{
+   uint16_t ret = 0;
+   if(!TIMER1_HAS_TIMER_OVERFLOW())
+   {
+      ret = TIMER1_GET_ACTUAL_COUNTER_VALUE() - diffTime;   
+   }
+   else
+   {
+      ret =    (TIMER1_COUNTER_MAX - diffTime) + TIMER1_GET_ACTUAL_COUNTER_VALUE();
+      TIMER1_RESET_OVERFLOW_FLAG();
+   }
+   return ret;
+}

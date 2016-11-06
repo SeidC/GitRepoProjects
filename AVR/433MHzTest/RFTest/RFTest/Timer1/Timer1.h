@@ -16,6 +16,9 @@
 #define TIMER1_HAS_TIMER_OVERFLOW()				            \
 		  ((TIFR & (1 << TOV1)) >> TOV1)
 
+#define TIMER1_RESET_OVERFLOW_FLAG()                     \
+        (TIFR & (1 << TOV1))
+
 #define TIMER1_COUNTER_MAX							            \
 		  (INT16_MAX)
 
@@ -37,7 +40,7 @@ void Timer1_Init(void);
 
 uint16_t Timer1_GetCounterValueUs(void);
 
-
+uint16_t Timer1_CalculateTimeDiff(uint16_t diffTime);
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)

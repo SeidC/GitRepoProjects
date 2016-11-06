@@ -12,25 +12,40 @@
 
 /*--- Local Defines -----------------------------------------------------------*/
 #define EASY_SET_BIT(reg,bit)					\
-		(reg |= (1<<bit))
+		  (reg |= (1<<bit))
 		
 #define EASY_RESET_BIT(reg,bit)					\
-		(reg &= ~(1 << bit))
+		  (reg &= ~(1 << bit))
 
-#define EASY_GET_BIT(reg,bit)					\
-		((reg & (1 << bit)) >> bit)
+#define EASY_GET_BIT(reg,bit)					            \
+		  ((reg & (1 << bit)) >> bit)
 
-#define EASY_GET_US_DELAY()						\
-		(internalCfg->txBaudrate)
-		
-#define EASY_RX_MIN_EDGE_TIME					\
-      (internalCfg->rxEdgeTime - internalCfg->rxNegOffset)
-		
-#define EASY_RX_MAX_EDGE_TIME					\
-      (internalCfg->rxEdgeTime + internalCfg->rxPosOffset)		
+#define EASY_GET_US_DELAY()						         \
+		  (internalCfg->txBaudrate)
 
-#define EASY_SET_TX_TO_DEFAULT()          \
+#define EASY_SET_TX_TO_DEFAULT()                      \
         (EASY_CLEAR_TX())
+
+/*--- Defines for Received Edges ---------------------------------------------------*/		
+
+#define EASY_RX_MIN_EDGE_TIME					            \
+        (internalCfg->rxEdgeTime - internalCfg->rxNegOffset)
+		
+#define EASY_RX_MAX_EDGE_TIME					            \
+        (internalCfg->rxEdgeTime + internalCfg->rxPosOffset)		
+
+#define EASY_IS_RX_EDGE_IN_TIME(t)                    \
+        ((t >= EASY_RX_MIN_EDGE_TIME) && (t <= EASY_RX_MAX_EDGE_TIME))
+
+/*--- Defines for StartUp ----------------------------------------------------------*/
+#define EASY_START_UP_MIN_TIME                        \
+        (internalCfg->startTime - internalCfg->startMinTimeOffset)
+
+#define EASY_START_UP_MAX_TIME                        \
+        (internalCfg->startTime + internalCfg->startMaxTimeOfset)
+
+#define EASY_IS_START_UP_IN_TIME(t)                   \
+        ((t >= EASY_START_UP_MIN_TIME) && (t <= EASY_START_UP_MAX_TIME))
 
 /*--- Local Parameter ---------------------------------------------------------*/
 
@@ -42,17 +57,7 @@ static uint16_t Easy_edgeBuffer[EASY_RX_BUFFER_SIZE] = {};
 /**
  *                                                                      
  */
-static uint16_t Easy_timeBuffer[EASY_RX_BUFFER_SIZE] = {};
-
-/**
- *                                                                      
- */
 EASY_VOL_STAT FIFO16_Buffer_t Easy_RxEdgeBuffer = {};
-
-/**
- *                                                                      
- */
-EASY_VOL_STAT FIFO16_Buffer_t Easy_RxTimeBuffer = {};
 
 /**
  *                                                                      
@@ -62,7 +67,7 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 /**
  *
  */
-EASY_VOL_STAT Easy_Config_t* internalCfg = NULL;
+EASY_VOL_STAT Easy_Config_t* Easy_internalCfg = NULL;
 
 
 EASY_VOL EASY_RXFSM_EVENT_T msg;
@@ -71,20 +76,21 @@ EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm;
  
 void Easy_Init(Easy_Config_t *cftPtr)
 {
-   internalCfg = cftPtr;
+   Easy_internalCfg = cftPtr;
 	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
    EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
    EASY_SET_TX_TO_DEFAULT();
-	
+   
+	Easy_RxFsmResetMachine(&Easy_rxFsm);   
+   FIFO16_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
+   
 	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_EDGE_CONFIG;		
 	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE_CONFIG;
 	if(EASY_RX_INTERRUPT_ENABLE)
 	{
 		sei();
 	}
-	FIFO16_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
-	FIFO16_InitBuffer(&Easy_RxTimeBuffer,Easy_timeBuffer,EASY_RX_BUFFER_SIZE);
-	
+		
 	//Easy_rxStatus.indication = EASY_NO_INDICATION;
 
 	return;
@@ -263,9 +269,22 @@ EASY_INLINE void Easy_RxFinished(void)
 
 EASY_INLINE void Easy_RxPreStart(void)
 {
+   uint16_t timeDiff = 0;
    if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
    {
-      
+      timeDiff = EASY_CALCULATE_TIME_DIFF(Easy_rxStatus.startTime);
+      if(EASY_IS_START_UP_IN_TIME(timeDiff))
+      {
+         
+      }
+      else if(EASY_IS_START_UP_IN_TIME(timeDiff))
+      {
+         
+      }
+      else
+      {
+         
+      }
    }
    return;
 }
