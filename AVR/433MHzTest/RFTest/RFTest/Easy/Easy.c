@@ -296,17 +296,20 @@ EASY_INLINE void Easy_RxPreStart(void)
          else
          {
             /*--- Error ---*/
+            //Easy_SetFsmSignal(EASY_RX_ERROR);
          }
          
       }
       else
       {
          /*--- Error ---*/  
+         //Easy_SetFsmSignal(EASY_RX_ERROR);
       }
    }
    else
    {
       /*--- Error ---*/
+      //Easy_SetFsmSignal(EASY_RX_ERROR);
    }
    return;
 }
