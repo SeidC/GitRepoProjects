@@ -46,7 +46,15 @@
 
 #define EASY_IS_START_UP_IN_TIME(t)                   \
         ((t >= EASY_START_UP_MIN_TIME) && (t <= EASY_START_UP_MAX_TIME))
+/*--- Defines for StartUp with First Received Edge----------------------------------*/
+#define EASY_START_UP_RX_EDGE_MIN_TIME                \
+        (internalCfg->startTime + EASY_RX_MIN_EDGE_TIME)
 
+#define EASY_START_UP_RX_EDGE_MAX_TIME                \
+        (internalCfg->startTime + EASY_RX_MAX_EDGE_TIME)
+
+#define EASY_IS_START_UP_W_RX_EDGE_IN_TIME(t)         \
+         ((t >= EASY_START_UP_RX_EDGE_MIN_TIME) && (t <= EASY_START_UP_RX_EDGE_MAX_TIME))
 /*--- Local Parameter ---------------------------------------------------------*/
 
 /**
@@ -275,16 +283,30 @@ EASY_INLINE void Easy_RxPreStart(void)
       timeDiff = EASY_CALCULATE_TIME_DIFF(Easy_rxStatus.startTime);
       if(EASY_IS_START_UP_IN_TIME(timeDiff))
       {
-         
+         Easy_SetFsmSignal(EASY_RX_RECEIVE);
       }
-      else if(EASY_IS_START_UP_IN_TIME(timeDiff))
+      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(timeDiff))
       {
+         if(Easy_rxStatus.bitCount == 0)
+         {
+            Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);
+            Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
+            Easy_SetFsmSignal(EASY_RX_RECEIVE);
+         }
+         else
+         {
+            /*--- Error ---*/
+         }
          
       }
       else
       {
-         
+         /*--- Error ---*/  
       }
+   }
+   else
+   {
+      /*--- Error ---*/
    }
    return;
 }
