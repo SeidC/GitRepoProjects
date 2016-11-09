@@ -7,13 +7,20 @@
 
 #include "Timer1.h"
 #include "avr/io.h"
-
+#include "avr/interrupt.h"
 #include "PR_DEF.h"
+
+
+static uint32_t  Timer1_overFlowCount;
+
 
 void Timer1_Init(void)
 {
 	TCCR1A = TIMER1_CONTROL_A_REGISTER;
 	TCCR1B = TIMER1_CONTROL_B_REGISTER;
+   TIMSK  |= TIMER1_INTERRUPT_MASK_CFG;
+   Timer1_overFlowCount = 0;
+   sei();
 }
 
 
@@ -23,17 +30,35 @@ uint16_t Timer1_GetCounterValueUs(void)
 }
 
 
-uint16_t Timer1_CalculateTimeDiff(uint16_t diffTime)
+uint16_t Timer1_CalculateTimeDiff(Timer1_Time_t* diffTime)
 {
-   uint16_t ret = 0;
-   if(!TIMER1_HAS_TIMER_OVERFLOW())
-   {
-      ret = TIMER1_GET_ACTUAL_COUNTER_VALUE() - diffTime;   
-   }
-   else
-   {
-      ret =    (TIMER1_COUNTER_MAX - diffTime) + TIMER1_GET_ACTUAL_COUNTER_VALUE();
-      TIMER1_RESET_OVERFLOW_FLAG();
-   }
+   uint16_t ret;
+   uint32_t cVal, diff;
+   
+   diff = (uint32_t)diffTime->overflow * (uint32_t)TIMER1_COUNTER_MAX +
+          (uint32_t)diffTime->count;
+   
+   cVal = (uint32_t)Timer1_overFlowCount * (uint32_t)TIMER1_COUNTER_MAX +
+   TIMER1_GET_ACTUAL_COUNTER_VALUE();
+   
+   ret = cVal - diff;   
    return ret;
+}
+
+
+TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr)
+{
+   if(ptr != NULL)
+   {
+      ptr->count = (uint16_t)TCNT1;
+      ptr->overflow = Timer1_overFlowCount;
+   }
+   return;
+}
+
+
+
+InterruptRoutine(TIMER1_OVF_vect)
+{
+   Timer1_overFlowCount++;
 }

@@ -260,7 +260,7 @@ EASY_INLINE void Easy_RxNoIndication(void)
 {
     if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
     {
-       Easy_rxStatus.startTime = EASY_GET_TIME();
+       EASY_GET_TIME(&Easy_rxStatus.startTime);
        Easy_SetFsmSignal(EASY_RX_PRE_START);
     }
     else
@@ -280,7 +280,7 @@ EASY_INLINE void Easy_RxPreStart(void)
    uint16_t timeDiff = 0;
    if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
    {
-      timeDiff = EASY_CALCULATE_TIME_DIFF(Easy_rxStatus.startTime);
+      timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.startTime);
       if(EASY_IS_START_UP_IN_TIME(timeDiff))
       {
          Easy_SetFsmSignal(EASY_RX_RECEIVE);

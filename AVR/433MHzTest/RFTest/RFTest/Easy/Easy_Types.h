@@ -9,6 +9,7 @@
 #ifndef EASY_TYPES_H_
 #define EASY_TYPES_H_
 #include "avr/io.h"
+#include "Timer1.h"
 
 #define EASY_VOL                                      \
         volatile
@@ -44,7 +45,7 @@ typedef struct
    uint16_t bitBuffer;
    uint16_t bitCount;
    
-   uint16_t startTime;
+   Timer1_Time_t startTime;
   // Easy_RxIndication_t indication;
 }Easy_RxStatus_t;
 

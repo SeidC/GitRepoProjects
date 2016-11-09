@@ -44,7 +44,7 @@
 
 /*--- Other Required Interfaces ------------------------------------------------------------*/
 #define EASY_GET_TIME	                              \
-        TIMER1_GET_ACTUAL_COUNTER_VALUE
+        Timer1_GetCount
 
 
 #define EASY_CONVERT_TIME                             \

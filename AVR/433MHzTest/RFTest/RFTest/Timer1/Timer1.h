@@ -34,13 +34,25 @@
 		
 #define TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime)        \
 	     ((uint16_t)((F_CPU * (uint64_t)usTime) / (MEGA * (uint32_t)TIMER1_PRESCALER_CFG))) 
-        
+
+
+typedef struct  
+{
+   uint16_t count;
+   uint16_t overflow;
+   
+}Timer1_Time_t;
+
+
 void Timer1_Init(void);
 
 
 uint16_t Timer1_GetCounterValueUs(void);
 
-uint16_t Timer1_CalculateTimeDiff(uint16_t diffTime);
+uint16_t Timer1_CalculateTimeDiff(Timer1_Time_t* diffTime);
+
+void Timer1_GetCount(Timer1_Time_t *ptr);
+
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)

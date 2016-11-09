@@ -9,6 +9,8 @@
 #ifndef TIMER1_CFG_H_
 #define TIMER1_CFG_H_
 
+#define TIMER1_INLINE
+
 #define TIMER1_PORT_DISCONNECTED                0x00
 #define TIMER1_TOGGLE_ON_COMPARE_MATCH          0x01
 #define TIMER1_CLEAR_ON_COMPARE_MATCH           0x02
@@ -32,6 +34,16 @@
 #define TIMER1_WAVE_FORM_GENERATION_CFG         TIMER1_NORMAL_MODE
 /*Config for Prescaler*/
 #define TIMER1_PRESCALER_CFG                    TIMER1_PRESCALER_1 
+
+
+/*--- Defines/Types for Interrupt Mask Configuration ----------------------------------*/
+#define TIMER1_OVERFLOW_INTERRUPT_ENABLE           (1 << TOIE1)
+#define TIMER1_OUTPUT_COMPARE_A_INTERRUPT_ENABLE   (1 << OCIE1A)
+#define TIMER1_OUTPUT_COMPARE_B_INTERRUPT_ENABLE   (1 << OCIE1B)
+#define TIMER1_INPUT_CAPUTURE_INTERRUPT_ENABLE     (1 << TICIE1)
+
+
+#define TIMER1_INTERRUPT_MASK_CFG                  TIMER1_OVERFLOW_INTERRUPT_ENABLE
 
 
 #define TIMER1_CONTROL_A_REGISTER                             \
