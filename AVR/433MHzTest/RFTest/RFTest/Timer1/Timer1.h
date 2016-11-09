@@ -17,7 +17,7 @@
 		  ((TIFR & (1 << TOV1)) >> TOV1)
 
 #define TIMER1_RESET_OVERFLOW_FLAG()                     \
-        (TIFR & (1 << TOV1))
+        (TIFR &= ~(1 << TOV1))
 
 #define TIMER1_COUNTER_MAX							            \
 		  (INT16_MAX)

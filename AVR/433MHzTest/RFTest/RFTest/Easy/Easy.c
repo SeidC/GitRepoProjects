@@ -21,7 +21,7 @@
 		  ((reg & (1 << bit)) >> bit)
 
 #define EASY_GET_US_DELAY()						         \
-		  (internalCfg->txBaudrate)
+		  (Easy_internalCfg->txBaudrate)
 
 #define EASY_SET_TX_TO_DEFAULT()                      \
         (EASY_CLEAR_TX())
@@ -29,29 +29,29 @@
 /*--- Defines for Received Edges ---------------------------------------------------*/		
 
 #define EASY_RX_MIN_EDGE_TIME					            \
-        (internalCfg->rxEdgeTime - internalCfg->rxNegOffset)
+        (Easy_internalCfg->rxEdgeTime - Easy_internalCfg->rxNegOffset)
 		
 #define EASY_RX_MAX_EDGE_TIME					            \
-        (internalCfg->rxEdgeTime + internalCfg->rxPosOffset)		
+        (Easy_internalCfg->rxEdgeTime + Easy_internalCfg->rxPosOffset)		
 
 #define EASY_IS_RX_EDGE_IN_TIME(t)                    \
         ((t >= EASY_RX_MIN_EDGE_TIME) && (t <= EASY_RX_MAX_EDGE_TIME))
 
 /*--- Defines for StartUp ----------------------------------------------------------*/
 #define EASY_START_UP_MIN_TIME                        \
-        (internalCfg->startTime - internalCfg->startMinTimeOffset)
+        (Easy_internalCfg->startTime - Easy_internalCfg->startMinTimeOffset)
 
 #define EASY_START_UP_MAX_TIME                        \
-        (internalCfg->startTime + internalCfg->startMaxTimeOfset)
+        (Easy_internalCfg->startTime + Easy_internalCfg->startMaxTimeOfset)
 
 #define EASY_IS_START_UP_IN_TIME(t)                   \
         ((t >= EASY_START_UP_MIN_TIME) && (t <= EASY_START_UP_MAX_TIME))
 /*--- Defines for StartUp with First Received Edge----------------------------------*/
 #define EASY_START_UP_RX_EDGE_MIN_TIME                \
-        (internalCfg->startTime + EASY_RX_MIN_EDGE_TIME)
+        (Easy_internalCfg->startTime + EASY_RX_MIN_EDGE_TIME)
 
 #define EASY_START_UP_RX_EDGE_MAX_TIME                \
-        (internalCfg->startTime + EASY_RX_MAX_EDGE_TIME)
+        (Easy_internalCfg->startTime + EASY_RX_MAX_EDGE_TIME)
 
 #define EASY_IS_START_UP_W_RX_EDGE_IN_TIME(t)         \
          ((t >= EASY_START_UP_RX_EDGE_MIN_TIME) && (t <= EASY_START_UP_RX_EDGE_MAX_TIME))
