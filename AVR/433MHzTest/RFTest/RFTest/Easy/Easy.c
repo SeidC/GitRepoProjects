@@ -81,7 +81,11 @@ EASY_VOL_STAT Easy_Config_t* Easy_internalCfg = NULL;
 EASY_VOL EASY_RXFSM_EVENT_T msg;
 
 EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm;
- 
+
+
+static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
+
+
 void Easy_Init(Easy_Config_t *cftPtr)
 {
    Easy_internalCfg = cftPtr;
@@ -190,64 +194,6 @@ void Easy_TransmissionStart(void)
    return;
 }
 
-EASY_INLINE void Easy_RxInterruptRoutine(void)
-{
-   /*
-   uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-   uint8_t cBit = EASY_GET_BIT(*pin,EASY_RX_PIN);
-   uint8_t oBit = Easy_rxStatus.lastBit;
-   
-   if(Easy_rxStatus.indication == EASY_NO_INDICATION)
-   {
-      if(MANCHESTER_IS_RISNG_EDGE(oBit,cBit) == TRUE)
-      {
-         Easy_rxStatus.startTime = EASY_GET_TIME();
-         Easy_rxStatus.indication = EASY_RX_PRE_START;
-      }
-      else
-      {
-         
-      }      
-   }
-   else if(Easy_rxStatus.indication == EASY_RX_PRE_START)
-   {
-      if(MANCHESTER_IS_FALLING_EDGE(oBit,cBit) == TRUE)
-      {
-         
-      }
-      else
-      {
-         
-      }
-   }
-   
-   if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
-   {
-      if((Easy_rxStatus.lastBit == 0) && (cBit == 1))
-      {
-         Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
-      }
-      else if((Easy_rxStatus.lastBit == 1) && (cBit == 0))
-      {
-         Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);         
-      }
-      else
-      {
-         __asm("NOP");
-      }
-      Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
-   }
-   
-   if (Easy_rxStatus.bitCount >= MANCHESTER_GET_MSG_BIT_SIZE())
-   {
-      FIFO16_Write(&Easy_RxEdgeBuffer,Easy_rxStatus.bitBuffer);
-      Easy_rxStatus.bitBuffer = 0;
-      Easy_rxStatus.bitCount = 0;
-   }      
-   Easy_rxStatus.oBit = nBit;   
-   */      
-}
-
 
 EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal)
 {
@@ -265,7 +211,7 @@ EASY_INLINE void Easy_RxNoIndication(void)
     }
     else
     {
-       /*--- Do Nothing ---*/
+       Easy_ReportError(Easy_rxFsm.stateVar,0);
     }
     return;  
 }
@@ -280,12 +226,12 @@ EASY_INLINE void Easy_RxPreStart(void)
    uint16_t timeDiff = 0;
    if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
    {
-      timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.startTime);
-      if(EASY_IS_START_UP_IN_TIME(timeDiff))
+      Easy_rxStatus.stopTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.startTime);
+      if(EASY_IS_START_UP_IN_TIME(Easy_rxStatus.stopTime))
       {
          Easy_SetFsmSignal(EASY_RX_RECEIVE);
       }
-      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(timeDiff))
+      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.stopTime))
       {
          if(Easy_rxStatus.bitCount == 0)
          {
@@ -295,21 +241,18 @@ EASY_INLINE void Easy_RxPreStart(void)
          }
          else
          {
-            /*--- Error ---*/
-            //Easy_SetFsmSignal(EASY_RX_ERROR);
+            Easy_ReportError(Easy_rxFsm.stateVar,0);
          }
          
       }
       else
       {
-         /*--- Error ---*/  
-         //Easy_SetFsmSignal(EASY_RX_ERROR);
+         Easy_ReportError(Easy_rxFsm.stateVar,1);
       }
    }
    else
    {
-      /*--- Error ---*/
-      //Easy_SetFsmSignal(EASY_RX_ERROR);
+      Easy_ReportError(Easy_rxFsm.stateVar,2);
    }
    return;
 }
@@ -321,5 +264,34 @@ EASY_INLINE void Easy_RxReceiveError(void)
 
 EASY_INLINE void Easy_RxReceive(void)
 {
+   if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
+   {
+      if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
+      {
+         Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
+      }
+      else if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
+      {
+         Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);
+      }
+      else
+      {
+         Easy_ReportError(Easy_rxFsm.stateVar,0);
+      }
+      Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
+   }
    
+   if (Easy_rxStatus.bitCount >= MANCHESTER_GET_MSG_BIT_SIZE())
+   {
+      FIFO16_Write(&Easy_RxEdgeBuffer,Easy_rxStatus.bitBuffer);
+      Easy_rxStatus.bitBuffer = 0;
+      Easy_rxStatus.bitCount = 0;
+   }
+   return;
+}
+
+static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId)
+{
+   
+   __asm("nop");
 }

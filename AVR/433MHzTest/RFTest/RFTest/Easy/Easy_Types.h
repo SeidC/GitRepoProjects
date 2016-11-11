@@ -46,7 +46,7 @@ typedef struct
    uint16_t bitCount;
    
    Timer1_Time_t startTime;
-  // Easy_RxIndication_t indication;
+   uint16_t stopTime;
 }Easy_RxStatus_t;
 
 
