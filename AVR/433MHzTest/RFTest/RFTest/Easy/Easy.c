@@ -83,8 +83,12 @@ EASY_VOL EASY_RXFSM_EVENT_T msg;
 EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm;
 
 
-static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
 
+
+static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
+EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime);
+
+EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void);
 
 void Easy_Init(Easy_Config_t *cftPtr)
 {
@@ -174,12 +178,20 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-    uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-    Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);    
+   uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
+   Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);  
     
-    Easy_RxFsm(&Easy_rxFsm);
+   EASY_GET_TIME(&Easy_rxStatus.nTime);  
+   if (Easy_GetFsmState() != Easy_RxNoIndicationState)
+   {
+      Easy_rxStatus.timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);   
+   }
     
-    Easy_rxStatus.oBit = Easy_rxStatus.nBit;
+    
+   Easy_RxFsm(&Easy_rxFsm);
+    
+   Easy_rxStatus.oBit = Easy_rxStatus.nBit;
+   Easy_BackUpTime(&Easy_rxStatus.oBit,&Easy_rxStatus.nTime);
 }
 
 
@@ -206,8 +218,7 @@ EASY_INLINE void Easy_RxNoIndication(void)
 {
     if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
     {
-       EASY_GET_TIME(&Easy_rxStatus.startTime);
-       Easy_SetFsmSignal(EASY_RX_PRE_START);
+      Easy_SetFsmSignal(EASY_RX_PRE_START);
     }
     else
     {
@@ -223,15 +234,16 @@ EASY_INLINE void Easy_RxFinished(void)
 
 EASY_INLINE void Easy_RxPreStart(void)
 {
-   uint16_t timeDiff = 0;
    if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
    {
-      Easy_rxStatus.stopTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.startTime);
-      if(EASY_IS_START_UP_IN_TIME(Easy_rxStatus.stopTime))
+      
+      if(EASY_IS_START_UP_IN_TIME(Easy_rxStatus.timeDiff))
       {
+         Easy_rxStatus.start = TRUE;
+         
          Easy_SetFsmSignal(EASY_RX_RECEIVE);
       }
-      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.stopTime))
+      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff))
       {
          if(Easy_rxStatus.bitCount == 0)
          {
@@ -252,7 +264,7 @@ EASY_INLINE void Easy_RxPreStart(void)
    }
    else
    {
-      Easy_ReportError(Easy_rxFsm.stateVar,2);
+      if(Easy_rxStatus.start == TRUE && )
    }
    return;
 }
@@ -294,4 +306,18 @@ static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId)
 {
    
    __asm("nop");
+}
+
+
+EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void)
+{
+   return Easy_rxFsm.stateVar;
+}
+
+
+EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime)
+{
+   nTime->count = oTime->count;
+   nTime->overflow = oTime->overflow;
+   return;
 }

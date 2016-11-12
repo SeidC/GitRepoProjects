@@ -30,7 +30,7 @@ uint16_t Timer1_GetCounterValueUs(void)
 }
 
 
-uint16_t Timer1_CalculateTimeDiff(Timer1_Time_t* diffTime)
+uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime)
 {
    uint16_t ret;
    uint32_t cVal, diff;
@@ -61,4 +61,19 @@ TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr)
 InterruptRoutine(TIMER1_OVF_vect)
 {
    Timer1_overFlowCount++;
+}
+
+uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime)
+{
+      uint16_t ret;
+      uint32_t nDiff, oDiff;
+      
+      oDiff = (uint32_t)oTime->overflow * (uint32_t)TIMER1_COUNTER_MAX +
+      (uint32_t)oTime->count;
+      
+      nDiff = (uint32_t)nTime->overflow* (uint32_t)TIMER1_COUNTER_MAX +
+               nTime->count;
+      
+      ret = nDiff - oDiff;
+      return ret;
 }

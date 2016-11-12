@@ -45,4 +45,5 @@ EASY_INLINE void Easy_RxReceiveError(void);
 
 EASY_INLINE void Easy_RxReceive(void);
 
+
 #endif /* EASY_H_ */

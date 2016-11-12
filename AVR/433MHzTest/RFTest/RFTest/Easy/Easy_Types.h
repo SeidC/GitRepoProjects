@@ -42,11 +42,13 @@ typedef struct
    
    uint8_t oBit;
    uint8_t nBit;
+   Timer1_Time_t oTime;
+   Timer1_Time_t nTime;
+   uint16_t timeDiff;
+   bool_t start;
+   
    uint16_t bitBuffer;
    uint16_t bitCount;
-   
-   Timer1_Time_t startTime;
-   uint16_t stopTime;
 }Easy_RxStatus_t;
 
 

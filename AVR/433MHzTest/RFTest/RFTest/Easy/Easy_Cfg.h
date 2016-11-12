@@ -51,7 +51,7 @@
         TIMER1_CALCULATE_US_TIME_TO_TICKS
 
 #define EASY_CALCULATE_TIME_DIFF               \
-        Timer1_CalculateTimeDiff
+        Timer1_CalculateTimeDiffBetweenTimes
         
 extern Easy_Config_t Easy_config;
 

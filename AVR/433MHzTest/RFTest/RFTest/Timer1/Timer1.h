@@ -49,10 +49,11 @@ void Timer1_Init(void);
 
 uint16_t Timer1_GetCounterValueUs(void);
 
-uint16_t Timer1_CalculateTimeDiff(Timer1_Time_t* diffTime);
+uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime);
 
 void Timer1_GetCount(Timer1_Time_t *ptr);
 
+uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)
