@@ -74,6 +74,6 @@ uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t
       nDiff = (uint32_t)nTime->overflow* (uint32_t)TIMER1_COUNTER_MAX +
                nTime->count;
       
-      ret = nDiff - oDiff;
+      ret = (uint16_t)(nDiff - oDiff);
       return ret;
 }

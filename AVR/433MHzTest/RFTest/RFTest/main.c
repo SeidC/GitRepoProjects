@@ -37,7 +37,7 @@ int main(void)
 		if(transmit == 1)
 		{
          Easy_TransmissionStart();
-			Easy_TransmitChar("A");
+			Easy_TransmitChar(0x85);
 			transmit = 0;	
 		}
 		Easy_RxMainfunction();	

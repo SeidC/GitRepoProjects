@@ -37,6 +37,17 @@
 #define EASY_IS_RX_EDGE_IN_TIME(t)                    \
         ((t >= EASY_RX_MIN_EDGE_TIME) && (t <= EASY_RX_MAX_EDGE_TIME))
 
+/*--- Defines for Received Edges ---------------------------------------------------*/	
+
+#define EASY_RX_MIN_EDGES_TIME					            \
+        ((Easy_internalCfg->rxEdgeTime * 2) - Easy_internalCfg->rxNegOffset)
+
+#define EASY_RX_MAX_EDGES__TIME					            \
+        ((Easy_internalCfg->rxEdgeTime * 2) + Easy_internalCfg->rxPosOffset)
+
+#define EASY_ARE_RX_EDGES_IN_TIME(t)                    \
+((t >= EASY_RX_MIN_EDGES_TIME) && (t <= EASY_RX_MAX_EDGES__TIME))
+
 /*--- Defines for StartUp ----------------------------------------------------------*/
 #define EASY_START_UP_MIN_TIME                        \
         (Easy_internalCfg->startTime - Easy_internalCfg->startMinTimeOffset)
@@ -191,7 +202,7 @@ InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
    Easy_RxFsm(&Easy_rxFsm);
     
    Easy_rxStatus.oBit = Easy_rxStatus.nBit;
-   Easy_BackUpTime(&Easy_rxStatus.oBit,&Easy_rxStatus.nTime);
+   Easy_BackUpTime(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);
 }
 
 
@@ -236,14 +247,7 @@ EASY_INLINE void Easy_RxPreStart(void)
 {
    if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
    {
-      
-      if(EASY_IS_START_UP_IN_TIME(Easy_rxStatus.timeDiff))
-      {
-         Easy_rxStatus.start = TRUE;
-         
-         Easy_SetFsmSignal(EASY_RX_RECEIVE);
-      }
-      else if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff))
+      if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff))
       {
          if(Easy_rxStatus.bitCount == 0)
          {
@@ -254,8 +258,11 @@ EASY_INLINE void Easy_RxPreStart(void)
          else
          {
             Easy_ReportError(Easy_rxFsm.stateVar,0);
-         }
-         
+         }         
+      }
+      else if (EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff) == TRUE)
+      {
+         /*--- DO NOTHING ---*/
       }
       else
       {
@@ -264,7 +271,16 @@ EASY_INLINE void Easy_RxPreStart(void)
    }
    else
    {
-      if(Easy_rxStatus.start == TRUE && )
+      if(EASY_IS_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff) == TRUE)
+      {
+          Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
+          Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
+          Easy_SetFsmSignal(EASY_RX_RECEIVE);
+      }
+      else
+      {
+         Easy_ReportError(Easy_rxFsm.stateVar,2);
+      }
    }
    return;
 }
@@ -317,7 +333,7 @@ EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void)
 
 EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime)
 {
-   nTime->count = oTime->count;
-   nTime->overflow = oTime->overflow;
+   oTime->count     = nTime->count;
+   oTime->overflow  = nTime->overflow;
    return;
 }
