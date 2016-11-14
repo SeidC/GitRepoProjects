@@ -144,7 +144,7 @@ void Easy_TransmitChar(char p)
 		{
 			EASY_CLEAR_TX();
 		}
-		_delay_us(EASY_GET_US_DELAY());
+		//_delay_us(EASY_GET_US_DELAY());
 	}
 	
 	return;
@@ -162,7 +162,7 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	{
 		tick = Manchester_GetTick(&data);
 		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
-		_delay_us(EASY_GET_US_DELAY());
+		//_delay_us(EASY_GET_US_DELAY());
 	}
 	return;
 }

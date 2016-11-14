@@ -57,6 +57,5 @@
 		(TIMER1_PRESCALER_CFG << CS10))
 
 
-#define TIMER1_OUTPUT_COMPER_A_US_TIME				250u
-
+#define TIMER_1_OVERFLOW_INTERRUPT                 TIMER1_OVF_vect
 #endif /* TIMER1_CFG_H_ */

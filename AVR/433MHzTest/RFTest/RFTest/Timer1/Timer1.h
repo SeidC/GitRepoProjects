@@ -20,7 +20,7 @@
         (TIFR &= ~(1 << TOV1))
 
 #define TIMER1_COUNTER_MAX							            \
-		  (INT16_MAX)
+		  (UINT16_MAX)
 
 #define TIMER1_GET_ACTUAL_COUNTER_VALUE()			         \
 		  ((uint16_t)TCNT1)
@@ -39,13 +39,14 @@
 typedef struct  
 {
    uint16_t count;
-   uint16_t overflow;
+   uint32_t overflow;
    
 }Timer1_Time_t;
 
 
 void Timer1_Init(void);
 
+void Timer1_WaitUsHard(uint16_t usTime);
 
 uint16_t Timer1_GetCounterValueUs(void);
 
@@ -54,6 +55,8 @@ uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime);
 void Timer1_GetCount(Timer1_Time_t *ptr);
 
 uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
+
+TIMER1_INLINE uint16_t Timer1_GetOverflowGap(Timer1_Time_t *oTimer,Timer1_Time_t *nTimer);
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)

@@ -22,9 +22,9 @@ int main(void)
 	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(300);
 	uint8_t transmit = 0;
    
-   volatile uint8_t *port =  ((volatile uint8_t*) (&PORTB - 2));
-
-
+   DDRB = 0xff;
+   PORTB = 0x00;
+   
 	Easy_Init(&Easy_config);
 	Timer1_Init();
 	sei();
@@ -34,6 +34,7 @@ int main(void)
 	
 	while (1) 
     {
+     /**
 		if(transmit == 1)
 		{
          Easy_TransmissionStart();
@@ -41,6 +42,12 @@ int main(void)
 			transmit = 0;	
 		}
 		Easy_RxMainfunction();	
+      
+     */
+      PORTB |= (1 << PINB1);
+      Timer1_WaitUsHard(250);
+      PORTB &= ~(1 << PINB1);
+      Timer1_WaitUsHard(250);
     }
 }
 
