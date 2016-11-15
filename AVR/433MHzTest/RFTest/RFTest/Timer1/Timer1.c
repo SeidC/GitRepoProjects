@@ -10,9 +10,9 @@
 #include "avr/interrupt.h"
 #include "PR_DEF.h"
 
+TIMER1_INLINE uint16_t Timer1_GetOverflowGap(Timer1_Time_t *oTimer,Timer1_Time_t *nTimer);
 
 volatile static uint32_t  Timer1_overFlowCount;
-
 
 void Timer1_Init(void)
 {
@@ -29,19 +29,24 @@ uint16_t Timer1_GetCounterValueUs(void)
 	return ((TCNT1 * 1000000 * TIMER1_PRESCALER_CALC_VALUE)/F_CPU);
 }
 
-  uint16_t ret;
-  uint32_t cVal, diff;
+
 
 uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime)
 {
- 
+   uint16_t ret,gap;
+   uint32_t cVal, diff;
    
-   diff = (uint32_t)diffTime->overflow * (uint32_t)TIMER1_COUNTER_MAX +
-          (uint32_t)diffTime->count;
+   Timer1_Time_t currentTime = 
+         {
+            .count = TIMER1_GET_ACTUAL_COUNTER_VALUE(),
+            .overflow = Timer1_overFlowCount,
+         };
+         
+   gap =  Timer1_GetOverflowGap(diffTime,&currentTime);
    
-   cVal = (uint32_t)Timer1_overFlowCount * (uint32_t)TIMER1_COUNTER_MAX +
-           TIMER1_GET_ACTUAL_COUNTER_VALUE();
-      
+   cVal = (uint32_t)(gap) * (uint32_t)TIMER1_COUNTER_MAX + currentTime.count;
+   
+   ret = cVal - diffTime->count;
    return ret;
 }
 
@@ -59,13 +64,13 @@ TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr)
 TIMER1_INLINE uint16_t Timer1_GetOverflowGap(Timer1_Time_t *oTimer,Timer1_Time_t *nTimer)
 {
    uint16_t ret = 0;
-   if(nTimer->overflow > oTimer->overflow)
+   if(nTimer->overflow >= oTimer->overflow)
    {
       ret = nTimer->overflow - oTimer->overflow;
    }
    else
    {
-      ret = INT16_MAX - oTimer->overflow + nTimer->overflow
+      ret = INT16_MAX - oTimer->overflow + nTimer->overflow;
    }
    return ret;
 }
@@ -93,19 +98,11 @@ uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t
 
 void Timer1_WaitUsHard(uint16_t usTime)
 {
-   bool_t exitLoop = FALSE;
    Timer1_Time_t tTime;
-   uint16_t calc;
-   usTime = TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime);
    Timer1_GetCount(&tTime);
-   
-   while (exitLoop == FALSE)
-   {
-      calc = Timer1_CalculateActualTimeDiff(&tTime);
-      if (calc  >= usTime)
-      {
-         exitLoop = TRUE; 
-      }
-   }   
+   usTime = TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime - TIMER1_WAIT_US_HARD_OFFSET);
+   do{
+         /*--- Do Nothing ---*/
+   }while(Timer1_CalculateActualTimeDiff(&tTime) < usTime);
    return;
 }

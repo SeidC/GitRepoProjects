@@ -16,10 +16,9 @@
 uint16_t buff[11] = {};
 
 
-int main(void)
-{
+int main(void){
 	
-	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(300);
+	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(100);
 	uint8_t transmit = 0;
    
    DDRB = 0xff;
@@ -45,9 +44,9 @@ int main(void)
       
      */
       PORTB |= (1 << PINB1);
-      Timer1_WaitUsHard(250);
+      Timer1_WaitUsHard(15);
       PORTB &= ~(1 << PINB1);
-      Timer1_WaitUsHard(250);
+      Timer1_WaitUsHard(15);
     }
 }
 

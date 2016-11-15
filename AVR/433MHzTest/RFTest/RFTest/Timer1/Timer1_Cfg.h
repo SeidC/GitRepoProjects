@@ -9,7 +9,13 @@
 #ifndef TIMER1_CFG_H_
 #define TIMER1_CFG_H_
 
-#define TIMER1_INLINE
+#ifdef  DEBUG
+   #define TIMER1_INLINE                     
+#endif
+#ifdef RELEASE
+   #define TIMER1_INLINE  inline
+#endif
+
 
 #define TIMER1_PORT_DISCONNECTED                0x00
 #define TIMER1_TOGGLE_ON_COMPARE_MATCH          0x01
@@ -58,4 +64,7 @@
 
 
 #define TIMER_1_OVERFLOW_INTERRUPT                 TIMER1_OVF_vect
+
+
+#define TIMER1_WAIT_US_HARD_OFFSET                  10u
 #endif /* TIMER1_CFG_H_ */

@@ -31,9 +31,15 @@
 #define TIMER1_RESET_OVERFLOW()						         \
         ((TIFR &= ~(1 << TOV1)))
 
-		
+
+#define TIMER1_FREQUENCY_FACTOR                          \
+		   ((F_CPU) /((uint32_t)MEGA * (uint32_t)TIMER1_PRESCALER_CFG))
+         
+   
 #define TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime)        \
-	     ((uint16_t)((F_CPU * (uint64_t)usTime) / (MEGA * (uint32_t)TIMER1_PRESCALER_CFG))) 
+	     ((uint16_t)((usTime) * TIMER1_FREQUENCY_FACTOR))
+
+
 
 
 typedef struct  
@@ -55,8 +61,6 @@ uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime);
 void Timer1_GetCount(Timer1_Time_t *ptr);
 
 uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
-
-TIMER1_INLINE uint16_t Timer1_GetOverflowGap(Timer1_Time_t *oTimer,Timer1_Time_t *nTimer);
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)
