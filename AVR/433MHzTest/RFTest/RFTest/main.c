@@ -33,20 +33,20 @@ int main(void){
 	
 	while (1) 
     {
-     /**
-		if(transmit == 1)
+  
+		//if(transmit == 1)
 		{
-         Easy_TransmissionStart();
-			Easy_TransmitChar(0x85);
-			transmit = 0;	
+         //Easy_TransmissionStart();
+			//Easy_TransmitChar(0x85);
+			//transmit = 0;	
+         PORTD |= (1 << PIND1);
+         Timer1_WaitUsHard(200);
+         PORTD &= ~(1 << PIND1);
+         
 		}
 		Easy_RxMainfunction();	
       
-     */
-      PORTB |= (1 << PINB1);
-      Timer1_WaitUsHard(15);
-      PORTB &= ~(1 << PINB1);
-      Timer1_WaitUsHard(15);
+     
     }
 }
 

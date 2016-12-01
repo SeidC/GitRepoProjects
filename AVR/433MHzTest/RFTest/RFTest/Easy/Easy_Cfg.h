@@ -52,6 +52,10 @@
 
 #define EASY_CALCULATE_TIME_DIFF               \
         Timer1_CalculateTimeDiffBetweenTimes
+ 
+
+#define EASY_WAIT_US                            \
+         Timer1_WaitUsHard 
         
 extern Easy_Config_t Easy_config;
 

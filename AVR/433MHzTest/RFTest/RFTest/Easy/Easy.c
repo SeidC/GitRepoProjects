@@ -144,7 +144,7 @@ void Easy_TransmitChar(char p)
 		{
 			EASY_CLEAR_TX();
 		}
-		//_delay_us(EASY_GET_US_DELAY());
+		EASY_WAIT_US(EASY_GET_US_DELAY());
 	}
 	
 	return;
@@ -162,7 +162,7 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	{
 		tick = Manchester_GetTick(&data);
 		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
-		//_delay_us(EASY_GET_US_DELAY());
+		EASY_WAIT_US(EASY_GET_US_DELAY());
 	}
 	return;
 }
@@ -186,10 +186,13 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 }
 
+volatile uint16_t diffTimes[30];
+volatile Timer1_Time_t times[30] = {};
+volatile uint8_t cnt = 0;
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-   uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
+  /* uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
    Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);  
     
    EASY_GET_TIME(&Easy_rxStatus.nTime);  
@@ -198,11 +201,20 @@ InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
       Easy_rxStatus.timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);   
    }
     
-    
+   
    Easy_RxFsm(&Easy_rxFsm);
-    
+   
    Easy_rxStatus.oBit = Easy_rxStatus.nBit;
    Easy_BackUpTime(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);
+   */
+  
+    EASY_GET_TIME(&times[cnt]);
+    if (cnt > 0)
+    {
+      diffTimes[cnt] = EASY_CALCULATE_TIME_DIFF(&times[cnt-1],&times[cnt]);      
+    }
+    
+    cnt++;
 }
 
 
@@ -212,7 +224,7 @@ void Easy_TransmissionStart(void)
    if(Easy_RxFsmIsInEasy_RxNoIndicationState(&Easy_rxFsm))
    {
       EASY_SET_TX();
-      _delay_us(200);
+      EASY_WAIT_US(200);
    }
    return;
 }

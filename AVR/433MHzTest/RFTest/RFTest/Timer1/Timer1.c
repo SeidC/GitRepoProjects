@@ -82,16 +82,14 @@ InterruptRoutine(TIMER_1_OVERFLOW_INTERRUPT)
 
 uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime)
 {
-      uint16_t ret;
-      uint32_t nDiff, oDiff;
+      uint16_t ret,gap;
+      uint32_t cVal, diff;
       
-      oDiff = (uint32_t)oTime->overflow * (uint32_t)TIMER1_COUNTER_MAX +
-      (uint32_t)oTime->count;
+      gap =  Timer1_GetOverflowGap(oTime,nTime);
       
-      nDiff = (uint32_t)nTime->overflow* (uint32_t)TIMER1_COUNTER_MAX +
-               nTime->count;
+      cVal = (uint32_t)(gap) * (uint32_t)TIMER1_COUNTER_MAX + nTime->count;
       
-      ret = (uint16_t)(nDiff - oDiff);
+      ret = cVal - oTime->count;
       return ret;
 }
 
