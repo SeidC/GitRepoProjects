@@ -49,7 +49,8 @@
 #define TIMER1_INPUT_CAPUTURE_INTERRUPT_ENABLE     (1 << TICIE1)
 
 
-#define TIMER1_INTERRUPT_MASK_CFG                  TIMER1_OVERFLOW_INTERRUPT_ENABLE
+#define TIMER1_INTERRUPT_MASK_CFG                  TIMER1_OVERFLOW_INTERRUPT_ENABLE |        \
+                                                   TIMER1_INPUT_CAPUTURE_INTERRUPT_ENABLE
 
 
 #define TIMER1_CONTROL_A_REGISTER                             \

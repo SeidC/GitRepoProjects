@@ -24,12 +24,12 @@
 
 #define EASY_RX_PORT						PORTD
 #define EASY_RX_DDR						DDRD
-#define EASY_RX_PIN						PIND2
+#define EASY_RX_PIN						PIND6
 /*--- Interrupt Rx Configuration ----------------------------------------------------------*/
 #define EASY_RX_INTERRUPT_REG_A				   MCUCR
 #define EASY_RX_INTERRUPT_REG_B				   GICR
 
-#define EASY_RX_INTERRUPT_VECTOR_CONFIG		INT0_vect
+#define EASY_RX_INTERRUPT_VECTOR_CONFIG		TIMER1_CAPT_vect
 #define EASY_RX_INTERRUPT_EDGE_CONFIG		   EASY_RX_INTERRUPT_ON_ANY_EDGE
 #define EASY_RX_INTERRUPT_ENABLE_CONFIG		EASY_RX_INTERRUPT_ENABLE
 
@@ -44,7 +44,7 @@
 
 /*--- Other Required Interfaces ------------------------------------------------------------*/
 #define EASY_GET_TIME	                              \
-        Timer1_GetCount
+        Timer1_GetInputCaptureCount
 
 
 #define EASY_CONVERT_TIME                             \

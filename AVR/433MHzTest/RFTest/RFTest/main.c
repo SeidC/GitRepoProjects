@@ -25,6 +25,7 @@ int main(void){
    PORTB = 0x00;
    
 	Easy_Init(&Easy_config);
+   TCCR1B |= (1 << ICES1);
 	Timer1_Init();
 	sei();
     /* Replace with your application code */
@@ -39,8 +40,9 @@ int main(void){
          //Easy_TransmissionStart();
 			//Easy_TransmitChar(0x85);
 			//transmit = 0;	
+         asm("nop");
          PORTD |= (1 << PIND1);
-         Timer1_WaitUsHard(200);
+         Timer1_WaitUsHard(150);
          PORTD &= ~(1 << PIND1);
          
 		}

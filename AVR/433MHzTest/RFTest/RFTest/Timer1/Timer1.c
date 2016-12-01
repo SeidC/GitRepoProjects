@@ -55,11 +55,22 @@ TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr)
 {
    if(ptr != NULL)
    {
-      ptr->count = (uint16_t)TCNT1;
+      ptr->count = TIMER1_GET_ACTUAL_COUNTER_VALUE();
       ptr->overflow = Timer1_overFlowCount;
    }
    return;
 }
+
+TIMER1_INLINE void Timer1_GetInputCaptureCount(Timer1_Time_t *ptr)
+{
+   if(ptr != NULL)
+   {
+      ptr->count = TIMER1_GET_INPUT_CAPTURE_TIME();
+      ptr->overflow = Timer1_overFlowCount;
+   }
+   return;
+}
+
 
 TIMER1_INLINE uint16_t Timer1_GetOverflowGap(Timer1_Time_t *oTimer,Timer1_Time_t *nTimer)
 {
@@ -103,4 +114,10 @@ void Timer1_WaitUsHard(uint16_t usTime)
          /*--- Do Nothing ---*/
    }while(Timer1_CalculateActualTimeDiff(&tTime) < usTime);
    return;
+}
+
+
+TIMER1_INLINE volatile uint32_t Timer1_GetOverflowCount(void)
+{
+   return Timer1_overFlowCount;
 }

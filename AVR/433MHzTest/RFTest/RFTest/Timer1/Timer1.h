@@ -24,7 +24,10 @@
 
 #define TIMER1_GET_ACTUAL_COUNTER_VALUE()			         \
 		  ((uint16_t)TCNT1)
-		
+
+#define TIMER1_GET_INPUT_CAPTURE_TIME()                  \
+        ((uint16_t)ICR1)
+
 #define TIMER1_CHECK_TIMER_OVERFLOW(valueToCheck)	      \
 		  ((TCNT1 + (uint32_t)valueToCheck) > TIMER1_COUNTER_MAX)
 		
@@ -58,9 +61,16 @@ uint16_t Timer1_GetCounterValueUs(void);
 
 uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime);
 
-void Timer1_GetCount(Timer1_Time_t *ptr);
+TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr);
 
 uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
+
+TIMER1_INLINE volatile uint32_t Timer1_GetOverflowCount(void);
+
+TIMER1_INLINE void Timer1_GetInputCaptureCount(Timer1_Time_t *ptr);
+
+
+
 
 #if TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1
    #define TIMER1_PRESCALER_CALC_VALUE					   ((uint16_t)1u)
