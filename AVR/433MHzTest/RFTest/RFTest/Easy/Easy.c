@@ -186,9 +186,6 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 }
 
-volatile static uint16_t diffTimes[30];
-volatile Timer1_Time_t times[30] = {};
-volatile uint8_t cnt = 0;
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
@@ -207,7 +204,7 @@ InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
    Easy_rxStatus.oBit = Easy_rxStatus.nBit;
    Easy_BackUpTime(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);
    */
-    EASY_GET_TIME(&times[cnt]);
+
     if((TCCR1B & (1 << ICES1)) > 0)
     {
       TCCR1B &= ~(1 << ICES1);   

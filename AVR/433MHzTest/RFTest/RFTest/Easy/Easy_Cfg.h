@@ -52,7 +52,8 @@
 
 #define EASY_CALCULATE_TIME_DIFF               \
         Timer1_CalculateTimeDiffBetweenTimes
- 
+
+#define EASY_CAPTURE_EDGE                             \ 
 
 #define EASY_WAIT_US                            \
          Timer1_WaitUsHard 

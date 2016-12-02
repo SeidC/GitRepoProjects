@@ -40,13 +40,13 @@ int main(void){
          //Easy_TransmissionStart();
 			//Easy_TransmitChar(0x85);
 			//transmit = 0;	
-         asm("nop");
          PORTD |= (1 << PIND1);
-         Timer1_WaitUsHard(150);
+         Timer1_WaitUsHard(50);
          PORTD &= ~(1 << PIND1);
+         Timer1_WaitUsHard(50);
          
 		}
-		Easy_RxMainfunction();	
+		//Easy_RxMainfunction();	
       
      
     }

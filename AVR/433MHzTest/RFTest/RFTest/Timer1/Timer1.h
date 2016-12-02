@@ -44,6 +44,11 @@
 
 
 
+typedef enum 
+{
+   TIMER1_CAPTURE_FALLING_EDGE           = 0u,
+   TIMER1_CAPTURE_RISING_EDGE            = 1u 
+}Timer1_InputCaptureEdge_t;
 
 typedef struct  
 {
