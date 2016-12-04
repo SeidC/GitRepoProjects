@@ -186,25 +186,13 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 }
 
+volatile uint8_t cnt;
+volatile diffTimes[30];
+Timer1_Time_t times[30]; 
+
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-  /* uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-   Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);  
-    
-   EASY_GET_TIME(&Easy_rxStatus.nTime);  
-   if (Easy_GetFsmState() != Easy_RxNoIndicationState)
-   {
-      Easy_rxStatus.timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);   
-   }
-    
-   
-   Easy_RxFsm(&Easy_rxFsm);
-   
-   Easy_rxStatus.oBit = Easy_rxStatus.nBit;
-   Easy_BackUpTime(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);
-   */
-
     if((TCCR1B & (1 << ICES1)) > 0)
     {
       TCCR1B &= ~(1 << ICES1);   
