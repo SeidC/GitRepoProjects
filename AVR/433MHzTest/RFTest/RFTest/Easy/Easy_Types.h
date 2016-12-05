@@ -27,38 +27,24 @@
 
 #define EASY_HIGH				(1u)
 
-  /*
-typedef enum
-{
-   EASY_NO_INDICATION			= 0x00 ,
-   EASY_RX_PRE_START          = 0x01 ,
-   EASY_RX_RECEIVE            = 0x02
-   
-}Easy_RxIndication_t;
-
-          */
 typedef struct 
 {
+   Timer1_Time_t lastTime;
+   Timer1_Time_t currentTime;
    
-   uint8_t oBit;
-   uint8_t nBit;
-   Timer1_Time_t oTime;
-   Timer1_Time_t nTime;
-   uint16_t timeDiff;
-   bool_t start;
-   
-   uint16_t bitBuffer;
-   uint16_t bitCount;
 }Easy_RxStatus_t;
 
 
 typedef struct
-{      
+{  
+   uint16_t txIndicationMaxTime;
+   uint16_t txIndicationMinTime;
    uint16_t txIndicationTime; 
+   
    uint16_t baudMax;
    uint16_t baudMin;
    uint16_t baudrate;
-}Easy_Config_t;                   
+}Easy_Config_t; 
 
 
 typedef enum

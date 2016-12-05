@@ -10,10 +10,14 @@
 
 Easy_Config_t Easy_config =
 {
-   .txIndicationTime  = EASY_CONVERT_TIME(300),
-   .baudMin           = EASY_CONVERT_TIME(175),
-   .baudMax           = EASY_CONVERT_TIME(225),
-   .baudrate          = EASY_CONVERT_TIME(200),
+   .txIndicationMinTime = 275,
+   .txIndicationTime    = 300,
+   .txIndicationMaxTime = 325,
+   
+   
+   .baudMin             = 175,
+   .baudMax             = 225,
+   .baudrate            = 200,
 };
 
 
@@ -29,4 +33,9 @@ EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void)
       Timer1_CaptureEdge(TIMER1_CAPTURE_RISING_EDGE);
    }
    return;
+}
+
+EASY_INLINE uint8_t Easy_GetCapturedEdge(void)
+{
+   return (uint8_t) Timer1_GetCapturedEdge();
 }

@@ -21,7 +21,7 @@
 		  ((reg & (1 << bit)) >> bit)
 
 #define EASY_GET_US_DELAY()						         \
-		  (Easy_internalCfg->baudrate)
+		  (Easy_internalTxCfg.baudrate)
 
 #define EASY_SET_TX_TO_DEFAULT()                      \
         (EASY_CLEAR_TX())
@@ -45,7 +45,9 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 /**
  *
  */
-EASY_VOL_STAT Easy_Config_t* Easy_internalCfg = NULL;
+EASY_VOL_STAT Easy_Config_t Easy_internalTxCfg;
+
+EASY_VOL_STAT Easy_Config_t Easy_internalRxCfg;
 
 /**
  *
@@ -60,11 +62,14 @@ EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm = EASY_RXFSM_INSTANCEDATA_INIT;
 static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
 EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime);
 
+void Easy_SetupConfiguration(Easy_Config_t *cftPtr);
+
 EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void);
 
-void Easy_Init(Easy_Config_t *cftPtr)
+void Easy_Init(Easy_Config_t *cfgPtr)
 {
-   Easy_internalCfg = cftPtr;
+   Easy_SetupConfiguration(cfgPtr);
+   
 	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
    EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
    EASY_SET_TX_TO_DEFAULT();
@@ -78,6 +83,53 @@ void Easy_Init(Easy_Config_t *cftPtr)
 	}
 		
 	return;
+}
+
+
+void Easy_SetupConfiguration(Easy_Config_t *cftPtr)
+{
+    Easy_internalRxCfg.baudMax =
+               EASY_CONVERT_TIME(cftPtr->baudMax + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    Easy_internalRxCfg.baudMin =
+               EASY_CONVERT_TIME(cftPtr->baudMin + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    Easy_internalRxCfg.baudrate =
+               EASY_CONVERT_TIME(cftPtr->baudrate + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    
+    Easy_internalRxCfg.txIndicationMinTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationMinTime + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    Easy_internalRxCfg.txIndicationTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationTime + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    Easy_internalRxCfg.txIndicationMaxTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationMaxTime + EASY_RX_INTERRUPT_TIME_OFFSET);
+    
+    
+    Easy_internalTxCfg.baudMax =
+               EASY_CONVERT_TIME(cftPtr->baudMax);
+    
+    Easy_internalTxCfg.baudMin =
+               EASY_CONVERT_TIME(cftPtr->baudMin);
+    
+    Easy_internalTxCfg.baudrate =
+               EASY_CONVERT_TIME(cftPtr->baudrate);
+    
+    Easy_internalTxCfg.txIndicationTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationTime);
+    
+    Easy_internalTxCfg.txIndicationMinTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationMinTime);
+      
+    Easy_internalTxCfg.txIndicationTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationTime);
+      
+    Easy_internalTxCfg.txIndicationMaxTime =
+               EASY_CONVERT_TIME(cftPtr->txIndicationMaxTime);
+    
+    return;
 }
 
 void Easy_TransmitChar(char p)
@@ -144,30 +196,22 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 }
 
 volatile uint8_t cnt;
-volatile diffTimes[30];
+volatile uint16_t diffTimes[30];
 Timer1_Time_t times[30]; 
 
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
+    EASY_GET_TIME(&Easy_rxStatus.currentTime);    
     
-    EASY_GET_TIME(&times[cnt]);
-    
-    if((TCCR1B & (1 << ICES1)) > 0)
+    if(Easy_GetCapturedEdge() == EASY_LOW)
     {
-      TCCR1B &= ~(1 << ICES1);   
-    }
-    else
-    {
-      TCCR1B |= (1 << ICES1);  
+      diffTimes[0] = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
     }     
-     
-    if (cnt > 0 && cnt < 30)
-    {
-      diffTimes[cnt] = EASY_CALCULATE_TIME_DIFF(&times[cnt-1],&times[cnt]);      
-    }
     
-    cnt++;
+    
+    Easy_Cfg_SwitchCapturedEdge();   
+    Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
 }
 
 

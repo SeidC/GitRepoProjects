@@ -23,7 +23,7 @@
 		 (EASY_RX_MAX_EDGE_TIME * 2)
 		
 		
-void Easy_Init(Easy_Config_t *cftPtr);
+void Easy_Init(Easy_Config_t *cfgPtr);
 
 void Easy_TransmitChar(char p);
 

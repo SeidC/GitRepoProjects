@@ -41,6 +41,8 @@
 
 EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void);
 
+EASY_INLINE uint8_t Easy_GetCapturedEdge(void);
+
 /*--- Other Required Interfaces ------------------------------------------------------------*/
 #define EASY_GET_TIME	                              \
         Timer1_GetInputCaptureCount
