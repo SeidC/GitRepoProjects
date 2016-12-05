@@ -6,17 +6,17 @@
 
 /* Command line options: -l cx -p EA -o Easy_RxFsm -t Model:SM:Easy_RxFsm Easy_RxFsm.xml   */
 /* This file is generated from Easy_RxFsm.xml - do not edit manually  */
-/* Generated on: Sat Nov 05 22:28:28 CET 2016 / version 3.7 */
+/* Generated on: Mon Dec 05 12:07:25 CET 2016 / version 3.7 */
 
 
 /* Inlcude default headers (no header definition in UML state-chart provided) */
 /* Define a header comment in your statediagram.model to define own includes here. */
-#include "Easy.h"
+
 #include "Easy_RxFsm.h"
 
 /* Refere to external var (no header definition in UML state-chart provided) */
 /* Define a header comment in your statediagram.model to define own definitions here. */
-extern EASY_VOL EASY_RXFSM_EVENT_T msg;
+extern EASY_RXFSM_EVENT_T msg;
 
 void  Easy_RxFsm(EASY_RXFSM_INSTANCEDATA_T *instanceVar){
 	
@@ -24,10 +24,6 @@ void  Easy_RxFsm(EASY_RXFSM_INSTANCEDATA_T *instanceVar){
 	switch (instanceVar->stateVar) {
 
 		case Easy_RxFinishedState:
-			/* action code  */
-			Easy_RxFinished();
-
-
 			if(msg==(EASY_RXFSM_EVENT_T)EASY_RX_NO_INDICATION){
 				/* Transition from Easy_RxFinishedState to Easy_RxNoIndicationState */
 
@@ -40,10 +36,6 @@ void  Easy_RxFsm(EASY_RXFSM_INSTANCEDATA_T *instanceVar){
 		break; /* end of case Easy_RxFinishedState  */
 
 		case Easy_RxNoIndicationState:
-			/* action code  */
-			Easy_RxNoIndication();
-
-
 			if(msg==(EASY_RXFSM_EVENT_T)EASY_RX_PRE_START){
 				/* Transition from Easy_RxNoIndicationState to Easy_RxPreStartState */
 
@@ -56,16 +48,8 @@ void  Easy_RxFsm(EASY_RXFSM_INSTANCEDATA_T *instanceVar){
 		break; /* end of case Easy_RxNoIndicationState  */
 
 		case Easy_RxPreStartState:
-			/* action code  */
-			Easy_RxPreStart();
-
-
 			if(msg==(EASY_RXFSM_EVENT_T)EASY_RX_ERROR){
 				/* Transition from Easy_RxPreStartState to Easy_RxNoIndicationState */
-
-				/* Action code for transition  */
-				Easy_RxReceiveError();
-
 
 
 				/* adjust state variables  */
@@ -88,16 +72,8 @@ void  Easy_RxFsm(EASY_RXFSM_INSTANCEDATA_T *instanceVar){
 		break; /* end of case Easy_RxPreStartState  */
 
 		case Easy_RxReceiveState:
-			/* action code  */
-			Easy_RxReceive();
-
-
 			if(msg==(EASY_RXFSM_EVENT_T)EASY_RX_ERROR){
 				/* Transition from Easy_RxReceiveState to Easy_RxNoIndicationState */
-
-				/* Action code for transition  */
-				Easy_RxReceiveError();
-
 
 
 				/* adjust state variables  */

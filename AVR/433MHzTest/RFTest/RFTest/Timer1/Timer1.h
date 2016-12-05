@@ -74,6 +74,10 @@ TIMER1_INLINE volatile uint32_t Timer1_GetOverflowCount(void);
 
 TIMER1_INLINE void Timer1_GetInputCaptureCount(Timer1_Time_t *ptr);
 
+TIMER1_INLINE void Timer1_CaptureEdge(Timer1_InputCaptureEdge_t edge);
+
+TIMER1_INLINE Timer1_InputCaptureEdge_t Timer1_GetCapturedEdge(void);
+
 
 
 

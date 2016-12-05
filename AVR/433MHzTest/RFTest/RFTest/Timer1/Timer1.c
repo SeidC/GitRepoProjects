@@ -126,5 +126,12 @@ TIMER1_INLINE void Timer1_CaptureEdge(Timer1_InputCaptureEdge_t edge)
 {
    edge == TIMER1_CAPTURE_FALLING_EDGE       ? 
                (TCCR1B &= ~(1 << ICES1))     :
-               (TCCR1B |=  (1 << ICES1))
+               (TCCR1B |=  (1 << ICES1));
+   return;
 }
+
+TIMER1_INLINE Timer1_InputCaptureEdge_t Timer1_GetCapturedEdge(void)
+{
+   return  (Timer1_InputCaptureEdge_t)((TCCR1B & (1 << ICES1)) >> ICES1);
+}
+

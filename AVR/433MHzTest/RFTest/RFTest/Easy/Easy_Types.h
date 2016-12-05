@@ -53,17 +53,12 @@ typedef struct
 
 
 typedef struct
-{
-	uint16_t rxPosOffset;
-	uint16_t rxEdgeTime;
-	uint16_t rxNegOffset;
-	
-   uint16_t startMinTimeOffset;
-	uint16_t startTime;
-   uint16_t startMaxTimeOfset;
-   
-   uint16_t txBaudrate;
-}Easy_Config_t;
+{      
+   uint16_t txIndicationTime; 
+   uint16_t baudMax;
+   uint16_t baudMin;
+   uint16_t baudrate;
+}Easy_Config_t;                   
 
 
 typedef enum

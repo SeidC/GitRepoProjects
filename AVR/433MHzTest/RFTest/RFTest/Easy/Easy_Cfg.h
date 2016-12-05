@@ -14,9 +14,6 @@
 #include "Timer1.h"
 
 
-#define EASY_RX_INTERRUPT_ON_ANY_EDGE		(1 << ISC00)
-#define EASY_RX_INTERRUPT_ENABLE			   (1 << INT0)
-
 /*--- Tx Port Configuration ----------------------------------------------------------------*/
 #define EASY_TX_PORT						PORTD
 #define EASY_TX_DDR						DDRD
@@ -26,21 +23,23 @@
 #define EASY_RX_DDR						DDRD
 #define EASY_RX_PIN						PIND6
 /*--- Interrupt Rx Configuration ----------------------------------------------------------*/
-#define EASY_RX_INTERRUPT_REG_A				   MCUCR
-#define EASY_RX_INTERRUPT_REG_B				   GICR
 
 #define EASY_RX_INTERRUPT_VECTOR_CONFIG		TIMER1_CAPT_vect
-#define EASY_RX_INTERRUPT_EDGE_CONFIG		   EASY_RX_INTERRUPT_ON_ANY_EDGE
-#define EASY_RX_INTERRUPT_ENABLE_CONFIG		EASY_RX_INTERRUPT_ENABLE
 
+#define EASY_RX_INTERRUPT_EDGE_CONFIG		   TIMER1_CAPTURE_RISING_EDGE
 
+#define EASY_RX_INTERRUPT_TIME_OFFSET        25u
 
 /*--- Rx/Tx Settings -----------------------------------------------------------------------*/
+
 #define EASY_SYNC_SIGN					   ((char)0x55u)
+
 #define EASY_RX_BUFFER_SIZE            ((uint8_t)30u)
 
 
 
+
+EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void);
 
 /*--- Other Required Interfaces ------------------------------------------------------------*/
 #define EASY_GET_TIME	                              \
@@ -53,11 +52,10 @@
 #define EASY_CALCULATE_TIME_DIFF               \
         Timer1_CalculateTimeDiffBetweenTimes
 
-#define EASY_CAPTURE_EDGE                             \ 
-
 #define EASY_WAIT_US                            \
          Timer1_WaitUsHard 
-        
+
+       
 extern Easy_Config_t Easy_config;
 
 
