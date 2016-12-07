@@ -92,7 +92,7 @@ TIMER1_INLINE Timer1_InputCaptureEdge_t Timer1_GetCapturedEdge(void);
 #elif TIMER1_PRESCALER_CFG == TIMER1_PRESCALER_1024
    #define TIMER1_PRESCALER_CALC_VALUE					((uint16_t)1024u)
 #else
-#error "!!!Prescaler not defined!!!"
+   #error "!!!Prescaler not defined!!!"
 #endif
 
 

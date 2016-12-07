@@ -20,9 +20,6 @@
 #define EASY_GET_BIT(reg,bit)					            \
 		  ((reg & (1 << bit)) >> bit)
 
-#define EASY_GET_US_DELAY()						         \
-		  (Easy_internalTxCfg.baudrate)
-
 #define EASY_SET_TX_TO_DEFAULT()                      \
         (EASY_CLEAR_TX())
 /*--- Local Parameter ---------------------------------------------------------*/
@@ -45,15 +42,18 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 /**
  *
  */
-EASY_VOL_STAT Easy_Config_t Easy_internalTxCfg;
+EASY_VOL_STAT Easy_InternalConfig_t Easy_rxConfig;
 
-EASY_VOL_STAT Easy_Config_t Easy_internalRxCfg;
+EASY_VOL_STAT Easy_Config_t* Easy_txConfig = NULL;
 
 /**
  *
  */
 EASY_VOL EASY_RXFSM_EVENT_T msg;
 
+/**
+ *
+ */
 EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm = EASY_RXFSM_INSTANCEDATA_INIT;
 
 
@@ -62,9 +62,10 @@ EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm = EASY_RXFSM_INSTANCEDATA_INIT;
 static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
 EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime);
 
-void Easy_SetupConfiguration(Easy_Config_t *cftPtr);
+void Easy_SetupConfiguration(Easy_Config_t *cfgPtr);
 
 EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void);
+
 
 void Easy_Init(Easy_Config_t *cfgPtr)
 {
@@ -86,50 +87,27 @@ void Easy_Init(Easy_Config_t *cfgPtr)
 }
 
 
-void Easy_SetupConfiguration(Easy_Config_t *cftPtr)
+void Easy_SetupConfiguration(Easy_Config_t *cfgPtr)
 {
-    Easy_internalRxCfg.baudMax =
-               EASY_CONVERT_TIME(cftPtr->baudMax + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    Easy_internalRxCfg.baudMin =
-               EASY_CONVERT_TIME(cftPtr->baudMin + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    Easy_internalRxCfg.baudrate =
-               EASY_CONVERT_TIME(cftPtr->baudrate + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    
-    Easy_internalRxCfg.txIndicationMinTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationMinTime + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    Easy_internalRxCfg.txIndicationTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationTime + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    Easy_internalRxCfg.txIndicationMaxTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationMaxTime + EASY_RX_INTERRUPT_TIME_OFFSET);
-    
-    
-    Easy_internalTxCfg.baudMax =
-               EASY_CONVERT_TIME(cftPtr->baudMax);
-    
-    Easy_internalTxCfg.baudMin =
-               EASY_CONVERT_TIME(cftPtr->baudMin);
-    
-    Easy_internalTxCfg.baudrate =
-               EASY_CONVERT_TIME(cftPtr->baudrate);
-    
-    Easy_internalTxCfg.txIndicationTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationTime);
-    
-    Easy_internalTxCfg.txIndicationMinTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationMinTime);
+   if (cfgPtr != NULL)
+   {
+      Easy_txConfig = cfgPtr;
+      Easy_rxConfig.rxMax = EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.rxMin = EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
       
-    Easy_internalTxCfg.txIndicationTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationTime);
-      
-    Easy_internalTxCfg.txIndicationMaxTime =
-               EASY_CONVERT_TIME(cftPtr->txIndicationMaxTime);
-    
-    return;
+      Easy_rxConfig.startMax = EASY_CONVERT_TIME(cfgPtr->indicationTime + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.startMin = EASY_CONVERT_TIME(cfgPtr->indicationTime - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+   }
+   else
+   {
+      Easy_txConfig = NULL;
+      Easy_rxConfig.rxMax = 0;
+      Easy_rxConfig.rxMin = 0;
+      Easy_rxConfig.startMax = 0;
+      Easy_rxConfig.startMin = 0;   
+   }    
+   
+   return;
 }
 
 void Easy_TransmitChar(char p)
@@ -153,7 +131,7 @@ void Easy_TransmitChar(char p)
 		{
 			EASY_CLEAR_TX();
 		}
-		EASY_WAIT_US(EASY_GET_US_DELAY());
+		EASY_WAIT_US(Easy_txConfig->baudrate);
 	}
 	
 	return;
@@ -171,7 +149,7 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	{
 		tick = Manchester_GetTick(&data);
 		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
-		EASY_WAIT_US(EASY_GET_US_DELAY());
+		EASY_WAIT_US(Easy_txConfig->baudrate);
 	}
 	return;
 }
@@ -195,23 +173,50 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 }
 
-volatile uint8_t cnt;
-volatile uint16_t diffTimes[30];
-Timer1_Time_t times[30]; 
 
-
+volatile uint16_t diffTime = 0;
+volatile EASY_RXFSM_STATES_T fsmState;
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-    EASY_GET_TIME(&Easy_rxStatus.currentTime);    
-    
-    if(Easy_GetCapturedEdge() == EASY_LOW)
-    {
-      diffTimes[0] = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
-    }     
-    
-    
-    Easy_Cfg_SwitchCapturedEdge();   
-    Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
+   
+   EASY_GET_TIME(&Easy_rxStatus.currentTime);    
+   
+   diffTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,
+                                       &Easy_rxStatus.currentTime);
+   
+   Easy_RxFsm(&Easy_rxFsm);
+   fsmState = Easy_GetFsmState();
+   
+   switch(fsmState)
+   {
+      case Easy_RxReceiveState:
+         
+      break;
+      case Easy_RxPreStartState:
+           if(Easy_Cfg_GetCapturedEdge() == EASY_LOW)
+           {
+              if(diffTime >= Easy_rxConfig.startMin && diffTime <= Easy_rxConfig.startMax)
+              {
+                  Easy_NextState(EASY_RX_RECEIVE);
+              }              
+           }
+      break;
+      case Easy_RxNoIndicationState:
+         if(Easy_Cfg_GetCapturedEdge() == EASY_HIGH)
+         {
+            Easy_NextState(EASY_RX_PRE_START);
+         }
+      break;
+      case Easy_RxFinishedState:
+      
+      break;
+      default:
+      
+      break;
+   }       
+   
+   Easy_Cfg_SwitchCapturedEdge();   
+   Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
 }
 
 
@@ -220,16 +225,16 @@ void Easy_TransmissionStart(void)
    if(Easy_RxFsmIsInEasy_RxNoIndicationState(&Easy_rxFsm))
    {
       EASY_SET_TX();
-      EASY_WAIT_US(300);
+      EASY_WAIT_US(Easy_txConfig->indicationTime);
       EASY_CLEAR_TX();
    }
    return;
 }
 
 
-EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal)
+EASY_INLINE void Easy_NextState(EASY_RXFSM_EVENT_T state)
 {
-   msg = signal;
+   msg = state;
    return;
 }
 

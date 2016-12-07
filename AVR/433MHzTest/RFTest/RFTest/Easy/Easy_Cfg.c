@@ -10,14 +10,9 @@
 
 Easy_Config_t Easy_config =
 {
-   .txIndicationMinTime = 275,
-   .txIndicationTime    = 300,
-   .txIndicationMaxTime = 325,
-   
-   
-   .baudMin             = 175,
-   .baudMax             = 225,
+   .indicationTime      = 300,
    .baudrate            = 200,
+   .jitter              =  25,
 };
 
 
@@ -35,7 +30,7 @@ EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void)
    return;
 }
 
-EASY_INLINE uint8_t Easy_GetCapturedEdge(void)
+EASY_INLINE uint8_t Easy_Cfg_GetCapturedEdge(void)
 {
    return (uint8_t) Timer1_GetCapturedEdge();
 }

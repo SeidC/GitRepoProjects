@@ -20,16 +20,11 @@ int main(void){
    
 	Easy_Init(&Easy_config);
    TCCR1B |= (1 << ICES1);
-	Timer1_Init();
-	sei();
-    /* Replace with your application code */
-	//Easy_TransmitSyncField();
-	
+	Timer1_Init();	
 	
 	while (1) 
-    {
-      Easy_TransmissionStart();         
-       
-    }
+   {
+      Easy_TransmissionStart();            
+   }
 }
 

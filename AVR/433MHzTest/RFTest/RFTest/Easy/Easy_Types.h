@@ -37,14 +37,22 @@ typedef struct
 
 typedef struct
 {  
-   uint16_t txIndicationMaxTime;
-   uint16_t txIndicationMinTime;
-   uint16_t txIndicationTime; 
-   
-   uint16_t baudMax;
-   uint16_t baudMin;
+   uint16_t indicationTime; 
    uint16_t baudrate;
+   uint16_t jitter;
 }Easy_Config_t; 
+
+
+typedef struct  
+{
+     
+   uint16_t rxMin;
+   uint16_t rxMax;
+   
+   uint16_t startMin;
+   uint16_t startMax;
+         
+}Easy_InternalConfig_t;
 
 
 typedef enum
