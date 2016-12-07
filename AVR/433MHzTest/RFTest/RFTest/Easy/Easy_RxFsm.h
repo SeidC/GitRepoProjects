@@ -6,7 +6,7 @@
 
 /* Command line options: -l cx -p EA -o Easy_RxFsm -t Model:SM:Easy_RxFsm Easy_RxFsm.xml   */
 /* This file is generated from Easy_RxFsm.xml - do not edit manually*/
-/* Generated on: Sat Nov 05 22:28:28 CET 2016 / version 3.7 */
+/* Generated on: Mon Dec 05 12:07:25 CET 2016 / version 3.7 */
 
 
 #ifndef __EASY_RXFSM_H__
@@ -14,6 +14,7 @@
 
 
 /* Header to define simple data types */
+#include "Easy_Types.h"
 #include "avr/io.h"
 
 /* State definitions */

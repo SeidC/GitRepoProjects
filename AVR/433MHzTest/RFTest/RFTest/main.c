@@ -13,40 +13,17 @@
 #include "Easy.h"
 
 
-uint16_t buff[11] = {};
-
-
 int main(void){
-	
-	uint16_t index = TIMER1_CALCULATE_US_TIME_TO_TICKS(100);
-	uint8_t transmit = 0;
-   
-   DDRB = 0xff;
-   PORTB = 0x00;
-   
+ 
+   Timer1_Init();
 	Easy_Init(&Easy_config);
-	Timer1_Init();
-	sei();
-    /* Replace with your application code */
-	//Easy_TransmitSyncField();
-	
+	TCCR1B |= (1 << ICES1);
+   	
 	
 	while (1) 
-    {
-  
-		//if(transmit == 1)
-		{
-         //Easy_TransmissionStart();
-			//Easy_TransmitChar(0x85);
-			//transmit = 0;	
-         PORTD |= (1 << PIND1);
-         Timer1_WaitUsHard(200);
-         PORTD &= ~(1 << PIND1);
-         
-		}
-		Easy_RxMainfunction();	
-      
-     
-    }
+   {
+      Easy_TransmissionStart();      
+      Easy_TransmitChar("A");      
+   }
 }
 

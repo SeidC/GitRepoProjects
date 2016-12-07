@@ -18,12 +18,8 @@
 		
 #define EASY_CLEAR_TX()								 \
 		  (EASY_TX_PORT &= ~(1 << EASY_TX_PIN))
-
-#define EASY_MAX_RX_TIME()							  \
-		 (EASY_RX_MAX_EDGE_TIME * 2)
-		
-		
-void Easy_Init(Easy_Config_t *cftPtr);
+	
+void Easy_Init(Easy_Config_t *cfgPtr);
 
 void Easy_TransmitChar(char p);
 
@@ -33,17 +29,6 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer);
 
 EASY_INLINE void Easy_RxInterruptRoutine(void);
 
-EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal);
-
-EASY_INLINE void Easy_RxNoIndication(void);
-
-EASY_INLINE void Easy_RxFinished(void);
-
-EASY_INLINE void Easy_RxPreStart(void);
-
-EASY_INLINE void Easy_RxReceiveError(void);
-
-EASY_INLINE void Easy_RxReceive(void);
-
+EASY_INLINE void Easy_NextState(EASY_RXFSM_EVENT_T state);
 
 #endif /* EASY_H_ */

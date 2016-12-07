@@ -20,50 +20,45 @@
 #define EASY_VOL_STAT                                 \
         volatile static
 
-#define EASY_INLINE  
+#define EASY_INLINE                 
       
 
-#define EASY_LOW				(0u)
+#define EASY_FALLING_EDGE				(0u)
 
-#define EASY_HIGH				(1u)
+#define EASY_RISING_EDGE				(1u)
 
-  /*
-typedef enum
-{
-   EASY_NO_INDICATION			= 0x00 ,
-   EASY_RX_PRE_START          = 0x01 ,
-   EASY_RX_RECEIVE            = 0x02
-   
-}Easy_RxIndication_t;
 
-          */
 typedef struct 
 {
-   
-   uint8_t oBit;
-   uint8_t nBit;
-   Timer1_Time_t oTime;
-   Timer1_Time_t nTime;
-   uint16_t timeDiff;
-   bool_t start;
-   
+   bool_t firstRxInterrupt;
+   Timer1_Time_t lastTime;
+   Timer1_Time_t currentTime;
+
+   uint8_t tickCount;
    uint16_t bitBuffer;
-   uint16_t bitCount;
 }Easy_RxStatus_t;
 
 
 typedef struct
+{  
+   uint16_t indicationTime; 
+   uint16_t baudrate;
+   uint16_t jitter;
+}Easy_Config_t; 
+
+
+typedef struct  
 {
-	uint16_t rxPosOffset;
-	uint16_t rxEdgeTime;
-	uint16_t rxNegOffset;
-	
-   uint16_t startMinTimeOffset;
-	uint16_t startTime;
-   uint16_t startMaxTimeOfset;
+     
+   uint32_t rxMin;
+   uint32_t rxMax;
+   uint32_t rxMinDouble;
+   uint32_t rxMaxDouble;
    
-   uint16_t txBaudrate;
-}Easy_Config_t;
+   uint32_t startMin;
+   uint32_t startMax;
+        
+}Easy_InternalConfig_t;
 
 
 typedef enum
@@ -74,6 +69,7 @@ typedef enum
 	EASY_RX_NO_INDICATION,
 	EASY_RX_ERROR,
 	EASY_RXFSM_NO_MSG
+   
 } EASY_RXFSM_EVENT_T;
 
 

@@ -20,52 +20,8 @@
 #define EASY_GET_BIT(reg,bit)					            \
 		  ((reg & (1 << bit)) >> bit)
 
-#define EASY_GET_US_DELAY()						         \
-		  (Easy_internalCfg->txBaudrate)
-
 #define EASY_SET_TX_TO_DEFAULT()                      \
         (EASY_CLEAR_TX())
-
-/*--- Defines for Received Edges ---------------------------------------------------*/		
-
-#define EASY_RX_MIN_EDGE_TIME					            \
-        (Easy_internalCfg->rxEdgeTime - Easy_internalCfg->rxNegOffset)
-		
-#define EASY_RX_MAX_EDGE_TIME					            \
-        (Easy_internalCfg->rxEdgeTime + Easy_internalCfg->rxPosOffset)		
-
-#define EASY_IS_RX_EDGE_IN_TIME(t)                    \
-        ((t >= EASY_RX_MIN_EDGE_TIME) && (t <= EASY_RX_MAX_EDGE_TIME))
-
-/*--- Defines for Received Edges ---------------------------------------------------*/	
-
-#define EASY_RX_MIN_EDGES_TIME					            \
-        ((Easy_internalCfg->rxEdgeTime * 2) - Easy_internalCfg->rxNegOffset)
-
-#define EASY_RX_MAX_EDGES__TIME					            \
-        ((Easy_internalCfg->rxEdgeTime * 2) + Easy_internalCfg->rxPosOffset)
-
-#define EASY_ARE_RX_EDGES_IN_TIME(t)                    \
-((t >= EASY_RX_MIN_EDGES_TIME) && (t <= EASY_RX_MAX_EDGES__TIME))
-
-/*--- Defines for StartUp ----------------------------------------------------------*/
-#define EASY_START_UP_MIN_TIME                        \
-        (Easy_internalCfg->startTime - Easy_internalCfg->startMinTimeOffset)
-
-#define EASY_START_UP_MAX_TIME                        \
-        (Easy_internalCfg->startTime + Easy_internalCfg->startMaxTimeOfset)
-
-#define EASY_IS_START_UP_IN_TIME(t)                   \
-        ((t >= EASY_START_UP_MIN_TIME) && (t <= EASY_START_UP_MAX_TIME))
-/*--- Defines for StartUp with First Received Edge----------------------------------*/
-#define EASY_START_UP_RX_EDGE_MIN_TIME                \
-        (Easy_internalCfg->startTime + EASY_RX_MIN_EDGE_TIME)
-
-#define EASY_START_UP_RX_EDGE_MAX_TIME                \
-        (Easy_internalCfg->startTime + EASY_RX_MAX_EDGE_TIME)
-
-#define EASY_IS_START_UP_W_RX_EDGE_IN_TIME(t)         \
-         ((t >= EASY_START_UP_RX_EDGE_MIN_TIME) && (t <= EASY_START_UP_RX_EDGE_MAX_TIME))
 /*--- Local Parameter ---------------------------------------------------------*/
 
 /**
@@ -86,48 +42,97 @@ EASY_VOL_STAT Easy_RxStatus_t Easy_rxStatus;
 /**
  *
  */
-EASY_VOL_STAT Easy_Config_t* Easy_internalCfg = NULL;
+EASY_VOL_STAT Easy_InternalConfig_t Easy_rxConfig;
+
+EASY_VOL_STAT Easy_Config_t* Easy_txConfig = NULL;
+
+/**
+ *
+ */
+EASY_VOL EASY_RXFSM_EVENT_T msg = EASY_RXFSM_NO_MSG;
+
+/**
+ *
+ */
+EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm = EASY_RXFSM_INSTANCEDATA_INIT;
 
 
-EASY_VOL EASY_RXFSM_EVENT_T msg;
 
-EASY_VOL EASY_RXFSM_INSTANCEDATA_T Easy_rxFsm;
-
-
-
-
-static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
-EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime);
-
+EASY_INLINE void Easy_InitRxFsm(void);
+//EASY_INLINE void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId);
+EASY_INLINE void Easy_BackUpTime(Timer1_Time_t* oTime,Timer1_Time_t* nTime);  
+EASY_INLINE void Easy_SetupConfiguration(Easy_Config_t *cfgPtr);              
 EASY_INLINE EASY_RXFSM_STATES_T Easy_GetFsmState(void);
+EASY_INLINE void Easy_RxInterrupt(void);
 
-void Easy_Init(Easy_Config_t *cftPtr)
+
+
+void Easy_Init(Easy_Config_t *cfgPtr)
 {
-   Easy_internalCfg = cftPtr;
-	EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
+   Easy_SetupConfiguration(cfgPtr);
+   Easy_InitRxFsm();
+   
+   Easy_rxStatus.firstRxInterrupt = TRUE;
+   Easy_rxStatus.currentTime.count = 0;
+   Easy_rxStatus.currentTime.overflow = 0;
+   Easy_rxStatus.lastTime.count = 0;
+	Easy_rxStatus.lastTime.overflow = 0;
+   
+   EASY_SET_BIT(EASY_TX_DDR,EASY_TX_PIN);
    EASY_RESET_BIT(EASY_RX_DDR,EASY_RX_PIN);
    EASY_SET_TX_TO_DEFAULT();
-   
-	Easy_RxFsmResetMachine(&Easy_rxFsm);   
+     
    FIFO16_InitBuffer(&Easy_RxEdgeBuffer,Easy_edgeBuffer,EASY_RX_BUFFER_SIZE);
+    
    
-	EASY_RX_INTERRUPT_REG_A |= EASY_RX_INTERRUPT_EDGE_CONFIG;		
-	EASY_RX_INTERRUPT_REG_B |= EASY_RX_INTERRUPT_ENABLE_CONFIG;
-	if(EASY_RX_INTERRUPT_ENABLE)
+	if(ARE_GLOBAL_INTERRUPTS_ENABLED() == FALSE)
 	{
 		sei();
 	}
 		
-	//Easy_rxStatus.indication = EASY_NO_INDICATION;
-
 	return;
 }
 
+
+EASY_INLINE void Easy_SetupConfiguration(Easy_Config_t *cfgPtr)
+{
+   if (cfgPtr != NULL)
+   {
+      Easy_txConfig = cfgPtr;
+      Easy_rxConfig.rxMax = EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.rxMin = EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      
+      Easy_rxConfig.rxMaxDouble = 2 * EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.rxMinDouble = 2 * EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      
+      
+      Easy_rxConfig.startMax = EASY_CONVERT_TIME(cfgPtr->indicationTime + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.startMin = EASY_CONVERT_TIME(cfgPtr->indicationTime - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+   }
+   else
+   {
+      Easy_txConfig = NULL;
+      Easy_rxConfig.rxMax = 0;
+      Easy_rxConfig.rxMin = 0;
+      Easy_rxConfig.startMax = 0;
+      Easy_rxConfig.startMin = 0;   
+   }    
+   
+   return;
+}
+
+EASY_INLINE void Easy_InitRxFsm(void)
+{
+   Easy_RxFsmResetMachine(&Easy_rxFsm);
+   msg = EASY_RXFSM_NO_MSG;
+   return;
+}
+
+uint16_t buffer = 0;
+Manchester_t tData = {&buffer,0,0};
 void Easy_TransmitChar(char p)
 {
-	uint8_t i = 0, tick;
-	uint16_t buffer = 0;
-	Manchester_t tData = {&buffer,0,0};
+	uint8_t i = 0, tick;	
 	
 	Manchester_EncodeChar(p,&tData);
 	
@@ -144,7 +149,7 @@ void Easy_TransmitChar(char p)
 		{
 			EASY_CLEAR_TX();
 		}
-		EASY_WAIT_US(EASY_GET_US_DELAY());
+		EASY_WAIT_US(Easy_txConfig->baudrate);
 	}
 	
 	return;
@@ -162,7 +167,7 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	{
 		tick = Manchester_GetTick(&data);
 		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
-		EASY_WAIT_US(EASY_GET_US_DELAY());
+		EASY_WAIT_US(Easy_txConfig->baudrate);
 	}
 	return;
 }
@@ -186,154 +191,101 @@ bool_t Easy_GetReceivedData(uint8_t *buffer)
 
 }
 
-volatile uint16_t diffTimes[30];
-volatile Timer1_Time_t times[30] = {};
-volatile uint8_t cnt = 0;
 
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
-  /* uint8_t* pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-   Easy_rxStatus.nBit = EASY_GET_BIT(*pin,EASY_RX_PIN);  
-    
-   EASY_GET_TIME(&Easy_rxStatus.nTime);  
-   if (Easy_GetFsmState() != Easy_RxNoIndicationState)
-   {
-      Easy_rxStatus.timeDiff = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);   
-   }
-    
-   
-   Easy_RxFsm(&Easy_rxFsm);
-   
-   Easy_rxStatus.oBit = Easy_rxStatus.nBit;
-   Easy_BackUpTime(&Easy_rxStatus.oTime,&Easy_rxStatus.nTime);
-   */
-  
-    EASY_GET_TIME(&times[cnt]);
-    if (cnt > 0)
+    if(Easy_rxStatus.firstRxInterrupt == FALSE)
     {
-      diffTimes[cnt] = EASY_CALCULATE_TIME_DIFF(&times[cnt-1],&times[cnt]);      
-    }
-    
-    cnt++;
-}
-
-
-void Easy_TransmissionStart(void)
-{
-   volatile uint8_t *pin = GET_PIN_REG_PTR_BY_PORT(EASY_RX_PORT);
-   if(Easy_RxFsmIsInEasy_RxNoIndicationState(&Easy_rxFsm))
-   {
-      EASY_SET_TX();
-      EASY_WAIT_US(200);
-   }
-   return;
-}
-
-
-EASY_INLINE void Easy_SetFsmSignal(EASY_RXFSM_EVENT_T signal)
-{
-   msg = signal;
-   return;
-}
-
-
-EASY_INLINE void Easy_RxNoIndication(void)
-{
-    if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
-    {
-      Easy_SetFsmSignal(EASY_RX_PRE_START);
+      Easy_RxInterrupt();  
     }
     else
     {
-       Easy_ReportError(Easy_rxFsm.stateVar,0);
+       Easy_rxStatus.firstRxInterrupt = FALSE;
     }
-    return;  
+    return;
 }
 
-EASY_INLINE void Easy_RxFinished(void)
+volatile uint32_t diffTime = 0;
+volatile EASY_RXFSM_STATES_T fsmState;
+volatile uint8_t edge;
+EASY_INLINE void Easy_RxInterrupt(void)
 {
- 
-}   
-
-EASY_INLINE void Easy_RxPreStart(void)
-{
-   if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
+   EASY_GET_TIME(&Easy_rxStatus.currentTime);    
+   diffTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,
+                                       &Easy_rxStatus.currentTime);
+   
+   Easy_RxFsm(&Easy_rxFsm);
+   fsmState = Easy_GetFsmState();
+   edge = Easy_Cfg_GetCapturedEdge();
+   switch(fsmState)
    {
-      if(EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff))
-      {
-         if(Easy_rxStatus.bitCount == 0)
+      case Easy_RxReceiveState:
+           if(diffTime >= Easy_rxConfig.rxMin && diffTime <= Easy_rxConfig.rxMax)
+           {
+              Easy_rxStatus.tickCount++;
+           }
+           else if(diffTime >= Easy_rxConfig.rxMinDouble && diffTime <= Easy_rxConfig.rxMaxDouble)
+           {
+              Easy_rxStatus.tickCount += 2;
+           }
+           else
+           {
+               asm("nop");
+           }
+            
+            if(IS_ODD(Easy_rxStatus.tickCount))
+            {
+               Easy_rxStatus.bitBuffer |= (edge << Easy_rxStatus.tickCount);
+            }
+         
+      break;
+      case Easy_RxPreStartState:
+           if(edge == EASY_FALLING_EDGE)
+           {
+              if(diffTime >= Easy_rxConfig.startMin && diffTime <= Easy_rxConfig.startMax)
+              {
+                  Easy_rxStatus.tickCount = 0;
+                  Easy_rxStatus.bitBuffer = 0;
+                  Easy_NextState(EASY_RX_RECEIVE);
+              }              
+           }
+      break;
+      case Easy_RxNoIndicationState:
+         if(edge == EASY_RISING_EDGE)
          {
-            Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);
-            Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
-            Easy_SetFsmSignal(EASY_RX_RECEIVE);
+            Easy_NextState(EASY_RX_PRE_START);
          }
-         else
-         {
-            Easy_ReportError(Easy_rxFsm.stateVar,0);
-         }         
-      }
-      else if (EASY_IS_START_UP_W_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff) == TRUE)
-      {
-         /*--- DO NOTHING ---*/
-      }
-      else
-      {
-         Easy_ReportError(Easy_rxFsm.stateVar,1);
-      }
-   }
-   else
+      break;
+      case Easy_RxFinishedState:
+      
+      break;
+      default:
+      
+      break;
+   }       
+   
+   Easy_Cfg_SwitchCapturedEdge();   
+   Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
+   return;
+}
+
+void Easy_TransmissionStart(void)
+{
+   if(Easy_RxFsmIsInEasy_RxNoIndicationState(&Easy_rxFsm))
    {
-      if(EASY_IS_RX_EDGE_IN_TIME(Easy_rxStatus.timeDiff) == TRUE)
-      {
-          Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
-          Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
-          Easy_SetFsmSignal(EASY_RX_RECEIVE);
-      }
-      else
-      {
-         Easy_ReportError(Easy_rxFsm.stateVar,2);
-      }
+      EASY_SET_TX();
+      EASY_WAIT_US(Easy_txConfig->indicationTime);
+      EASY_CLEAR_TX();
+      //EASY_WAIT_US(Easy_txConfig->baudrate);
    }
    return;
 }
 
-EASY_INLINE void Easy_RxReceiveError(void)
-{
-   
-}
 
-EASY_INLINE void Easy_RxReceive(void)
+EASY_INLINE void Easy_NextState(EASY_RXFSM_EVENT_T state)
 {
-   if (Easy_rxStatus.bitCount < MANCHESTER_GET_MSG_BIT_SIZE())
-   {
-      if(MANCHESTER_IS_RISNG_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
-      {
-         Easy_rxStatus.bitBuffer |= (MANCHESTER_RISING_EDGE << Easy_rxStatus.bitCount);
-      }
-      else if(MANCHESTER_IS_FALLING_EDGE(Easy_rxStatus.oBit,Easy_rxStatus.nBit) == TRUE)
-      {
-         Easy_rxStatus.bitBuffer |= (MANCHESTER_FALLING_EDGE << Easy_rxStatus.bitCount);
-      }
-      else
-      {
-         Easy_ReportError(Easy_rxFsm.stateVar,0);
-      }
-      Easy_rxStatus.bitCount += MANCHESTER_BITS_PER_EDGE;
-   }
-   
-   if (Easy_rxStatus.bitCount >= MANCHESTER_GET_MSG_BIT_SIZE())
-   {
-      FIFO16_Write(&Easy_RxEdgeBuffer,Easy_rxStatus.bitBuffer);
-      Easy_rxStatus.bitBuffer = 0;
-      Easy_rxStatus.bitCount = 0;
-   }
+   msg = state;
    return;
-}
-
-static void Easy_ReportError(EASY_RXFSM_STATES_T state, uint8_t instanceId)
-{
-   
-   __asm("nop");
 }
 
 

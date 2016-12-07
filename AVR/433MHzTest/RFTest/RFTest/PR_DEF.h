@@ -78,4 +78,19 @@ typedef uint8_t bool_t;
 
 #define InterruptRoutine(isrVector)                \
         ISR(isrVector)
+        
+
+#define I_FLAG                7
+ 
+      
+#define ARE_GLOBAL_INTERRUPTS_ENABLED()                \
+        ((SREG & (1 << I_FLAG)) >> I_FLAG)
+        
+        
+#define IS_EVEN(val)                                   \
+        ((val % 2 == 0))
+        
+#define IS_ODD(val)                                    \
+        ((val % 2 != 0))
+        
 #endif /* PR_DEF_H_ */
