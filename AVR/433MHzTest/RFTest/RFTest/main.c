@@ -15,16 +15,15 @@
 
 int main(void){
  
-   DDRB = 0xff;
-   PORTB = 0x00;
-   
+   Timer1_Init();
 	Easy_Init(&Easy_config);
-   TCCR1B |= (1 << ICES1);
-	Timer1_Init();	
+	TCCR1B |= (1 << ICES1);
+   	
 	
 	while (1) 
    {
-      Easy_TransmissionStart();            
+      Easy_TransmissionStart();      
+      Easy_TransmitChar("A");      
    }
 }
 

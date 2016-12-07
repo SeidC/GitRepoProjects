@@ -40,7 +40,7 @@
          
    
 #define TIMER1_CALCULATE_US_TIME_TO_TICKS(usTime)        \
-	     ((uint16_t)((usTime) * TIMER1_FREQUENCY_FACTOR))
+	     ((uint32_t)((usTime) * TIMER1_FREQUENCY_FACTOR))
 
 
 
@@ -68,7 +68,7 @@ uint16_t Timer1_CalculateActualTimeDiff(Timer1_Time_t* diffTime);
 
 TIMER1_INLINE void Timer1_GetCount(Timer1_Time_t *ptr);
 
-uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
+uint32_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime);
 
 TIMER1_INLINE volatile uint32_t Timer1_GetOverflowCount(void);
 

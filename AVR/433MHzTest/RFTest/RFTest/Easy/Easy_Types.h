@@ -20,18 +20,22 @@
 #define EASY_VOL_STAT                                 \
         volatile static
 
-#define EASY_INLINE  
+#define EASY_INLINE                 
       
 
-#define EASY_LOW				(0u)
+#define EASY_FALLING_EDGE				(0u)
 
-#define EASY_HIGH				(1u)
+#define EASY_RISING_EDGE				(1u)
+
 
 typedef struct 
 {
+   bool_t firstRxInterrupt;
    Timer1_Time_t lastTime;
    Timer1_Time_t currentTime;
-   
+
+   uint8_t tickCount;
+   uint16_t bitBuffer;
 }Easy_RxStatus_t;
 
 
@@ -46,12 +50,14 @@ typedef struct
 typedef struct  
 {
      
-   uint16_t rxMin;
-   uint16_t rxMax;
+   uint32_t rxMin;
+   uint32_t rxMax;
+   uint32_t rxMinDouble;
+   uint32_t rxMaxDouble;
    
-   uint16_t startMin;
-   uint16_t startMax;
-         
+   uint32_t startMin;
+   uint32_t startMax;
+        
 }Easy_InternalConfig_t;
 
 
@@ -63,6 +69,7 @@ typedef enum
 	EASY_RX_NO_INDICATION,
 	EASY_RX_ERROR,
 	EASY_RXFSM_NO_MSG
+   
 } EASY_RXFSM_EVENT_T;
 
 

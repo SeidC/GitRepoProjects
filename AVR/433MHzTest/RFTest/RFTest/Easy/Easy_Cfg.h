@@ -11,7 +11,7 @@
 #include "avr/io.h"
 #include "avr/interrupt.h"
 #include "util/delay.h"
-#include "Timer1.h"
+#include "Easy_Types.h"
 
 
 /*--- Tx Port Configuration ----------------------------------------------------------------*/
@@ -38,7 +38,7 @@
 
 
 
-
+static EASY_INLINE void Easy_Cfg_SetCapturedEdge(uint8_t edge);
 EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void);
 
 EASY_INLINE uint8_t Easy_Cfg_GetCapturedEdge(void);

@@ -4,15 +4,14 @@
  * Created: 03.11.2016 23:53:46
  *  Author: AP
  */ 
-#include "Easy_Types.h"
 #include "Easy_Cfg.h"
 
 
 Easy_Config_t Easy_config =
 {
-   .indicationTime      = 300,
-   .baudrate            = 200,
-   .jitter              =  25,
+   .indicationTime      = 1000,
+   .baudrate            =  800,
+   .jitter              =  200,
 };
 
 

@@ -20,7 +20,11 @@ void Timer1_Init(void)
 	TCCR1B = TIMER1_CONTROL_B_REGISTER;
    TIMSK  |= TIMER1_INTERRUPT_MASK_CFG;
    Timer1_overFlowCount = 0;
-   sei();
+   if (ARE_GLOBAL_INTERRUPTS_ENABLED() == FALSE)
+   {
+      sei();   
+   }
+   return;
 }
 
 
@@ -91,9 +95,9 @@ InterruptRoutine(TIMER_1_OVERFLOW_INTERRUPT)
    Timer1_overFlowCount++;
 }
 
-uint16_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime)
+uint32_t Timer1_CalculateTimeDiffBetweenTimes(Timer1_Time_t *oTime,Timer1_Time_t *nTime)
 {
-      uint16_t ret,gap;
+      uint32_t ret,gap;
       uint32_t cVal, diff;
       
       gap =  Timer1_GetOverflowGap(oTime,nTime);
@@ -130,8 +134,10 @@ TIMER1_INLINE void Timer1_CaptureEdge(Timer1_InputCaptureEdge_t edge)
    return;
 }
 
+Timer1_InputCaptureEdge_t ret;
 TIMER1_INLINE Timer1_InputCaptureEdge_t Timer1_GetCapturedEdge(void)
-{
-   return  (Timer1_InputCaptureEdge_t)((TCCR1B & (1 << ICES1)) >> ICES1);
+{  
+   ret  = (Timer1_InputCaptureEdge_t)((TCCR1B & (1 << ICES1)) >> ICES1);
+   return ret;  
 }
 
