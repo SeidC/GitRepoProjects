@@ -99,11 +99,11 @@ EASY_INLINE void Easy_SetupConfiguration(Easy_Config_t *cfgPtr)
    if (cfgPtr != NULL)
    {
       Easy_txConfig = cfgPtr;
-      Easy_rxConfig.lowBitMin = EASY_CONVERT_TIME((cfgPtr->baudrate/2) + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
-      Easy_rxConfig.lowBitMax = EASY_CONVERT_TIME((cfgPtr->baudrate/2) - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.lowBitMin = EASY_CONVERT_TIME(cfgPtr->lowBit - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.lowBitMax = EASY_CONVERT_TIME(cfgPtr->lowBit + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
       
-      Easy_rxConfig.highBitMin = EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
-      Easy_rxConfig.highBitMax = EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.highBitMin = EASY_CONVERT_TIME(cfgPtr->highBit - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.highBitMax = EASY_CONVERT_TIME(cfgPtr->highBit + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
       
       
       Easy_rxConfig.startMax = EASY_CONVERT_TIME(cfgPtr->indicationTime + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
@@ -138,19 +138,13 @@ void Easy_TransmitChar(char p)
    for(i = 0; i < 8; i++)
    {
       bit = ((p & (1 << i)) >> i);
-      if(bit == HIGH)
-      {
-         EASY_SET_TX();
-         EASY_WAIT_US(400);
-         EASY_CLEAR_TX();
-      }
-      else
-      {
-         EASY_SET_TX();
-         EASY_WAIT_US(200);
-         EASY_CLEAR_TX();
-      }
-      EASY_WAIT_US(100);
+      EASY_SET_TX();
+      
+      bit == HIGH ? (EASY_WAIT_US(Easy_txConfig->highBit)) : 
+                    (EASY_WAIT_US(Easy_txConfig->lowBit));
+                    
+      EASY_CLEAR_TX();
+      EASY_WAIT_US(Easy_txConfig->bitPause);
    }	
 	return;
 }
@@ -167,7 +161,7 @@ void Easy_TransmitString(char* string, uint8_t stringLength, uint16_t* buffer)
 	{
 		tick = Manchester_GetTick(&data);
 		tick == 1 ? EASY_SET_TX() : EASY_CLEAR_TX();
-		EASY_WAIT_US(Easy_txConfig->baudrate);
+		//EASY_WAIT_US(Easy_txConfig->baudrate);
 	}
 	return;
 }
@@ -210,11 +204,11 @@ EASY_INLINE void Easy_RxInterrupt(void)
    else
    {
       diffTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
-      if(diffTime >= Easy_rxConfig.rxMin && diffTime <= Easy_rxConfig.rxMax)
+      if(diffTime >= Easy_rxConfig.lowBitMin && diffTime <= Easy_rxConfig.lowBitMax)
       {
           Easy_rxStatus.bitBuffer &= ~(1 << Easy_rxStatus.tickCount);
       }
-      else if (diffTime >= Easy_rxConfig.rxMinDouble && diffTime <= Easy_rxConfig.rxMaxDouble)
+      else if (diffTime >= Easy_rxConfig.highBitMin && diffTime <= Easy_rxConfig.highBitMax)
       {
           Easy_rxStatus.bitBuffer |= (1 << Easy_rxStatus.tickCount);
       }

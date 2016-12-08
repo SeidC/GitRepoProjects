@@ -10,8 +10,8 @@
 Easy_Config_t Easy_config =
 {
    .indicationTime      =  300,
-   .lowBit              =  200,
-   .highBit             =  400,
+   .lowBit              =  300,
+   .highBit             =  600,
    .jitter              =   25,
    .bitPause            =   50,
 };
