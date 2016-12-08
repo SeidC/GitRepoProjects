@@ -42,18 +42,20 @@ typedef struct
 typedef struct
 {  
    uint16_t indicationTime; 
-   uint16_t baudrate;
+   uint16_t lowBit;
+   uint16_t highBit;
    uint16_t jitter;
+   uint16_t bitPause;
 }Easy_Config_t; 
 
 
 typedef struct  
 {
      
-   uint32_t rxMin;
-   uint32_t rxMax;
-   uint32_t rxMinDouble;
-   uint32_t rxMaxDouble;
+   uint32_t lowBitMin;
+   uint32_t lowBitMax;
+   uint32_t highBitMin;
+   uint32_t highBitMax;
    
    uint32_t startMin;
    uint32_t startMax;

@@ -38,7 +38,7 @@
 
 
 
-static EASY_INLINE void Easy_Cfg_SetCapturedEdge(uint8_t edge);
+void Easy_Cfg_CaptureEdge(uint8_t edge);
 EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void);
 
 EASY_INLINE uint8_t Easy_Cfg_GetCapturedEdge(void);

@@ -27,6 +27,10 @@ typedef uint8_t bool_t;
    
 #define FALSE                    ((0u))
 
+#define LOW                      (0u)
+
+#define HIGH                     (1u)
+
 /**
  * @brief
  *

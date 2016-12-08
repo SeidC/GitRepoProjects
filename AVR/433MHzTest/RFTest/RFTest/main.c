@@ -22,8 +22,8 @@ int main(void){
 	
 	while (1) 
    {
-      Easy_TransmissionStart();      
-      Easy_TransmitChar("A");      
+      //Easy_TransmissionStart();      
+      Easy_TransmitChar('A');      
    }
 }
 

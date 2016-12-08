@@ -9,9 +9,11 @@
 
 Easy_Config_t Easy_config =
 {
-   .indicationTime      = 1000,
-   .baudrate            =  800,
-   .jitter              =  200,
+   .indicationTime      =  300,
+   .lowBit              =  200,
+   .highBit             =  400,
+   .jitter              =   25,
+   .bitPause            =   50,
 };
 
 
@@ -32,4 +34,11 @@ EASY_INLINE void Easy_Cfg_SwitchCapturedEdge(void)
 EASY_INLINE uint8_t Easy_Cfg_GetCapturedEdge(void)
 {
    return (uint8_t) Timer1_GetCapturedEdge();
+}
+
+
+void Easy_Cfg_CaptureEdge(uint8_t edge)
+{
+   Timer1_CaptureEdge((Timer1_InputCaptureEdge_t)edge);
+   return; 
 }

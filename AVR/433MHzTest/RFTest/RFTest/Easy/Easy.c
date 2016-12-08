@@ -99,11 +99,11 @@ EASY_INLINE void Easy_SetupConfiguration(Easy_Config_t *cfgPtr)
    if (cfgPtr != NULL)
    {
       Easy_txConfig = cfgPtr;
-      Easy_rxConfig.rxMax = EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
-      Easy_rxConfig.rxMin = EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.lowBitMin = EASY_CONVERT_TIME((cfgPtr->baudrate/2) + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.lowBitMax = EASY_CONVERT_TIME((cfgPtr->baudrate/2) - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
       
-      Easy_rxConfig.rxMaxDouble = 2 * EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
-      Easy_rxConfig.rxMinDouble = 2 * EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.highBitMin = EASY_CONVERT_TIME(cfgPtr->baudrate + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
+      Easy_rxConfig.highBitMax = EASY_CONVERT_TIME(cfgPtr->baudrate - cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
       
       
       Easy_rxConfig.startMax = EASY_CONVERT_TIME(cfgPtr->indicationTime + cfgPtr->jitter + EASY_RX_INTERRUPT_TIME_OFFSET);
@@ -112,8 +112,10 @@ EASY_INLINE void Easy_SetupConfiguration(Easy_Config_t *cfgPtr)
    else
    {
       Easy_txConfig = NULL;
-      Easy_rxConfig.rxMax = 0;
-      Easy_rxConfig.rxMin = 0;
+      Easy_rxConfig.lowBitMax = 0;
+      Easy_rxConfig.lowBitMin = 0;
+      Easy_rxConfig.highBitMax = 0;
+      Easy_rxConfig.highBitMin = 0;
       Easy_rxConfig.startMax = 0;
       Easy_rxConfig.startMin = 0;   
    }    
@@ -128,30 +130,28 @@ EASY_INLINE void Easy_InitRxFsm(void)
    return;
 }
 
-uint16_t buffer = 0;
-Manchester_t tData = {&buffer,0,0};
+
 void Easy_TransmitChar(char p)
 {
-	uint8_t i = 0, tick;	
-	
-	Manchester_EncodeChar(p,&tData);
-	
-	MANCHESTER_SET_TICK_POS_TO_START(&tData);
-	
-	for (i = 0; i < tData.sizeOfTicks; i++)
-	{
-		tick = Manchester_GetTick(&tData);
-		if (tick == 1)
-		{
-			EASY_SET_TX();
-		}
-		else
-		{
-			EASY_CLEAR_TX();
-		}
-		EASY_WAIT_US(Easy_txConfig->baudrate);
-	}
-	
+	uint8_t i, bit = 0;
+   
+   for(i = 0; i < 8; i++)
+   {
+      bit = ((p & (1 << i)) >> i);
+      if(bit == HIGH)
+      {
+         EASY_SET_TX();
+         EASY_WAIT_US(400);
+         EASY_CLEAR_TX();
+      }
+      else
+      {
+         EASY_SET_TX();
+         EASY_WAIT_US(200);
+         EASY_CLEAR_TX();
+      }
+      EASY_WAIT_US(100);
+   }	
 	return;
 }
 
@@ -179,19 +179,6 @@ void Easy_TransmitSyncField(void)
 }
 
 
-
-void Easy_RxMainfunction(void)
-{
-
-}
-
-
-bool_t Easy_GetReceivedData(uint8_t *buffer)
-{
-
-}
-
-
 InterruptRoutine(EASY_RX_INTERRUPT_VECTOR_CONFIG)
 {
     if(Easy_rxStatus.firstRxInterrupt == FALSE)
@@ -213,60 +200,37 @@ EASY_INLINE void Easy_RxInterrupt(void)
    EASY_GET_TIME(&Easy_rxStatus.currentTime);    
    diffTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,
                                        &Easy_rxStatus.currentTime);
-   
-   Easy_RxFsm(&Easy_rxFsm);
-   fsmState = Easy_GetFsmState();
    edge = Easy_Cfg_GetCapturedEdge();
-   switch(fsmState)
+  
+   if(edge == EASY_RISING_EDGE)
    {
-      case Easy_RxReceiveState:
-           if(diffTime >= Easy_rxConfig.rxMin && diffTime <= Easy_rxConfig.rxMax)
-           {
-              Easy_rxStatus.tickCount++;
-           }
-           else if(diffTime >= Easy_rxConfig.rxMinDouble && diffTime <= Easy_rxConfig.rxMaxDouble)
-           {
-              Easy_rxStatus.tickCount += 2;
-           }
-           else
-           {
-               asm("nop");
-           }
-            
-            if(IS_ODD(Easy_rxStatus.tickCount))
-            {
-               Easy_rxStatus.bitBuffer |= (edge << Easy_rxStatus.tickCount);
-            }
+      Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
+      Easy_Cfg_CaptureEdge(EASY_FALLING_EDGE);   
+   }
+   else
+   {
+      diffTime = EASY_CALCULATE_TIME_DIFF(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
+      if(diffTime >= Easy_rxConfig.rxMin && diffTime <= Easy_rxConfig.rxMax)
+      {
+          Easy_rxStatus.bitBuffer &= ~(1 << Easy_rxStatus.tickCount);
+      }
+      else if (diffTime >= Easy_rxConfig.rxMinDouble && diffTime <= Easy_rxConfig.rxMaxDouble)
+      {
+          Easy_rxStatus.bitBuffer |= (1 << Easy_rxStatus.tickCount);
+      }
+      else
+      {
          
-      break;
-      case Easy_RxPreStartState:
-           if(edge == EASY_FALLING_EDGE)
-           {
-              if(diffTime >= Easy_rxConfig.startMin && diffTime <= Easy_rxConfig.startMax)
-              {
-                  Easy_rxStatus.tickCount = 0;
-                  Easy_rxStatus.bitBuffer = 0;
-                  Easy_NextState(EASY_RX_RECEIVE);
-              }              
-           }
-      break;
-      case Easy_RxNoIndicationState:
-         if(edge == EASY_RISING_EDGE)
-         {
-            Easy_NextState(EASY_RX_PRE_START);
-         }
-      break;
-      case Easy_RxFinishedState:
-      
-      break;
-      default:
-      
-      break;
-   }       
+      }      
+      Easy_Cfg_CaptureEdge(EASY_RISING_EDGE); 
+      Easy_rxStatus.tickCount++;
+   }
    
-   Easy_Cfg_SwitchCapturedEdge();   
-   Easy_BackUpTime(&Easy_rxStatus.lastTime,&Easy_rxStatus.currentTime);
-   return;
+   if(Easy_rxStatus.tickCount >= 8)
+   {
+      asm("nop");  
+   }   
+    return;
 }
 
 void Easy_TransmissionStart(void)
