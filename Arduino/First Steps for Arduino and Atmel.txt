@@ -1,0 +1,29 @@
+Installation of Atmel Studio 7 Plugin:
+
+		Arduino IDE for Atmel Studio 7
+
+LogIn Data for Atmel Website:
+
+	Login Email: noname@byom.de
+	Password...: 12051986
+
+
+
+Interesting Librarys:
+
+	- DHT_sensor_library - Can be installed over Arduino Software Developement Environment
+		Requires Adafruit_Unified_Sensors - Also can be installed over Arduino Software
+
+
+Virtual Wire (RX/Tx Lib for 433MHz Module):
+	https://github.com/danielesteban/ArduinoLib
+
+RFM69 Lib:
+	https://github.com/LowPowerLab/RFM69
+
+RFM12 Lib:
+	https://github.com/LowPowerLab/RFM12B
+	
+
+ESP8266 Package + Install: Includes Installation Guide
+	https://github.com/esp8266/Arduino
